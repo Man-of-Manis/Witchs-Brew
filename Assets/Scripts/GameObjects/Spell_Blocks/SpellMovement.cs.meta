@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e9c773457c2ecc044af7ab79428a3462
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - plume: {fileID: 8847198396335335638, guid: 9e0b73c773cf6334e9a236f91ca8e8e0, type: 3}
+  - failedSpell: {fileID: 8847198396335335638, guid: 9390415c71d64424088ede5e0fe02cfe,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

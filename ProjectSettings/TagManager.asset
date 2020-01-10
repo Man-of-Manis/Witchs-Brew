@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Used_Block
+  - Spell_Block
+  - GameManager
+  - Player_UI
+  - Flipendo_Spell
+  - Alohomora_Spell
+  - Lumos_Spell
+  - Usable
+  - Fly_Bounds
+  - Target
+  - Fire
+  - Potion_Ingredient
+  - Potion_Mixer
+  - Potion
+  - Potion_Type
+  - Ice_Block
+  - Mob
+  - CameraSystem
+  - Turtle_Path
+  - Ice_Crystal
+  - Chicken
+  - Chicken_Path
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - PostProcessing
+  - Player
+  - Location_Trigger
+  - Ledge_Checker
+  - Bean_Trigger
+  - Chest_Collider
+  - Eye_Candy
+  - Creatures
+  - Item_Holder
+  - Ingredient_Collider
+  - Ingredient_Trigger
+  - Ingredient_Spawner
+  - Potion_Thrown
+  - Potion_Explosion
+  - Ground
+  - Projectile
+  - Magnetism
+  - Checkpoint_Trigger
+  - Corruption_Particle
+  - Corruption_Being
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

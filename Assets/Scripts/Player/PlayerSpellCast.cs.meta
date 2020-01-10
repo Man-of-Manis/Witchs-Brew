@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 3895d1cdf76e1734381ea49d8b0bf037
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Astralation: {fileID: 2800000, guid: 89f1db937ca0b594c9664fae85a1a951, type: 3}
+  - Lunacity: {fileID: 2800000, guid: 02321fd55c7509c41aebdd84cedffa59, type: 3}
+  - Galaxius: {fileID: 2800000, guid: d3d07988505a0fe439be885d5fa409aa, type: 3}
+  - SpellSquare: {instanceID: 0}
+  - spellParticle: {instanceID: 0}
+  - spellGO: {instanceID: 0}
+  - spellBlock: {instanceID: 0}
+  - anim: {instanceID: 0}
+  - playerAudioFiles: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

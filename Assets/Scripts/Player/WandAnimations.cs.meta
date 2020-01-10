@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 3f2925d569235dd46b184e23b736fc9e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - flipendoSpell: {fileID: 8847198396335335638, guid: d2786c886598d1e41a1b5cde031ab5cf,
+      type: 3}
+  - alohomoraSpell: {fileID: 8847198396335335638, guid: f62177407d824d544867da30fa5b5857,
+      type: 3}
+  - lumosSpell: {fileID: 8847198396335335638, guid: 84a68f833fef69147a5c0ccddc9605d7,
+      type: 3}
+  - spellSpawn: {instanceID: 0}
+  - spellBlock: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
