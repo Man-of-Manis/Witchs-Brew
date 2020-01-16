@@ -9,11 +9,7 @@ public class CorruptionArea : MonoBehaviour
     [Header("Corruption")]
     public CorruptionAmount CorruptionState = (CorruptionAmount) 3;
     public List<GameObject> corruptionBeings = new List<GameObject>();
-
-    public bool FacingTarget
-    {
-        get { return facing; }
-    }
+    public CorruptionManager corruptMan;
 
     [Header("Variables")]
     [SerializeField] private float[] areaSize = { 0f, 0.6f, 1.2f, 1.8f};
@@ -21,36 +17,62 @@ public class CorruptionArea : MonoBehaviour
     [SerializeField] private float[] particleLife = { 0f, 4f, 5f, 6f };
 
     [Header("Components")]
-    [SerializeField] private SphereCollider area;
+    public SphereCollider Area;
     [SerializeField] private ParticleSystem fog;
 
+    [Header("Player")]
+    public float playerRayDist = 50f;
+    public LayerMask layer;
+    protected bool facing;
     private Transform player;
 
-    protected bool facing;
+    public bool FacingTarget
+    {
+        get { return facing; }
+    }
 
     private void OnValidate()
     {
         State();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         //Get corruption simulation
         player = GameManager.Instance.FollowCam.transform;
+        corruptMan = GetComponentInParent<CorruptionManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!Witch.CloseToTarget(transform, player))
-        {
-            facing = Witch.FacingTarget(transform, player);
-        }
+        FacingPlayer();
+    }
 
+    private void FacingPlayer()
+    {
+        if (Witch.WithinDistance(player.transform.position, transform.position, 25f))
+        {
+            if (PlayerRayCast())
+            {
+                if (!Witch.CloseToTarget(transform, player))
+                {
+                    facing = Witch.FacingTarget(transform, player);
+                }
+
+                else
+                {
+                    facing = true;
+                }
+            }
+            else
+            {
+                facing = false;
+            }
+        }
         else
         {
-            facing = true;
+            facing = false;
         }
     }
 
@@ -60,7 +82,16 @@ public class CorruptionArea : MonoBehaviour
         var pse = fog.emission;
         psm.startLifetime = particleLife[(int)CorruptionState];
         pse.rateOverTime = particleRate[(int)CorruptionState];
-        area.radius = areaSize[(int)CorruptionState];
-        
+        Area.radius = areaSize[(int)CorruptionState];        
+    }
+
+    private bool PlayerRayCast()
+    {
+        if (Physics.Raycast(transform.position + Vector3.up, Witch.GetFlatDirection(GameManager.Instance.player.transform.position, transform.position), out RaycastHit hit, playerRayDist, layer))
+        {
+            return hit.collider.gameObject.CompareTag("Player");
+        }
+
+        return false;
     }
 }
