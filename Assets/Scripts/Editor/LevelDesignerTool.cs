@@ -11,8 +11,14 @@ public class LevelDesignerTool : EditorWindow
     GameObject currentSelection;
     List<GameObject> currentSelections = new List<GameObject>();
 
+    Transform parentSelection;
     bool selectOnDuplication = false;
     bool useOffset = false;
+    bool parentTo = false;
+    bool newParent = false;
+    bool newParentToParentSelection = false;
+    string parentString = "new Parent";
+
     Vector3 positionOffset;
     Vector3 rotationOffset;
 
@@ -93,7 +99,7 @@ public class LevelDesignerTool : EditorWindow
     void DrawLayout()
     {
         headerSection.x = 10;
-        headerSection.y = 25;
+        headerSection.y = 15;
         headerSection.width = Screen.width - 15;
         headerSection.height = 25;
 
@@ -105,19 +111,22 @@ public class LevelDesignerTool : EditorWindow
         selectionSection.x = 10;
         selectionSection.y = 200;
         selectionSection.width = Screen.width - 15;
-        selectionSection.height = 200;
+        selectionSection.height = 500;
     }
 
     /// <summary>
     /// Draws everything in the section
     /// </summary>
     void DrawContents()
-
     {
         //Header
         {
+            
             GUILayout.BeginArea(headerSection); //Begin
-
+            GUI.skin.label.fontSize = 20;
+            GUILayout.Label("Level Designer Tool");
+            GUI.skin.label.fontSize = 12;
+            GUI.skin.toggle.fontSize = 12;
 
             GUILayout.EndArea(); //End
         }
@@ -134,6 +143,7 @@ public class LevelDesignerTool : EditorWindow
             }
 
             GUILayout.Label("Rotate by:");
+            //EditorGUILayout.LabelField("Rotate by:");
 
             GUILayout.BeginHorizontal();
 
@@ -186,6 +196,7 @@ public class LevelDesignerTool : EditorWindow
             GUILayout.Space(10f);
 
             GUILayout.Label("Rotate to:");
+            //EditorGUILayout.LabelField("Rotate to:");
 
             GUILayout.BeginHorizontal();
 
@@ -251,9 +262,82 @@ public class LevelDesignerTool : EditorWindow
 
             useOffset = GUILayout.Toggle(useOffset, "Use Offset");
 
-            positionOffset = EditorGUILayout.Vector3Field("Position Offset", positionOffset);
+            if (parentTo = GUILayout.Toggle(parentTo, "Parent to"))
+            {
+                using (var cHorizontalScope = new GUILayout.HorizontalScope())
+                {
+                    GUILayout.Space(20f); // horizontal indent size od 20 (pixels?)
 
-            rotationOffset = EditorGUILayout.Vector3Field("Rotation Offset", rotationOffset);
+                    using (var cVerticalScope = new GUILayout.VerticalScope())
+                    {
+                        // anything you do in here will be indented by 20 pixels
+                        if (newParent = GUILayout.Toggle(newParent, "Parent to new GameObject"))
+                        {
+                            newParentToParentSelection = GUILayout.Toggle(newParentToParentSelection, "New GameObject -> Parent Selection");
+
+                            EditorGUILayout.Space();
+
+                            EditorGUILayout.BeginHorizontal();
+                            GUILayout.Label("Parent Name: ", GUILayout.MaxWidth(145));
+                            parentString = GUILayout.TextField(parentString, GUILayout.MaxWidth(200));
+                            EditorGUILayout.EndHorizontal();
+                        }
+
+                        EditorGUILayout.BeginHorizontal();
+                        GUILayout.Label("Parent Transform: ", GUILayout.MaxWidth(145));
+                        parentSelection = (Transform)EditorGUILayout.ObjectField("", parentSelection, typeof(Transform), true, GUILayout.Width(300));
+                        EditorGUILayout.EndHorizontal();
+
+                        if (currentSelections.Count > 0) //Only shows buttons when one or more objects are selected
+                        {
+                            if (GUILayout.Button("Selection as Parent Transform", GUILayout.Height(25), GUILayout.MaxWidth(200)))
+                            {
+                                parentSelection = Selection.activeTransform;
+                            }
+
+                            if (GUILayout.Button("Clear Parent Transform", GUILayout.Height(25), GUILayout.MaxWidth(175)))
+                            {
+                                parentSelection = null;
+                            }
+
+                            EditorGUILayout.Space();
+
+                            if (GUILayout.Button("Parent Selection", GUILayout.Height(25), GUILayout.MaxWidth(125)))
+                            {
+                                GameObject instParent = new GameObject(parentString);
+
+                                for (int i = 0; i < Selection.gameObjects.Length; i++)
+                                {
+                                    Selection.gameObjects[i].transform.parent = newParent ? instParent.transform : parentSelection;
+                                }
+
+                                if(newParentToParentSelection)
+                                {
+                                    parentSelection = instParent.transform;
+                                }                                
+                            }
+
+                            if (GUILayout.Button("Unparent Selection", GUILayout.Height(25), GUILayout.MaxWidth(125)))
+                            {
+                                for (int i = 0; i < Selection.gameObjects.Length; i++)
+                                {
+                                    Selection.gameObjects[i].transform.parent = null;
+
+                                    Selection.gameObjects[i].transform.SetAsLastSibling();
+                                }
+                            }
+                        }                        
+                    }
+                }
+            }
+
+            EditorGUILayout.Space();
+
+            GUILayout.Label("Position Offset");
+            positionOffset = EditorGUILayout.Vector3Field("", positionOffset);
+
+            GUILayout.Label("Rotation Offset");
+            rotationOffset = EditorGUILayout.Vector3Field("", new Vector3(rotationOffset.x, -rotationOffset.y, rotationOffset.z));
 
             if (currentSelections.Count > 0)
             {
@@ -273,15 +357,17 @@ public class LevelDesignerTool : EditorWindow
         for (int i = 0; i < list.Count; i++)
         {
             GUILayout.BeginHorizontal();
-            list[i] = (GameObject)EditorGUILayout.ObjectField("Selection No. " + i, list[i], typeof(GameObject), false, GUILayout.Width(300));
-            GUILayout.Label("Y rotation :" + System.Math.Round(list[i].transform.localEulerAngles.y, 3), GUILayout.Width(100));
+            GUILayout.Label("Selection No. " + i, GUILayout.MaxWidth(125));
+            list[i] = (GameObject)EditorGUILayout.ObjectField("", list[i], typeof(GameObject), false, GUILayout.Width(250));
+            GUILayout.Space(25);
+            GUILayout.Label("Y rotation :" + System.Math.Round(list[i].transform.localEulerAngles.y, 3), GUILayout.Width(150));
             GUILayout.EndHorizontal();
         }
     }
 
     void DuplicateSelection()
     {
-        if(GUILayout.Button("Duplicate Selection", GUILayout.Height(25), GUILayout.MaxWidth(125)))
+        if(GUILayout.Button(parentTo ? (parentSelection != null ? "Duplicate & Parent Selection" : "Duplicate Selection") : "Duplicate Selection", GUILayout.Height(25), GUILayout.MaxWidth(200)))
         {            
             List<int> duplicationIndex = new List<int>();
             List<GameObject> selections = new List<GameObject>();
@@ -298,7 +384,7 @@ public class LevelDesignerTool : EditorWindow
 
                 duplicationIndex.Add(i);
 
-                Debug.Log(Selection.objects[i].name);
+                //Debug.Log(Selection.objects[i].name);
             }
 
             for(int i = 0; i < Selection.gameObjects.Length; i++)
@@ -310,21 +396,10 @@ public class LevelDesignerTool : EditorWindow
             {
                 GameObject parent;
 
-                if (useOffset)
-                {
-                    parent = Instantiate(Selection.gameObjects[duplicationIndex[i]],
-                    Selection.gameObjects[duplicationIndex[i]].transform.localPosition + positionOffset,
-                    Selection.gameObjects[duplicationIndex[i]].transform.localRotation * Quaternion.Euler(rotationOffset),
-                    Selection.gameObjects[duplicationIndex[i]].transform.parent);
-                }
-
-                else
-                {
-                    parent = Instantiate(Selection.gameObjects[duplicationIndex[i]],
-                    Selection.gameObjects[duplicationIndex[i]].transform.localPosition,
-                    Selection.gameObjects[duplicationIndex[i]].transform.localRotation,
-                    Selection.gameObjects[duplicationIndex[i]].transform.parent);
-                }
+                parent = Instantiate(Selection.gameObjects[duplicationIndex[i]],
+                    useOffset ? Selection.gameObjects[duplicationIndex[i]].transform.localPosition + positionOffset : Selection.gameObjects[duplicationIndex[i]].transform.localPosition,
+                    useOffset ? Selection.gameObjects[duplicationIndex[i]].transform.localRotation * Quaternion.Euler(rotationOffset) : Selection.gameObjects[duplicationIndex[i]].transform.localRotation,
+                    parentTo ? parentSelection : Selection.gameObjects[duplicationIndex[i]].transform.parent);
 
                 parent.name = Selection.gameObjects[duplicationIndex[i]].name;
 
