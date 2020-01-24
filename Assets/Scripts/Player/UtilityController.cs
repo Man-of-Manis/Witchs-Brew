@@ -88,7 +88,7 @@ public class UtilityController : MonoBehaviour
 
         else if(Selection[(int)SeletionType.Holders] == (int)SeletionType.Potions) //Potion
         {
-            DisableSpellEffects();
+            //DisableSpellEffects();
             SelectItemType((int)SeletionType.Potions, prefabPotions, instPotions);
             ThrowPotion((int)SeletionType.Potions, prefabPotions, instPotions, potionPouch.transform);
         }
