@@ -6,9 +6,17 @@ public class LocationTrigger : MonoBehaviour
 {
     [Header("Area Location")]
     public string setLocation;
+    public Vector3 locationArea = Vector3.one * 2f;
 
-    [Header("Area Location")]
-    public BoxCollider areaTrigger;
+    private BoxCollider areaTrigger;
+
+    private void OnValidate()
+    {
+        areaTrigger = GetComponent<BoxCollider>();
+
+        areaTrigger.size = locationArea;
+        areaTrigger.center = Vector3.zero;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,6 +26,6 @@ public class LocationTrigger : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position, areaTrigger.size);        
+        Gizmos.DrawWireCube(transform.position, locationArea);        
     }
 }
