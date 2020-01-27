@@ -39,11 +39,19 @@ public class EffectsPoint : MonoBehaviour
 
     public void Start()
     {
-        ParticleSystem[] ps = ParticlePoint.GetComponents<ParticleSystem>();
+        ParticleSystem[] ps = ParticlePoint.GetComponentsInChildren<ParticleSystem>();
 
         foreach(ParticleSystem pss in ps)
         {
             AddPS(pss);
+        }
+
+        if(PS.Count > 0 && OnFire)
+        {
+            foreach (ParticleSystem firePS in PS)
+            {
+                firePS.Play();
+            }
         }
     }
 
@@ -77,6 +85,17 @@ public class EffectsPoint : MonoBehaviour
             RedPotionEffect eff = new RedPotionEffect();
             eff.FirePS = this.FirePS;
             eff.SmallEffect(collision.gameObject);
+            Destroy(eff);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Chicken"))
+        {
+            RedPotionEffect eff = new RedPotionEffect();
+            eff.FirePS = this.FirePS;
+            eff.SmallEffect(other.gameObject);
             Destroy(eff);
         }
     }

@@ -26,4 +26,10 @@ public class ChickenPathing : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position, pathingArea);        
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(1f, 1f, 0f, 0.25f);
+        Gizmos.DrawCube(transform.position, pathingArea);
+    }
 }

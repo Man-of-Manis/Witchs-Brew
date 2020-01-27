@@ -12,6 +12,34 @@ public class LargeButton : MonoBehaviour
     public UnityEvent activate;
     public UnityEvent deactivate;
 
+    private MeshRenderer parentRend;
+    private MeshRenderer childRend;
+
+    private void OnValidate()
+    {
+        parentRend = transform.parent.GetComponent<MeshRenderer>();
+        childRend = GetComponent<MeshRenderer>();
+
+        switch((int)useCreature)
+        {
+            case 0:
+                SetMaterial(Color.cyan);
+                break;
+            case 1:
+                SetMaterial(Color.yellow);
+                break;
+            case 2:
+                SetMaterial(Color.green);
+                break;
+        }
+    }
+
+    private void SetMaterial(Color col)
+    {
+        parentRend.sharedMaterial.SetColor("_BaseColor", col);
+        childRend.sharedMaterial.SetColor("_BaseColor", col);
+    }
+
     private void Start()
     {
         deactivate.Invoke();
