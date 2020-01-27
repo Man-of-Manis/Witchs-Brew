@@ -12,32 +12,37 @@ public class LargeButton : MonoBehaviour
     public UnityEvent activate;
     public UnityEvent deactivate;
 
-    private MeshRenderer parentRend;
-    private MeshRenderer childRend;
+    private MeshRenderer pRend;
+    private MeshRenderer cRend;
+
+    [SerializeField] private Material turtleMat;
+    [SerializeField] private Material chickenMat;
+    [SerializeField] private Material bothMat;
+
 
     private void OnValidate()
     {
-        parentRend = transform.parent.GetComponent<MeshRenderer>();
-        childRend = GetComponent<MeshRenderer>();
+        pRend = GetComponent<MeshRenderer>();
+        cRend = transform.GetChild(0).GetComponent<MeshRenderer>();
 
-        switch((int)useCreature)
+        switch ((int)useCreature)
         {
             case 0:
-                SetMaterial(Color.cyan);
+                SetMaterial(turtleMat);
                 break;
             case 1:
-                SetMaterial(Color.yellow);
+                SetMaterial(chickenMat);
                 break;
             case 2:
-                SetMaterial(Color.green);
+                SetMaterial(bothMat);
                 break;
         }
     }
 
-    private void SetMaterial(Color col)
+    private void SetMaterial(Material mat)
     {
-        parentRend.sharedMaterial.SetColor("_BaseColor", col);
-        childRend.sharedMaterial.SetColor("_BaseColor", col);
+        pRend.material = mat;
+        cRend.material = mat;
     }
 
     private void Start()
