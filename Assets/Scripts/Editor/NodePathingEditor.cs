@@ -9,6 +9,7 @@ using System;
 public class NodePathingEditor : Editor
 {
     int removeInt = 1;
+    int selectInt = 1;
 
     public override void OnInspectorGUI()
     {
@@ -44,6 +45,31 @@ public class NodePathingEditor : Editor
             if (GUILayout.Button("Clear All Nodes", GUILayout.Width(110)))
             {
                 nodePath.ClearNodes();
+            }
+
+            GUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Select Node:", GUILayout.Width(110)))
+            {
+                InspectorLock(true);
+                Selection.activeGameObject = nodePath.nodePath[selectInt - 1].gameObject;
+            }
+
+            selectInt = EditorGUILayout.IntSlider(selectInt, 1, nodePath.nodePath.Count);
+
+            GUILayout.EndHorizontal();
+
+            if (GUILayout.Button("Select All Nodes", GUILayout.Width(110)))
+            {
+                InspectorLock(true);
+
+                GameObject[] nodeSelection = new GameObject[nodePath.nodePath.Count];
+                for(int i = 0; i < nodePath.nodePath.Count; i++)
+                {
+                    nodeSelection[i] = nodePath.nodePath[i].gameObject;
+                }
+
+                Selection.objects = nodeSelection;
             }
         }
     }

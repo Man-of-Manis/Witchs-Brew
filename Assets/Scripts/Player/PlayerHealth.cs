@@ -136,10 +136,10 @@ public class PlayerHealth : MonoBehaviour
         {
             if(GameManager.Instance != null)
             {
-                GameManager.Instance.FollowCam.PlayerReset(currentCheckpoint.transform.eulerAngles.y);
+                GameManager.Instance.FollowCam.PlayerReset(currentCheckpoint.transform.localEulerAngles.y);
             }
             
-            controller.SetPlayerRotation( new Vector3(0f, currentCheckpoint.transform.eulerAngles.y, 0f), currentCheckpoint.transform.position);
+            controller.SetPlayerRotation(currentCheckpoint.transform.localEulerAngles.y, currentCheckpoint.transform.position);
             
 
             //controller.SetPlayerRotation(Vector3.zero, Vector3.zero);

@@ -79,6 +79,8 @@ public class EffectsPoint : MonoBehaviour
         //Debug.Log(collision.gameObject);
 
         Brazier brazier = collision.collider.GetComponent<Brazier>();
+        Burn burn = collision.collider.GetComponent<Burn>();
+        EffectsPoint effect = collision.collider.GetComponent<EffectsPoint>();
 
         if(collision.gameObject != this.gameObject && brazier != null && OnFire)
         {
@@ -86,6 +88,21 @@ public class EffectsPoint : MonoBehaviour
             eff.FirePS = this.FirePS;
             eff.SmallEffect(collision.gameObject);
             Destroy(eff);
+        }
+
+        if(collision.gameObject != this.gameObject && effect != null && effect.OnFire)
+        {
+            TurtleMovement turtle = this.gameObject.GetComponent<TurtleMovement>();
+
+            if (turtle != null)
+            {
+                turtle.CurrentTurtleType = TurtleMovement.TurtleTypes.NormalTurtle;
+            }
+        }
+
+        if (collision.gameObject != this.gameObject && burn != null && !burn.EnableBurn)
+        {
+            burn.EnableBurn = true;            
         }
     }
 

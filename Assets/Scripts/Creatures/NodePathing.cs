@@ -39,7 +39,7 @@ public class NodePathing : MonoBehaviour
 
         NodeNames();
 
-        ChangeNodeColor();
+        ChangeNodeColor();     
     }
     
     private void NodeNames()
@@ -113,13 +113,22 @@ public class NodePathing : MonoBehaviour
         {
             for (int i = 1; i < nodePath.Count; i++)
             {
-                Gizmos.color = NodeColors[(int)nodeColor];
-                Gizmos.DrawLine(Inc(nodePath[i - 1].position), Inc(nodePath[i].position));
-
-                if(loopPathing && (i == nodePath.Count - 1) && nodePath.Count > 2)
+                try
                 {
-                    Gizmos.DrawLine(Inc(nodePath[0].position), Inc(nodePath[i].position));
+                    Gizmos.color = NodeColors[(int)nodeColor];
+                    Gizmos.DrawLine(Inc(nodePath[i - 1].position), Inc(nodePath[i].position));
+
+                    if (loopPathing && (i == nodePath.Count - 1) && nodePath.Count > 2)
+                    {
+                        Gizmos.DrawLine(Inc(nodePath[0].position), Inc(nodePath[i].position));
+                    }
                 }
+                catch
+                {
+                    NodeNames();
+
+                    ChangeNodeColor();
+                }             
             }
         }               
     }
@@ -139,6 +148,7 @@ public class NodePathing : MonoBehaviour
         var setIcon = egu.GetMethod("SetIconForObject", flags, null, new Type[] { typeof(UnityEngine.Object), typeof(Texture2D) }, null);
         setIcon.Invoke(null, args);
     }
+
     private GUIContent[] GetTextures(string baseName, string postFix, int startIndex, int count)
     {
         GUIContent[] array = new GUIContent[count];
