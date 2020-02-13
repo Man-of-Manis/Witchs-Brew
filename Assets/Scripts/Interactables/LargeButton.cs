@@ -12,6 +12,39 @@ public class LargeButton : MonoBehaviour
     public UnityEvent activate;
     public UnityEvent deactivate;
 
+    private MeshRenderer pRend;
+    private MeshRenderer cRend;
+
+    [SerializeField] private Material turtleMat;
+    [SerializeField] private Material chickenMat;
+    [SerializeField] private Material bothMat;
+
+
+    private void OnValidate()
+    {
+        pRend = GetComponent<MeshRenderer>();
+        cRend = transform.GetChild(0).GetComponent<MeshRenderer>();
+
+        switch ((int)useCreature)
+        {
+            case 0:
+                SetMaterial(turtleMat);
+                break;
+            case 1:
+                SetMaterial(chickenMat);
+                break;
+            case 2:
+                SetMaterial(bothMat);
+                break;
+        }
+    }
+
+    private void SetMaterial(Material mat)
+    {
+        pRend.material = mat;
+        cRend.material = mat;
+    }
+
     private void Start()
     {
         deactivate.Invoke();

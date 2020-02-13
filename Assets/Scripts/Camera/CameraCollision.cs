@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+[ExecuteInEditMode]
 public class CameraCollision : MonoBehaviour
 {
-
     public float aMinDistance = 1.0f;
     public float aMaxDistance = 4.0f;
     public float sMinDistance = 0.0f;

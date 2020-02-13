@@ -225,7 +225,7 @@ public class TurtleMovement : MonoBehaviour
         int closest = 0;
         float closestDist = Vector3.Distance(path.nodePath[closest].position, transform.position);
 
-        for (int i = 1; i < path.nodePath.Length; i++)
+        for (int i = 1; i < path.nodePath.Count; i++)
         {
             float nodeDist = Vector3.Distance(path.nodePath[i].position, transform.position);
 
@@ -278,7 +278,7 @@ public class TurtleMovement : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, target.position) < 0.6f)
         {
-            destinationIndex = (destinationIndex + 1 > path.nodePath.Length - 1 ? 0 : destinationIndex + 1);
+            destinationIndex = (destinationIndex + 1 > path.nodePath.Count - 1 ? 0 : destinationIndex + 1);
         }
     }
 

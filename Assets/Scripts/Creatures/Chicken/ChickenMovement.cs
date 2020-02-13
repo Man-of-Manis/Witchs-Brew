@@ -22,6 +22,7 @@ public class ChickenMovement : MonoBehaviour
     private float minRotationSpeed = 360f;
     private float maxRotationSpeed = 1440f;
     [SerializeField] private float degreeRotationSpeed = 1440f;
+    [SerializeField] private float stunDuration = 3f;
 
     private NodePathing path;
     private BoxCollider chickenBounds;
@@ -245,7 +246,7 @@ public class ChickenMovement : MonoBehaviour
         int closest = 0;
         float closestDist = Vector3.Distance(path.nodePath[closest].position, transform.position);
 
-        for (int i = 1; i < path.nodePath.Length; i++)
+        for (int i = 1; i < path.nodePath.Count; i++)
         {
             float nodeDist = Vector3.Distance(path.nodePath[i].position, transform.position);
 
@@ -369,13 +370,13 @@ public class ChickenMovement : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, target.position) < 0.6f)
         {
-            destinationIndex = (destinationIndex + 1 > path.nodePath.Length - 1 ? 0 : destinationIndex + 1);
+            destinationIndex = (destinationIndex + 1 > path.nodePath.Count - 1 ? 0 : destinationIndex + 1);
         }
     }
 
     public void ChickenKnockback()
     {
-        co = StartCoroutine(Stunned(2f));
+        co = StartCoroutine(Stunned(stunDuration));
     }
 
     public void ChickenNesting(bool state)
@@ -386,10 +387,11 @@ public class ChickenMovement : MonoBehaviour
     IEnumerator Stunned(float duration)
     {
         stunned = true;
+        yield return new WaitUntil(() => grounded);
         yield return new WaitForSeconds(duration);
         stunned = false;
 
-        yield return new WaitUntil(() => grounded);
+        
 
         GetBounds(false);
 

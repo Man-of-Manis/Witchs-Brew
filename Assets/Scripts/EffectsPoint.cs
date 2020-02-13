@@ -39,11 +39,19 @@ public class EffectsPoint : MonoBehaviour
 
     public void Start()
     {
-        ParticleSystem[] ps = ParticlePoint.GetComponents<ParticleSystem>();
+        ParticleSystem[] ps = ParticlePoint.GetComponentsInChildren<ParticleSystem>();
 
         foreach(ParticleSystem pss in ps)
         {
             AddPS(pss);
+        }
+
+        if(PS.Count > 0 && OnFire)
+        {
+            foreach (ParticleSystem firePS in PS)
+            {
+                firePS.Play();
+            }
         }
     }
 
@@ -71,12 +79,40 @@ public class EffectsPoint : MonoBehaviour
         //Debug.Log(collision.gameObject);
 
         Brazier brazier = collision.collider.GetComponent<Brazier>();
+        Burn burn = collision.collider.GetComponent<Burn>();
+        EffectsPoint effect = collision.collider.GetComponent<EffectsPoint>();
 
         if(collision.gameObject != this.gameObject && brazier != null && OnFire)
         {
             RedPotionEffect eff = new RedPotionEffect();
             eff.FirePS = this.FirePS;
             eff.SmallEffect(collision.gameObject);
+            Destroy(eff);
+        }
+
+        if(collision.gameObject != this.gameObject && effect != null && effect.OnFire)
+        {
+            TurtleMovement turtle = this.gameObject.GetComponent<TurtleMovement>();
+
+            if (turtle != null)
+            {
+                turtle.CurrentTurtleType = TurtleMovement.TurtleTypes.NormalTurtle;
+            }
+        }
+
+        if (collision.gameObject != this.gameObject && burn != null && !burn.EnableBurn)
+        {
+            burn.EnableBurn = true;            
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Chicken"))
+        {
+            RedPotionEffect eff = new RedPotionEffect();
+            eff.FirePS = this.FirePS;
+            eff.SmallEffect(other.gameObject);
             Destroy(eff);
         }
     }

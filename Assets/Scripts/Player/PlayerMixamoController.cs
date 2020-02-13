@@ -32,8 +32,8 @@ public class PlayerMixamoController : MonoBehaviour
     private Animator animator;
     private Transform cam;
     private Transform aimCam;
-    Vector3 dir;
-    Vector3 smoothDir;
+    public Vector3 dir;
+    public Vector3 smoothDir;
     Quaternion rot;
     Vector3 vel;
     public float smoothTurn = 0.1f;
@@ -73,17 +73,23 @@ public class PlayerMixamoController : MonoBehaviour
         playerRB = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        SetPlayerRotation(transform.localEulerAngles.y, transform.localPosition);
+    }
+
     // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.L))
         {
-            SetPlayerRotation(-Vector3.forward, Vector3.zero);
+            SetPlayerRotation(-90f, Vector3.zero);
         }
 
         Inputs();
         CameraAngle();
         Movement();
+
         //COMTargetChange();
 
         //Animations();
@@ -93,7 +99,7 @@ public class PlayerMixamoController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            SetPlayerRotation(-Vector3.forward, Vector3.zero);
+            SetPlayerRotation(90f, Vector3.zero);
         }
         //Movement();
         CalculateForwardMovement();
@@ -153,12 +159,13 @@ public class PlayerMixamoController : MonoBehaviour
         }
     }
 
-    public void SetPlayerRotation(Vector3 newRot, Vector3 newPos)
+    public void SetPlayerRotation(float newRotDirection, Vector3 newPos)
     {
-        smoothDir = newRot;
-        dir = newRot;
-        rot = Quaternion.LookRotation(smoothDir, Vector3.up);
-        transform.eulerAngles = dir;
+        //Vector3 flatcam = Quaternion.AngleAxis(cam.eulerAngles.y, Vector3.up) * Vector3.forward;
+        //dir = Quaternion.AngleAxis(newRotDirection, Vector3.up) * flatcam;
+        //smoothDir = Vector3.SmoothDamp(smoothDir, dir, ref vel, smoothTurn);
+        //rot = Quaternion.LookRotation(smoothDir, Vector3.up);
+        transform.eulerAngles = new Vector3(0f, newRotDirection, 0f);
         transform.position = newPos;
         Debug.Log("Player has been reset");
     }
@@ -171,31 +178,36 @@ public class PlayerMixamoController : MonoBehaviour
 
             //float angle = Vector2.Angle(Vector2.zero, Char_Movement.normalized);
 
-            float ang = Mathf.Atan2(Char_Movement.x, Char_Movement.y) * Mathf.Rad2Deg;
-
-            Vector3 flatcam = Quaternion.AngleAxis(cam.eulerAngles.y, Vector3.up) * Vector3.forward;
-
-            Vector3 boxcam = Quaternion.AngleAxis(aimCam.eulerAngles.y, Vector3.up) * Vector3.forward;
+            
 
             if (!Char_Movement.Equals(Vector2.zero) && !Aim)
             {
+                float ang = Mathf.Atan2(Char_Movement.x, Char_Movement.y) * Mathf.Rad2Deg;
+
+                Vector3 flatcam = Quaternion.AngleAxis(cam.eulerAngles.y, Vector3.up) * Vector3.forward;
+
                 dir = Quaternion.AngleAxis(ang, Vector3.up) * flatcam;
 
                 smoothDir = Vector3.SmoothDamp(smoothDir, dir, ref vel, smoothTurn);
+
+                if (!smoothDir.sqrMagnitude.Equals(0f))
+                {
+                    rot = Quaternion.LookRotation(smoothDir, Vector3.up);
+
+                    transform.rotation = rot;
+                }
             }
 
             else if (Aim && m_IsGrounded)
             {
-                //smoothDir = Vector3.SmoothDamp(smoothDir, boxcam, ref vel, smoothTurn);
+                Vector3 boxcam = Quaternion.AngleAxis(aimCam.eulerAngles.y, Vector3.up) * Vector3.forward;
+
                 smoothDir = boxcam;
-            }
 
-            if (!smoothDir.sqrMagnitude.Equals(0f))
-            {
                 rot = Quaternion.LookRotation(smoothDir, Vector3.up);
-            }
 
-            transform.rotation = rot;
+                transform.rotation = rot;
+            }
         }        
     }
 
