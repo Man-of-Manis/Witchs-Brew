@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Witch_M
-  m_Shader: {fileID: -6465566751694194690, guid: edebfd6f4bec69e4eabd7ae4311f531f,
+  m_Shader: {fileID: -6465566751694194690, guid: a3ea47bbd28a0ea4eb5db038df5579e6,
     type: 3}
   m_ShaderKeywords: HARD_SHADING_ON
   m_LightmapFlags: 4

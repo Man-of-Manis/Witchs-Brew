@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6327137117965327801}
   - component: {fileID: 4262425972848137638}
   m_Layer: 0
-  m_Name: SM_TILE_CEILING_ARCHACROSS
+  m_Name: SM_TILE_P_CEILING_SINGLE_ARCHACROSS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,7 +39,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6783701880413541113}
-  m_Mesh: {fileID: 7668291453515539168, guid: 797da58ef4318c643a8ee68fbd0ae7be, type: 3}
+  m_Mesh: {fileID: -691446406910852755, guid: 3ce26cd5f7243eb4c9a7b813119cc111, type: 3}
 --- !u!23 &4262425972848137638
 MeshRenderer:
   m_ObjectHideFlags: 0
