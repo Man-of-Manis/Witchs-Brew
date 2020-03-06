@@ -7,19 +7,22 @@ using System;
 
 public class NodePathing : MonoBehaviour
 {
-    public enum PathingType { Turtle, Chicken};
-    public PathingType creaturePath;
+    public enum PathingType { Line, Area };
+    public enum PathingCreature { Turtle, Chicken};
+    public enum PathColor { Grey, Blue, Cyan, Green, Yellow, Orange, Red, Purple };
+
+
+    public PathingType pathType;
+    public PathingCreature creaturePath;
+    [HideInInspector] public PathColor nodeColor;
     private string[] tagStrings = { "Turtle_Path", "Chicken_Path" };
 
-    [Tooltip("When enabled, the creature will loop through the nodes lowest to highest and then start back at zero. " +
-        "If disabled, the creature will travel in reverse, highest to lowest, through the nodes when it has reached the last one.")]
-    public bool loopPathing;
+    [HideInInspector] public bool loopPathing;    
 
-    [HideInInspector] public List<Transform> nodePath;
+    [HideInInspector] public List<Transform> pathNodes;
+    [HideInInspector] public Vector3 pathArea =new Vector3(5f, 0.5f, 5f);
 
-    public enum PathColor { Grey, Blue, Cyan, Green, Yellow, Orange, Red, Purple};
-
-    public PathColor nodeColor;
+    private BoxCollider box;
 
     Dictionary<int, Color> NodeColors = new Dictionary<int, Color>()
     {
@@ -33,40 +36,69 @@ public class NodePathing : MonoBehaviour
         {7, Color.magenta }
     };
 
-    private void OnValidate()
+    public void OnValidate()
     {
         gameObject.tag = tagStrings[(int)creaturePath];
 
-        NodeNames();
-
-        ChangeNodeColor();     
-    }
-    
-    private void NodeNames()
-    {
-        nodePath = new List<Transform>();
-        
-        for(int i = 0; i < transform.childCount; i++)
+        if (pathType == PathingType.Line)
         {
-            nodePath.Add(transform.GetChild(i));
-            nodePath[i].gameObject.name = "Node " + (i + 1);
+            
+
+            NodeNames();
+#if UNITY_EDITOR
+            ChangeNodeColor();
+#endif
+        }
+
+        else if(pathType == PathingType.Area)
+        {
+#if UNITY_EDITOR
+            ClearNodeLabel();
+
+#endif
+            SetPathingArea();
         }        
     }
 
+    private void NodeNames()
+    {
+        pathNodes = new List<Transform>();
+        
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            pathNodes.Add(transform.GetChild(i));
+            pathNodes[i].gameObject.name = "Node " + (i + 1);
+        }        
+    }
+#if UNITY_EDITOR
     private void ChangeNodeColor()
     {
-        for(int i = 0; i < nodePath.Count; i++)
+        for(int i = 0; i < pathNodes.Count; i++)
         {
-            DrawIcon(nodePath[i].gameObject, (int)nodeColor);
+            DrawIcon(pathNodes[i].gameObject, (int)nodeColor);
         }
     }
+
+    private void ClearNodeLabel()
+    {
+        for (int i = 0; i < pathNodes.Count; i++)
+        {
+            var icon = GUIContent.none;
+            var egu = typeof(EditorGUIUtility);
+            var flags = BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.NonPublic;
+            var args = new object[] { pathNodes[i].gameObject, icon.image };
+            var setIcon = egu.GetMethod("SetIconForObject", flags, null, new Type[] { typeof(UnityEngine.Object), typeof(Texture2D) }, null);
+            setIcon.Invoke(null, args);
+        }
+    }
+#endif
 
     public GameObject AddNode()
     {
         GameObject node;
-        if(nodePath.Count > 0)
+        if(pathNodes.Count > 0)
         {
-            node = Instantiate(nodePath[nodePath.Count - 1].gameObject, transform);
+            node = Instantiate(pathNodes[pathNodes.Count - 1].gameObject, transform);
         }
 
         else
@@ -75,18 +107,20 @@ public class NodePathing : MonoBehaviour
             node.transform.SetParent(transform);
             node.transform.position = transform.position;
 
+#if UNITY_EDITOR
             DrawIcon(node, (int)nodeColor);
+#endif
         }
-        nodePath.Add(node.transform);
-        nodePath[nodePath.Count - 1].gameObject.name = "Node " + (nodePath.Count);
+        pathNodes.Add(node.transform);
+        pathNodes[pathNodes.Count - 1].gameObject.name = "Node " + (pathNodes.Count);
         return node;
     }
 
     public void RemoveNode(int element)
     {
-        if(nodePath.Count > 0 && element > 0)
+        if(pathNodes.Count > 0 && element > 0)
         {
-            nodePath.RemoveAt(element - 1);
+            pathNodes.RemoveAt(element - 1);
             DestroyChild(element - 1);
             Rename();
         }
@@ -95,7 +129,7 @@ public class NodePathing : MonoBehaviour
 
     public void ClearNodes()
     {
-        nodePath = new List<Transform>();
+        pathNodes = new List<Transform>();
         DestroyChildren();
     }
 
@@ -103,41 +137,103 @@ public class NodePathing : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            nodePath[i].gameObject.name = "Node " + (i + 1);
+            pathNodes[i].gameObject.name = "Node " + (i + 1);
         }
+    }
+
+    private void SetPathingArea()
+    {
+        box = GetComponent<BoxCollider>();
+        box.size = pathArea;
+        box.center = new Vector3(0f, box.size.y / 2f, 0f);
+    }
+
+    public Vector3 BoundsMin()
+    {
+        return transform.position - box.size / 2;
+    }
+
+    public Vector3 BoundsMax()
+    {
+        return transform.position + box.size / 2;
+    }
+
+    public float GetClosestDistance(Vector3 position)
+    {
+        if(pathType == PathingType.Line)
+        {
+            int closest = 0;
+            float closestDist = float.MaxValue;
+
+            for(int i = 0; i < pathNodes.Count; i++)
+            {
+                float nodeDist = Vector3.Distance(position, pathNodes[i].position);
+
+                if (nodeDist < closestDist)
+                {
+                    closest = i;
+                    closestDist = nodeDist;
+                }
+            }
+
+            return closestDist;
+        }
+
+        else
+        {
+            return Vector3.Distance(position, box.ClosestPoint(transform.position));
+        }        
     }
 
     private void OnDrawGizmos()
     {
-        if(nodePath.Count > 1)
+        if(pathNodes.Count > 1 && pathType == PathingType.Line)
         {
-            for (int i = 1; i < nodePath.Count; i++)
+            for (int i = 1; i < pathNodes.Count; i++)
             {
                 try
                 {
                     Gizmos.color = NodeColors[(int)nodeColor];
-                    Gizmos.DrawLine(Inc(nodePath[i - 1].position), Inc(nodePath[i].position));
+                    Gizmos.DrawLine(Inc(pathNodes[i - 1].position), Inc(pathNodes[i].position));
 
-                    if (loopPathing && (i == nodePath.Count - 1) && nodePath.Count > 2)
+                    if (loopPathing && (i == pathNodes.Count - 1) && pathNodes.Count > 2)
                     {
-                        Gizmos.DrawLine(Inc(nodePath[0].position), Inc(nodePath[i].position));
+                        Gizmos.DrawLine(Inc(pathNodes[0].position), Inc(pathNodes[i].position));
                     }
                 }
                 catch
                 {
                     NodeNames();
 
+#if UNITY_EDITOR
                     ChangeNodeColor();
+#endif
                 }             
             }
-        }               
+        }    
+        
+        else if(pathType == PathingType.Area)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y + box.size.y / 2f, transform.position.z), pathArea);
+        }
     }
 
-    Vector3 Inc(Vector3 pos)
+    private void OnDrawGizmosSelected()
+    {
+        if (pathType == PathingType.Area)
+        {
+            Gizmos.color = new Color(1f, 1f, 0f, 0.25f);
+            Gizmos.DrawCube(new Vector3(transform.position.x, transform.position.y + box.size.y / 2f, transform.position.z), pathArea);
+        }
+    }
+
+    private Vector3 Inc(Vector3 pos)
     {
         return new Vector3(pos.x, pos.y + 0.1f, pos.z);
     }
 
+#if UNITY_EDITOR
     private void DrawIcon(GameObject gameObject, int idx)
     {
         var largeIcons = GetTextures("sv_label_", string.Empty, 0, 8);
@@ -158,6 +254,7 @@ public class NodePathing : MonoBehaviour
         }
         return array;
     }
+#endif
 
     private void DestroyChildren()
     {

@@ -39,6 +39,10 @@ public class LargeButton : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the material of the button to the creature's material color
+    /// </summary>
+    /// <param name="mat"></param>
     private void SetMaterial(Material mat)
     {
         pRend.material = mat;
@@ -60,7 +64,12 @@ public class LargeButton : MonoBehaviour
         ButtonAction(other, false);
     }
 
-    void ButtonAction(Collider other, bool enter)
+    /// <summary>
+    /// Checks if the designated creature pressed the button
+    /// </summary>
+    /// <param name="other">The collider of the GameObject that pressed the button</param>
+    /// <param name="hasEntered">GameObject entered or exited the trigger.</param>
+    void ButtonAction(Collider other, bool hasEntered)
     {
         Creatures creature = other.GetComponent<Creatures>();
 
@@ -68,19 +77,19 @@ public class LargeButton : MonoBehaviour
         {
             if (useCreature.ToString().Equals(creature.creature.ToString()))
             {
-                ActionType(enter);
+                ActionType(hasEntered);
             }
 
             else if (useCreature == ButtonCreature.Both)
             {
-                ActionType(enter);
+                ActionType(hasEntered);
             }
         }
     }
 
-    void ActionType(bool enter)
+    void ActionType(bool hasEntered)
     {
-        if(enter)
+        if(hasEntered)
         {
             activate.Invoke();
         }

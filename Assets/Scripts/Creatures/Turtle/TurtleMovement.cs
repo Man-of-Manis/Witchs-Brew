@@ -223,19 +223,22 @@ public class TurtleMovement : MonoBehaviour
     void InitializeClosestNode()
     {
         int closest = 0;
-        float closestDist = Vector3.Distance(path.nodePath[closest].position, transform.position);
-
-        for (int i = 1; i < path.nodePath.Count; i++)
+        if (path.pathNodes.Count > 1)
         {
-            float nodeDist = Vector3.Distance(path.nodePath[i].position, transform.position);
+            float closestDist = Vector3.Distance(path.pathNodes[closest].position, transform.position);
 
-            if (nodeDist < closestDist)
+            for (int i = 1; i < path.pathNodes.Count; i++)
             {
-                closest = i;
-            }
-        }
+                float nodeDist = Vector3.Distance(path.pathNodes[i].position, transform.position);
 
-        destinationIndex = closest;
+                if (nodeDist < closestDist)
+                {
+                    closest = i;
+                }
+            }
+
+            destinationIndex = closest;
+        }
     }
 
     /// <summary>
@@ -243,10 +246,14 @@ public class TurtleMovement : MonoBehaviour
     /// </summary>
     void SetNodeTarget()
     {
-        if (path.nodePath[destinationIndex] != target)
+        if(path.pathNodes.Count > 0)
         {
-            target = path.nodePath[destinationIndex];
+            if (path.pathNodes[destinationIndex] != target)
+            {
+                target = path.pathNodes[destinationIndex];
+            }
         }
+        
     }
 
     /// <summary>
@@ -278,7 +285,7 @@ public class TurtleMovement : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, target.position) < 0.6f)
         {
-            destinationIndex = (destinationIndex + 1 > path.nodePath.Count - 1 ? 0 : destinationIndex + 1);
+            destinationIndex = (destinationIndex + 1 > path.pathNodes.Count - 1 ? 0 : destinationIndex + 1);
         }
     }
 

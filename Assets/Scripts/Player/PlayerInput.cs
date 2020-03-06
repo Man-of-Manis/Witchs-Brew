@@ -45,6 +45,7 @@ public class PlayerInput : MonoBehaviour
     protected float DPad_X_Direction;
     protected bool prevType;
     protected float DPad_Y_Direction;
+    protected bool m_Menu;
     protected bool m_Pause;
     protected bool m_ExternalInputBlocked;
 
@@ -194,6 +195,10 @@ public class PlayerInput : MonoBehaviour
     {
         get { return m_PotionCombos && !playerControllerInputBlocked && !m_ExternalInputBlocked; }
     }
+    public bool Menu
+    {
+        get { return m_Menu && !playerControllerInputBlocked && !m_ExternalInputBlocked; }
+    }
 
     public float DPad_X
     {
@@ -278,7 +283,8 @@ public class PlayerInput : MonoBehaviour
         m_RBumperHold = Input.GetButton("ShuffleType");
         m_RBumper = Input.GetButtonDown("ShuffleType");
         m_ShuffleType = Input.GetButtonDown("ShuffleType");
-        m_PotionCombos = Input.GetButton("PotionCombos");
+        m_PotionCombos = Input.GetButton("BackButton");
+        m_Menu = Input.GetButtonDown("StartButton");
         //m_Run = Input.GetAxis("Run") > 0f;
 
         m_Run = true;

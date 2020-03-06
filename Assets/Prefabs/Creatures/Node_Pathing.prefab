@@ -43,7 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69deb47975293c545b5ec413efcf533e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathType: 0
   creaturePath: 0
-  loopPathing: 1
-  nodePath: []
   nodeColor: 7
+  loopPathing: 1
+  pathNodes: []
+  pathArea: {x: 5, y: 0.5, z: 5}

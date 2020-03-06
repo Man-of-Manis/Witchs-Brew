@@ -7,7 +7,7 @@ public class ChickenMovement : MonoBehaviour
     public enum ChickenTypes { NormalChicken, PhoenixChicken };
     public enum MovementType { Stationary, Mobile };
 
-    [SerializeField] private ChickenTypes chickenType;
+    [SerializeField] public ChickenTypes chickenType;
     [SerializeField] private ChickenTypes prevChickenType;
     [SerializeField] private MovementType movementType;
 
@@ -244,11 +244,11 @@ public class ChickenMovement : MonoBehaviour
     void InitializeClosestNode()
     {
         int closest = 0;
-        float closestDist = Vector3.Distance(path.nodePath[closest].position, transform.position);
+        float closestDist = Vector3.Distance(path.pathNodes[closest].position, transform.position);
 
-        for (int i = 1; i < path.nodePath.Count; i++)
+        for (int i = 1; i < path.pathNodes.Count; i++)
         {
-            float nodeDist = Vector3.Distance(path.nodePath[i].position, transform.position);
+            float nodeDist = Vector3.Distance(path.pathNodes[i].position, transform.position);
 
             if (nodeDist < closestDist)
             {
@@ -264,9 +264,9 @@ public class ChickenMovement : MonoBehaviour
     /// </summary>
     void SetNodeTarget()
     {
-        if (path.nodePath[destinationIndex] != target)
+        if (path.pathNodes[destinationIndex] != target)
         {
-            target = path.nodePath[destinationIndex];
+            target = path.pathNodes[destinationIndex];
         }
     }
 
@@ -370,7 +370,7 @@ public class ChickenMovement : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, target.position) < 0.6f)
         {
-            destinationIndex = (destinationIndex + 1 > path.nodePath.Count - 1 ? 0 : destinationIndex + 1);
+            destinationIndex = (destinationIndex + 1 > path.pathNodes.Count - 1 ? 0 : destinationIndex + 1);
         }
     }
 

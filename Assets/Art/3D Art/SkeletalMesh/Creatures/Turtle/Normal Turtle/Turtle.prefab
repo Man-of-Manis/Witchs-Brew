@@ -4763,6 +4763,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4906,6 +4907,7 @@ LineRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9762,6 +9764,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9947,7 +9950,6 @@ GameObject:
   - component: {fileID: 9221217587078194571}
   - component: {fileID: 9221217587078194569}
   - component: {fileID: 3958119682109165632}
-  - component: {fileID: 9221217587078194568}
   - component: {fileID: 9221217587078194567}
   - component: {fileID: 1399698508}
   m_Layer: 15
@@ -10015,33 +10017,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creature: 0
---- !u!114 &9221217587078194568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9221217587078194572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0b43a49c3546ff459f96d109d9cce78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turtleType: 0
-  movementType: 1
-  movementSpeed: 1.5
-  degreeRotationSpeed: 720
-  turtleHeadPivot: {fileID: 2648095079486913368}
-  spawnPoint: {fileID: 8957419413858192789}
-  detectionDist: 10
-  detectionLayer:
-    serializedVersion: 2
-    m_Bits: 4424193
-  grounded: 0
-  stunned: 0
-  groundedMask:
-    serializedVersion: 2
-    m_Bits: 4349953
 --- !u!114 &9221217587078194567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10086,7 +10061,7 @@ MonoBehaviour:
   target: {fileID: 0}
   projectilesPerSecond: 10
   laser: {fileID: 315728974}
-  laserMaxDist: 10
+  laserMaxDist: 4
   laserLayer:
     serializedVersion: 2
     m_Bits: 713217
@@ -10150,6 +10125,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10228,6 +10204,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10422,6 +10399,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10500,6 +10478,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10578,6 +10557,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10686,6 +10666,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10764,6 +10745,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10843,6 +10825,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

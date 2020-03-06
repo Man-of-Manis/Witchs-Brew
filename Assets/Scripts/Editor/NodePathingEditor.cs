@@ -8,8 +8,10 @@ using System;
 [CustomEditor(typeof(NodePathing))]
 public class NodePathingEditor : Editor
 {
+    bool loop = true;
     int removeInt = 1;
     int selectInt = 1;
+    NodePathing.PathColor color;
 
     public override void OnInspectorGUI()
     {
@@ -17,61 +19,93 @@ public class NodePathingEditor : Editor
 
         NodePathing nodePath = (NodePathing)target;
 
+        if (nodePath.pathType == NodePathing.PathingType.Line)
+        {
+            GUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(new GUIContent("Node Color", "The color of the node and label."),
+                new GUILayoutOption[] { GUILayout.MaxWidth(EditorGUIUtility.labelWidth - 4) });
+            nodePath.nodeColor = (NodePathing.PathColor)EditorGUILayout.EnumPopup(nodePath.nodeColor);
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(new GUIContent("Loop Pathing", "When enabled, the creature will loop through the nodes lowest " +
+                "to highest and then start back at zero. If disabled, the creature will travel in reverse, highest to lowest, " +
+                "through the nodes when it has reached the last one."), 
+                new GUILayoutOption[] { GUILayout.MaxWidth(EditorGUIUtility.labelWidth - 4)});
+
+            nodePath.loopPathing = EditorGUILayout.Toggle(nodePath.loopPathing);
+            GUILayout.EndHorizontal();
+        }
+
         if (GUILayout.Button("Unlock Window", GUILayout.Width(110)))
         {
             InspectorLock(false);
         }
 
-        if (GUILayout.Button("Add Node", GUILayout.Width(80)))
+        if(nodePath.pathType == NodePathing.PathingType.Line)
         {
-            InspectorLock(true);
-            Selection.activeObject = nodePath.AddNode();
-        }
-
-        if (nodePath.nodePath.Count > 0)
-        {
-            GUILayout.BeginHorizontal();
-
-            if (GUILayout.Button("Remove Node:", GUILayout.Width(110)))
+            if (GUILayout.Button("Add Node", GUILayout.Width(80)))
             {
                 InspectorLock(true);
-                nodePath.RemoveNode(removeInt);
+                Selection.activeObject = nodePath.AddNode();
             }
 
-            removeInt = EditorGUILayout.IntSlider(removeInt, 1, nodePath.nodePath.Count);
-
-            GUILayout.EndHorizontal();
-
-            if (GUILayout.Button("Clear All Nodes", GUILayout.Width(110)))
+            if (nodePath.pathNodes.Count > 0)
             {
-                nodePath.ClearNodes();
-            }
+                GUILayout.BeginHorizontal();
 
-            GUILayout.BeginHorizontal();
-
-            if (GUILayout.Button("Select Node:", GUILayout.Width(110)))
-            {
-                InspectorLock(true);
-                Selection.activeGameObject = nodePath.nodePath[selectInt - 1].gameObject;
-            }
-
-            selectInt = EditorGUILayout.IntSlider(selectInt, 1, nodePath.nodePath.Count);
-
-            GUILayout.EndHorizontal();
-
-            if (GUILayout.Button("Select All Nodes", GUILayout.Width(110)))
-            {
-                InspectorLock(true);
-
-                GameObject[] nodeSelection = new GameObject[nodePath.nodePath.Count];
-                for(int i = 0; i < nodePath.nodePath.Count; i++)
+                if (GUILayout.Button("Remove Node:", GUILayout.Width(110)))
                 {
-                    nodeSelection[i] = nodePath.nodePath[i].gameObject;
+                    InspectorLock(true);
+                    nodePath.RemoveNode(removeInt);
                 }
 
-                Selection.objects = nodeSelection;
+                removeInt = EditorGUILayout.IntSlider(removeInt, 1, nodePath.pathNodes.Count);
+
+                GUILayout.EndHorizontal();
+
+                if (GUILayout.Button("Clear All Nodes", GUILayout.Width(110)))
+                {
+                    nodePath.ClearNodes();
+                }
+
+                GUILayout.BeginHorizontal();
+
+                if (GUILayout.Button("Select Node:", GUILayout.Width(110)))
+                {
+                    InspectorLock(true);
+                    Selection.activeGameObject = nodePath.pathNodes[selectInt - 1].gameObject;
+                }
+
+                selectInt = EditorGUILayout.IntSlider(selectInt, 1, nodePath.pathNodes.Count);
+
+                GUILayout.EndHorizontal();
+
+                if (GUILayout.Button("Select All Nodes", GUILayout.Width(110)))
+                {
+                    InspectorLock(true);
+
+                    GameObject[] nodeSelection = new GameObject[nodePath.pathNodes.Count];
+                    for (int i = 0; i < nodePath.pathNodes.Count; i++)
+                    {
+                        nodeSelection[i] = nodePath.pathNodes[i].gameObject;
+                    }
+
+                    Selection.objects = nodeSelection;
+                }
             }
         }
+
+        else if(nodePath.pathType == NodePathing.PathingType.Area)
+        {
+            nodePath.pathArea = EditorGUILayout.Vector3Field("Path Area", nodePath.pathArea);
+        }
+
+        if(GUI.changed)
+        {
+            nodePath.OnValidate();
+        }
+        
     }
 
     static void ToggleInspectorLock() // Inspector must be inspecting something to be locked
