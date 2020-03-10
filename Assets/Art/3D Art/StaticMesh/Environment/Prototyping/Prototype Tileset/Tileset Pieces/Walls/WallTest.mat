@@ -135,7 +135,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Boolean_1B5B3F79: 0
-    - Boolean_1CA5CF79: 1
+    - Boolean_1CA5CF79: 0
     - Boolean_AA8EAC18: 0
     - HARD_SHADING: 1
     - Vector1_29A6CE2B: 2.3
