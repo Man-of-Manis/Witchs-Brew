@@ -35,6 +35,8 @@ public class PlayerHealth : MonoBehaviour
         }
         set
         {
+            Debug.Log("Applying " + value + " damage to player");
+
             if( currentHealth + value > 0)
             {
                 if (value < 0)

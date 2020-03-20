@@ -9,12 +9,13 @@ public class Elevator : MonoBehaviour
         get { return enable; }
         set { enable = value; }
     }
-    private bool enable = false;
+    [SerializeField] private bool enable = false;
 
     public float startHeight;
     public float endHeight;
 
     public float elevatorTime = 3f;
+    public float pauseDelay = 1f;
 
     private bool direction = true;
     private float timer = 0f;
@@ -39,7 +40,7 @@ public class Elevator : MonoBehaviour
     {
         timer += (Time.deltaTime / elevatorTime);
 
-        if (timer >= 1f)
+        if (timer >= 1f + (pauseDelay / elevatorTime))
         {
             direction = !direction;
             timer = 0f;

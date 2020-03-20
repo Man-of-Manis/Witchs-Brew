@@ -22,9 +22,12 @@ public class FireBurn : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        Debug.Log(other.name);
+
         if(startFire)
         {
             Burn burnObj = other.GetComponent<Burn>();
+
             if (burnObj != null && !burnObj.EnableBurn)
             {
                 burnObj.EnableBurn = true;

@@ -8,7 +8,8 @@ public class KillBox : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerHealth>().Health = -int.MaxValue;
+            Debug.Log("Killing Player");
+            other.GetComponent<PlayerHealth>().Health = -100;
         }
     }
 }

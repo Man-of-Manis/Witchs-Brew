@@ -15,7 +15,8 @@ public class VineGroup : MonoBehaviour
     {
         for(int i = 0; i < transform.childCount; i++)
         {
-            Burn vine = transform.GetChild(i).GetComponent<Burn>();
+            Burn vine = transform.GetChild(i).GetChild(0).GetComponent<Burn>();
+
             if(vine != null)
             {
                 vines.Add(vine);

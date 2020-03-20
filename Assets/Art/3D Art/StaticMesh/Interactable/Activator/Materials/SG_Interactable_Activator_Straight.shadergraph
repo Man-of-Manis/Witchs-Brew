@@ -34,7 +34,7 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"4f34a5a6-e29f-4e7b-919f-db76ea3da738\"\n    },\n    \"m_Name\": \"Transition\",\n    \"m_DefaultReferenceName\": \"Vector1_B69970B1\",\n    \"m_OverrideReferenceName\": \"Transition\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 1,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": 0.0,\n    \"m_FloatType\": 1,\n    \"m_RangeValues\": {\n        \"x\": 0.0,\n        \"y\": 1.0\n    }\n}"
+            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"4f34a5a6-e29f-4e7b-919f-db76ea3da738\"\n    },\n    \"m_Name\": \"Transition\",\n    \"m_DefaultReferenceName\": \"Vector1_B69970B1\",\n    \"m_OverrideReferenceName\": \"Transition\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 1,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": -0.10000000149011612,\n    \"m_FloatType\": 1,\n    \"m_RangeValues\": {\n        \"x\": -0.10000000149011612,\n        \"y\": 1.0\n    }\n}"
         },
         {
             "typeInfo": {

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ChickenMove : Creatures
 {
+    public bool isNesting;
+
     void Start()
     {
         GetEffectsPoint();
@@ -34,6 +36,11 @@ public class ChickenMove : Creatures
         {
             CreatureMovement();
         }        
+    }
+
+    public void ChickenNesting(bool state)
+    {
+        nesting = state;
     }
 
     /// <summary>

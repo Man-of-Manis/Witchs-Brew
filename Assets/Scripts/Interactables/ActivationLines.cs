@@ -89,13 +89,13 @@ public class ActivationLines : MonoBehaviour
         {
             activatorLines[i].material.SetFloat("Direction", direction ? 1f : 0f);
 
-            for (float j = -0.5f; j < 0.5f; j += Time.deltaTime * (1 / ((int)timerType == 0 ? (activationTime / activatorLines.Count): segmentTime)))
+            for (float j = 0f; j < 1.0f; j += Time.deltaTime * (1 / ((int)timerType == 0 ? (activationTime / activatorLines.Count): segmentTime)))
             {
                 activatorLines[i].material.SetFloat("Transition", j);
                 yield return null;
             }
 
-            activatorLines[i].material.SetFloat("Transition", 0.6f);
+            activatorLines[i].material.SetFloat("Transition", 1.0f);
         }
 
         activated.Invoke();

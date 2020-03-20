@@ -7,7 +7,7 @@ public class NestCollection : MonoBehaviour
     public float lerpTime = 2f;
     public Transform chickenPoint;
     private GameObject nestedChicken;
-    //private ChickenMovement chickenMovement;
+    private ChickenMove chicken;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,8 +17,8 @@ public class NestCollection : MonoBehaviour
             {
                 StartCoroutine(ChickenCollecting(other.gameObject));
                 nestedChicken = other.gameObject;
-                //chickenMovement = nestedChicken.GetComponent<ChickenMovement>();
-                //chickenMovement.ChickenNesting(true);
+                chicken = nestedChicken.GetComponent<ChickenMove>();
+                chicken.ChickenNesting(true);
             }            
         }
     }
@@ -28,9 +28,9 @@ public class NestCollection : MonoBehaviour
         if(other.gameObject.Equals(nestedChicken))
         {
             nestedChicken.GetComponent<Rigidbody>().useGravity = true;
-            //chickenMovement.ChickenNesting(false);
+            chicken.ChickenNesting(false);
             nestedChicken = null;
-            //chickenMovement = null;
+            chicken = null;
         }
     }
 

@@ -72,6 +72,7 @@ public class PotionBreak : MonoBehaviour
     {
         ColliderLoop(point, smallRadius, SmallLayer, true);
         ColliderLoop(point, largeRadius, LargeLayer, false);
+
     }
 
     private void ColliderLoop(Vector3 point, float radius, LayerMask layer, bool smallOrLarge)

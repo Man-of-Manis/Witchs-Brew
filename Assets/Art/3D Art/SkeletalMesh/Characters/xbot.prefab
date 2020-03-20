@@ -33425,6 +33425,36 @@ Transform:
   m_Father: {fileID: 5093014749504535863}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
+--- !u!1 &593002586736083186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5210064817483175708}
+  m_Layer: 9
+  m_Name: Witch_Mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5210064817483175708
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593002586736083186}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5093014749504535789}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3101252371027060063
 GameObject:
   m_ObjectHideFlags: 0
@@ -43489,6 +43519,7 @@ Transform:
   - {fileID: 5093014749893202724}
   - {fileID: 174997331}
   - {fileID: 686885561}
+  - {fileID: 5210064817483175708}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -43942,8 +43973,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649e98a09a0c0f04baf2642e017b3757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioPlaying: 0
-  clip: {fileID: 0}
   mixer: 0
   masterGroup: 5
   soundFXGroup: 0

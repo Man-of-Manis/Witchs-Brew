@@ -111,6 +111,10 @@ public class Creatures : MonoBehaviour
                     targetPos = path.pathNodes[currentNode].position;
                 }
             }
+            else
+            {
+                NewDestination();
+            }
         }
     }
 

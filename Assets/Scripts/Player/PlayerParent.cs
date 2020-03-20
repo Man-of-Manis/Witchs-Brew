@@ -11,8 +11,13 @@ public class PlayerParent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //ParentPlayer();
+    }
+
+    private void ParentPlayer()
+    {
         RaycastHit hit;
-        if(Physics.Raycast(RaycastPoint.position, Vector3.down, out hit, rayDist, layers))
+        if (Physics.Raycast(RaycastPoint.position, Vector3.down, out hit, rayDist, layers))
         {
             transform.parent = hit.transform;
         }
