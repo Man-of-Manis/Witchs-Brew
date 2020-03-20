@@ -89,6 +89,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -179,6 +180,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -217,6 +219,7 @@ GameObject:
   - component: {fileID: 8174678307362999838}
   - component: {fileID: -6624049073470492267}
   - component: {fileID: -2105983329120520557}
+  - component: {fileID: 5071408425948208884}
   m_Layer: 20
   m_Name: SM_P_Potion_Yellow
   m_TagString: Potion_Type
@@ -324,6 +327,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LightningPS: {fileID: 1432151291896475737, guid: d48e443f9d230504c8ac08e88a070ff0,
     type: 3}
+--- !u!114 &5071408425948208884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6731687122789482396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Potions/Potion Break
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &6731687123328609468
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,6 +404,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -456,6 +483,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -554,14 +582,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6731687122789482399}
     m_Modifications:
-    - target: {fileID: 7662001482432934127, guid: 136b38cc648dc3e498ebd37b0a2b33a8,
+    - target: {fileID: 7534862065734279555, guid: 136b38cc648dc3e498ebd37b0a2b33a8,
         type: 3}
-      propertyPath: m_Name
-      value: ShockPotionTrail
-      objectReference: {fileID: 0}
-    - target: {fileID: 7662001482432934127, guid: 136b38cc648dc3e498ebd37b0a2b33a8,
-        type: 3}
-      propertyPath: m_IsActive
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7656442174409161035, guid: 136b38cc648dc3e498ebd37b0a2b33a8,
@@ -619,9 +642,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7534862065734279555, guid: 136b38cc648dc3e498ebd37b0a2b33a8,
+    - target: {fileID: 7662001482432934127, guid: 136b38cc648dc3e498ebd37b0a2b33a8,
         type: 3}
-      propertyPath: playOnAwake
+      propertyPath: m_Name
+      value: ShockPotionTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 7662001482432934127, guid: 136b38cc648dc3e498ebd37b0a2b33a8,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -645,11 +673,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6731687122789482399}
     m_Modifications:
-    - target: {fileID: 6498669599558005330, guid: 2954d4d203f799e47a287e5cd1423da4,
-        type: 3}
-      propertyPath: m_Name
-      value: ShockEquipped
-      objectReference: {fileID: 0}
     - target: {fileID: 5932329146847708618, guid: 2954d4d203f799e47a287e5cd1423da4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -704,6 +727,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498669599558005330, guid: 2954d4d203f799e47a287e5cd1423da4,
+        type: 3}
+      propertyPath: m_Name
+      value: ShockEquipped
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2954d4d203f799e47a287e5cd1423da4, type: 3}

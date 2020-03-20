@@ -54,6 +54,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -133,6 +134,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -183,6 +185,7 @@ GameObject:
   - component: {fileID: -5733506718572651891}
   - component: {fileID: 213878940295122299}
   - component: {fileID: 4275605182442063566}
+  - component: {fileID: 8033650904551971751}
   m_Layer: 20
   m_Name: SM_P_Potion_Blue
   m_TagString: Potion_Type
@@ -289,6 +292,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IceBlock: {fileID: 6130552110274185683, guid: 8ae36e724f926414d97f70acac74ada6,
     type: 3}
+--- !u!114 &8033650904551971751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2694728156944550874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Potions/Potion Break
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &2694728156945200205
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +369,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -421,6 +448,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -567,10 +595,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2694728156944550875}
     m_Modifications:
+    - target: {fileID: 481385789879686997, guid: 60b6872698066f74f96ad4460c38a59f,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6741670215738332259, guid: 60b6872698066f74f96ad4460c38a59f,
         type: 3}
       propertyPath: m_Name
       value: IcePotionTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 7161869991445130741, guid: 60b6872698066f74f96ad4460c38a59f,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8344925950098684144, guid: 60b6872698066f74f96ad4460c38a59f,
         type: 3}
@@ -627,22 +665,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7161869991445130741, guid: 60b6872698066f74f96ad4460c38a59f,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8559284756873129182, guid: 60b6872698066f74f96ad4460c38a59f,
         type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9188860217854083718, guid: 60b6872698066f74f96ad4460c38a59f,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 481385789879686997, guid: 60b6872698066f74f96ad4460c38a59f,
         type: 3}
       propertyPath: playOnAwake
       value: 0

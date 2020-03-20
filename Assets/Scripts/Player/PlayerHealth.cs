@@ -27,6 +27,14 @@ public class PlayerHealth : MonoBehaviour
 
     private PlayerMixamoController controller;
 
+    private FMODUnity.StudioEventEmitter eventEmitterRef; //Grant was here
+
+    void Awake()
+    {
+        eventEmitterRef = GetComponent<FMODUnity.StudioEventEmitter>(); //Grant was here
+    }
+
+
     public int Health
     {
         get
@@ -53,14 +61,20 @@ public class PlayerHealth : MonoBehaviour
                 }
                 currentHealth += value;
                 HealthChanged();
+                //audio here 
+                eventEmitterRef.Play();
+
             }
 
             else if(currentHealth + value <= 0 && !invincible)
             {
                 currentHealth = 0;
                 HealthChanged();
+                //audio here 
+                eventEmitterRef.Play();
+
             }
-            
+
         }
     }
 

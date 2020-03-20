@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: -2479344137808821617}
   - component: {fileID: 4204029146576483590}
   - component: {fileID: -1233650380780413897}
+  - component: {fileID: 9132112402142805634}
   m_Layer: 20
   m_Name: SM_P_Potion_Green
   m_TagString: Potion_Type
@@ -152,6 +153,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08dc23004d4b3704db7aa1ec58028f70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9132112402142805634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5169592589634029081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Potions/Potion Break
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &5169592590074390029
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,6 +230,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -285,6 +310,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -375,6 +401,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -453,6 +480,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -565,10 +593,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5169592589634029082}
     m_Modifications:
-    - target: {fileID: 8809005881457330622, guid: 31febe63b11d9e04f92a116bedb26420,
+    - target: {fileID: 4959813068610646056, guid: 31febe63b11d9e04f92a116bedb26420,
         type: 3}
-      propertyPath: m_Name
-      value: GrowthPotionTrail
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6088858496071066925, guid: 31febe63b11d9e04f92a116bedb26420,
         type: 3}
@@ -625,10 +653,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4959813068610646056, guid: 31febe63b11d9e04f92a116bedb26420,
+    - target: {fileID: 8809005881457330622, guid: 31febe63b11d9e04f92a116bedb26420,
         type: 3}
-      propertyPath: playOnAwake
-      value: 0
+      propertyPath: m_Name
+      value: GrowthPotionTrail
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31febe63b11d9e04f92a116bedb26420, type: 3}
