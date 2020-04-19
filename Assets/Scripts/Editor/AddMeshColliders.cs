@@ -117,7 +117,7 @@ public class AddMeshColliders : EditorWindow
 
     void AddCollidersToSelection(GameObject obj)
     {
-        if (obj.GetComponent<MeshRenderer>() != null && obj.GetComponent<MeshCollider>() == null)
+        if (obj.GetComponent<MeshRenderer>() != null && obj.GetComponent<Collider>() == null)
         {
             MeshCollider mc = obj.gameObject.AddComponent<MeshCollider>();
 
@@ -136,7 +136,7 @@ public class AddMeshColliders : EditorWindow
     {
         foreach(Transform child in obj.transform)
         {
-            if(child.GetComponent<MeshRenderer>() != null && child.GetComponent<MeshCollider>() == null)
+            if(child.GetComponent<MeshRenderer>() != null && child.GetComponent<Collider>() == null)
             {
                 MeshCollider mc = child.gameObject.AddComponent<MeshCollider>();
 

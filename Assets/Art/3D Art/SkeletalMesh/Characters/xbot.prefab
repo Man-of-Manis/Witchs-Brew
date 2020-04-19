@@ -33440,7 +33440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5210064817483175708
 Transform:
   m_ObjectHideFlags: 0
@@ -43490,6 +43490,7 @@ GameObject:
   - component: {fileID: 1365392103}
   - component: {fileID: 5093014748722584108}
   - component: {fileID: 5093014748722584109}
+  - component: {fileID: 4551782293756946256}
   m_Layer: 9
   m_Name: xbot
   m_TagString: Player
@@ -43837,7 +43838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d9c5faa947fa69408cf49b5663f9a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LearnedPotions: 010101010101
+  LearnedPotions: 010100000000
 --- !u!114 &2341549140144902348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43950,17 +43951,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5093014749504692429}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b47453e0fa46a724b871cb576ba2f9cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupDist: 1.5
   pickup: {fileID: 0}
-  rend: {fileID: 0}
   pickupLayer:
     serializedVersion: 2
-    m_Bits: 4202497
+    m_Bits: 32768
+  pickupPositionOffset: {x: 0, y: 1, z: 1}
+  pickupHalfExtents: {x: 1.5, y: 2, z: 1}
 --- !u!114 &5093014748722584109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43979,6 +43980,27 @@ MonoBehaviour:
   ambientGroup: 0
   playerGroup: 0
   creatureGroup: 1
+--- !u!114 &4551782293756946256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5093014749504692429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71fd2ca8c271fb498c795c3e760fcec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpCondition: 1
+  jumpSpeed: 8.5
+  detectCondition: 1
+  showDebugLines: 0
+  ledgeRayDist: 0.3
+  ledgeDetectLocalOffset: {x: 0, y: 1.5, z: 0.5}
+  detectLayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1 &5093014749504692431
 GameObject:
   m_ObjectHideFlags: 0

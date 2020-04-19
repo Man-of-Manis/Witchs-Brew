@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8457352443228318875}
   - component: {fileID: 578021525704726189}
   - component: {fileID: 6573288329480186452}
+  - component: {fileID: 6305910490233859855}
   m_Layer: 0
   m_Name: sm_Witch_game_Complete_Pillar
   m_TagString: Untagged
@@ -79,3 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &6305910490233859855
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4829500251569200776}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6606501483488557099, guid: 2ea2752cad7881a4da7b8f61b99606ca, type: 3}
