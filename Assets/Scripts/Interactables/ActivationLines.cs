@@ -41,14 +41,14 @@ public class ActivationLines : MonoBehaviour
         }
     }
 
-    public GameObject AddLine(int activatorType)
+    public GameObject AddLine(int activatorType, Quaternion rotation)
     {
         GameObject line;
 
         if (activatorLines.Count > 0)
         {
             line = Instantiate(activatorType == 0 ? activatorStraight : activatorIntersection, 
-                activatorLines[activatorLines.Count - 1].transform.position, Quaternion.identity, transform);
+                activatorLines[activatorLines.Count - 1].transform.position, rotation, transform);
             
         }
 

@@ -863,6 +863,9 @@ public class LevelDesignerTool : EditorWindow
                     //Parents new object to the original object's parent
 
                     instantiated.transform.parent = Selection.gameObjects[duplicationIndex[i]].transform.parent;
+
+                    instantiated.transform.SetSiblingIndex(Selection.gameObjects[duplicationIndex[i]].transform.GetSiblingIndex() + 1);
+
                 }
 
                 #endregion

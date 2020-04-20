@@ -11,7 +11,7 @@ public class NodePathingEditor : Editor
     bool loop = true;
     int removeInt = 1;
     int selectInt = 1;
-    NodePathing.PathColor color;
+    //NodePathing.PathColor color;
 
     public override void OnInspectorGUI()
     {
