@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, IDamagable
 {
     [Range(0, 10)]
     public int currentHealth;
@@ -20,12 +20,16 @@ public class PlayerHealth : MonoBehaviour
     private Renderer rend;
     [SerializeField] private Color invincibilityColor = Color.yellow;
     [SerializeField] private float lerpTime;
+    [SerializeField] private float verticalKnockbackForce = 5f;
+    [SerializeField] private float horizontalKnockbackForce = 0.5f;
     private float timer;
+    private float controlTime = 1f;
     private bool upDown;
 
     public Checkpoint currentCheckpoint;
 
     private PlayerMixamoController controller;
+    private PlayerInput m_Input;
 
     public int Health
     {
@@ -33,9 +37,10 @@ public class PlayerHealth : MonoBehaviour
         {
             return currentHealth;
         }
+        /*
         set
         {
-            Debug.Log("Applying " + value + " damage to player");
+            //Debug.Log("Applying " + value + " damage to player");
 
             if( currentHealth + value > 0)
             {
@@ -43,7 +48,9 @@ public class PlayerHealth : MonoBehaviour
                 {
                     if(!invincible)
                     {
-                        Invincibiliy();
+                        InvincibilityCo();
+                        Control();
+                        DamageKnockback();
                     }
 
                     else
@@ -62,6 +69,7 @@ public class PlayerHealth : MonoBehaviour
             }
             
         }
+        */
     }
 
     public int MaximumHealth
@@ -80,6 +88,7 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<PlayerMixamoController>();
+        m_Input = GetComponent<PlayerInput>();
         HealthChanged();
         rend = transform.Find("Beta_Surface").GetComponent<Renderer>();
     }
@@ -93,6 +102,111 @@ public class PlayerHealth : MonoBehaviour
     {
         Death();
     }
+
+    /// <summary>
+    /// Health changes for healing or no knockback damage.
+    /// </summary>
+    /// <param name="healthAmount"></param>
+    public void HealthChange(int healthAmount)
+    {
+        if (currentHealth + healthAmount > 0)
+        {
+            if (healthAmount < 0)
+            {
+                if (!invincible)
+                {
+                    InvincibilityCo();
+                    Control();
+                    //DamageKnockback();
+
+                    //Witch Takes Damage Sound Here
+                }
+
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+
+                //Witch Heals Sound Here
+            }
+
+            currentHealth += healthAmount;
+            HealthChanged();
+        }
+
+        else if (currentHealth + healthAmount <= 0 && !invincible)
+        {
+            currentHealth = 0;
+            HealthChanged();
+            //Witch Death Sound Here
+        }
+    }
+
+    /// <summary>
+    /// Health changes for damage without consistant knockback.
+    /// </summary>
+    /// <param name="healthAmount"></param>
+    /// <param name="damageDirection"></param>
+    public void HealthChange(int healthAmount, Vector3 damageDirection, bool alwaysKnockback)
+    {
+        
+
+        if (currentHealth + healthAmount > 0)
+        {
+            if (healthAmount < 0)
+            {
+                if (!invincible)
+                {
+                    InvincibilityCo();
+                    Control();
+                    DamageKnockback(damageDirection);
+
+                    //Witch Takes Damage Sound Here
+                }
+
+                else
+                {
+                    if(alwaysKnockback)
+                    {
+                        Control();
+                        DamageKnockback(damageDirection);
+                    }
+
+                    return;
+                }
+            }
+            else
+            {
+
+                //Witch Heals Sound Here
+            }
+
+            Debug.Log("Applying " + healthAmount + " damage to player");
+
+            currentHealth += healthAmount;
+            HealthChanged();
+        }
+
+        else if(currentHealth + healthAmount <= 0 && invincible)
+        {
+            if (alwaysKnockback)
+            {
+                Control();
+                DamageKnockback(damageDirection);
+            }
+        }
+
+        else if (currentHealth + healthAmount <= 0 && !invincible)
+        {
+            currentHealth = 0;
+            HealthChanged();
+            //Witch Death Sound Here
+        }
+    }
+
 
     private void Invincibility()
     {
@@ -132,6 +246,11 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    private void DamageKnockback(Vector3 direction)
+    {
+        controller.KnockbackForce(direction.normalized, horizontalKnockbackForce, verticalKnockbackForce);
+    }
+
     private void Death()
     {
         if(Health <= 0)
@@ -147,7 +266,7 @@ public class PlayerHealth : MonoBehaviour
             //controller.SetPlayerRotation(Vector3.zero, Vector3.zero);
             Debug.Log("Reset Player");
 
-            Health = MaximumHealth;
+            currentHealth = MaximumHealth;
             HealthChanged();
         }
     }
@@ -174,9 +293,14 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void Invincibiliy()
+    private void InvincibilityCo()
     {
         StartCoroutine(InvincibilityTimer());
+    }
+
+    private void Control()
+    {
+        StartCoroutine(DamageControl());
     }
 
     IEnumerator InvincibilityTimer()
@@ -185,5 +309,12 @@ public class PlayerHealth : MonoBehaviour
         invincible = true;
         yield return new WaitForSeconds(InvincibilityTime);
         invincible = false;
+    }
+
+    IEnumerator DamageControl()
+    {
+        m_Input.ReleaseControl();
+        yield return new WaitForSeconds(controlTime);
+        m_Input.GainControl();
     }
 }

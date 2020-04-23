@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class IceTurtleAttack : MonoBehaviour
 {
+    [Header("Objects")]
     [SerializeField] private GameObject iceProjectile;
     public GameObject iceBlock;
     [SerializeField] private Transform spawnPoint;
@@ -11,13 +12,9 @@ public class IceTurtleAttack : MonoBehaviour
 
     [SerializeField] private Transform target;
 
-    public bool EnableBeam
-    {
-        get { return isBeamEnabled; }
-        set { isBeamEnabled = value; }
-    }
-
-    private bool isBeamEnabled = false;
+    [Header("Laser")]
+    [SerializeField] private float chargeUpTime = 1f;
+    private float chargeStartTime = 0f;
 
     [SerializeField] private int projectilesPerSecond = 2;
     private float timeToFire = 0f;
@@ -27,6 +24,10 @@ public class IceTurtleAttack : MonoBehaviour
     [SerializeField] private LayerMask laserLayer;
     [SerializeField] private int damageAmount = 1;
 
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem[] snowParticles;
+
+    [Header("Rotation")]
     [SerializeField] private float maxHeadRotX;
     [SerializeField] private float maxHeadRotY;
 
@@ -34,12 +35,24 @@ public class IceTurtleAttack : MonoBehaviour
     [SerializeField] private float maxRotationSpeed = 1440f;
     [SerializeField] private float degreeRotationSpeed = 1440f;
 
+    public bool EnableBeam
+    {
+        get { return isBeamEnabled; }
+        set { isBeamEnabled = value; }
+    }
+
+    private bool isBeamEnabled = false;
+    private bool prevIsBeamEnabled = false;
+
+    TurtleMove turtleMove;
+
 
     // Start is called before the first frame update
     void Start()
     {
         target = GameManager.Instance.PlayerCOM;
         laser = spawnPoint.GetComponentInChildren<IceBeam>();
+        turtleMove = GetComponent<TurtleMove>();
     }
 
     // Update is called once per frame
@@ -66,13 +79,27 @@ public class IceTurtleAttack : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Fires a ice laser at the player after a short charge up.
+    /// </summary>
     void IceLaser()
     {
+        if(turtleMove.elementState == Creatures.ElementalState.Normal && turtleMove.prevElementState != turtleMove.elementState)
+        {
+            Debug.Log("Disable Turtle Beam");
+            isBeamEnabled = false;
+            turtleMove.prevElementState = turtleMove.elementState;
+        }
+
         if (isBeamEnabled)
         {
-            float dist = Vector3.Distance(target.position, spawnPoint.position);
+            if(prevIsBeamEnabled != isBeamEnabled)
+            {
+                chargeStartTime = Time.realtimeSinceStartup;
+                prevIsBeamEnabled = isBeamEnabled;
+            }
 
-            if (dist <= laserMaxDist)
+            if(Time.realtimeSinceStartup - chargeStartTime >= chargeUpTime)
             {
                 laser.EnableBeam = true;
 
@@ -81,12 +108,36 @@ public class IceTurtleAttack : MonoBehaviour
                     laser.beamDist = hit.distance;
                     Debug.DrawLine(spawnPoint.position, hit.point, Color.cyan);
 
-                    if(hit.collider.CompareTag("Player"))
+                    for (int i = 0; i < snowParticles.Length; i++)
                     {
-                        hit.collider.GetComponent<PlayerHealth>().Health = -damageAmount;
+                        if(i >= (int)laser.beamDist)
+                        {
+                            if (snowParticles[i].isPlaying)
+                            {
+                                snowParticles[i].Stop();
+                            }
+                        }
+                        else
+                        {
+                            if (snowParticles[i].isStopped)
+                            {
+                                snowParticles[i].Play();
+                            }
+                        }                        
                     }
 
-                    if(hit.collider.CompareTag("Chicken"))
+                    if (hit.collider.CompareTag("Player"))
+                    {
+                        IDamagable damageable = hit.collider.GetComponent<IDamagable>();
+
+                        if (damageable != null)
+                        {
+                            damageable.HealthChange(-damageAmount,
+                                Witch.GetFlatDirection(hit.collider.transform.position, transform.position), false);
+                        }
+                    }
+
+                    if (hit.collider.CompareTag("Chicken"))
                     {
                         BluePotionEffect eff = new BluePotionEffect();
                         eff.IceBlock = iceBlock;
@@ -98,17 +149,41 @@ public class IceTurtleAttack : MonoBehaviour
                 else
                 {
                     laser.beamDist = laserMaxDist;
-                    Debug.DrawRay(spawnPoint.position, spawnPoint.forward * laserMaxDist, Color.cyan);
+
+                    for (int i = 0; i < snowParticles.Length; i++)
+                    {
+                        if(snowParticles[i].isStopped)
+                        {
+                            snowParticles[i].Play();
+                        }                        
+                    }
+                    //Debug.DrawRay(spawnPoint.position, spawnPoint.forward * laserMaxDist, Color.cyan);
                 }
-            }
-            else
-            {
-                laser.beamDist = 0f;
+
+                if(Physics.Raycast(spawnPoint.position, spawnPoint.forward, out RaycastHit hit2, laserMaxDist, laserLayer, QueryTriggerInteraction.Collide))
+                {
+                    MagicFire fire = hit2.collider.GetComponent<MagicFire>();
+
+                    if(fire != null)
+                    {
+                        Debug.Log("Particle hit fire collision");
+                        fire.DisableFire();
+                    }
+                }
             }
         }
 
         else
         {
+            for(int i = 0; i < snowParticles.Length; i++)
+            {
+                if(snowParticles[i].isPlaying)
+                {
+                    snowParticles[i].Stop();
+                }                
+            }
+
+            prevIsBeamEnabled = isBeamEnabled;
             laser.EnableBeam = false;
         }
     }

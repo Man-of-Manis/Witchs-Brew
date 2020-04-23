@@ -87,7 +87,7 @@ public class PotionBreak : MonoBehaviour
                 if (collider[i].gameObject != gameObject)
                 {
                     //Apply potion effect
-                    Debug.Log(collider[i].name + " has been affected by the " + gameObject.name.Substring(0, name.Length - 7));
+                    //Debug.Log(collider[i].name + " has been affected by the " + gameObject.name.Substring(0, name.Length - 7));
 
                     if (smallOrLarge)
                     {

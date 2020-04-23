@@ -47,7 +47,7 @@ public class ItemSource : MonoBehaviour
     {
         if (prefabIngredients[(int)sourceIngredient] != null)
         {
-            instIngredient = Instantiate(prefabIngredients[(int)sourceIngredient].transform, transform.position, Quaternion.identity, transform);
+            instIngredient = Instantiate(prefabIngredients[(int)sourceIngredient].transform, transform.position, transform.rotation, transform);
             instIngredient.localScale = Vector3.zero;
 
             co = StartCoroutine(GrowIngredient());

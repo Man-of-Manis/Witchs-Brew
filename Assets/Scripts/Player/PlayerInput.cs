@@ -361,7 +361,7 @@ public class PlayerInput : MonoBehaviour
 
     public void UntoggleButton3()
     {
-        m_ToggleButton3 = false;
+        m_Button3 = true;
     }
 
     public bool HaveControl()

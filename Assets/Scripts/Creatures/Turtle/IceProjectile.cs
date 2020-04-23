@@ -24,7 +24,8 @@ public class IceProjectile : MonoBehaviour
 
         if(collision.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerHealth>().Health = -damageAmount;
+            collision.gameObject.GetComponent<IDamagable>().HealthChange(-damageAmount, 
+                Witch.GetFlatDirection(transform.position, transform.position), false);
         }
 
         Destroy(gameObject);

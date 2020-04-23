@@ -9,7 +9,7 @@ public class KillBox : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             Debug.Log("Killing Player");
-            other.GetComponent<PlayerHealth>().Health = -100;
+            other.GetComponent<PlayerHealth>().HealthChange(-100);
         }
     }
 }

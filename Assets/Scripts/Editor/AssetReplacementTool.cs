@@ -14,6 +14,8 @@ public class AssetReplacementTool : EditorWindow
     private GameObject to;
     private GameObject prevSelectedGO;
 
+    private bool useNewScale;
+
     private string searchSelection = "";
     private int searchIndex;
     private string searchAmount = "-";
@@ -259,6 +261,10 @@ public class AssetReplacementTool : EditorWindow
         GUILayout.Space(10);
         */
 
+        useNewScale = GUILayout.Toggle(useNewScale, "Use New Object Scale");
+
+        GUILayout.Space(5);
+
         if (GUILayout.Button("Replace"))
         {
             if (to != null)
@@ -379,9 +385,16 @@ public class AssetReplacementTool : EditorWindow
         inst.transform.SetSiblingIndex(childIndex);
         inst.transform.position = position;
         inst.transform.rotation = rotation;
-        inst.transform.localScale = scale;
 
-        ChildGO(inst, replacementGO);
+        if(!useNewScale)
+        {
+            inst.transform.localScale = scale;
+        }        
+
+        if(prefab == null)
+        {
+            ChildGO(inst, replacementGO);
+        }        
 
         return inst;
     }

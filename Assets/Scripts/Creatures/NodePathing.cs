@@ -156,11 +156,15 @@ public class NodePathing : MonoBehaviour
 
     public Vector3 BoundsMin()
     {
+        SetPathingArea();
+
         return transform.position - box.size / 2;
     }
 
     public Vector3 BoundsMax()
     {
+        SetPathingArea();
+
         return transform.position + box.size / 2;
     }
 

@@ -56,16 +56,16 @@ public class PlayerItemPickup : MonoBehaviour
 
                     if (pickups.Length > 0)
                     {
-                        GameObject pick = pickups[0].gameObject;
-                        float dist = Vector3.Distance(pickupPosition, pickups[0].transform.position);
+                        GameObject pick = null;
+                        float dist = float.MaxValue;
 
-                        if(pickups.Length > 1)
+                        for (int i = 0; i < pickups.Length; i++)
                         {
-                            for(int i = 1; i < pickups.Length; i++)
-                            {
-                                float distance = Vector3.Distance(pickupPosition, pickups[i].transform.position);
+                            float distance = Vector3.Distance(pickupPosition, pickups[i].transform.position);
 
-                                if(distance < dist)
+                            if (distance < dist)
+                            {
+                                if (!pickups[i].gameObject.CompareTag("Turtle"))
                                 {
                                     pick = pickups[i].gameObject;
                                     dist = distance;
@@ -73,10 +73,14 @@ public class PlayerItemPickup : MonoBehaviour
                             }
                         }
 
-                        pickup = pick.transform;
-                        pickup.GetComponent<Rigidbody>().isKinematic = true;
+                        if(pick != null)
+                        {
+                            pickup = pick.transform;
+                            pickup.GetComponent<Rigidbody>().isKinematic = true;
 
-                        Debug.Log("Overlap Item: " + pick.name);
+                            Debug.Log("Overlap Item: " + pick.name);
+                        }
+                        
                     }
                     else
                     {

@@ -25,9 +25,13 @@ public class ChickenMove : Creatures
 
         IsGrounded();
 
+        FallDamage();
+
         IsFlying();
 
         IsFrozen();
+
+        IsIdle();
     }
 
     void FixedUpdate()
@@ -41,33 +45,5 @@ public class ChickenMove : Creatures
     public void ChickenNesting(bool state)
     {
         nesting = state;
-    }
-
-    /// <summary>
-    /// Overrides creature stun Enumerator to 
-    /// </summary>
-    /// <param name="duration"></param>
-    /// <returns></returns>
-    protected override IEnumerator Stunned(float duration)
-    {
-        stunned = true;
-        yield return new WaitUntil(() => grounded);
-        yield return new WaitForSeconds(duration);
-        stunned = false;
-        
-        if(path != null)
-        {
-            if (path.GetClosestDistance(transform.position) > 5f)
-            {
-                idling = true;
-            }
-            else
-            {
-                NewDestination();
-                idling = false;
-            }
-        }
-        
-        co = null;
     }
 }

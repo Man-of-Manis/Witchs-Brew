@@ -308,23 +308,24 @@ public class SatchelUI : MonoBehaviour
             {
                 if (!pouchFade)
                 {
-                    BagParentAnim.SetBool("ToggleFade", !BagParentAnim.GetBool("ToggleFade"));
+                    //BagParentAnim.SetBool("ToggleFade", !BagParentAnim.GetBool("ToggleFade"));
                 }
-
+                /*
                 BagParentAnim.SetTrigger("Bounce");
                 RecipeSheetAnim.SetBool("ToggleOpen", !RecipeSheetAnim.GetBool("ToggleOpen"));
                 SatchelAnim.SetBool("ToggleOpen", !SatchelAnim.GetBool("ToggleOpen"));
-
+                */
                 NodeSelection = newNodeSelection;
-                m_Input.UntoggleButton3();
+                //m_Input.UntoggleButton3();
             }
         }
 
-        else if (m_Input.ToggleButton3 && m_Input.Button2)
+        else if (m_Input.ToggleButton3 && m_Input.Button2 && itemCon.AvailablePotions[CraftingSelection] && itemCon.ingredientAmount[CraftingSelection] > 0)
         {
             //Craft potion
             pMix.CraftPotion(CraftingSelection);
             NodeSelection = newNodeSelection;
+            //Debug.Log("Crafted a potion!");
         }
     }
 

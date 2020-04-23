@@ -10,7 +10,7 @@ public class HeartFlower : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerHealth>().Health = healthAmount;
+            other.GetComponent<PlayerHealth>().HealthChange(healthAmount);
             Destroy(gameObject);
         }
     }

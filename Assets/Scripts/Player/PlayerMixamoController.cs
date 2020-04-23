@@ -41,6 +41,9 @@ public class PlayerMixamoController : MonoBehaviour
     private CharacterController m_CharCtrl;
     private CameraFollow followCam;
     private Transform COMTarget;
+    public float knockbackForceStart = 0.25f;
+    private float knockbackForce;
+    private Vector3 knockbackDirection;
 
     const float k_AirborneTurnSpeedProportion = 5.4f;
     const float k_GroundedRayDistance = 1f;
@@ -364,6 +367,16 @@ public class PlayerMixamoController : MonoBehaviour
             // Move the character controller.
             //Debug.Log("X: " + movement.x + " " + "Y: " + movement.y + " " + "Z: " + movement.z);
 
+            if(knockbackForce > 0f)
+            {
+                knockbackForce -= Time.deltaTime;
+                externalMovement = new Vector3(knockbackDirection.x, 0f, knockbackDirection.z) * knockbackForce;
+            }
+            else
+            {
+                externalMovement = Vector3.zero;
+            }
+
             m_CharCtrl.Move(movement + externalMovement);
         }
 
@@ -379,5 +392,12 @@ public class PlayerMixamoController : MonoBehaviour
 
         // Send whether or not the chracter is on the ground to the animator.
         animator.SetBool(m_HashGrounded, m_IsGrounded);
+    }
+
+    public void KnockbackForce(Vector3 direction, float horizontalForce, float verticalForce)
+    {
+        m_VerticalSpeed = verticalForce;
+        knockbackForce = horizontalForce;
+        knockbackDirection = direction;
     }
 }
