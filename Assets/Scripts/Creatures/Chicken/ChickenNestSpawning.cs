@@ -10,12 +10,6 @@ public class ChickenNestSpawning : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Vector3 launchForce;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -25,6 +19,8 @@ public class ChickenNestSpawning : MonoBehaviour
             {
                 if(spawnedChickens[i] == null)
                 {
+                    //Chicken Respawning sound (OneShot)
+
                     spawnedChickens[i] = Instantiate(chickenPrefab, spawnPoint.position, Quaternion.identity);
                     spawnedChickens[i].GetComponent<Rigidbody>().AddForce(
                         new Vector3(Random.Range(-launchForce.x, launchForce.x), launchForce.y, Random.Range(-launchForce.z, launchForce.z)), ForceMode.Impulse);

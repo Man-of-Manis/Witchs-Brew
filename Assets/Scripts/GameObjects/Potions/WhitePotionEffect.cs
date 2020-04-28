@@ -12,7 +12,7 @@ public class WhitePotionEffect : MonoBehaviour, IPotionActivation
     public void SmallEffect(GameObject obj)
     {
         IngredientPickup IPickup = obj.GetComponent<IngredientPickup>();
-        ChestActivation chest = obj.GetComponent<ChestActivation>();
+        IChest chest = obj.GetComponent<IChest>();
         PlatformSwing pSwing = obj.GetComponentInParent<PlatformSwing>();
         LivingWall lWall = obj.GetComponent<LivingWall>();
         GiantDoor giantDoor = obj.GetComponent<GiantDoor>();
@@ -24,7 +24,7 @@ public class WhitePotionEffect : MonoBehaviour, IPotionActivation
 
         if (chest != null)
         {
-            chest.OnHit(Spell_Names.Spell_Name.Galaxius); //Using old spell activation temp
+            chest.Activate();
             ConsoleLog(obj.name);
         }
 

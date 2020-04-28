@@ -46,4 +46,33 @@ public class ChickenMove : Creatures
     {
         nesting = state;
     }
+
+    protected override IEnumerator Stunned(float duration)
+    {
+        stunned = true;
+
+        //Chicken Launch sound here (OneShot)
+
+        yield return new WaitUntil(() => grounded);
+        yield return new WaitForSeconds(duration);
+        stunned = false;
+
+        if (path != null)
+        {
+            float pathDist = path.GetClosestDistance(transform.position);
+            Debug.Log("Path Dist: " + pathDist);
+
+            if (pathDist > idlePathDist)
+            {
+                idling = true;
+            }
+            else
+            {
+                NewDestination();
+                idling = false;
+            }
+        }
+
+        co = null;
+    }
 }

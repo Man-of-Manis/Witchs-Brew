@@ -13,41 +13,55 @@ public class LocationUI : MonoBehaviour
         get {return locationString; }
         set
         {
+            if(locations.Count > 1)
+            {
+                for(int i = 1; i < locations.Count; i++)
+                {
+                    locations.RemoveAt(i);
+                }
+            }
+
             locations.Add(value);
+
+            if(fadeCo == null)
+            {
+                UpdateText();
+            }
+            
             Debug.Log("Entered " + value);
         }
     }
 
-    protected string locationString;
+    private string locationString;
     private List<string> locations = new List<string>();
+    private const float opacityTime = 3f;
+    private Coroutine fadeCo;
 
-    const float opacityTime = 3f;
-    bool showingText = false;
-    Coroutine fadeCo;
 
-    private void Update()
+    private void UpdateText()
     {
-        if (!showingText)
+        if(locations.Count > 0)
         {
-            for (int i = 0; i < locations.Count; i++)
-            {
-                locationString = locations[i];
-                locationTMP.text = locationString;
-                fadeCo = StartCoroutine(FadeText());
-            }
+            locationString = locations[0];
+            locationTMP.text = locationString;
+            fadeCo = StartCoroutine(FadeText());
+        }
+        else
+        {
+            fadeCo = null;
         }
     }
 
     IEnumerator FadeText()
     {
-        showingText = true;
-
         for(float i = 0; i < 1f; )
         {
             i += (Time.deltaTime / 1f);
             locationGroup.alpha = i;
             yield return null;
         }
+
+        locationGroup.alpha = 1f;
 
         yield return new WaitForSeconds(opacityTime);
 
@@ -57,7 +71,9 @@ public class LocationUI : MonoBehaviour
             locationGroup.alpha = i;
             yield return null;
         }
+
+        locationGroup.alpha = 0f;
         locations.Remove(locationString);
-        showingText = false;
+        UpdateText();
     }
 }

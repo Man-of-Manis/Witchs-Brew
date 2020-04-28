@@ -27,6 +27,7 @@ public class SatchelUI : MonoBehaviour
     [SerializeField] private Image[] potionWheelImages = new Image[6];
     public float deadzone = 0.45f;
     private bool satchelFade;
+    private bool potionWheelToggle;
 
     private int NodeSelection = 0;
     private int newNodeSelection = 0;

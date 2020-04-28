@@ -6,6 +6,14 @@ public class KillBox : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
+        IItems item = other.GetComponent<IItems>();
+
+        if(item != null)
+        {
+            item.Killbox();
+            return;
+        }
+
         if(other.CompareTag("Player"))
         {
             Debug.Log("Killing Player");

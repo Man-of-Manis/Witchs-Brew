@@ -132,8 +132,10 @@ public class IceTurtleAttack : MonoBehaviour
 
                         if (damageable != null)
                         {
-                            damageable.HealthChange(-damageAmount,
-                                Witch.GetFlatDirection(hit.collider.transform.position, transform.position), false);
+                            /*damageable.HealthChange(-damageAmount,
+                                Witch.GetFlatDirection(hit.collider.transform.position, transform.position), false);*/
+
+                            damageable.HealthChange(-damageAmount);
                         }
                     }
 

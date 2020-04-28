@@ -70,9 +70,10 @@ public class PotionBreak : MonoBehaviour
 
     private void PotionEffect(Vector3 point)
     {
+        //Potion break here (OneShot)
+
         ColliderLoop(point, smallRadius, SmallLayer, true);
         ColliderLoop(point, largeRadius, LargeLayer, false);
-
     }
 
     private void ColliderLoop(Vector3 point, float radius, LayerMask layer, bool smallOrLarge)

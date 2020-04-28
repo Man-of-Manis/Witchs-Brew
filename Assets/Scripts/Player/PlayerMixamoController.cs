@@ -44,6 +44,7 @@ public class PlayerMixamoController : MonoBehaviour
     public float knockbackForceStart = 0.25f;
     private float knockbackForce;
     private Vector3 knockbackDirection;
+    private Coroutine transformCo;
 
     const float k_AirborneTurnSpeedProportion = 5.4f;
     const float k_GroundedRayDistance = 1f;
@@ -168,9 +169,21 @@ public class PlayerMixamoController : MonoBehaviour
         //dir = Quaternion.AngleAxis(newRotDirection, Vector3.up) * flatcam;
         //smoothDir = Vector3.SmoothDamp(smoothDir, dir, ref vel, smoothTurn);
         //rot = Quaternion.LookRotation(smoothDir, Vector3.up);
+
+        if(transformCo != null)
+        {
+            StopCoroutine(transformCo);
+        }
+
+        transformCo = StartCoroutine( PlayerTransform(newRotDirection, newPos));
+    }
+
+    private IEnumerator PlayerTransform(float newRotDirection, Vector3 newPos)
+    {
+        yield return new WaitForEndOfFrame();
         transform.eulerAngles = new Vector3(0f, newRotDirection, 0f);
         transform.position = newPos;
-        Debug.Log("Player has been reset");
+        transformCo = null;
     }
 
     private void Movement()
@@ -377,7 +390,11 @@ public class PlayerMixamoController : MonoBehaviour
                 externalMovement = Vector3.zero;
             }
 
-            m_CharCtrl.Move(movement + externalMovement);
+            if(transformCo == null)
+            {
+                m_CharCtrl.Move(movement + externalMovement);
+            }
+            
         }
 
         // After the movement store whether or not the character controller is grounded.

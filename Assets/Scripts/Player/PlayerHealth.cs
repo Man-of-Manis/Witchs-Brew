@@ -17,19 +17,23 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     public GameObject[] essenceBars = new GameObject[3];
 
-    private Renderer rend;
+    
     [SerializeField] private Color invincibilityColor = Color.yellow;
     [SerializeField] private float lerpTime;
     [SerializeField] private float verticalKnockbackForce = 5f;
     [SerializeField] private float horizontalKnockbackForce = 0.5f;
+
     private float timer;
     private float controlTime = 1f;
     private bool upDown;
+    private Coroutine invinCo;
+    private Coroutine controlCo;
 
     public Checkpoint currentCheckpoint;
 
-    private PlayerMixamoController controller;
-    private PlayerInput m_Input;
+    [SerializeField] private PlayerMixamoController controller;
+    [SerializeField] private PlayerInput m_Input;
+    [SerializeField] private Renderer rend;
 
     public int Health
     {
@@ -85,24 +89,6 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         }
     }
 
-    private void Start()
-    {
-        controller = GetComponent<PlayerMixamoController>();
-        m_Input = GetComponent<PlayerInput>();
-        HealthChanged();
-        rend = transform.Find("Beta_Surface").GetComponent<Renderer>();
-    }
-
-    private void Update()
-    {
-        Invincibility();
-    }
-
-    private void FixedUpdate()
-    {
-        Death();
-    }
-
     /// <summary>
     /// Health changes for healing or no knockback damage.
     /// </summary>
@@ -117,9 +103,8 @@ public class PlayerHealth : MonoBehaviour, IDamagable
                 {
                     InvincibilityCo();
                     Control();
-                    //DamageKnockback();
 
-                    //Witch Takes Damage Sound Here
+                    //Witch Takes Damage Sound Here (OneShot)
                 }
 
                 else
@@ -129,8 +114,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             }
             else
             {
-
-                //Witch Heals Sound Here
+                //Witch Heals Sound Here (OneShot)
             }
 
             currentHealth += healthAmount;
@@ -141,7 +125,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         {
             currentHealth = 0;
             HealthChanged();
-            //Witch Death Sound Here
+            Death();
         }
     }
 
@@ -152,8 +136,6 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     /// <param name="damageDirection"></param>
     public void HealthChange(int healthAmount, Vector3 damageDirection, bool alwaysKnockback)
     {
-        
-
         if (currentHealth + healthAmount > 0)
         {
             if (healthAmount < 0)
@@ -164,7 +146,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
                     Control();
                     DamageKnockback(damageDirection);
 
-                    //Witch Takes Damage Sound Here
+                    //Witch Takes Damage Sound Here (OneShot)
                 }
 
                 else
@@ -181,10 +163,8 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             else
             {
 
-                //Witch Heals Sound Here
+                //Witch Heals Sound Here (OneShot)
             }
-
-            Debug.Log("Applying " + healthAmount + " damage to player");
 
             currentHealth += healthAmount;
             HealthChanged();
@@ -201,48 +181,9 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
         else if (currentHealth + healthAmount <= 0 && !invincible)
         {
+            
             currentHealth = 0;
-            HealthChanged();
-            //Witch Death Sound Here
-        }
-    }
-
-
-    private void Invincibility()
-    {
-        if (invincible)
-        {
-            timer += Time.deltaTime / (upDown ? lerpTime : -lerpTime);
-
-            if (timer >= 1f)
-            {
-                upDown = false;
-            }
-
-            else if (timer <= 0f)
-            {
-                upDown = true;
-            }
-
-            rend.material.SetColor("_BaseColor", Color32.Lerp(new Color32(114, 180, 77, 255), invincibilityColor, timer));
-        }
-
-        else
-        {
-            if (!rend.material.GetColor("_BaseColor").Equals(new Color32(114, 180, 77, 255)))
-            {
-                if (timer > 0f)
-                {
-                    timer += Time.deltaTime / -lerpTime;
-                }
-
-                else
-                {
-                    rend.material.SetColor("_BaseColor", new Color32(114, 180, 77, 255));
-                }
-
-                rend.material.SetColor("_BaseColor", Color32.Lerp(rend.material.GetColor("_BaseColor"), new Color32(114, 180, 77, 255), timer));
-            }
+            Death();
         }
     }
 
@@ -253,22 +194,30 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     private void Death()
     {
-        if(Health <= 0)
+        //Witch Death Sound Here (OneShot)
+
+        if (invinCo != null)
         {
-            if(GameManager.Instance != null)
-            {
-                GameManager.Instance.FollowCam.PlayerReset(currentCheckpoint.transform.localEulerAngles.y);
-            }
-            
-            controller.SetPlayerRotation(currentCheckpoint.transform.localEulerAngles.y, currentCheckpoint.transform.position);
-            
-
-            //controller.SetPlayerRotation(Vector3.zero, Vector3.zero);
-            Debug.Log("Reset Player");
-
-            currentHealth = MaximumHealth;
-            HealthChanged();
+            StopCoroutine(invinCo);
         }
+
+        if(controlCo != null)
+        {
+            StopCoroutine(controlCo);
+        }
+        
+        
+        m_Input.GainControl();
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.FollowCam.PlayerReset(currentCheckpoint.transform.localEulerAngles.y);
+        }
+
+        controller.SetPlayerRotation(currentCheckpoint.transform.localEulerAngles.y, currentCheckpoint.transform.position);
+
+        currentHealth = MaximumHealth;
+        HealthChanged();
     }
 
     void HealthChanged()
@@ -295,20 +244,62 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     private void InvincibilityCo()
     {
-        StartCoroutine(InvincibilityTimer());
+        if(invinCo != null)
+        {
+            StopCoroutine(invinCo);
+        }
+
+        invinCo = StartCoroutine(InvincibilityTimer());
     }
 
     private void Control()
     {
-        StartCoroutine(DamageControl());
+        if (controlCo != null)
+        {
+            StopCoroutine(controlCo);
+        }
+
+        controlCo = StartCoroutine(DamageControl());
     }
 
     IEnumerator InvincibilityTimer()
     {
-        timer = 0f;
         invincible = true;
-        yield return new WaitForSeconds(InvincibilityTime);
+
+        for (float j = 0; j < InvincibilityTime; j += Time.deltaTime * 15f)
+        {
+            if (upDown)
+            {
+                for (float i = 0; i < 1f; i += Time.deltaTime / lerpTime)
+                {
+                    rend.material.SetColor("_BaseColor", Color32.Lerp(new Color32(114, 180, 77, 255), invincibilityColor, i));
+                    yield return null;
+                }
+
+                upDown = false;
+            }
+            else
+            {
+                for (float i = 1f; i > 0f; i += Time.deltaTime / -lerpTime)
+                {
+                    rend.material.SetColor("_BaseColor", Color32.Lerp(new Color32(114, 180, 77, 255), invincibilityColor, i));
+                    yield return null;
+                }
+
+                upDown = true;
+            }
+
+            yield return null;
+        }        
+
+        //yield return new WaitForSeconds(InvincibilityTime);
         invincible = false;
+
+        for (float i = 0f; i < 1f; i += Time.deltaTime * (1f / 0.1f))
+        {
+            rend.material.SetColor("_BaseColor", Color32.Lerp(rend.material.GetColor("_BaseColor"), new Color32(114, 180, 77, 255), i));
+            yield return null;
+        }
     }
 
     IEnumerator DamageControl()
