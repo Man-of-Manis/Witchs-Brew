@@ -53,6 +53,13 @@ public class EffectsPoint : MonoBehaviour
                 firePS.Play();
             }
         }
+        else if(PS.Count <= 0 && OnFire)
+        {
+            RedPotionEffect eff = new RedPotionEffect();
+            eff.FirePS = this.FirePS;
+            eff.SmallEffect(gameObject);
+            Destroy(eff);
+        }
     }
 
     public void AddPS(ParticleSystem newPS)
@@ -92,11 +99,12 @@ public class EffectsPoint : MonoBehaviour
 
         if(collision.gameObject != this.gameObject && effect != null && effect.OnFire)
         {
-            TurtleMovement turtle = this.gameObject.GetComponent<TurtleMovement>();
+            TurtleMove turtle = this.gameObject.GetComponent<TurtleMove>();
 
             if (turtle != null)
             {
-                turtle.CurrentTurtleType = TurtleMovement.TurtleTypes.NormalTurtle;
+                Debug.Log("Turtle converted to normal");
+                turtle.elementState = Creatures.ElementalState.Normal;
             }
         }
 

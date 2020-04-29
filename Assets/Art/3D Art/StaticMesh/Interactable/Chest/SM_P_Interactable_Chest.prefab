@@ -54,6 +54,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -163,6 +164,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -256,6 +258,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -334,6 +337,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -373,7 +377,7 @@ GameObject:
   - component: {fileID: 8679713132384135651}
   - component: {fileID: 8679713132415792100}
   m_Layer: 0
-  m_Name: Chest
+  m_Name: SM_P_Interactable_Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -386,8 +390,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8679713132415792127}
-  m_LocalRotation: {x: 0, y: 0.86387944, z: 0, w: 0.5036986}
-  m_LocalPosition: {x: 1.63, y: 0, z: 5.23}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8679713131528982676}
@@ -395,7 +399,7 @@ Transform:
   - {fileID: 8679713131152696375}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 119.51, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8679713132415792122
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -536,8 +540,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b06194f93ce9b8e489e4d8d821b8a4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Spell: 2
-  activeSpell: 1
 --- !u!114 &8679713132415792100
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,29 +11,9 @@ public class PlayerPotionMixing : MonoBehaviour
 
     public List<int> combination;
 
-    public GameObject potionMixture;
-
-    public Transform ingredientHolder;
-
     private PlayerInput m_Input;
 
     private ItemController itemCon;
-
-    public GameObject PotionCreationUI;
-
-    [SerializeField] private Sprite[] ingredientsUI = new Sprite[5];
-
-    [SerializeField] private Sprite[] potionsUI = new Sprite[5];
-
-    [SerializeField] private Image[] buttonUI = new Image[5];
-
-    [SerializeField] private Image[] buttonSpriteUI = new Image[4];
-
-    [SerializeField] private Image[] combinationUI = new Image[4];
-
-    [SerializeField] private Image[] mixture = new Image[2];
-
-    [SerializeField] private GameObject PotionCombosUI;
 
     [SerializeField] private PotionCombination combos;
 
@@ -51,20 +31,6 @@ public class PlayerPotionMixing : MonoBehaviour
     {
         m_Input = GetComponent<PlayerInput>();
         itemCon = GetComponent<ItemController>();
-        PotionCombosUI = PlayerUIManager.Instance.PotionComboUI;
-        PotionCreationUI = PlayerUIManager.Instance.PotionCreationUI;
-
-        GetObjects();
-    }
-
-    void GetObjects()
-    {
-        ingredientsUI = (Sprite[])PlayerUIManager.Instance.ingredientsUI.Clone();
-        potionsUI = (Sprite[])PlayerUIManager.Instance.potionsUI.Clone();
-        buttonUI = (Image[])PlayerUIManager.Instance.buttonUI.Clone();
-        buttonSpriteUI = (Image[])PlayerUIManager.Instance.buttonSpriteUI.Clone();
-        combinationUI = (Image[])PlayerUIManager.Instance.combinationUI.Clone();
-        mixture = (Image[])PlayerUIManager.Instance.mixture.Clone();
     }
 
     // Update is called once per frame
@@ -75,55 +41,12 @@ public class PlayerPotionMixing : MonoBehaviour
 
     void PotionMaking()
     {
-        PotionCombosUI.SetActive(m_Input.PotionCombos);
-
         if(m_Input.DPad_Y < 0f)
         {
             //ingredientsOrPotions = !ingredientsOrPotions;
             ingredientsOrPotions = ingredientsOrPotions == PotionType.Ingredients ? PotionType.Potions : PotionType.Ingredients;
             combination.Clear();
-            ClearCombinationUI();
-            ClearCreatedPotionUI();
-            
-            ShowButtonUI();
-            SetElementType();
         }
-        /*
-        if(m_Input. && !m_Input.PotionCombos)
-        {
-            PotionCreationUI.SetActive(true);
-
-            if(combination.Count < 4)
-            {
-                CombiningItems();
-            }
-
-            else
-            {
-                if (ingredientsOrPotions == PotionType.Ingredients)
-                {
-                    CorrectIngredientMixture(ConcatinateList());
-                }
-
-                else
-                {
-                    CorrectPotionMixture(ConcatinateList());
-                }
-
-                combination.Clear();
-                //ClearCombinationUI();
-            }
-        }
-
-        else
-        {
-            PotionCreationUI.SetActive(false);
-            combination.Clear();
-            ClearCombinationUI();
-            ClearCreatedPotionUI();
-            ShowButtonUI();
-        }
-        */
     }
 
     private void RemoveElements()
@@ -186,10 +109,6 @@ public class PlayerPotionMixing : MonoBehaviour
         if ((ingredientsOrPotions == PotionType.Ingredients ? itemCon.ingredientAmount[element] : itemCon.potionAmount[element]) > 0)
         {
             combination.Add(element);
-            ShowButtonUI();
-            UIButtonPress(element);
-            SetCombinationUI();
-            ClearCreatedPotionUI();
         }
     }
 
@@ -210,23 +129,23 @@ public class PlayerPotionMixing : MonoBehaviour
     {
         if(combos.whitePotion == combo)
         {
-            Debug.Log("You made the White Potion!"); RemoveElements(); itemCon.Potions(0, combos.whitePotionAmount); CreatedPotionUI(0); HideButtonUI();
+            Debug.Log("You made the White Potion!"); RemoveElements(); itemCon.Potions(0, combos.whitePotionAmount);
         }
         else if(combos.redPotion == combo)
         {
-            Debug.Log("You made the Red Potion!"); RemoveElements(); itemCon.Potions(1, combos.redPotionAmount); CreatedPotionUI(1); HideButtonUI();
+            Debug.Log("You made the Red Potion!"); RemoveElements(); itemCon.Potions(1, combos.redPotionAmount);
         }
         else if(combos.yellowPotion == combo)
         {
-            Debug.Log("You made the Yellow Potion!"); RemoveElements(); itemCon.Potions(2, combos.yellowPotionAmount); CreatedPotionUI(2); HideButtonUI();
+            Debug.Log("You made the Yellow Potion!"); RemoveElements(); itemCon.Potions(2, combos.yellowPotionAmount);
         }
         else if (combos.greenPotion == combo)
         {
-            Debug.Log("You made the Green Potion!"); RemoveElements(); itemCon.Potions(3, combos.greenPotionAmount); CreatedPotionUI(3); HideButtonUI();
+            Debug.Log("You made the Green Potion!"); RemoveElements(); itemCon.Potions(3, combos.greenPotionAmount);
         }
         else if (combos.bluePotion == combo)
         {
-            Debug.Log("You made the Blue Potion!"); RemoveElements(); itemCon.Potions(4, combos.bluePotionAmount); CreatedPotionUI(4); HideButtonUI();
+            Debug.Log("You made the Blue Potion!"); RemoveElements(); itemCon.Potions(4, combos.bluePotionAmount);
         }
         else
         {
@@ -239,22 +158,22 @@ public class PlayerPotionMixing : MonoBehaviour
         switch(type)
         {
             case (int)PotionPickup.PotionType.White:
-                PotionText("White", type); RemoveElements(); itemCon.Potions(0, combos.whitePotionAmount); CreatedPotionUI(0); HideButtonUI();
+                PotionText("White", type); RemoveElements(); itemCon.Potions(0, combos.whitePotionAmount);
                 break;
             case (int)PotionPickup.PotionType.Red:
-                PotionText("Red", type); RemoveElements(); itemCon.Potions(1, combos.redPotionAmount); CreatedPotionUI(1); HideButtonUI();
+                PotionText("Red", type); RemoveElements(); itemCon.Potions(1, combos.redPotionAmount);
                 break;
             case (int)PotionPickup.PotionType.Yellow:
-                PotionText("Yellow", type); RemoveElements(); itemCon.Potions(2, combos.yellowPotionAmount); CreatedPotionUI(2); HideButtonUI();
+                PotionText("Yellow", type); RemoveElements(); itemCon.Potions(2, combos.yellowPotionAmount);
                 break;
             case (int)PotionPickup.PotionType.Green:
-                PotionText("Green", type); RemoveElements(); itemCon.Potions(3, combos.greenPotionAmount); CreatedPotionUI(3); HideButtonUI();
+                PotionText("Green", type); RemoveElements(); itemCon.Potions(3, combos.greenPotionAmount);
                 break;
             case (int)PotionPickup.PotionType.Blue:
-                PotionText("Blue", type); RemoveElements(); itemCon.Potions(4, combos.bluePotionAmount); CreatedPotionUI(4); HideButtonUI();
+                PotionText("Blue", type); RemoveElements(); itemCon.Potions(4, combos.bluePotionAmount);
                 break;
             case (int)PotionPickup.PotionType.Mega:
-                PotionText("Mega", type); RemoveElements(); itemCon.Potions(5, combos.megaPotionAmount); CreatedPotionUI(5); HideButtonUI();
+                PotionText("Mega", type); RemoveElements(); itemCon.Potions(5, combos.megaPotionAmount);
                 break;
         }
     }
@@ -268,91 +187,12 @@ public class PlayerPotionMixing : MonoBehaviour
     {
         if (combos.megaPotion == combo)
         {
-            Debug.Log("You made the Mega Potion!"); RemoveElements(); itemCon.Potions(5, combos.megaPotionAmount); CreatedPotionUI(5); HideButtonUI();
+            Debug.Log("You made the Mega Potion!"); RemoveElements(); itemCon.Potions(5, combos.megaPotionAmount);
         }
 
         else
         {
             Debug.Log("Something went wrong with that concoction...");
-        }
-    }
-
-    void SetElementType()
-    {
-        for(int i = 0; i < buttonSpriteUI.Length; i++)
-        {
-            buttonSpriteUI[i].sprite = ingredientsOrPotions == PotionType.Ingredients ? ingredientsUI[i] : potionsUI[i];
-        }
-    }
-
-    void UIButtonPress(int element)
-    {
-        StartCoroutine(UIFade(element));
-    }
-
-    IEnumerator UIFade(int element)
-    {
-        buttonUI[element].color = new Color(1f, 1f, 1f, 0.75f);
-        yield return new WaitForSeconds(0.1f);
-        buttonUI[element].color = new Color(0f, 0f, 0f, 0.75f);
-    }
-
-    void SetCombinationUI()
-    {
-        for(int i = 0; i < combinationUI.Length; i++)
-        {
-            if(combination.Count >= i + 1)
-            {
-                combinationUI[i].sprite = ingredientsOrPotions == PotionType.Ingredients ? ingredientsUI[combination[i]] : potionsUI[combination[i]];
-                combinationUI[i].color = new Color(1f, 1f, 1f, 1f);
-            }
-
-            else
-            {
-                combinationUI[i].color = new Color(1f, 1f, 1f, 0f);
-                combinationUI[i].sprite = null;
-            }
-        }
-    }
-
-    void ClearCombinationUI()
-    {
-        for (int i = 0; i < combinationUI.Length; i++)
-        {
-            combinationUI[i].color = new Color(1f, 1f, 1f, 0f);
-            combinationUI[i].sprite = null;
-        }
-    }
-
-    void CreatedPotionUI(int element)
-    {
-        mixture[0].color = new Color(0f, 0f, 0f, 0.75f);
-        mixture[1].sprite = potionsUI[element];
-        mixture[1].color = new Color(1f, 1f, 1f, 1f);
-    }
-
-    void ClearCreatedPotionUI()
-    {
-        mixture[0].color = new Color(0f, 0f, 0f, 0f);
-        mixture[1].color = new Color(1f, 1f, 1f, 0f);
-        mixture[1].sprite = null;
-    }
-
-    void ShowButtonUI()
-    {
-        for(int i = 0; i < buttonUI.Length; i++)
-        {
-            buttonUI[i].gameObject.SetActive(true);
-        }
-
-        buttonUI[4].gameObject.SetActive((ingredientsOrPotions == PotionType.Ingredients) ? true : false);
-    }
-
-    void HideButtonUI()
-    {
-        for (int i = 0; i < buttonUI.Length; i++)
-        {
-            buttonUI[i].gameObject.SetActive(false);
         }
     }
 }

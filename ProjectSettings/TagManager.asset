@@ -26,6 +26,8 @@ TagManager:
   - Ice_Crystal
   - Chicken
   - Chicken_Path
+  - Turtle
+  - SpecialCube
   layers:
   - Default
   - TransparentFX
@@ -55,8 +57,8 @@ TagManager:
   - Checkpoint_Trigger
   - Corruption_Particle
   - Corruption_Being
-  - 
-  - 
+  - Ice_Bridge
+  - Special_Cubes
   - 
   - 
   m_SortingLayers:

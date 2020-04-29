@@ -143,7 +143,8 @@ public class CorruptionBeing : MonoBehaviour
         {
             if(hit.collider.CompareTag("Player"))
             {
-                hit.collider.GetComponent<PlayerHealth>().Health = -attackDamage;
+                hit.collider.GetComponent<IDamagable>().HealthChange(-attackDamage, 
+                    Witch.GetFlatDirection(transform.position, transform.position), false);
             }
         }
 

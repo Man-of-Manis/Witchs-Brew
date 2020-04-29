@@ -62,9 +62,7 @@ public class PlayerLedgeDetection : MonoBehaviour
                 if (Physics.Raycast(localLedgePos, -transform.up, out RaycastHit ledgeHit, ledgeRayDist, detectLayerMask))
                 {
                     ledgeDist = ledgeHit.distance;
-                    controller.m_VerticalSpeed = jumpSpeed;
-                    usedLedgeJump = true;
-                    Debug.Log("Grabbed ledge: " + ledgeHit.collider.name);
+                    LedgeJump(ledgeHit);
                 }
                 else
                 {
@@ -76,6 +74,15 @@ public class PlayerLedgeDetection : MonoBehaviour
                 ledgeDist = ledgeRayDist;
             }
         }
+    }
+
+    private void LedgeJump(RaycastHit ledgeHit)
+    {
+        controller.m_VerticalSpeed = jumpSpeed;
+        usedLedgeJump = true;
+        Debug.Log("Grabbed ledge: " + ledgeHit.collider.name);
+
+        //Ledge Grab/Jump sound (OneShot)
     }
 
     void SetConditions()

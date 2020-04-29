@@ -12,9 +12,10 @@ public class WhitePotionEffect : MonoBehaviour, IPotionActivation
     public void SmallEffect(GameObject obj)
     {
         IngredientPickup IPickup = obj.GetComponent<IngredientPickup>();
-        ChestActivation chest = obj.GetComponent<ChestActivation>();
+        IChest chest = obj.GetComponent<IChest>();
         PlatformSwing pSwing = obj.GetComponentInParent<PlatformSwing>();
         LivingWall lWall = obj.GetComponent<LivingWall>();
+        GiantDoor giantDoor = obj.GetComponent<GiantDoor>();
 
         if(lWall != null)
         {
@@ -23,7 +24,7 @@ public class WhitePotionEffect : MonoBehaviour, IPotionActivation
 
         if (chest != null)
         {
-            chest.OnHit(Spell_Names.Spell_Name.Galaxius); //Using old spell activation temp
+            chest.Activate();
             ConsoleLog(obj.name);
         }
 
@@ -38,6 +39,11 @@ public class WhitePotionEffect : MonoBehaviour, IPotionActivation
             pSwing.SwingDirection();
             ConsoleLog(obj.name);
         }
+
+        if(giantDoor != null)
+        {
+            giantDoor.Activate();
+        }
     }
 
     public void LargeEffect(GameObject obj)
@@ -45,8 +51,7 @@ public class WhitePotionEffect : MonoBehaviour, IPotionActivation
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         PotionBreak pBreak = obj.GetComponent<PotionBreak>();
         ChickenTossing tossing = obj.GetComponent<ChickenTossing>();
-        TurtleMovement tMovement = obj.GetComponent<TurtleMovement>();
-        ChickenMovement cMovement = obj.GetComponent<ChickenMovement>();
+        Creatures creature = obj.GetComponent<Creatures>();
 
         if (obj.CompareTag("Player"))
         {
@@ -93,14 +98,9 @@ public class WhitePotionEffect : MonoBehaviour, IPotionActivation
             tossing.EnableForce(direction);
         }
 
-        if(tMovement != null)
+        if(creature != null)
         {
-            tMovement.TurtleKnockback();
-        }
-
-        if (cMovement != null)
-        {
-            cMovement.ChickenKnockback();
+            creature.CreatureStunned();
         }
 
         /*

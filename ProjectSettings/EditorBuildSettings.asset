@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LevelLoading.unity
     guid: 6dd329c8138a1154cb78c1bb1092ff96
   - enabled: 0

@@ -180,10 +180,10 @@ MonoBehaviour:
   verticalOffset: {x: 0, y: 0.1, z: 0}
   SmallLayer:
     serializedVersion: 2
-    m_Bits: 2793473
+    m_Bits: 539664385
   LargeLayer:
     serializedVersion: 2
-    m_Bits: 1090049
+    m_Bits: 537960961
   active: 0
   smoke: {fileID: 3107387857886379164}
   trail: {fileID: 1751198179867993404}

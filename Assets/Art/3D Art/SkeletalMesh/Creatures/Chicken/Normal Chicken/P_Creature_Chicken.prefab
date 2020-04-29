@@ -74,10 +74,10 @@ GameObject:
   - component: {fileID: 7969271221583877249}
   - component: {fileID: 2740977084534256391}
   - component: {fileID: 7969271221583877252}
-  - component: {fileID: 166970763867543269}
   - component: {fileID: 7969271221583877251}
   - component: {fileID: 683020321}
   - component: {fileID: 715756594}
+  - component: {fileID: 1718940884200354617}
   m_Layer: 15
   m_Name: P_Creature_Chicken
   m_TagString: Chicken
@@ -144,31 +144,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
---- !u!114 &166970763867543269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7969271221583877248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a199e898f0a69045ba52c85e73aa4aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creature: 1
-  elementState: 0
-  movementType: 0
-  movementSpeed: 1
-  degreeRotationSpeed: 1440
-  stunDuration: 3
-  idleChance: 0
-  grounded: 0
-  stunned: 0
-  anim: {fileID: 0}
-  groundedMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &7969271221583877251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,17 +205,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creature: 1
   elementState: 0
+  prevElementState: 0
   movementType: 1
   movementSpeed: 1
   degreeRotationSpeed: 1440
   stunDuration: 3
   idleChance: 33
+  deathVelocity: 10
   grounded: 0
   stunned: 0
   anim: {fileID: 1206795679055677673}
   groundedMask:
     serializedVersion: 2
     m_Bits: 4235777
+  rb: {fileID: 7969271221583877252}
+  isNesting: 0
+--- !u!114 &1718940884200354617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7969271221583877248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba49bdf3d22f18b40ba5dea5c3917353, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7969271220629945737
 PrefabInstance:
   m_ObjectHideFlags: 0

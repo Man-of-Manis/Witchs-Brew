@@ -58,13 +58,13 @@ public class ActivationLinesEditor : Editor
         if (GUILayout.Button("Add Line", GUILayout.Width(80)))
         {
             InspectorLock(true);
-            Selection.activeObject = activator.AddLine(0);
+            Selection.activeGameObject = activator.AddLine(0, Selection.activeGameObject.transform.rotation);
         }
 
         if (GUILayout.Button("Add Intersection", GUILayout.Width(120)))
         {
             InspectorLock(true);
-            Selection.activeObject = activator.AddLine(1);
+            Selection.activeGameObject = activator.AddLine(1, Selection.activeGameObject.transform.rotation);
         }
 
         GUILayout.EndHorizontal();

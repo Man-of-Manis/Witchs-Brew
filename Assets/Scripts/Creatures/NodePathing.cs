@@ -54,7 +54,6 @@ public class NodePathing : MonoBehaviour
         {
 #if UNITY_EDITOR
             ClearNodeLabel();
-
 #endif
             SetPathingArea();
         }        
@@ -144,17 +143,28 @@ public class NodePathing : MonoBehaviour
     private void SetPathingArea()
     {
         box = GetComponent<BoxCollider>();
+
+        if(box == null)
+        {
+            gameObject.AddComponent<BoxCollider>();
+            box = GetComponent<BoxCollider>();
+        }
+
         box.size = pathArea;
         box.center = new Vector3(0f, box.size.y / 2f, 0f);
     }
 
     public Vector3 BoundsMin()
     {
+        SetPathingArea();
+
         return transform.position - box.size / 2;
     }
 
     public Vector3 BoundsMax()
     {
+        SetPathingArea();
+
         return transform.position + box.size / 2;
     }
 

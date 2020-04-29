@@ -5,11 +5,13 @@ using UnityEngine;
 public class Creatures : MonoBehaviour
 {
     public enum CreatureType { Turtle, Chicken};
-    public enum ElementalState { Noramal, Elemental};
+    public enum ElementalState { Normal, Elemental};
     public enum MovementType { Stationary, Mobile };
 
     public CreatureType creature;
     public ElementalState elementState;
+    public ElementalState prevElementState;
+
     [SerializeField] protected MovementType movementType;
 
     public float movementSpeed = 1f;
@@ -23,8 +25,13 @@ public class Creatures : MonoBehaviour
     protected bool nodeDirection = true;
     [Range(0,100)]
     [SerializeField] protected int idleChance;
+    [SerializeField] protected float idlePathDist = 8f;
+    protected float idleDestroyTimer = 0;
+    private float idleDestroyTimeLimit = 15f;
 
+    [SerializeField] protected float deathVelocity = 15f;
     [SerializeField] protected bool grounded = false;
+    protected bool prevGrounded = false;
     [SerializeField] protected bool stunned = false;
     [SerializeField] protected Animator anim;
     [SerializeField] protected LayerMask groundedMask;
@@ -39,6 +46,7 @@ public class Creatures : MonoBehaviour
     protected float idleTimer = 3f;
     protected float timer = 0f;
 
+    [SerializeField] protected Rigidbody rb;
     protected Coroutine co;
 
     /// <summary>
@@ -197,7 +205,7 @@ public class Creatures : MonoBehaviour
     {
         if (path != null)
         {
-            if (elementState == ElementalState.Noramal) //Normal state
+            if (elementState == ElementalState.Normal) //Normal state
             {
                 if(movementType == MovementType.Mobile) //Moving
                 {
@@ -206,7 +214,12 @@ public class Creatures : MonoBehaviour
 
                         NormalMovement();
                         NormalMeshRotation();
-                        anim.SetBool("walking", true);
+
+                        if(anim != null)
+                        {
+                            anim.SetBool("walking", true);
+                        }
+                        
                         return;
                     }
                 }
@@ -220,18 +233,30 @@ public class Creatures : MonoBehaviour
 
                         ElementalMovement();
                         ElementalMeshRotation();
-                        anim.SetBool("walking", true);
+
+                        if (anim != null)
+                        {
+                            anim.SetBool("walking", true);
+                        }
+                        
                         return;
                     }
+                }
+                else
+                {
+                    ElementalMeshRotation();
                 }
             }
         }
 
-        anim.SetBool("walking", false);
+        if (anim != null)
+        {
+            anim.SetBool("walking", false);
+        }        
     }
 
     /// <summary>
-    /// Moves the creature towards target position.
+    /// Moves the creature towards target position. 
     /// </summary>
     protected void NormalMovement()
     {
@@ -283,7 +308,26 @@ public class Creatures : MonoBehaviour
     /// </summary>
     protected void IsGrounded()
     {
+        prevGrounded = grounded;
         grounded = Physics.BoxCast(transform.position, new Vector3(0.5f, 0.05f, 0.5f), -Vector3.up, out RaycastHit hit, Quaternion.identity, 0.45f, groundedMask);
+    }
+
+    protected void FallDamage()
+    {
+        if(!prevGrounded && grounded && rb.velocity.magnitude >= deathVelocity)
+        {
+            IDamagable damagable = GetComponent<IDamagable>();
+
+            if(damagable != null)
+            {
+                damagable.HealthChange(-10);
+            }
+        }
+
+        else if(!prevGrounded && grounded)
+        {
+            //Debug.Log(rb.velocity.magnitude);
+        }
     }
 
     /// <summary>
@@ -291,7 +335,10 @@ public class Creatures : MonoBehaviour
     /// </summary>
     protected void IsFlying()
     {
-        anim.SetBool("flying", !grounded);
+        if (anim != null)
+        {
+            anim.SetBool("flying", !grounded);
+        }        
     }
 
     /// <summary>
@@ -299,7 +346,27 @@ public class Creatures : MonoBehaviour
     /// </summary>
     protected void IsFrozen()
     {
-        anim.speed = ePoint.Frozen ? 0f : 1f;
+        if (anim != null)
+        {
+            anim.speed = ePoint.Frozen ? 0f : 1f;
+        }        
+    }
+
+    protected void IsIdle()
+    {
+        if(idling)
+        {
+            idleDestroyTimer += Time.deltaTime;
+
+            if(idleDestroyTimer >= idleDestroyTimeLimit)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+        else
+        {
+            idleDestroyTimer = 0f;
+        }
     }
 
     /// <summary>
@@ -337,6 +404,22 @@ public class Creatures : MonoBehaviour
         yield return new WaitUntil(() => grounded);
         yield return new WaitForSeconds(duration);
         stunned = false;
+
+        if (path != null)
+        {
+            float pathDist = path.GetClosestDistance(transform.position);
+            Debug.Log("Path Dist: " + pathDist);
+
+            if (pathDist > idlePathDist)
+            {
+                idling = true;
+            }
+            else
+            {
+                NewDestination();
+                idling = false;
+            }
+        }
 
         co = null;
     }

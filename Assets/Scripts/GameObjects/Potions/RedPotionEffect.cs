@@ -21,14 +21,12 @@ public class RedPotionEffect : MonoBehaviour, IPotionActivation
         EffectsPoint objPoint = obj.GetComponent<EffectsPoint>();
         Burn burn = obj.GetComponent<Burn>();
         Brazier brazier = obj.GetComponent<Brazier>();
-        TurtleMovement tMovement = obj.GetComponent<TurtleMovement>();
+        TurtleMove turtle = obj.GetComponent<TurtleMove>();
 
-        if (tMovement != null)
+        if (turtle != null)
         {
-            if (objPoint.Frozen)
-            {
-                tMovement.CurrentTurtleType = TurtleMovement.TurtleTypes.NormalTurtle;
-            }
+            Debug.Log("Turtle converted to normal");
+            turtle.elementState = Creatures.ElementalState.Normal;
         }
 
         if (objPoint != null)
@@ -84,12 +82,23 @@ public class RedPotionEffect : MonoBehaviour, IPotionActivation
             }
         }
 
-        GameObject effect = Instantiate(FirePS, ParticlePoint.position, Quaternion.identity, ParticlePoint);
-        ps = effect.GetComponent<ParticleSystem>();
-        point.AddPS(ps);
-        ps.Play();
+        if (!point.gameObject.CompareTag("Turtle"))
+        {
+            GameObject effect = Instantiate(FirePS, ParticlePoint.position, Quaternion.identity, ParticlePoint);
+            ps = effect.GetComponent<ParticleSystem>();
+            point.AddPS(ps);
+            ps.Play();
+        }       
 
         point.Frozen = false;
-        point.OnFire = true;
+
+        if(!point.gameObject.CompareTag("Turtle"))
+        {
+            point.OnFire = true;
+        }
+        else
+        {
+            point.OnFire = false;
+        }
     }
 }

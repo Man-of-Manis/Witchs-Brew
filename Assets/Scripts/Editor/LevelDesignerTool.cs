@@ -809,7 +809,7 @@ public class LevelDesignerTool : EditorWindow
 
             for (int i = 0; i < duplicationIndex.Count; i++)
             {
-                GameObject parent;
+                GameObject instantiated;
                 GameObject prefab;
 
                 /*
@@ -825,12 +825,12 @@ public class LevelDesignerTool : EditorWindow
                 if (prefab != null)
                 {
                     //Creates new object with Prefab references intact
-                    parent = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+                    instantiated = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
                 }
                 else
                 {
                     //Creates new object, but loses prefab references if any
-                    parent = Instantiate(Selection.gameObjects[duplicationIndex[i]]);
+                    instantiated = Instantiate(Selection.gameObjects[duplicationIndex[i]]);
                 }
                 
                 #region Parenting
@@ -839,7 +839,7 @@ public class LevelDesignerTool : EditorWindow
                 {
                     //Parents created objects to Parent Selection
 
-                    parent.transform.parent = parentSelection;
+                    instantiated.transform.parent = parentSelection;
 
                     /*
                     if(newParent)
@@ -862,13 +862,16 @@ public class LevelDesignerTool : EditorWindow
                 {
                     //Parents new object to the original object's parent
 
-                    parent.transform.parent = Selection.gameObjects[duplicationIndex[i]].transform.parent;
+                    instantiated.transform.parent = Selection.gameObjects[duplicationIndex[i]].transform.parent;
+
+                    instantiated.transform.SetSiblingIndex(Selection.gameObjects[duplicationIndex[i]].transform.GetSiblingIndex() + 1);
+
                 }
 
                 #endregion
 
                 #region Position
-                parent.transform.position = Selection.gameObjects[duplicationIndex[i]].transform.position;
+                instantiated.transform.position = Selection.gameObjects[duplicationIndex[i]].transform.position;
 
                 if (useOffset)
                 {
@@ -876,19 +879,19 @@ public class LevelDesignerTool : EditorWindow
 
                     if(worldOrLocalRotation)
                     {
-                        parent.transform.position += positionOffset;
+                        instantiated.transform.position += positionOffset;
                     }
                     else
                     {
-                        parent.transform.localPosition += (Quaternion.Euler(parent.transform.localEulerAngles) * (Vector3.right * positionOffset.x));
-                        parent.transform.localPosition += (Quaternion.Euler(parent.transform.localEulerAngles) * (Vector3.up * positionOffset.y));
-                        parent.transform.localPosition += (Quaternion.Euler(parent.transform.localEulerAngles) * (Vector3.forward * positionOffset.z));
+                        instantiated.transform.localPosition += (Quaternion.Euler(instantiated.transform.localEulerAngles) * (Vector3.right * positionOffset.x));
+                        instantiated.transform.localPosition += (Quaternion.Euler(instantiated.transform.localEulerAngles) * (Vector3.up * positionOffset.y));
+                        instantiated.transform.localPosition += (Quaternion.Euler(instantiated.transform.localEulerAngles) * (Vector3.forward * positionOffset.z));
                     }                    
                 }                
                 #endregion
 
                 #region Rotation
-                parent.transform.rotation = Selection.gameObjects[duplicationIndex[i]].transform.rotation;
+                instantiated.transform.rotation = Selection.gameObjects[duplicationIndex[i]].transform.rotation;
 
                 if (useOffset)
                 {
@@ -896,21 +899,21 @@ public class LevelDesignerTool : EditorWindow
                     {
                         //rotates using world rotation
                         //X Axis
-                        Vector3 xAxis = parent.transform.InverseTransformDirection(Vector3.right);
-                        parent.transform.rotation *= Quaternion.AngleAxis(rotationOffset.x, xAxis);
+                        Vector3 xAxis = instantiated.transform.InverseTransformDirection(Vector3.right);
+                        instantiated.transform.rotation *= Quaternion.AngleAxis(rotationOffset.x, xAxis);
                         //parent.transform.RotateAround(Vector3.right, rotationOffset.x);                        
                         //parent.transform.Rotate(Vector3.right, rotationOffset.x);
 
                         //Y Axis
-                        Vector3 yAxis = parent.transform.InverseTransformDirection(Vector3.up);
-                        parent.transform.rotation *= Quaternion.AngleAxis(rotationOffset.y, yAxis);
+                        Vector3 yAxis = instantiated.transform.InverseTransformDirection(Vector3.up);
+                        instantiated.transform.rotation *= Quaternion.AngleAxis(rotationOffset.y, yAxis);
 
                         //parent.transform.rotation *= Quaternion.AngleAxis(rotationOffset.y, Vector3.up);
                         //parent.transform.Rotate(Vector3.up, rotationOffset.y);
 
                         //Z Axis
-                        Vector3 zAxis = parent.transform.InverseTransformDirection(Vector3.forward);
-                        parent.transform.rotation *= Quaternion.AngleAxis(rotationOffset.z, zAxis);
+                        Vector3 zAxis = instantiated.transform.InverseTransformDirection(Vector3.forward);
+                        instantiated.transform.rotation *= Quaternion.AngleAxis(rotationOffset.z, zAxis);
                         //parent.transform.rotation *= Quaternion.AngleAxis(rotationOffset.z, Vector3.forward);
                         //parent.transform.Rotate(Vector3.forward, rotationOffset.z);
 
@@ -919,27 +922,27 @@ public class LevelDesignerTool : EditorWindow
                     {
                         //rotates using local rotation
                         //X Axis
-                        parent.transform.localRotation *= Quaternion.AngleAxis(rotationOffset.x, Vector3.right);
+                        instantiated.transform.localRotation *= Quaternion.AngleAxis(rotationOffset.x, Vector3.right);
 
                         //Y Axis
-                        parent.transform.localRotation *= Quaternion.AngleAxis(rotationOffset.y, Vector3.up);
+                        instantiated.transform.localRotation *= Quaternion.AngleAxis(rotationOffset.y, Vector3.up);
 
                         //Z Axis
-                        parent.transform.localRotation *= Quaternion.AngleAxis(rotationOffset.z, Vector3.forward);
+                        instantiated.transform.localRotation *= Quaternion.AngleAxis(rotationOffset.z, Vector3.forward);
                     }
                 }
                 #endregion
 
                 #region Scale
-                parent.transform.localScale = Selection.gameObjects[duplicationIndex[i]].transform.localScale;
+                instantiated.transform.localScale = Selection.gameObjects[duplicationIndex[i]].transform.localScale;
                 #endregion
 
                 //Set new object's name
-                parent.name = Selection.gameObjects[duplicationIndex[i]].name;
+                instantiated.name = Selection.gameObjects[duplicationIndex[i]].name;
 
                 if (selectOnDuplication)
                 {
-                    selections.Add(parent);
+                    selections.Add(instantiated);
 
                     /*
                     for (int j = 0; j < Selection.gameObjects.Length; j++)
@@ -960,6 +963,12 @@ public class LevelDesignerTool : EditorWindow
                 //Sets current selection to all newly created objects
                 Selection.objects = selections.ToArray();
             }
+        }
+
+        if(GUILayout.Button("Test Dupe"))
+        {
+            SceneView.lastActiveSceneView.Focus();
+            EditorWindow.focusedWindow.SendEvent(EditorGUIUtility.CommandEvent("Duplicate"));
         }
     }
 

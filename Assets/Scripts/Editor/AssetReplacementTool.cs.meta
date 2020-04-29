@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ddf3f00c9f33536429a76d706ffe0bc3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - buttonTex: {fileID: 2800000, guid: 739df6df9121da14d97c8b278c03885d, type: 3}
+  - buttonTex2: {fileID: 2800000, guid: e4248894b79737444bb27ce419254914, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

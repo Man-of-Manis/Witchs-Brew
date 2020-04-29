@@ -4,66 +4,102 @@ using UnityEngine;
 
 public class PlayerItemPickup : MonoBehaviour
 {
-    public float pickupDist = 1.5f;
     public Transform pickup;
-    public LineRenderer rend;
     public LayerMask pickupLayer;
+
+    [Header("Pickup")]
+    public Vector3 pickupPositionOffset;
+    public Vector3 pickupHalfExtents;
+    private Vector3 pickupPosition;
 
     private Rigidbody pickupRB;
 
     private PlayerInput m_Input;
-    private Camera cam;
-    private Vector3 start;
-    private Vector3 center;
     // Start is called before the first frame update
     void Start()
     {
         m_Input = GetComponent<PlayerInput>();
-        cam = GameManager.Instance.MainCamera;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //start = cam.transform.position - (Vector3.up * 0.25f) - (Vector3.right * 0.25f) + (cam.transform.forward * Mathf.Abs(cam.transform.localPosition.z));
+        pickupPosition = transform.position + (transform.forward * pickupPositionOffset.z) + (Vector3.up * pickupPositionOffset.y);
 
-        start = GameManager.Instance.PlayerCOM.position;
-        center = cam.transform.position + (cam.transform.forward * (Mathf.Abs(cam.transform.localPosition.z) + pickupDist));
+        BoxCast();
 
+        CurrentPickup();
+    }
+
+    private void CurrentPickup()
+    {
+        if(pickup != null)
+        {
+            pickup.position = pickupPosition;
+            pickup.rotation = transform.rotation;
+        }
+    }
+
+    private void BoxCast()
+    {
         if (m_Input.AimInput)
         {
-            Debug.Log("Aiming");
+            //Debug.Log("Aiming");
 
-            if (pickup == null) //Attempt Pickup
+            if(m_Input.Button2)
             {
-                
-                if (Physics.Raycast(start, cam.transform.forward, out RaycastHit hit, pickupDist, pickupLayer))
+                if (pickup == null)
                 {
-                    rend.SetPosition(0, start);
-                    rend.SetPosition(1, hit.point);
-                    Debug.Log("Ray Item");
-                }
+                    //Debug.DrawLine(pickupPosition, pickupPosition + pickupHalfExtents);
 
+                    Collider[] pickups = Physics.OverlapBox(pickupPosition, pickupHalfExtents, transform.rotation, pickupLayer);
+
+                    if (pickups.Length > 0)
+                    {
+                        GameObject pick = null;
+                        float dist = float.MaxValue;
+
+                        for (int i = 0; i < pickups.Length; i++)
+                        {
+                            float distance = Vector3.Distance(pickupPosition, pickups[i].transform.position);
+
+                            if (distance < dist)
+                            {
+                                if (!pickups[i].gameObject.CompareTag("Turtle"))
+                                {
+                                    pick = pickups[i].gameObject;
+                                    dist = distance;
+                                }
+                            }
+                        }
+
+                        if(pick != null)
+                        {
+                            pickup = pick.transform;
+                            pickup.GetComponent<Rigidbody>().isKinematic = true;
+
+                            Debug.Log("Overlap Item: " + pick.name);
+                        }
+                        
+                    }
+                    else
+                    {
+                        Debug.Log("Overlap Nothing");
+                    }
+                }
                 else
                 {
-                    rend.SetPosition(0, start);
-                    rend.SetPosition(1, center);
-                    Debug.Log("Ray Nothing");
-                }                
-            }     
-
-            else //Drop Pickup
-            {
-                Debug.Log("Dropped Item");
-            }
+                    pickup.GetComponent<Rigidbody>().isKinematic = false;
+                    pickup = null;
+                    Debug.Log("Dropped Item");
+                }
+            }            
         }
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.white;
-        Gizmos.DrawSphere(start, 0.05f);
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(center, 0.1f);
+        Gizmos.color = new Color(0.2f, 0.2f, 0.2f, 0.3f);
+        Gizmos.DrawCube(pickupPosition, pickupHalfExtents);
     }
 }
