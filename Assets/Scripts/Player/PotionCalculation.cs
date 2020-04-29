@@ -136,12 +136,12 @@ public class PotionCalculation : MonoBehaviour
     /// Finds the positions of the Vector3s that shape the parabolic arc. Returns a list of those points.
     /// </summary>
     /// <returns></returns>
-    public List<Vector3> GetPoints()
+    public List<Vector3> GetPoints(Vector3 startPos, Vector3 startDirection)
     {
         List<Vector3> points = new List<Vector3>();
         Ray startRay;
 
-        startRay = new Ray(potionPouch.transform.position, potionPouch.transform.forward);
+        startRay = new Ray(startPos, startDirection);
         //startRay = new Ray(potionPouch.transform.position, transform.forward);
 
         var aimPosition = startRay.origin;

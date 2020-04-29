@@ -38,12 +38,6 @@ public class SecondaryArcCalculation : MonoBehaviour
     private PotionCalculation potionCalc;
     private PotionKnockbackStrength pStrength;
 
-    public bool PotionAvailable
-    {
-        get { return showArc; }
-        set { showArc = value; }
-    }
-
     private bool showArc = false;
 
     private void Start()
@@ -57,7 +51,7 @@ public class SecondaryArcCalculation : MonoBehaviour
         lineRenderer = Instantiate(lineRendererPrefab).GetComponent<LineRenderer>();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if(utilCon.Selection[1] == 0)
         {
@@ -66,6 +60,18 @@ public class SecondaryArcCalculation : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets and sets whether the secondary line arc is shown.
+    /// </summary>
+    public bool PotionAvailable
+    {
+        get { return showArc; }
+        set { showArc = value; }
+    }
+
+    /// <summary>
+    /// Sets the aim velocity for the air potion.
+    /// </summary>
     private void GetVelocity()
     {
         AimVelocity = pStrength.Velocity;
@@ -98,6 +104,9 @@ public class SecondaryArcCalculation : MonoBehaviour
         secondaryReticle.position = target;
     }
 
+    /// <summary>
+    /// Gets the object velocity and then determines the positions of the line renderer points.
+    /// </summary>
     public void GetObject()
     {
         Collider[] collider = Physics.OverlapSphere(potionCalc.endPos, 1.5f, objectLayer);
@@ -148,6 +157,12 @@ public class SecondaryArcCalculation : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Finds the amount and positions of the line renderer points for objects.
+    /// </summary>
+    /// <param name="potionPos">The predicted position of the potion when it will break.</param>
+    /// <param name="objPos">The position of the object when hit.</param>
+    /// <param name="objVelocity">The predicted velocity of the object when hit.</param>
     public void GetNormalizedDirection(Vector3 potionPos, Vector3 objPos, float objVelocity)
     {
         //Vector3 direction = ObjectDirection(potionPos, objPos);
@@ -156,6 +171,12 @@ public class SecondaryArcCalculation : MonoBehaviour
         UpdateAimData(GetPoints(objPos, direction, objVelocity));
     }
 
+    /// <summary>
+    /// Finds the line render positions for chickens.
+    /// </summary>
+    /// <param name="potionPos">The predicted position of the potion when it will break.</param>
+    /// <param name="objPos">The position of the chicken.</param>
+    /// <param name="objVelocity">The predicted velocity of the chicken when hit.</param>
     public void GetChickenNormalizedDirection(Vector3 potionPos, Vector3 objPos, float objVelocity)
     {
         //Vector3 direction = ObjectDirection(potionPos, objPos);
@@ -194,6 +215,8 @@ public class SecondaryArcCalculation : MonoBehaviour
         return points;
     }
 
+    /// <summary>
+    /// Returns the point in the line that collides with terrain.
     /// </summary>
     /// <param name="obj">The list of Vector3s that make up the parabola line renderer positions.</param>
     /// <returns></returns>

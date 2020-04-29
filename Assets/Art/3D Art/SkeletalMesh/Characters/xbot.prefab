@@ -43726,6 +43726,7 @@ MonoBehaviour:
   dir: {x: 0, y: 0, z: 0}
   smoothDir: {x: 0, y: 0, z: 0}
   smoothTurn: 0.1
+  knockbackForceStart: 0.25
 --- !u!114 &5093014749077134780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43821,10 +43822,10 @@ MonoBehaviour:
   castType: 1
   objectLayer:
     serializedVersion: 2
-    m_Bits: 32768
+    m_Bits: 536903680
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 4383233
+    m_Bits: 541254145
   endPos: {x: 0, y: 0, z: 0}
 --- !u!114 &5093014749077134768
 MonoBehaviour:
@@ -43853,43 +43854,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientsOrPotions: 0
   combination: 
-  potionMixture: {fileID: 1293053789602292194, guid: b54ccadd760c1214086cfbc9ae4900cd,
-    type: 3}
-  ingredientHolder: {fileID: 5093014749926867645}
-  PotionCreationUI: {fileID: 0}
-  ingredientsUI:
-  - {fileID: 21300000, guid: 42d055ab1542cf64b927d68b2a06da48, type: 3}
-  - {fileID: 21300000, guid: ed9bf43f6e629c4438e8e1000edfffae, type: 3}
-  - {fileID: 21300000, guid: dac3915b1a904c848b46c02e50936bee, type: 3}
-  - {fileID: 21300000, guid: 6fc07647dad4969448aa87eea1a31262, type: 3}
-  - {fileID: 21300000, guid: d8829a4eb2fa1214ea29419fb3d3622b, type: 3}
-  potionsUI:
-  - {fileID: 21300000, guid: bb6c3f6118b4f8f48929ca613cfc4875, type: 3}
-  - {fileID: 21300000, guid: 577eef1f9a95a874a9695492e4ce01cc, type: 3}
-  - {fileID: 21300000, guid: 9bacec90dc9f54d4696d05e2f58a8377, type: 3}
-  - {fileID: 21300000, guid: b89adfeeffd27274bbd2c8079a56b93c, type: 3}
-  - {fileID: 21300000, guid: 38170ca5d92eac64f8418b66c6819c06, type: 3}
-  buttonUI:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  buttonSpriteUI:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  combinationUI:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  mixture:
-  - {fileID: 0}
-  - {fileID: 0}
-  PotionCombosUI: {fileID: 0}
   combos: {fileID: 11400000, guid: 953ad6a133a5a5a48a64a5024efea43a, type: 2}
 --- !u!114 &39964487564585911
 MonoBehaviour:
@@ -43913,7 +43877,12 @@ MonoBehaviour:
   - {fileID: 1854200939}
   invincibilityColor: {r: 1, g: 1, b: 1, a: 0.5019608}
   lerpTime: 0.25
+  verticalKnockbackForce: 3.5
+  horizontalKnockbackForce: 0.25
   currentCheckpoint: {fileID: 0}
+  controller: {fileID: 5093014749077134782}
+  m_Input: {fileID: 5093014749077134771}
+  rend: {fileID: 5093014749518359621}
 --- !u!114 &1365392101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43959,9 +43928,13 @@ MonoBehaviour:
   pickup: {fileID: 0}
   pickupLayer:
     serializedVersion: 2
-    m_Bits: 32768
+    m_Bits: 536903680
   pickupPositionOffset: {x: 0, y: 1, z: 1}
   pickupHalfExtents: {x: 1.5, y: 2, z: 1}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 4194305
+  m_Input: {fileID: 5093014749077134771}
 --- !u!114 &5093014748722584109
 MonoBehaviour:
   m_ObjectHideFlags: 0

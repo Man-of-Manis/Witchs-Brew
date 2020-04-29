@@ -55,6 +55,7 @@ public class SatchelUI : MonoBehaviour
     private PlayerInput m_Input;
     private ItemController itemCon;
     private PlayerPotionMixing pMix;
+    private UtilityController utilController;
 
     [Header("Animators")]
     [SerializeField] private Animator BagParentAnim;
@@ -137,6 +138,7 @@ public class SatchelUI : MonoBehaviour
         m_Input = GameManager.Instance.player.GetComponent<PlayerInput>();
         itemCon = GameManager.Instance.player.GetComponent<ItemController>();
         pMix = GameManager.Instance.player.GetComponent<PlayerPotionMixing>();
+        utilController = GameManager.Instance.player.GetComponent<UtilityController>();
 
         InitializePotionWheelNode();
         InitializeListIngredients();
@@ -317,6 +319,7 @@ public class SatchelUI : MonoBehaviour
                 SatchelAnim.SetBool("ToggleOpen", !SatchelAnim.GetBool("ToggleOpen"));
                 */
                 NodeSelection = newNodeSelection;
+                utilController.ChangeSelectedPotion(Transition[NodeSelection]);
                 //m_Input.UntoggleButton3();
             }
         }
@@ -326,6 +329,7 @@ public class SatchelUI : MonoBehaviour
             //Craft potion
             pMix.CraftPotion(CraftingSelection);
             NodeSelection = newNodeSelection;
+            utilController.ChangeSelectedPotion(Transition[NodeSelection]);
             //Debug.Log("Crafted a potion!");
         }
     }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class ChestKeyCubeSpawner : MonoBehaviour, IChest
 {
     [Header("Spawn Type")]
@@ -18,6 +17,9 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
     bool opened;
     Coroutine co;
 
+    /// <summary>
+    /// Starts coroutine to open chest.
+    /// </summary>
     public void Activate()
     {
         if (!opened)
@@ -31,6 +33,20 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
         }        
     }
 
+    /// <summary>
+    /// Resets chest to be opened again.
+    /// </summary>
+    public void ResetChest()
+    {
+        spawnedKeyCube = null;
+        Animator anim = gameObject.GetComponent<Animator>();
+        anim.SetTrigger("Close");
+        opened = false;
+    }
+    
+    /// <summary>
+    /// Spawns new cube from chest by shooting it out in a random forward direction.
+    /// </summary>
     private void SpawnCube()
     {
         spawnedKeyCube = Instantiate(keyCubes[(int)keyCubeSpawnType], spawnPoint.position, Quaternion.LookRotation(transform.forward));        
@@ -45,15 +61,11 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
 
         opened = true;
     }
-
-    public void ResetChest()
-    {
-        spawnedKeyCube = null;
-        Animator anim = gameObject.GetComponent<Animator>();
-        anim.SetTrigger("Close");
-        opened = false;
-    }
-
+    
+    /// <summary>
+    /// Coroutine to open chest and spawn KeyCube.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Unlock()
     {
         Animator anim = gameObject.GetComponent<Animator>();

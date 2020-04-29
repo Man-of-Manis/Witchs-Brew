@@ -17,25 +17,17 @@ public class UtilityController : MonoBehaviour
     public GameObject Potion_Holder;
     public GameObject Ingredient_Holder;
     private List<GameObject> Type_Holder = new List<GameObject>();
-    
-    [Header("Spells")]
-    public GameObject SpellSquare;
-    //public ParticleSystem spellParticle;
-    [SerializeField] private int NumberOfSpells = 3;
 
     [Header("Potions")]
     public GameObject potionPouch;
     [SerializeField] private GameObject jumpPotion;
     public GameObject[] prefabPotions = new GameObject[5];
     public GameObject[] instPotions = new GameObject[5];
-    
-    [Header("Ingredients")]
-    public GameObject ingredientPouch;
-    public GameObject[] prefabIngredients = new GameObject[4];
-    public GameObject[] instIngredients = new GameObject[4];
-    
+    [SerializeField] private int currentSelectedPotion = 0;
 
-    
+    [Header("Pickups")]
+    [SerializeField] private PlayerItemPickup pickup;
+    [SerializeField] private Transform pickupPos;
 
     private PlayerInput m_Input;
     private PotionCalculation potionCalc;
@@ -46,7 +38,19 @@ public class UtilityController : MonoBehaviour
     private PlayerPotionWheel potionWheel;
     private SatchelUI satchel;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Sets text color of potions in Console
+    /// </summary>
+    Dictionary<int, string> TextColor = new Dictionary<int, string>
+    {
+        {0, "<color=white>"},
+        {1, "<color=red>"},
+        {2, "<color=yellow>"},
+        {3, "<color=green>"},
+        {4, "<color=blue>"},
+        {5, "<color=purple>"}
+    };
+
     void Awake()
     {
         m_Input = FindObjectOfType<PlayerInput>();
@@ -62,28 +66,21 @@ public class UtilityController : MonoBehaviour
     private void Start()
     {
         satchel = PlayerUIManager.Instance.satchelUI;
-        Type_Holder.Add(Wand_Holder);
-        Type_Holder.Add(Potion_Holder);
-        //Type_Holder.Add(Ingredient_Holder);
-
-        //Selection[(int)SeletionType.Holders] = (int)SeletionType.Spells;
-
-        HolderActivation("Initialization");
+        
+        //Type_Holder.Add(Wand_Holder);
+        //Type_Holder.Add(Potion_Holder);
         InstantiateAllType(prefabPotions, instPotions, potionPouch.transform);
-        //InstantiateAllType(prefabIngredients, instIngredients, ingredientPouch.transform);
 
-        ItemChanging();
+        //ItemChanging();
+        
     }
-
-    // Update is called once per frame
+    /*
     void LateUpdate()
     {
-        //ItemChanging();
 
         if (Selection[(int)SeletionType.Holders] == (int)SeletionType.Spells) //Wand
         {
             potionCalc.HidePotionPath();
-            SelectSpellType((int)SeletionType.Spells);
         }
 
         else if(Selection[(int)SeletionType.Holders] == (int)SeletionType.Potions) //Potion
@@ -93,81 +90,298 @@ public class UtilityController : MonoBehaviour
             ThrowPotion((int)SeletionType.Potions, prefabPotions, instPotions, potionPouch.transform);
         }
     }
+    */
 
-    //Switches between using Spells, Potions, and Ingredients
-    private void ItemChanging()
+    private void LateUpdate()
     {
-        //if(m_Input.Button3 && !m_Input.MakePotion)
-        if(true)
+        Inputs();
+    }
+
+    /// <summary>
+    /// Performs actions based on player inputs.
+    /// </summary>
+    private void Inputs()
+    {
+        if(m_Input.AimInput)
         {
-            Selection[(int)SeletionType.Holders] = Selection[(int)SeletionType.Holders] == (int)SeletionType.Spells ? (int)SeletionType.Potions : (int)SeletionType.Spells;
-
-            HolderActivation(Type_Holder[Selection[((int)SeletionType.Holders)]].name + " was selected");
-
-            if (Selection[(int)SeletionType.Holders] == (int)SeletionType.Potions)
+            if (m_Input.UseDownInput) //Throw
             {
-                ShowItemType((int)SeletionType.Potions, prefabPotions, instPotions);
+                if(pickup.pickup != null) //Holding pickup obj
+                {
+                    if(itemCon.potionAmount[0] > 0) //Air Potion amount > 0
+                    {
+                        //Straight Throw pickup object using air potion
+                        StraightThrowObject();
+                    }
+                    else
+                    {
+                        //Drop obj
+                        pickup.DropPickup();
+                    }
+                }
+                else
+                {
+                    if(itemCon.potionAmount[currentSelectedPotion] > 0) //Selected Potion amount > 0
+                    {
+                        //Arc Throw Potion
+                        ArcThrowPotion();
+                    }
+                    else
+                    {
+                        //Don't show Arc Throw
+                    }
+                }
             }
+
+            else if(m_Input.Button2) //Pickup or Drop pickup object
+            {
+                pickup.BoxCast();
+            }
+
+            else if(m_Input.Button1) //Drop pickup object or potion
+            {
+                if(pickup.pickup != null)
+                {
+                    pickup.DropPickup();
+                }    
+                else
+                {
+                    if (itemCon.potionAmount[currentSelectedPotion] > 0) //Selected Potion amount > 0
+                    {
+                        //Drop Potion
+                        DropThrowPotion();
+                    }
+                    else
+                    {
+                        //Do Nothing
+                        HideArcThrow();
+                    }
+                }
+            }
+
+            else if(m_Input.JumpInput) //Jump 
+            {
+                JumpPotion();
+            }
+
+            else if(pickup.pickup != null)  //While aiming and holding a pickup
+            {
+                if (itemCon.potionAmount[0] > 0) //Air Potion amount > 0
+                {
+                    HideArcThrow();
+                    ShowStraightThrow();
+                }
+                else
+                {
+                    //Do Nothing
+                }
+                
+            }
+
+            else if(pickup.pickup == null)  //While aiming and not holding a pickup
+            {
+                if (itemCon.potionAmount[currentSelectedPotion] > 0) //Selected Potion amount > 0
+                {
+                    //Show potion arc throw
+                    ShowArcThrow();
+                }
+                else
+                {
+                    //Do Nothing
+                }
+            }
+        }
+
+        else if (m_Input.JumpInput) //Jump 
+        {
+            JumpPotion();
+        }
+
+        else if (m_Input.Button2) //Pickup or Drop pickup object
+        {
+            pickup.BoxCast();
+        }
+
+        else if(!m_Input.AimInput)
+        {
+            HideArcThrow();
+            HideStraightThrow();
+        }
+    }
+
+    /// <summary>
+    /// Set the currently selected potion.
+    /// </summary>
+    /// <param name="potionType">The integer value of the selected potion.</param>
+    public void ChangeSelectedPotion(int potionType)
+    {
+        currentSelectedPotion = potionType;
+
+        //Secondary check. Potion shouldn't be set if not available
+        if (itemCon.AvailablePotions[currentSelectedPotion] && itemCon.potionAmount[currentSelectedPotion] > 0) 
+        {
+            ShowInstPotions(currentSelectedPotion);
+        }
+    }
+
+    /// <summary>
+    /// Enables the selected potion and disables all other instantiated potions.
+    /// </summary>
+    /// <param name="selectedPotion"></param>
+    private void ShowInstPotions(int selectedPotion)
+    {
+        for (int i = 0; i < instPotions.Length; i++)
+        {
+            if (i == selectedPotion)
+            {
+                if (instPotions[i] != null)
+                {
+                    instPotions[i].SetActive(true);
+                }
+            }
+
+            else
+            {
+                if (instPotions[i] != null)
+                {
+                    instPotions[i].SetActive(false);
+                }
+            }
+        }
+    }
+
+    private void ArcThrowPotion()
+    {
+        Vector3 vel = potionCalc.SetPotionVelocity();
+
+        //Throw potion
+        ItemThrow( prefabPotions, instPotions, potionPouch.transform, 0, vel);
+    }
+
+    private void DropThrowPotion()
+    {
+        ItemThrow( prefabPotions, instPotions, potionPouch.transform, 1, new Vector3(0f, -1f, 0f));
+    }
+
+    private void StraightThrowObject()
+    {
+
+    }
+
+    private void ShowArcThrow()
+    {
+        Vector3 target = potionCalc.UpdateAimData(potionCalc.GetPoints(potionPouch.transform.position, potionPouch.transform.forward));
+
+        secondCalc.PotionAvailable = true;
+
+        if (!target.Equals(Vector3.zero))
+        {
+            potionCalc.SetPotionReticle(target);
+
+            potionCalc.ShowPotionPath();
+        }
+    }
+
+    private void ShowStraightThrow()
+    {
+        Vector3 target = potionCalc.UpdateAimData(potionCalc.GetPoints(pickup.pickup.transform.position, potionPouch.transform.forward));
+
+        //secondCalc.PotionAvailable = true;
+
+        if (!target.Equals(Vector3.zero))
+        {
+            potionCalc.SetPotionReticle(target);
+
+            potionCalc.ShowPotionPath();
+        }
+    }
+
+    private void HideArcThrow()
+    {
+        potionCalc.HidePotionPath();
+        secondCalc.PotionAvailable = false;
+    }
+
+    private void HideStraightThrow()
+    {
+
+    }
+
+    private void JumpPotion()
+    {
+        if(!animator.GetBool("Grounded") && animator.GetBool("Jump_Secondary"))
+        {
+            GameObject obj = Instantiate(jumpPotion, potionPouch.transform.position, Quaternion.identity);
+            obj.GetComponent<PotionBreak>().InstantBreak();
         }        
     }
 
-    //Shows or hides wand and potion based on selection
-    private void HolderActivation(string typeDirection)
+    private void ItemThrow(GameObject[] prefabType, GameObject[] instType, Transform pouch, int releaseType, Vector3 vel)
     {
-        for (int i = 0; i < Type_Holder.Count; i++)
+        Rigidbody obj = instType[currentSelectedPotion].GetComponent<Rigidbody>();
+        instType[currentSelectedPotion] = null;
+        obj.transform.SetParent(null);
+        obj.isKinematic = false;
+        obj.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        obj.velocity = vel;
+
+        obj.AddRelativeTorque(new Vector3(0f, 0f, UnityEngine.Random.Range(-2f, 2f)), ForceMode.Impulse);
+
+        obj.GetComponentInChildren<PotionBreak>().EnablePotion();
+        if (obj.GetComponent<WhitePotionEffect>())
         {
-            if (i == Selection[(int)SeletionType.Holders])
-            {
-                Type_Holder[i].SetActive(true);
-            }
-            else
-            {
-                Type_Holder[i].SetActive(false);
-            }
+            obj.GetComponent<WhitePotionEffect>().forceMultiplier = pStrength.Velocity;
         }
 
-        //Debug.Log(typeDirection);
-    }
-
-    //Hides spell icon and PS
-    void DisableSpellEffects()
-    {
-        SpellSquare.SetActive(false);
-        //spellParticle.Stop();
-    }
-
-    //Sets text color of potions in Console
-    Dictionary<int, string> TextColor = new Dictionary<int, string>
-    {
-        {0, "<color=white>"},
-        {1, "<color=red>"},
-        {2, "<color=yellow>"},
-        {3, "<color=green>"},
-        {4, "<color=blue>"},
-        {5, "<color=purple>"}
-    };
-
-    void SelectSpellType(int type)
-    {
-        if (m_Input.ShuffleType)
+        switch (releaseType)
         {
-            Selection[type] = (Selection[type] >= (NumberOfSpells - 1)) ? 0 : (Selection[type] + 1);
+            case 0:
+                obj.GetComponent<PotionBreak>().SetBreak(true);
+                break;
+            case 1:
+                obj.GetComponent<PotionBreak>().DelayBreak();
+                break;
+            case 2:
+                obj.GetComponent<PotionBreak>().InstantBreak();
+                break;
+
+        }
+
+
+        obj = null;
+
+        itemCon.Potions(currentSelectedPotion, -1);
+        StartCoroutine(InstantiateItem(1, currentSelectedPotion, prefabType, instType, pouch));
+    }
+
+
+
+
+
+    /// <summary>
+    /// Switches between using Spells, Potions, and Ingredients
+    /// </summary>
+    private void ItemChanging()
+    {
+        Selection[(int)SeletionType.Holders] = Selection[(int)SeletionType.Holders] == (int)SeletionType.Spells ? (int)SeletionType.Potions : (int)SeletionType.Spells;
+
+        //HolderActivation(Type_Holder[Selection[((int)SeletionType.Holders)]].name + " was selected");
+
+        if (Selection[(int)SeletionType.Holders] == (int)SeletionType.Potions)
+        {
+            ShowItemType((int)SeletionType.Potions, prefabPotions, instPotions);
         }
     }
 
-    Dictionary<Vector2, int> PotionSelection = new Dictionary<Vector2, int>
-    {
-        {new Vector2(0f, 1f), 0},
-        {new Vector2(1f, 0f), 1},
-        {new Vector2(0f, -1f), 2},
-        {new Vector2(-1f, 0f), 3}
-    };
-
-    //Shuffles between item type variations
+    /// <summary>
+    /// Shuffles between item type variations.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="prefabType"></param>
+    /// <param name="instType"></param>
     public void SelectItemType(int type, GameObject[] prefabType, GameObject[] instType)
     {
         int prevSelection = Selection[type];
-        //Selection[type] = potionWheel.Selection; //Sets potion to potion wheel selection
         Selection[type] = satchel.Selection; //Sets potion to potion wheel selection
 
 
@@ -185,7 +399,12 @@ public class UtilityController : MonoBehaviour
         }        
     }
 
-    //Shows player spawned item variations based on selected type //Implement check if player has item variation before switching
+    /// <summary>
+    /// Shows player spawned item variations based on selected type //Implement check if player has item variation before switching
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="prefabType"></param>
+    /// <param name="instType"></param>
     void ShowItemType(int type, GameObject[] prefabType, GameObject[] instType)
     {
         if (itemCon.AvailablePotions[Selection[type]] && itemCon.potionAmount[Selection[type]] > 0)
@@ -213,13 +432,17 @@ public class UtilityController : MonoBehaviour
         if (instType[Selection[type]] != null && itemCon.AvailablePotions[Selection[type]])
         {
             string name = instType[Selection[type]].name;
-            //name = name.Substring(0, name.Length - 7); //Removes "(Clone)" from string
             name = name.Substring(12, name.Length - 19) + " Potion"; //Removes prefab name prefix
             Debug.Log(TextColor[Selection[type]] + name + "</color> has been activated/selected.");
         }
     }
 
-    //Spawns one of each type of potion //--TESTING ONLY--//
+    /// <summary>
+    /// Spawns one of each type of potion //--TESTING ONLY--//
+    /// </summary>
+    /// <param name="prefabType"></param>
+    /// <param name="instType"></param>
+    /// <param name="pouch"></param>
     void InstantiateAllType(GameObject[] prefabType, GameObject[] instType, Transform pouch)
     {
         for(int i = 0; i < prefabType.Length; i++)
@@ -233,7 +456,15 @@ public class UtilityController : MonoBehaviour
         }
     }
 
-    //Spawns a new potion after one has been used //--TESTING ONLY--//
+    /// <summary>
+    /// Spawns a new potion after one has been used //--TESTING ONLY--//
+    /// </summary>
+    /// <param name="itemType"></param>
+    /// <param name="itemVariation"></param>
+    /// <param name="prefabType"></param>
+    /// <param name="instType"></param>
+    /// <param name="pouch"></param>
+    /// <returns></returns>
     IEnumerator InstantiateItem(int itemType, int itemVariation, GameObject[] prefabType, GameObject[] instType, Transform pouch)
     {
         yield return new WaitForSeconds(0.5f); //Spawn delay of potion
@@ -258,14 +489,18 @@ public class UtilityController : MonoBehaviour
 
     //Throwing potions----------------------------------------------------------------------------------------Throwing potions
 
-    //Gets player input to aim potion and throw it
+    /// <summary>
+    /// Gets player input to aim potion and throw it
+    /// </summary>
+    /// <param name="itemType"></param>
+    /// <param name="prefabType"></param>
+    /// <param name="instType"></param>
+    /// <param name="pouch"></param>
     void ThrowPotion(int itemType, GameObject[] prefabType, GameObject[] instType, Transform pouch)
     {
-        //Debug.Log(itemCon.potionAmount[Selection[itemType]] + " / " + Selection[itemType]);
-
         if (m_Input.AimInput && itemCon.potionAmount[Selection[itemType]] > 0)
         {
-            Vector3 target = potionCalc.UpdateAimData(potionCalc.GetPoints());
+            Vector3 target = potionCalc.UpdateAimData(potionCalc.GetPoints(potionPouch.transform.position, potionPouch.transform.forward));
 
             secondCalc.PotionAvailable = true;
 
@@ -321,7 +556,6 @@ public class UtilityController : MonoBehaviour
 
         if(itemType.Equals((int)SeletionType.Potions))
         {
-            //obj.GetComponentInChildren<PotionPickup>().Activation(0.25f);
             obj.GetComponentInChildren<PotionBreak>().EnablePotion();
             if(obj.GetComponent<WhitePotionEffect>())
             {
