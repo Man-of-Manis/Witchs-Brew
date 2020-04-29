@@ -35,6 +35,14 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     [SerializeField] private PlayerInput m_Input;
     [SerializeField] private Renderer rend;
 
+    private FMODUnity.StudioEventEmitter eventEmitterRef; //Grant was here
+
+    void Awake()
+    {
+        eventEmitterRef = GetComponent<FMODUnity.StudioEventEmitter>(); //Grant was here
+    }
+
+
     public int Health
     {
         get
@@ -64,14 +72,20 @@ public class PlayerHealth : MonoBehaviour, IDamagable
                 }
                 currentHealth += value;
                 HealthChanged();
+                //audio here 
+                eventEmitterRef.Play();
+
             }
 
             else if(currentHealth + value <= 0 && !invincible)
             {
                 currentHealth = 0;
                 HealthChanged();
+                //audio here 
+                eventEmitterRef.Play();
+
             }
-            
+
         }
         */
     }
