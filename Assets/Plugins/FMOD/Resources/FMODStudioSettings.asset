@@ -15,7 +15,7 @@ MonoBehaviour:
   SwitchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: D:\Education\BA Digital Art\Term 5\GAME 422 - Team 2\Fmod-witch\Fmod_WitchGame\Fmod_WitchGame.fspro
+  sourceProjectPath: D:/Education/BA Digital Art/Term 5/GAME 422 - Team 2/Fmod-witch/Fmod_WitchGame/Fmod_WitchGame.fspro
   sourceBankPath: D:\Education\BA Digital Art\Term 5\GAME 422 - Team 2\Fmod-witch\Fmod_WitchGame\Build
   SourceBankPathUnformatted: 
   AutomaticEventLoading: 1
@@ -76,15 +76,7 @@ MonoBehaviour:
   - Platform: 20
     Value: 32
   Plugins: []
-  MasterBanks:
-  - Master
-  Banks:
-  - Dialogue_CN
-  - Dialogue_EN
-  - Dialogue_JP
-  - Music
-  - SFX
-  - Vehicles
-  - VO
+  MasterBanks: []
+  Banks: []
   BanksToLoad: []
   LiveUpdatePort: 9264
