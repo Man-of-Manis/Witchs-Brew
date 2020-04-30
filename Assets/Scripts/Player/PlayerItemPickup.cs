@@ -13,6 +13,12 @@ public class PlayerItemPickup : MonoBehaviour
     [SerializeField] private float minimumPickupDistance;
     [SerializeField] private LayerMask wallLayer;
 
+    [Header("KeyCubes")]
+    [SerializeField] private GameObject[] keyCubePrefabs;
+
+    [Header("Chests")]
+    [SerializeField] private ChestKeyCubeSpawner[] chestSpawners = new ChestKeyCubeSpawner[6];
+
     private float pickupPositionDistance;
     private Vector3 pickupPosition;
     private Rigidbody pickupRB;
@@ -23,6 +29,12 @@ public class PlayerItemPickup : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private PlayerInput m_Input;
+    [SerializeField] private KeyCubeUI keyCubeUI;
+
+    private void Start()
+    {
+        keyCubeUI = GameManager.Instance.UIManager.GetComponent<KeyCubeUI>();
+    }
 
     void LateUpdate()
     {
@@ -31,41 +43,6 @@ public class PlayerItemPickup : MonoBehaviour
         pickupPosition = transform.position + (transform.forward * pickupPositionDistance) + (Vector3.up * pickupPositionOffset.y);
 
         CurrentPickup();
-    }
-
-    /// <summary>
-    /// Checks if there is a wall in front of the player and moves the pickup object back away from it.
-    /// </summary>
-    private void WallDetection()
-    {
-        if(Physics.SphereCast(transform.position + (Vector3.up * pickupPositionOffset.y), 0.125f, transform.forward, out RaycastHit hit, pickupPositionOffset.z, wallLayer))
-        {
-            if (hit.distance >= minimumPickupDistance)
-            {
-                pickupPositionDistance = hit.distance;
-            }
-            else
-            {
-                pickupPositionDistance = minimumPickupDistance;
-            }
-            
-        }
-        else
-        {
-            pickupPositionDistance = pickupPositionOffset.z;
-        }
-    }
-
-    /// <summary>
-    /// Sets the position and rotation of the current pickup.
-    /// </summary>
-    private void CurrentPickup()
-    {
-        if(pickup != null)
-        {
-            pickup.position = pickupPosition;
-            pickup.rotation = transform.rotation;
-        }
     }
 
     /// <summary>
@@ -115,9 +92,100 @@ public class PlayerItemPickup : MonoBehaviour
     /// </summary>
     public void DropPickup()
     {
-        if(pickup != null)
+        if (pickup != null)
         {
             DropOff();
+        }
+    }
+
+    public void AddToSatchel()
+    {
+        KeyCube cube = pickup.GetComponent<KeyCube>();
+
+        if(cube != null)
+        {
+            Debug.Log("Adding KeyCube to SatchelUI");
+            keyCubeUI.AddKeyCube((int)cube.KeyColor);
+            chestSpawners[(int)cube.KeyColor] = cube.Spawner;
+            cube.AddToSatchel();
+        }
+    }
+
+    public void RemoveFromSatchel()
+    {
+        bool available = false;
+        int selection = -1;
+        int addedCube = -1;
+        KeyCube cube;
+
+        if (pickup != null)
+        {
+            
+            cube = pickup.GetComponent<KeyCube>();
+
+            if (cube != null)
+            {
+                addedCube = (int)cube.KeyColor;
+                keyCubeUI.AddKeyCube(addedCube);
+                chestSpawners[addedCube] = cube.Spawner;
+                cube.AddToSatchel();
+                pickup = null;
+                cube = null;
+            }
+            else
+            {
+                DropPickup(); //Drop pickup to the side so that KeyCube has room?
+            }
+        }        
+
+        keyCubeUI.RemoveKeyCube(out available, out selection, addedCube);
+
+        if(available && selection != addedCube)
+        {
+            pickup = Instantiate(keyCubePrefabs[selection], pickupPosition, transform.rotation).transform;
+            pickup.GetComponent<Rigidbody>().isKinematic = true;
+            
+            cube = pickup.GetComponent<KeyCube>();
+
+            if(cube != null)
+            {
+                cube.Spawner = chestSpawners[(int)cube.KeyColor];
+            }
+        }
+    }
+
+    /// <summary>
+    /// Checks if there is a wall in front of the player and moves the pickup object back away from it.
+    /// </summary>
+    private void WallDetection()
+    {
+        if(Physics.SphereCast(transform.position + (Vector3.up * pickupPositionOffset.y), 0.125f, transform.forward, out RaycastHit hit, pickupPositionOffset.z, wallLayer))
+        {
+            if (hit.distance >= minimumPickupDistance)
+            {
+                pickupPositionDistance = hit.distance;
+            }
+            else
+            {
+                pickupPositionDistance = minimumPickupDistance;
+            }
+            
+        }
+        else
+        {
+            pickupPositionDistance = pickupPositionOffset.z;
+        }
+    }
+
+    /// <summary>
+    /// Sets the position and rotation of the current pickup.
+    /// </summary>
+    private void CurrentPickup()
+    {
+        if(pickup != null)
+        {
+            pickup.position = pickupPosition;
+            pickup.rotation = transform.rotation;
         }
     }
 

@@ -34,7 +34,7 @@ public class WandAnimations : MonoBehaviour
         GetSpellInfo();
 
         GameObject spellPS = null;
-
+        /*
         switch ((Spell_Names.Spell_Name)UC.Selection[0])
         {
             case Spell_Names.Spell_Name.Astralation:
@@ -47,7 +47,7 @@ public class WandAnimations : MonoBehaviour
                 spellPS = Instantiate(lumosSpell, spellSpawn.position, Quaternion.Euler(new Vector3(cam.transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z)));
                 break;
         }
-
+        */
         //spellPS.gameObject.SendMessage("NewMovement", spellBlock.GetComponent<Collider>().bounds.center);
         spellPS.gameObject.SendMessage("NewMovement", spellBlock.transform);
     }

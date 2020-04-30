@@ -53,11 +53,8 @@ public class SecondaryArcCalculation : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(utilCon.Selection[1] == 0)
-        {
-            GetVelocity();
-            GetObject();
-        }
+        GetVelocity();
+        GetObject();
     }
 
     /// <summary>

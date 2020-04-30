@@ -92,7 +92,7 @@ public class PlayerSpellCast : MonoBehaviour
                 anim.SetTrigger("Cast_Spell");
                 //CallPlayerSpell(spellBlock.GetComponent<Spell_Type>().activationSpell);
                 //CallPlayerSpell(spellBlock.GetComponent<ISpellInteractable>().ActivationSpell);
-                CallPlayerSpell((Spell_Names.Spell_Name)UC.Selection[0]);
+                //CallPlayerSpell((Spell_Names.Spell_Name)UC.Selection[0]);
                 usedSpell = true;
                 spellReady = false;
                 ResetSpell();
@@ -162,7 +162,7 @@ public class PlayerSpellCast : MonoBehaviour
 
         SpellSquare.transform.localScale = Vector3.one * (1 + Vector3.Distance(aimCam.position, SpellSquare.transform.position) / laserDistance);
 
-        SpellSquare.GetComponent<MeshRenderer>().material.SetTexture("_Texture", spellTextures[UC.Selection[0]]); //Sets spell texture
+        //SpellSquare.GetComponent<MeshRenderer>().material.SetTexture("_Texture", spellTextures[UC.Selection[0]]); //Sets spell texture
     }
 
     void PlayParticle()

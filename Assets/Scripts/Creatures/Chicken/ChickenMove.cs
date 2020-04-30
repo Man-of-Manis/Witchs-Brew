@@ -25,7 +25,7 @@ public class ChickenMove : Creatures
 
         IsGrounded();
 
-        FallDamage();
+        //FallDamage();
 
         IsFlying();
 

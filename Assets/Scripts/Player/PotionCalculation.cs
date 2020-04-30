@@ -19,7 +19,7 @@ public class PotionCalculation : MonoBehaviour
 
     private float Gravity = -9.81f;
 
-    private float AimVelocity = 1;
+    private float AimVelocity = 2f;
 
     private float AimAngle = 0f;
 
@@ -136,7 +136,7 @@ public class PotionCalculation : MonoBehaviour
     /// Finds the positions of the Vector3s that shape the parabolic arc. Returns a list of those points.
     /// </summary>
     /// <returns></returns>
-    public List<Vector3> GetPoints(Vector3 startPos, Vector3 startDirection)
+    public List<Vector3> GetPoints(Vector3 startPos, Vector3 startDirection, float Velocity = 1f)
     {
         List<Vector3> points = new List<Vector3>();
         Ray startRay;
@@ -145,7 +145,7 @@ public class PotionCalculation : MonoBehaviour
         //startRay = new Ray(potionPouch.transform.position, transform.forward);
 
         var aimPosition = startRay.origin;
-        var aimDirection = startRay.direction * AimVelocity;
+        var aimDirection = startRay.direction * Velocity;
         var rangeSquared = Range * Range;
 
         do

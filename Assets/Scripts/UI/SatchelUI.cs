@@ -56,6 +56,7 @@ public class SatchelUI : MonoBehaviour
     private ItemController itemCon;
     private PlayerPotionMixing pMix;
     private UtilityController utilController;
+    private KeyCubeUI keyCubeUI;
 
     [Header("Animators")]
     [SerializeField] private Animator BagParentAnim;
@@ -139,6 +140,7 @@ public class SatchelUI : MonoBehaviour
         itemCon = GameManager.Instance.player.GetComponent<ItemController>();
         pMix = GameManager.Instance.player.GetComponent<PlayerPotionMixing>();
         utilController = GameManager.Instance.player.GetComponent<UtilityController>();
+        keyCubeUI = GetComponent<KeyCubeUI>();
 
         InitializePotionWheelNode();
         InitializeListIngredients();
@@ -154,6 +156,11 @@ public class SatchelUI : MonoBehaviour
         PouchTimer();
     }
 
+    public bool SatchelOpen
+    {
+        get { return satchelFade; }
+    }
+
     private void Animations()
     {
         if(m_Input.Button3)
@@ -167,6 +174,7 @@ public class SatchelUI : MonoBehaviour
             RecipeSheetAnim.SetBool("ToggleOpen", !RecipeSheetAnim.GetBool("ToggleOpen"));
             SatchelAnim.SetBool("ToggleOpen", !SatchelAnim.GetBool("ToggleOpen"));
             satchelFade = !satchelFade;
+            keyCubeUI.ToggleSelection();
         }
 
 

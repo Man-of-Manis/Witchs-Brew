@@ -9,20 +9,32 @@ public class WaterDamage : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         IDamagable damagable = other.GetComponent<IDamagable>();
+        IItems item = other.GetComponent<IItems>();
 
         if(damagable != null)
         {
             damagable.HealthChange(-waterDamage);
+        }
+
+        if(item != null)
+        {
+            item.Killbox();
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
         IDamagable damagable = other.GetComponent<IDamagable>();
+        IItems item = other.GetComponent<IItems>();
 
         if (damagable != null)
         {
             damagable.HealthChange(-waterDamage);
+        }
+
+        if (item != null)
+        {
+            item.Killbox();
         }
     }
 }

@@ -13,10 +13,12 @@ public class KeyCubeUI : MonoBehaviour
     [SerializeField] private int selectedKeyCube = 0;
 
     private PlayerInput m_Input;
+    private SatchelUI satchelUI;
 
     private void Start()
     {
         m_Input = GameManager.Instance.player.GetComponent<PlayerInput>();
+        satchelUI = GetComponent<SatchelUI>();
         DisplayedKeyCubes();
     }
 
@@ -47,6 +49,53 @@ public class KeyCubeUI : MonoBehaviour
     {
         selectedKeyCube = IncrementSelection(increase);
         selectionOutline.transform.position = keyCubeImages[selectedKeyCube].transform.position;
+    }
+
+    /// <summary>
+    /// Adds a KeyCube to the array of held KeyCubes.
+    /// </summary>
+    /// <param name="color">The color index of the Keycube.</param>
+    public void AddKeyCube(int color)
+    {
+        Debug.Log("Adding index: " + color);
+        keyCubesHeld[color] = true;
+        DisplayedKeyCubes();
+    }
+
+    /// <summary>
+    /// Removes a KeyCube to the array of held KeyCubes.
+    /// </summary>
+    /// <param name="color">The color index of the Keycube.</param>
+    public void RemoveKeyCube(out bool available, out int selection, int addedCube)
+    {
+        if(keyCubesHeld[selectedKeyCube] && selectedKeyCube != addedCube)
+        {
+            keyCubesHeld[selectedKeyCube] = false;
+            available = true;
+            selection = selectedKeyCube;
+            DisplayedKeyCubes();
+        }
+        else
+        {
+            available = false;
+            selection = selectedKeyCube;
+        }
+
+        selectedKeyCube = IncrementSelection(false);    //Get previous available selection
+
+        if (keyCubesHeld[selectedKeyCube])
+        {
+            selectionOutline.transform.position = keyCubeImages[selectedKeyCube].transform.position;
+
+            if(satchelUI.SatchelOpen)
+            {
+                selectionOutline.enabled = true;
+            }
+        }
+        else
+        {
+            selectionOutline.enabled = false;
+        }
     }
 
     /// <summary>

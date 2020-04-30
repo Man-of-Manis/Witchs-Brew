@@ -39,7 +39,7 @@ public class TurtleMove : Creatures
 
         IsGrounded();
 
-        FallDamage();
+        //FallDamage();
 
         dist = Vector3.Distance(target.position, turtleHeadPivot.position);
 
