@@ -76,7 +76,15 @@ MonoBehaviour:
   - Platform: 20
     Value: 32
   Plugins: []
-  MasterBanks: []
-  Banks: []
+  MasterBanks:
+  - Master
+  Banks:
+  - Dialogue_CN
+  - Dialogue_EN
+  - Dialogue_JP
+  - Music
+  - SFX
+  - Vehicles
+  - VO
   BanksToLoad: []
   LiveUpdatePort: 9264

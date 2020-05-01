@@ -119,6 +119,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
                     Control();
 
                     //Witch Takes Damage Sound Here (OneShot)
+                    eventEmitterRef.Play(); //Grant Was Here
                 }
 
                 else
@@ -161,6 +162,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
                     DamageKnockback(damageDirection);
 
                     //Witch Takes Damage Sound Here (OneShot)
+                    eventEmitterRef.Play(); //Grant Was Here
                 }
 
                 else
