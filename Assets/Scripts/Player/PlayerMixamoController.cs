@@ -183,6 +183,7 @@ public class PlayerMixamoController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         transform.eulerAngles = new Vector3(0f, newRotDirection, 0f);
         transform.position = newPos;
+        yield return new WaitForSeconds(0.1f);
         transformCo = null;
     }
 
