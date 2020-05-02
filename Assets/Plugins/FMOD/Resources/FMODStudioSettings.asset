@@ -15,8 +15,8 @@ MonoBehaviour:
   SwitchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: D:/Education/BA Digital Art/Term 5/GAME 422 - Team 2/Fmod-witch/Fmod_WitchGame/Fmod_WitchGame.fspro
-  sourceBankPath: D:\Education\BA Digital Art\Term 5\GAME 422 - Team 2\Fmod-witch\Fmod_WitchGame\Build
+  sourceProjectPath: Assets\Fmod_WitchGame\Fmod_WitchGame_1.fspro
+  sourceBankPath: Assets\Fmod_WitchGame\Build
   SourceBankPathUnformatted: 
   AutomaticEventLoading: 1
   BankLoadType: 0
