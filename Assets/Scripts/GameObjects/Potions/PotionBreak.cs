@@ -12,8 +12,13 @@ public class PotionBreak : MonoBehaviour
     public Vector3 verticalOffset = new Vector3(0f, 0.1f, 0f);
     public LayerMask SmallLayer;
     public LayerMask LargeLayer;
+
     private bool Break = false;
-    public bool active = false;
+
+    [Header("Sounds")]
+    [SerializeField] private string sBreak;
+
+    [Header("Particles")]
     [SerializeField] private ParticleSystem smoke;
     [SerializeField] private ParticleSystem trail;
 
@@ -55,7 +60,6 @@ public class PotionBreak : MonoBehaviour
 
     public void EnablePotion()
     {
-        active = true;
         transform.GetComponent<Rigidbody>().isKinematic = false;
         SmokeStop();
     }
@@ -79,7 +83,8 @@ public class PotionBreak : MonoBehaviour
     private void PotionEffect(Vector3 point)
     {
         //Potion break here (OneShot)
-        eventEmitterRef.Play(); //Grant Was Here
+        //eventEmitterRef.Play(); //Grant Was Here
+        FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.objects.potionBreak, gameObject);
 
         ColliderLoop(point, smallRadius, SmallLayer, true);
         ColliderLoop(point, largeRadius, LargeLayer, false);

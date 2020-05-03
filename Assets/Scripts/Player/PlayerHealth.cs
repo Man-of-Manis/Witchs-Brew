@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IDamagable
 {
+    [Header("Health")]
     [Range(0, 10)]
     public int currentHealth;
 
     [Range(1, 10)]
     public int maxHealth;
 
+    
     [SerializeField] private float InvincibilityTime = 3f;
     private bool invincible = false;
 
@@ -17,7 +19,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     public GameObject[] essenceBars = new GameObject[3];
 
-    
+    [Header("Damaged")]
     [SerializeField] private Color invincibilityColor = Color.yellow;
     [SerializeField] private float lerpTime;
     [SerializeField] private float verticalKnockbackForce = 5f;
@@ -29,6 +31,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     private Coroutine invinCo;
     private Coroutine controlCo;
 
+    [Header("References")]
     public Checkpoint currentCheckpoint;
 
     [SerializeField] private PlayerMixamoController controller;
@@ -42,6 +45,13 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         eventEmitterRef = GetComponent<FMODUnity.StudioEventEmitter>(); //Grant was here
     }
 
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.witchHealth.witchHurt, gameObject);
+        }
+    }
 
     public int Health
     {
@@ -119,7 +129,8 @@ public class PlayerHealth : MonoBehaviour, IDamagable
                     Control();
 
                     //Witch Takes Damage Sound Here (OneShot)
-                    eventEmitterRef.Play(); //Grant Was Here
+                    //eventEmitterRef.Play(); //Grant Was Here
+                    FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.witchHealth.witchHurt, gameObject);
                 }
 
                 else
@@ -130,6 +141,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             else
             {
                 //Witch Heals Sound Here (OneShot)
+                FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.witchHealth.witchHeal, gameObject);
             }
 
             currentHealth += healthAmount;
@@ -162,7 +174,8 @@ public class PlayerHealth : MonoBehaviour, IDamagable
                     DamageKnockback(damageDirection);
 
                     //Witch Takes Damage Sound Here (OneShot)
-                    eventEmitterRef.Play(); //Grant Was Here
+                    //eventEmitterRef.Play(); //Grant Was Here
+                    FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.witchHealth.witchHurt, gameObject);
                 }
 
                 else
@@ -180,6 +193,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             {
 
                 //Witch Heals Sound Here (OneShot)
+                FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.witchHealth.witchHeal, gameObject);
             }
 
             currentHealth += healthAmount;
@@ -211,6 +225,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     private void Death()
     {
         //Witch Death Sound Here (OneShot)
+        FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.witchHealth.witchDeath, gameObject);
 
         if (invinCo != null)
         {

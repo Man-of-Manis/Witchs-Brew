@@ -138,7 +138,7 @@ MonoBehaviour:
   LargeLayer:
     serializedVersion: 2
     m_Bits: 1056769
-  active: 0
+  sBreak: event:/Potions/Potion Break
   smoke: {fileID: 3636146808248864636}
   trail: {fileID: 4342373234460536200}
 --- !u!114 &-1233650380780413897

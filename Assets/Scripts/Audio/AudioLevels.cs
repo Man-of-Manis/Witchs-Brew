@@ -25,6 +25,21 @@ public class AudioLevels : MonoBehaviour
     [SerializeField] private Slider playerSlider;
     [SerializeField] private Slider creatureSlider;
 
+    private FMOD.Studio.Bus master;
+    private FMOD.Studio.Bus music;
+    private FMOD.Studio.Bus sfx;
+    private FMOD.Studio.Bus player;
+    private FMOD.Studio.Bus creatures;
+
+    private void Awake()
+    {
+        master = FMODUnity.RuntimeManager.GetBus("bus:/Master_2");
+        music = FMODUnity.RuntimeManager.GetBus("bus:/Master_2/Music");
+        sfx = FMODUnity.RuntimeManager.GetBus("bus:/Master_2/SFX");
+        player = FMODUnity.RuntimeManager.GetBus("bus:/Master_2/Player");
+        creatures = FMODUnity.RuntimeManager.GetBus("bus:/Master_2/Creatures");
+    }
+
     public void Start()
     {
         SetSavedVol();
@@ -53,34 +68,39 @@ public class AudioLevels : MonoBehaviour
 
     public void SetMasterVol(float vol)
     {
-        masterMixer.SetFloat("masterVol", Mathf.Log10(vol) * 40f);
+        //masterMixer.SetFloat("masterVol", Mathf.Log10(vol) * 40f);
+        master.setVolume(vol);
         masterVol = vol;
     }
 
     public void SetMusicVol(float vol)
     {
-        masterMixer.SetFloat("musicVol", Mathf.Log10(vol) * 40f);
+        //masterMixer.SetFloat("musicVol", Mathf.Log10(vol) * 40f);
+        music.setVolume(vol);
         musicVol = vol;
     }
 
     public void SetSfxVol(float vol)
     {
-        masterMixer.SetFloat("sfxVol", Mathf.Log10(vol) * 40f);
+        //masterMixer.SetFloat("sfxVol", Mathf.Log10(vol) * 40f);
+        sfx.setVolume(vol);
         sfxVol = vol;
     }
     public void SetAmbientVol(float vol)
     {
-        masterMixer.SetFloat("ambientVol", Mathf.Log10(vol) * 40f);
-        ambientVol = vol;
+        //masterMixer.SetFloat("ambientVol", Mathf.Log10(vol) * 40f);
+        //ambientVol = vol;
     }
     public void SetPlayerVol(float vol)
     {
-        masterMixer.SetFloat("playerVol", Mathf.Log10(vol) * 40f);
+        //masterMixer.SetFloat("playerVol", Mathf.Log10(vol) * 40f);
+        player.setVolume(vol);
         playerVol = vol;
     }
     public void SetCreaturesVol(float vol)
     {
-        masterMixer.SetFloat("creatureVol", Mathf.Log10(vol) * 40f);
+        //masterMixer.SetFloat("creatureVol", Mathf.Log10(vol) * 40f);
+        creatures.setVolume(vol);
         creatureVol = vol;
     }
 }

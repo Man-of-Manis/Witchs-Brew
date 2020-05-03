@@ -101,10 +101,12 @@ public class PlayerMixamoController : MonoBehaviour
 
     void FixedUpdate()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.K))
         {
             SetPlayerRotation(90f, Vector3.zero);
         }
+        */
         //Movement();
         CalculateForwardMovement();
         CalculateVerticalMovement();

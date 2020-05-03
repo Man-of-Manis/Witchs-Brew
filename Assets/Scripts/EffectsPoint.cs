@@ -108,7 +108,7 @@ public class EffectsPoint : MonoBehaviour
             }
         }
 
-        if (collision.gameObject != this.gameObject && burn != null && !burn.EnableBurn)
+        if (collision.gameObject != this.gameObject && burn != null && !burn.EnableBurn && OnFire)
         {
             burn.EnableBurn = true;            
         }

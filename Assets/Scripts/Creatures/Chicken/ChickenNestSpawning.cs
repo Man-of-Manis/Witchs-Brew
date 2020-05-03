@@ -27,6 +27,7 @@ public class ChickenNestSpawning : MonoBehaviour
                 if (spawnedChickens[i] == null)
                 {
                     //Chicken Respawning sound (OneShot)
+                    FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.chicken.chickenEggCrack, gameObject);
 
                     spawnedChickens[i] = Instantiate(chickenPrefab, spawnPoint.position, Quaternion.identity);
                     spawnedChickens[i].GetComponent<Rigidbody>().AddForce(

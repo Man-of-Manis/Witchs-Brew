@@ -102,7 +102,7 @@ public class UtilityController : MonoBehaviour
                 }
             }
 
-            else if(m_Input.Button2) //Pickup or Drop pickup object
+            else if(m_Input.Button2 && !satchel.SatchelOpen) //Pickup or Drop pickup object
             {
                 pickup.BoxCast();
             }
@@ -167,6 +167,7 @@ public class UtilityController : MonoBehaviour
                 else
                 {
                     //Do Nothing
+                    HideArcThrow();
                 }
                 
             }
@@ -181,6 +182,7 @@ public class UtilityController : MonoBehaviour
                 else
                 {
                     //Do Nothing
+                    HideArcThrow();
                 }
             }
         }
@@ -190,7 +192,7 @@ public class UtilityController : MonoBehaviour
             JumpPotion();
         }
 
-        else if (m_Input.Button2) //Pickup or Drop pickup object
+        else if (m_Input.Button2 && !satchel.SatchelOpen) //Pickup or Drop pickup object
         {
             pickup.BoxCast();
         }
@@ -427,40 +429,42 @@ public class UtilityController : MonoBehaviour
     /// <param name="vel">The velocity to launch the object with.</param>
     private void PotionThrow(GameObject[] prefabType, GameObject[] instType, Transform pouch, int releaseType, Vector3 vel)
     {
-        Rigidbody obj = instType[currentSelectedPotion].GetComponent<Rigidbody>();
-        instType[currentSelectedPotion] = null;
-        obj.transform.SetParent(null);
-        obj.isKinematic = false;
-        obj.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-        obj.velocity = vel;
-
-        obj.AddRelativeTorque(new Vector3(0f, 0f, UnityEngine.Random.Range(-2f, 2f)), ForceMode.Impulse);
-
-        obj.GetComponentInChildren<PotionBreak>().EnablePotion();
-        if (obj.GetComponent<WhitePotionEffect>())
+        if(instType[currentSelectedPotion] != null)
         {
-            obj.GetComponent<WhitePotionEffect>().forceMultiplier = pStrength.Velocity;
+            Rigidbody obj = instType[currentSelectedPotion].GetComponent<Rigidbody>();
+            instType[currentSelectedPotion] = null;
+            obj.transform.SetParent(null);
+            obj.isKinematic = false;
+            obj.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            obj.velocity = vel;
+
+            obj.AddRelativeTorque(new Vector3(0f, 0f, UnityEngine.Random.Range(-2f, 2f)), ForceMode.Impulse);
+
+            obj.GetComponentInChildren<PotionBreak>().EnablePotion();
+            if (obj.GetComponent<WhitePotionEffect>())
+            {
+                obj.GetComponent<WhitePotionEffect>().forceMultiplier = pStrength.Velocity;
+            }
+
+            switch (releaseType)
+            {
+                case 0:
+                    obj.GetComponent<PotionBreak>().SetBreak(true);
+                    break;
+                case 1:
+                    obj.GetComponent<PotionBreak>().DelayBreak();
+                    break;
+                case 2:
+                    obj.GetComponent<PotionBreak>().InstantBreak();
+                    break;
+
+            }
+
+            obj = null;
+
+            itemCon.Potions(currentSelectedPotion, -1);
+            StartCoroutine(InstantiateItem(1, currentSelectedPotion, prefabType, instType, pouch));
         }
-
-        switch (releaseType)
-        {
-            case 0:
-                obj.GetComponent<PotionBreak>().SetBreak(true);
-                break;
-            case 1:
-                obj.GetComponent<PotionBreak>().DelayBreak();
-                break;
-            case 2:
-                obj.GetComponent<PotionBreak>().InstantBreak();
-                break;
-
-        }
-
-
-        obj = null;
-
-        itemCon.Potions(currentSelectedPotion, -1);
-        StartCoroutine(InstantiateItem(1, currentSelectedPotion, prefabType, instType, pouch));
     }
 
     /// <summary>

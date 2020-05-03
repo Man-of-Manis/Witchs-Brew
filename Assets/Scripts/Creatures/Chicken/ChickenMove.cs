@@ -52,6 +52,7 @@ public class ChickenMove : Creatures
         stunned = true;
 
         //Chicken Launch sound here (OneShot)
+        FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.chicken.chickenHurt, gameObject);
 
         yield return new WaitUntil(() => grounded);
         yield return new WaitForSeconds(duration);

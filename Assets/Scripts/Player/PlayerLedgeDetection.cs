@@ -78,6 +78,7 @@ public class PlayerLedgeDetection : MonoBehaviour
 
     private void LedgeJump(RaycastHit ledgeHit)
     {
+        FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.witchMovement.witchLedgeGrab, gameObject);
         controller.m_VerticalSpeed = jumpSpeed;
         usedLedgeJump = true;
         Debug.Log("Grabbed ledge: " + ledgeHit.collider.name);
