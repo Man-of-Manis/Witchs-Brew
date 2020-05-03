@@ -17,6 +17,14 @@ public class PotionBreak : MonoBehaviour
     [SerializeField] private ParticleSystem smoke;
     [SerializeField] private ParticleSystem trail;
 
+    private FMODUnity.StudioEventEmitter eventEmitterRef; //Grant was here
+
+    void Awake()
+    {
+        eventEmitterRef = GetComponent<FMODUnity.StudioEventEmitter>(); //Grant was here
+    }
+
+
     private void OnCollisionEnter(Collision collision)
     {
         if (Break)
@@ -71,6 +79,7 @@ public class PotionBreak : MonoBehaviour
     private void PotionEffect(Vector3 point)
     {
         //Potion break here (OneShot)
+        eventEmitterRef.Play(); //Grant Was Here
 
         ColliderLoop(point, smallRadius, SmallLayer, true);
         ColliderLoop(point, largeRadius, LargeLayer, false);
