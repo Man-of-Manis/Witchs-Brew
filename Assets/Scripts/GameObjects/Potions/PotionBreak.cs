@@ -84,7 +84,7 @@ public class PotionBreak : MonoBehaviour
     {
         //Potion break here (OneShot)
         //eventEmitterRef.Play(); //Grant Was Here
-        FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.objects.potionBreak, gameObject);
+        FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.smallObjects.potionBreak, gameObject);
 
         ColliderLoop(point, smallRadius, SmallLayer, true);
         ColliderLoop(point, largeRadius, LargeLayer, false);
