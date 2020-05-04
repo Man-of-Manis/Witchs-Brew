@@ -32,6 +32,8 @@ public class ChickenMove : Creatures
         IsFrozen();
 
         IsIdle();
+
+        CreatureFootsteps();
     }
 
     void FixedUpdate()
@@ -52,7 +54,8 @@ public class ChickenMove : Creatures
         stunned = true;
 
         //Chicken Launch sound here (OneShot)
-        FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.chicken.chickenHurt, gameObject);
+        Debug.Log("Chicken stunned");
+        FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.chicken.chickenLaunch, gameObject);
 
         yield return new WaitUntil(() => grounded);
         yield return new WaitForSeconds(duration);

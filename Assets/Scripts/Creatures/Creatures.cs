@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CreatureType { Turtle, Chicken };
+
 public class Creatures : MonoBehaviour
 {
-    public enum CreatureType { Turtle, Chicken};
+    
     public enum ElementalState { Normal, Elemental};
     public enum MovementType { Stationary, Mobile };
 
+    [Header("Types")]
     public CreatureType creature;
     public ElementalState elementState;
     public ElementalState prevElementState;
 
     [SerializeField] protected MovementType movementType;
 
+    [Header("Movement")]
     public float movementSpeed = 1f;
-
     protected float minRotationSpeed = 360f;
     protected float maxRotationSpeed = 1440f;
     [SerializeField] protected float degreeRotationSpeed = 1440f;
@@ -23,16 +26,22 @@ public class Creatures : MonoBehaviour
 
     protected int currentNode = 0;
     protected bool nodeDirection = true;
+
     [Range(0,100)]
     [SerializeField] protected int idleChance;
     [SerializeField] protected float idlePathDist = 8f;
     protected float idleDestroyTimer = 0;
     private float idleDestroyTimeLimit = 15f;
-
     [SerializeField] protected float deathVelocity = 15f;
     [SerializeField] protected bool grounded = false;
     protected bool prevGrounded = false;
     [SerializeField] protected bool stunned = false;
+
+    [Header("Sounds")]
+    [SerializeField] protected float footstepRepeatRate = 0.75f;
+    protected float wingFlapRate = 0.5f;
+
+    [Header("References")]
     [SerializeField] protected Animator anim;
     [SerializeField] protected LayerMask groundedMask;
     protected EffectsPoint ePoint;
@@ -48,6 +57,8 @@ public class Creatures : MonoBehaviour
 
     [SerializeField] protected Rigidbody rb;
     protected Coroutine co;
+    protected Coroutine footstepsCo;
+    protected Coroutine wingFlapCo;
 
     /// <summary>
     /// Finds the creature's mesh transform for rotation.
@@ -312,6 +323,9 @@ public class Creatures : MonoBehaviour
         grounded = Physics.BoxCast(transform.position, new Vector3(0.5f, 0.05f, 0.5f), -Vector3.up, out RaycastHit hit, Quaternion.identity, 0.45f, groundedMask);
     }
 
+    /// <summary>
+    /// If creature velocity is greater than death velocity, damages creature.
+    /// </summary>
     protected void FallDamage()
     {
         if(!prevGrounded && grounded && rb.velocity.magnitude >= deathVelocity)
@@ -338,7 +352,18 @@ public class Creatures : MonoBehaviour
         if (anim != null)
         {
             anim.SetBool("flying", !grounded);
-        }        
+        }     
+        
+        if(creature == CreatureType.Chicken)
+        {
+            if(!grounded)
+            {
+                if (wingFlapCo == null)
+                {
+                    wingFlapCo = StartCoroutine(WingFlap());
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -352,6 +377,9 @@ public class Creatures : MonoBehaviour
         }        
     }
 
+    /// <summary>
+    /// If the creature is idle for too long, despawns the creature.
+    /// </summary>
     protected void IsIdle()
     {
         if(idling)
@@ -366,6 +394,37 @@ public class Creatures : MonoBehaviour
         else
         {
             idleDestroyTimer = 0f;
+        }
+    }
+
+    /// <summary>
+    /// Plays creature's footstep sounds.
+    /// </summary>
+     virtual protected void CreatureFootsteps()
+    {
+        if(!stunned && !idling && grounded)
+        {
+            if(footstepsCo == null)
+            {
+                footstepsCo = StartCoroutine(Footsteps());
+            }
+        }  
+    }
+
+    /// <summary>
+    /// Gets this creature's foodstep sounds.
+    /// </summary>
+    /// <returns></returns>
+    private string FootstepsType()
+    {
+        switch (creature)
+        {
+            case CreatureType.Chicken:
+                return AudioEvents.Instance.chicken.chickenFootsteps;
+            case CreatureType.Turtle:
+                return AudioEvents.Instance.turtle.turtleFootsteps;
+            default:
+                return "";
         }
     }
 
@@ -422,5 +481,19 @@ public class Creatures : MonoBehaviour
         }
 
         co = null;
+    }
+
+    protected IEnumerator Footsteps()
+    {
+        FMODUnity.RuntimeManager.PlayOneShotAttached(FootstepsType(), gameObject);
+        yield return new WaitForSeconds(footstepRepeatRate);
+        footstepsCo = null;
+    }
+
+    private IEnumerator WingFlap()
+    {
+        FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.chicken.chickenWingFlap, gameObject);
+        yield return new WaitForSeconds(wingFlapRate);
+        wingFlapCo = null;
     }
 }

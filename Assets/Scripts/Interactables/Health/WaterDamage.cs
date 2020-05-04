@@ -21,7 +21,7 @@ public class WaterDamage : MonoBehaviour
             item.Killbox();
         }
     }
-
+    /*
     private void OnTriggerStay(Collider other)
     {
         IDamagable damagable = other.GetComponent<IDamagable>();
@@ -37,4 +37,5 @@ public class WaterDamage : MonoBehaviour
             item.Killbox();
         }
     }
+    */
 }

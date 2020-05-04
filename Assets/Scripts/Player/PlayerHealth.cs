@@ -44,7 +44,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     {
         eventEmitterRef = GetComponent<FMODUnity.StudioEventEmitter>(); //Grant was here
     }
-
+    /*
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.K))
@@ -52,7 +52,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.witchHealth.witchHurt, gameObject);
         }
     }
-
+    */
     public int Health
     {
         get

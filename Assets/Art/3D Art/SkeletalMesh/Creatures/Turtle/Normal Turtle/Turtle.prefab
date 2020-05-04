@@ -57763,6 +57763,7 @@ MonoBehaviour:
   deathVelocity: 10
   grounded: 0
   stunned: 0
+  footstepRepeatRate: 1
   anim: {fileID: 0}
   groundedMask:
     serializedVersion: 2
@@ -57830,6 +57831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba49bdf3d22f18b40ba5dea5c3917353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creature: 0
   currentHealth: 1
 --- !u!1 &9221217587085941334
 GameObject:

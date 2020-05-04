@@ -46,6 +46,8 @@ public class TurtleMove : Creatures
         PlayerDetected();
 
         IsIdle();
+
+        CreatureFootsteps();
     }
 
     void FixedUpdate()
@@ -128,6 +130,20 @@ public class TurtleMove : Creatures
         {
             GetComponent<IceTurtleAttack>().EnableBeam = false;
             prevPlayerDetected = playerDetected;
+        }
+    }
+
+    /// <summary>
+    /// Plays creature's footstep sounds.
+    /// </summary>
+    protected override void CreatureFootsteps()
+    {
+        if (!stunned && !idling && !playerDetected && grounded)
+        {
+            if (footstepsCo == null)
+            {
+                footstepsCo = StartCoroutine(Footsteps());
+            }
         }
     }
 }

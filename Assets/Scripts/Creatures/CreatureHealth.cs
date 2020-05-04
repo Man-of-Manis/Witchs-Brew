@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class CreatureHealth : MonoBehaviour, IDamagable
 {
+    [SerializeField] private CreatureType creature;
     [SerializeField] private int currentHealth = 1;
 
     public void HealthChange(int damage)
     {
         if(currentHealth + damage <= 0)
         {
+            Debug.Log(creature.ToString() + " death");
+            FMODUnity.RuntimeManager.PlayOneShot(CreatureSound(), transform.position);
             Destroy(this.gameObject);
         }
     }
@@ -20,7 +23,22 @@ public class CreatureHealth : MonoBehaviour, IDamagable
 
         if (currentHealth + damage <= 0)
         {
+            Debug.Log(creature.ToString() + " death");
+            FMODUnity.RuntimeManager.PlayOneShot(CreatureSound(), transform.position);
             Destroy(this.gameObject);
+        }
+    }
+
+    private string CreatureSound()
+    {
+        switch(creature)
+        {
+            case CreatureType.Chicken:
+                return AudioEvents.Instance.chicken.chickenDeath;
+            case CreatureType.Turtle:
+                return AudioEvents.Instance.turtle.turtleDeath;
+            default:
+                return "";
         }
     }
 }

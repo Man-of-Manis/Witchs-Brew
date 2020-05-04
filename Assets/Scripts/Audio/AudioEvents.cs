@@ -39,7 +39,8 @@ public class AudioEvents : MonoBehaviour
     public struct Chicken
     {
         public string chickenCluck;
-        public string chickenHurt;
+        public string chickenLaunch;
+        public string chickenDeath;
         public string chickenWingFlap;
         public string chickenFootsteps;
         public string chickenEggCrack;
@@ -52,6 +53,8 @@ public class AudioEvents : MonoBehaviour
         public string turtleBeamShoot;
         public string turtleBeamCooldown;
         public string turtleGrunt;
+        public string turtleHurt;
+        public string turtleDeath;
         public string turtleFootsteps;
     }
 

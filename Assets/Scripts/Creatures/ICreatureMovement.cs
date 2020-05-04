@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class ICreatureMovement
 {
-    public Creatures.CreatureType creature;
+    public CreatureType creature;
 
     public abstract void Movement();
     public abstract void Rotation();
