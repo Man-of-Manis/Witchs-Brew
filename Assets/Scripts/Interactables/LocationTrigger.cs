@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TriggerTimes { Once, Always};
 public class LocationTrigger : MonoBehaviour
 {
     [Header("Area Location")]
     public string setLocation;
     public Vector3 locationArea = Vector3.one * 2f;
-
+    [SerializeField] private TriggerTimes triggerAmount;
     private BoxCollider areaTrigger;
+    private bool triggered;
 
     private void OnValidate()
     {
@@ -20,7 +22,14 @@ public class LocationTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        GameManager.Instance.UIManager.GetComponent<LocationUI>().Location = setLocation;
+        if(other.CompareTag("Player"))
+        {
+            if((!triggered && triggerAmount == TriggerTimes.Once) || (triggerAmount == TriggerTimes.Always))
+            {
+                GameManager.Instance.UIManager.GetComponent<LocationUI>().Location = setLocation;
+                triggered = true;
+            }            
+        }        
     }
 
     private void OnDrawGizmos()

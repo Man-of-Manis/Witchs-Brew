@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class CameraCollision : MonoBehaviour
 {
     public float aMinDistance = 1.0f;
@@ -26,14 +26,20 @@ public class CameraCollision : MonoBehaviour
     public float sphereRadius = 0.5f;
     public LayerMask layer;
 
-    // Start is called before the first frame update
+    public bool InCinematic
+    {
+        get { return cinematicUse; }
+        set { cinematicUse = value; }
+    }
+    [SerializeField] private bool cinematicUse;
+
     void Awake()
     {
         dollyDir = transform.localPosition.normalized;
         aDistance = transform.localPosition.magnitude;
     }
 
-    private void Start()
+    void Start()
     {
         brain = gameObject.GetComponent<CinemachineBrain>();
 
@@ -42,9 +48,16 @@ public class CameraCollision : MonoBehaviour
             CMCameras[i] = cameras[i].GetComponent<ICinemachineCamera>();
         }
     }
-
-    // Update is called once per frame
+    
     void Update()
+    {
+        if(!InCinematic)
+        {
+            PositionUpdater();
+        }        
+    }
+
+    private void PositionUpdater()
     {
         aDistance = CameraDistance(cameras[0], aMinDistance, aMaxDistance);
 

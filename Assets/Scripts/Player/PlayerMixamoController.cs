@@ -63,7 +63,6 @@ public class PlayerMixamoController : MonoBehaviour
 
     //-----------------------------------------------------------------------------------------------
 
-    // Start is called before the first frame update
     void Awake()
     {
         m_Input = GetComponent<PlayerInput>();
@@ -82,7 +81,6 @@ public class PlayerMixamoController : MonoBehaviour
         SetPlayerRotation(transform.localEulerAngles.y, transform.localPosition);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.L))

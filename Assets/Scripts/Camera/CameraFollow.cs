@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class CameraFollow : MonoBehaviour
 {
     [Header("Properties")]
@@ -37,23 +37,28 @@ public class CameraFollow : MonoBehaviour
     public GameObject playerObj;
     private PlayerInput m_Input;
 
+    [Header("References")]
+    [SerializeField] private CameraCollision cCollision;
+
     void Awake()
     {
         m_Input = FindObjectOfType<PlayerInput>();
+        cCollision = GetComponentInChildren<CameraCollision>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        cameraFollowObj = GameManager.Instance.player.transform.Find("COM_Target");
+        playerObj = GameManager.Instance.player;
+
         Vector3 cameraRot = transform.localRotation.eulerAngles;
+
         if(playerObj != null)
         {
             Vector3 playerRot = playerObj.transform.localRotation.eulerAngles;
             rotY = playerRot.y;
         }
-
-        cameraFollowObj = GameManager.Instance.player.transform.Find("COM_Target");
-
 
         rotX = cameraRot.x;
 
@@ -68,10 +73,32 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
+    void LateUpdate()
+    {
+        if(!cCollision.InCinematic)
+        {
+            PlayerInputs();
+            AimingSide();
+            CameraUpdater();
+        }        
+    }
+
+    public void PlayerReset(float y)
+    {
+        rotY = y;
+        rotX = 0f;
+    }
+
+    public void EditCameraMove(Vector3 pos, float yRot)
+    {
+        transform.position = (pos + cameraOffset);
+        transform.rotation = Quaternion.Euler(0f, yRot, 0f);
+    }
+
     void PlayerInputs()
     {
-        
-        if(useMouse)
+
+        if (useMouse)
         {
             mouse.x = Input.GetAxis("Mouse X");
             mouse.y = Input.GetAxis("Mouse Y");
@@ -83,7 +110,7 @@ public class CameraFollow : MonoBehaviour
             RStick.x = moveInput.x;
             RStick.y = moveInput.y;
         }
-        
+
         /*
         mouse.x = Input.GetAxis("Mouse X");
         mouse.y = Input.GetAxis("Mouse Y");
@@ -111,25 +138,6 @@ public class CameraFollow : MonoBehaviour
         */
     }
 
-    void LateUpdate()
-    {
-        PlayerInputs();
-        AimingSide();
-        CameraUpdater();
-    }
-
-    public void PlayerReset(float y)
-    {
-        rotY = y;
-        rotX = 0f;
-    }
-
-    void CameraUpdater()
-    {
-        float step = cameraMoveSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, cameraFollowObj.position + cameraOffset, step);
-    }
-
     void AimingSide()
     {
         if(m_Input.SwitchAimSide)
@@ -137,5 +145,11 @@ public class CameraFollow : MonoBehaviour
             rightCam.SetActive(!rightCam.activeSelf);
             Debug.Log("Aiming cam has swapped sides.");
         }
+    }
+
+    void CameraUpdater()
+    {
+        float step = cameraMoveSpeed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, cameraFollowObj.position + cameraOffset, step);
     }
 }
