@@ -5,7 +5,7 @@
 			<value>Witch Hurt</value>
 		</property>
 		<relationship name="folder">
-			<destination>{10626052-c98b-4665-b391-646f2512cecd}</destination>
+			<destination>{ef19f0c8-3085-4a4b-8c50-a124a5408cc4}</destination>
 		</relationship>
 	</object>
 </objects>
