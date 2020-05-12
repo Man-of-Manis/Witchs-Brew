@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathType: 0
-  creaturePath: 0
+  creaturePathType: 0
+  prevCreaturePathType: 0
   nodeColor: 7
   loopPathing: 1
   pathNodes: []

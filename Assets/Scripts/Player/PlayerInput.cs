@@ -256,11 +256,12 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
         GetInputs();
-
+        /*
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
+        */
     }
 
     private void GetInputs()

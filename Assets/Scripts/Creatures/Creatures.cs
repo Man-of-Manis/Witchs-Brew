@@ -424,7 +424,7 @@ public class Creatures : MonoBehaviour
             case CreatureType.Turtle:
                 return AudioEvents.Instance.turtle.turtleFootsteps;
             default:
-                return "";
+                return null;
         }
     }
 

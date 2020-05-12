@@ -19,6 +19,11 @@ public class NodePathingEditor : Editor
 
         NodePathing nodePath = (NodePathing)target;
 
+        if(nodePath.creaturePathType != nodePath.prevCreaturePathType)
+        {
+            nodePath.ChangeTag();
+        }
+
         if (nodePath.pathType == NodePathing.PathingType.Line)
         {
             GUILayout.BeginHorizontal();
