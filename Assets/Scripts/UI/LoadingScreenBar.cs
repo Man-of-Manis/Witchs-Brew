@@ -6,20 +6,38 @@ using UnityEngine.SceneManagement;
 
 public class LoadingScreenBar : MonoBehaviour
 {
-    public Image bar;
+    [SerializeField] private Animator LevelFadeAnim;
+    [SerializeField] private Animator LoadingIconAnim;
+    [SerializeField] private Image LoadingIconImage;
+    [SerializeField] private float levelLoadDelay = 0.25f;
+    [SerializeField] private float LoadingIconFadeTime = 0.2f;
 
-    public TMPro.TMP_Text text;
+    public static LoadingScreenBar loadingScreen;
 
-    [SerializeField] private float levelLoadDelay = 3f;
+    private int levelIndexToLoad = 0;
 
-    public void Start()
+    private Coroutine LoadingIconCo;
+
+    public void Awake()
     {
-        LoadLevel(1);
+        if(loadingScreen != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        loadingScreen = this;
     }
 
     public void LoadLevel(int sceneIndex)
     {
-        StartCoroutine(LoadAsynchronously(sceneIndex));
+        levelIndexToLoad = sceneIndex;
+        LevelFadeAnim.SetTrigger("FadeOut");
+    }
+
+    public void AnimationLevelLoad()
+    {
+        StartCoroutine(LoadAsynchronously(levelIndexToLoad));
     }
 
     IEnumerator LoadAsynchronously(int sceneIndex)
@@ -34,16 +52,7 @@ public class LoadingScreenBar : MonoBehaviour
 
         while (!load)
         {
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
-
-            if(bar != null && text != null)
-            {
-                bar.fillAmount = progress;
-
-                text.text = Mathf.RoundToInt( progress * 100f) + "%";
-            }       
-            
-            if(operation.progress >= 0.9f)
+            if (operation.progress >= 1.0f)
             {
                 load = true;
             }
@@ -54,5 +63,14 @@ public class LoadingScreenBar : MonoBehaviour
         yield return new WaitForSeconds(levelLoadDelay);
 
         operation.allowSceneActivation = true;
+    }
+
+    IEnumerator FadeLoadingIcon(bool fadeIn)
+    {
+        for(float i = 0f; i < 1f; i += Time.deltaTime * (1f / LoadingIconFadeTime))
+        {
+
+            yield return null;
+        }
     }
 }
