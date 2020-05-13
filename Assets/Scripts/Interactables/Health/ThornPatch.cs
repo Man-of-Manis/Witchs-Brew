@@ -11,14 +11,21 @@ public class ThornPatch : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         IDamagable damageable = other.GetComponent<IDamagable>();
+        IItems item = other.GetComponent<IItems>();
 
-        if(damageable != null)
+        if (damageable != null)
         {
             damageable.HealthChange(-thornDamage, 
                 Witch.GetFlatDirection(other.transform.position, transform.position), false);
         }
+
+        if(item != null)
+        {
+            item.Killbox();
+        }
     }
 
+    /*
     private void OnTriggerStay(Collider other)
     {
         IDamagable damageable = other.GetComponent<IDamagable>();
@@ -29,6 +36,7 @@ public class ThornPatch : MonoBehaviour
                 Witch.GetFlatDirection(other.transform.position, transform.position), false);
         }
     }
+    */
 
     private void OnDrawGizmos()
     {

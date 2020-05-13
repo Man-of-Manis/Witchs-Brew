@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8228614296891348688}
   - component: {fileID: -6859187032800533998}
   m_Layer: 29
-  m_Name: P_Interactable_SpecialCube_Blue
+  m_Name: P_Interactable_KeyCube_Blue
   m_TagString: SpecialCube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -51,4 +51,20 @@ public class Elevator : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x, Mathf.SmoothStep((direction ? startHeight : endHeight), (direction ? endHeight : startHeight), timer), transform.position.z);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player") || other.CompareTag("SpecialCube") || other.CompareTag("Turtle") || other.CompareTag("Chicken"))
+        {
+            EnableElevator = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player") || other.CompareTag("SpecialCube") || other.CompareTag("Turtle") || other.CompareTag("Chicken"))
+        {
+            EnableElevator = true;
+        }
+    }
 }
