@@ -7,15 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Priority: 2, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Priority: 3, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-<<<<<<< HEAD
-<<<<<<< HEAD
-[LOG] AsyncManager::init                       : manager 000002E8A2F2DD18 isAsync 0 updatePeriod 0.02
-=======
-[LOG] AsyncManager::init                       : manager 00000264DD376128 isAsync 0 updatePeriod 0.02
->>>>>>> 71afd4b1bad431c307eafa70f6548e10fcebfa5d
-=======
-[LOG] AsyncManager::init                       : manager 0000023B35C4CCE8 isAsync 0 updatePeriod 0.02
->>>>>>> Main_Menu
+[LOG] AsyncManager::init                       : manager 0000022E11083038 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Priority: 0, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -33,78 +25,3 @@
 [LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
 [LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
 [LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
-<<<<<<< HEAD
-<<<<<<< HEAD
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 3079392
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 44672
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000F9666FF55C
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFC75FBC320
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFC75FBC2F0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFC75FBC3F0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFC75FBC4B0
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000002E8A13CA0D8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Chicken_WingFlap_1', format=2, channels=2, frequency=48000, lengthbytes=14304, lengthpcm=62076, pcmblocksize=0, loopstart=0, loopend=61844, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.487152.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 3079392
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 44672
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000F9666FF55C
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFC75FBC320
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFC75FBC2F0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFC75FBC3F0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFC75FBC4B0
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000002E8A13CA0D8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Chicken_WingFlap_2', format=2, channels=2, frequency=48000, lengthbytes=15168, lengthpcm=62538, pcmblocksize=0, loopstart=0, loopend=61845, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.407013.
-[LOG] SoundI::release                          :  (000002E97BA13D08)
-[LOG] SoundI::release                          :     CHICKEN. egg crack_2 (000002E8A1E09598)
-[LOG] SoundI::release                          :  (000002E97BA11BF8)
-[LOG] SoundI::release                          :     CHICKEN. egg crack_3 (000002E8A0902A98)
-[LOG] SoundI::release                          :  (000002E97BA14FB8)
-[LOG] SoundI::release                          :     CHICKEN. egg crack_1 (000002E8A09032B8)
-[LOG] SoundI::release                          :  (000002E97BA142C8)
-[LOG] SoundI::release                          :     Chicken_WingFlap_2 (000002E8A80E5F58)
-[LOG] SoundI::release                          :  (000002E97BA11D68)
-[LOG] SoundI::release                          :     Chicken_WingFlap_1 (000002E8A80E2CF8)
-[LOG] SoundI::release                          :  (000002E97BA14E48)
-[LOG] SoundI::release                          :     PotionBreak_1 (000002E8A1E093F8)
-[LOG] SoundI::release                          :  (000002E97BA13E78)
-[LOG] SoundI::release                          :     PotionBreak_2 (000002E8A1E09738)
-[LOG] SoundI::release                          :  (000002E97BA12778)
-[LOG] SoundI::release                          :     PotionBreak_3 (000002E8A1E098D8)
-[LOG] SoundI::release                          :  (000002E97BA13FE8)
-[LOG] SoundI::release                          :     PotionBreak_4 (000002E8A0903458)
-[LOG] SoundI::release                          :  (000002E88D0CD768)
-[LOG] SoundI::release                          :     CHICKEN_walk (000002E88D455738)
-[LOG] Thread::callback                         : FMOD Studio update thread finished.
-[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
-[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
-[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
-[LOG] LiveUpdate::release                      : 
-[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
-[LOG] Thread::callback                         : FMOD stream thread finished.
-[LOG] Thread::callback                         : FMOD mixer thread finished.
-[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
-[LOG] SystemI::close                           : Closed.
-=======
->>>>>>> 71afd4b1bad431c307eafa70f6548e10fcebfa5d
-[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
-[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
-[LOG] LiveUpdate::release                      : 
-[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
-[LOG] Thread::callback                         : FMOD stream thread finished.
-[LOG] Thread::callback                         : FMOD mixer thread finished.
-[LOG] SystemI::close                           : Closed.
-=======
->>>>>>> Main_Menu
