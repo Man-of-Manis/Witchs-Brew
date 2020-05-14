@@ -831,6 +831,9 @@ public class LevelDesignerTool : EditorWindow
                 {
                     //Creates new object, but loses prefab references if any
                     instantiated = Instantiate(Selection.gameObjects[duplicationIndex[i]]);
+
+                    //Checks if there are any prefabs in the children
+                    ChildGO(instantiated, Selection.gameObjects[duplicationIndex[i]]);
                 }
 
                 Undo.RegisterCreatedObjectUndo(instantiated, "Created " + "Duplicate");
@@ -874,7 +877,7 @@ public class LevelDesignerTool : EditorWindow
 
                 #region Position
                 instantiated.transform.position = Selection.gameObjects[duplicationIndex[i]].transform.position;
-
+                instantiated.transform.rotation = Selection.gameObjects[duplicationIndex[i]].transform.rotation;
                 if (useOffset)
                 {
                     //parent.transform.position += positionOffset;
@@ -885,15 +888,18 @@ public class LevelDesignerTool : EditorWindow
                     }
                     else
                     {
-                        instantiated.transform.localPosition += (Quaternion.Euler(instantiated.transform.localEulerAngles) * (Vector3.right * positionOffset.x));
-                        instantiated.transform.localPosition += (Quaternion.Euler(instantiated.transform.localEulerAngles) * (Vector3.up * positionOffset.y));
-                        instantiated.transform.localPosition += (Quaternion.Euler(instantiated.transform.localEulerAngles) * (Vector3.forward * positionOffset.z));
+                        //instantiated.transform.localPosition += (Quaternion.Euler(instantiated.transform.localEulerAngles) * (Vector3.right * positionOffset.x));
+                        //instantiated.transform.localPosition += (Quaternion.Euler(instantiated.transform.localEulerAngles) * (Vector3.up * positionOffset.y));
+                        //instantiated.transform.localPosition += (Quaternion.Euler(instantiated.transform.localEulerAngles) * (Vector3.forward * positionOffset.z));
+                        instantiated.transform.position += instantiated.transform.right * positionOffset.x;
+                        instantiated.transform.position += instantiated.transform.up * positionOffset.y;
+                        instantiated.transform.position += instantiated.transform.forward * positionOffset.z;
                     }                    
                 }                
                 #endregion
 
                 #region Rotation
-                instantiated.transform.rotation = Selection.gameObjects[duplicationIndex[i]].transform.rotation;
+                //instantiated.transform.rotation = Selection.gameObjects[duplicationIndex[i]].transform.rotation;
 
                 if (useOffset)
                 {
@@ -1082,6 +1088,54 @@ public class LevelDesignerTool : EditorWindow
         
 
         GUILayout.EndArea();
+    }
+
+    private void ChildGO(GameObject instantiatedGO, GameObject originalGO)
+    {
+        GameObject[] currentArrayGO = new GameObject[originalGO.transform.childCount];
+
+        for (int i = 0; i < originalGO.transform.childCount; i++)
+        {
+            currentArrayGO[i] = instantiatedGO.transform.GetChild(i).gameObject;
+        }
+
+        for (int i = 0; i < originalGO.transform.childCount; i++)
+        {
+            Object prefab;
+            GameObject inst;
+
+            //Get child GameObject
+            prefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource(originalGO.transform.GetChild(i).gameObject);
+
+            //Checks if object is a prefab or not
+            if (prefab != null)
+            {
+                //Creates new object with Prefab references intact
+                inst = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+
+                inst.name = originalGO.transform.GetChild(i).name;
+
+                inst.transform.parent = instantiatedGO.transform;
+
+
+                Vector3 position = currentArrayGO[i].transform.position;
+                Quaternion rotation = currentArrayGO[i].transform.rotation;
+                Vector3 scale = currentArrayGO[i].transform.localScale;
+
+                inst.transform.position = position;
+                inst.transform.rotation = rotation;
+                inst.transform.localScale = scale;
+
+
+                //Debug.Log("Destroying: " + instantiatedGO.transform.GetChild(i).gameObject.name);
+                DestroyImmediate(currentArrayGO[i]);
+            }
+
+            else
+            {
+                ChildGO(instantiatedGO.transform.GetChild(i).gameObject, originalGO.transform.GetChild(i).gameObject);
+            }
+        }
     }
 
     public static Rect DrawSection(float x, float y, float width, float height, Color color)

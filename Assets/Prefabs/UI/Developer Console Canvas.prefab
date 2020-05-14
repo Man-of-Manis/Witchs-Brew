@@ -1110,8 +1110,8 @@ MonoBehaviour:
   autoCompleteStrings: []
   autoCompleteSelection: 0
   autoCompleteArgs: []
-  EnableLogging: 0
-  EnableUnityLogging: 1
+  EnableLogging: 1
+  EnableUnityLogging: 0
   currentlogs:
     Error: 1
     Assert: 1

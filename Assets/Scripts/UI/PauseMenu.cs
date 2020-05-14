@@ -22,13 +22,13 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
+        
         if(PlayerInput.Instance.Menu)
         {
             pauseMenuParent.SetActive(!pauseMenuParent.activeSelf);
             pauseMenu.SetActive(true);
         }
-        */
+        
     }
 
     public void Quit()

@@ -27,7 +27,8 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         /// </summary>
         public override string RunCommand()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            LoadingScreenBar.Instance.LoadLevel(1);
             return Execution;
         }
 

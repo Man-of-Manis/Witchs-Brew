@@ -8,10 +8,14 @@
 [LOG] Thread::initThread                       : Init FMOD stream thread. Priority: 2, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Priority: 3, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
 <<<<<<< HEAD
+<<<<<<< HEAD
 [LOG] AsyncManager::init                       : manager 000002E8A2F2DD18 isAsync 0 updatePeriod 0.02
 =======
 [LOG] AsyncManager::init                       : manager 00000264DD376128 isAsync 0 updatePeriod 0.02
 >>>>>>> 71afd4b1bad431c307eafa70f6548e10fcebfa5d
+=======
+[LOG] AsyncManager::init                       : manager 0000023B35C4CCE8 isAsync 0 updatePeriod 0.02
+>>>>>>> Main_Menu
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Priority: 0, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -29,6 +33,7 @@
 [LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
 [LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
 [LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
+<<<<<<< HEAD
 <<<<<<< HEAD
 [LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
 [LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
@@ -101,3 +106,5 @@
 [LOG] Thread::callback                         : FMOD stream thread finished.
 [LOG] Thread::callback                         : FMOD mixer thread finished.
 [LOG] SystemI::close                           : Closed.
+=======
+>>>>>>> Main_Menu
