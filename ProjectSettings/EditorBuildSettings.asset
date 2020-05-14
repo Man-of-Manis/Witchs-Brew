@@ -5,24 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/Scenes/LevelLoading.unity
-    guid: 6dd329c8138a1154cb78c1bb1092ff96
-  - enabled: 0
-    path: Assets/Scenes/PrototypeScene.unity
-    guid: a8404973460d2cf46864d55e235d7ee9
-  - enabled: 0
-    path: Assets/Scenes/FireQuadrantTestScene.unity
-    guid: 65f8f48feba41ae4bac33ebfeebd98cf
-  - enabled: 0
-    path: Assets/Scenes/bobby test.unity
-    guid: b23ef5cf4f4b5eb4fafd7bbad33f14b7
-  - enabled: 0
-    path: Assets/Scenes/Level1_Greybox_Test.unity
-    guid: b69a30fc2b88e4d44adb18b1fe823f87
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: e03fe0df3fdfc324fb92e8b16a5d05ad
   - enabled: 1
     path: Assets/Scenes/first_room.unity
     guid: f51dca3e58ec8414696d041f9183e060

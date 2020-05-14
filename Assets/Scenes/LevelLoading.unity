@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -194,18 +194,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226638553}
   m_CullTransparentMesh: 0
---- !u!95 &542550929 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1109976653211489054, guid: 01d6d9c6e113b614fa2b3edd6ce39677,
-    type: 3}
-  m_PrefabInstance: {fileID: 1850735379}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &758018764 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 758018764, guid: 01d6d9c6e113b614fa2b3edd6ce39677,
-    type: 3}
-  m_PrefabInstance: {fileID: 1850735379}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &968806040
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,14 +573,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 758018765, guid: 01d6d9c6e113b614fa2b3edd6ce39677, type: 3}
-      propertyPath: LevelFadeImage
-      value: 
-      objectReference: {fileID: 758018764}
-    - target: {fileID: 758018765, guid: 01d6d9c6e113b614fa2b3edd6ce39677, type: 3}
-      propertyPath: LoadingIconImage
-      value: 
-      objectReference: {fileID: 542550929}
     - target: {fileID: 1109976654063383781, guid: 01d6d9c6e113b614fa2b3edd6ce39677,
         type: 3}
       propertyPath: m_LocalPosition.x
