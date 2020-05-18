@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class GameManager : MonoBehaviour
 {
     [Header("References")]
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            DestroyImmediate(gameObject);
         }
 
         TechnicalObjects = GameObject.Find("-----Technical Objects-----") == null

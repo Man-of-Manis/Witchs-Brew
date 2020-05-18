@@ -832,9 +832,11 @@ public class LevelDesignerTool : EditorWindow
                     //Creates new object, but loses prefab references if any
                     instantiated = Instantiate(Selection.gameObjects[duplicationIndex[i]]);
                 }
-                
+
+                Undo.RegisterCreatedObjectUndo(instantiated, "Created " + "Duplicate");
+
                 #region Parenting
-                
+
                 if (parentTo && parentSelection != null)
                 {
                     //Parents created objects to Parent Selection
@@ -964,12 +966,13 @@ public class LevelDesignerTool : EditorWindow
                 Selection.objects = selections.ToArray();
             }
         }
-
+        /*
         if(GUILayout.Button("Test Dupe"))
         {
             SceneView.lastActiveSceneView.Focus();
             EditorWindow.focusedWindow.SendEvent(EditorGUIUtility.CommandEvent("Duplicate"));
         }
+        */
     }
 
     void PrefabList(List<GameObject> list)

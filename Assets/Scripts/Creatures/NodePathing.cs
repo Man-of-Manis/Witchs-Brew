@@ -13,7 +13,8 @@ public class NodePathing : MonoBehaviour
 
 
     public PathingType pathType;
-    public PathingCreature creaturePath;
+    public PathingCreature creaturePathType;
+    [HideInInspector] public PathingCreature prevCreaturePathType;
     [HideInInspector] public PathColor nodeColor;
     private string[] tagStrings = { "Turtle_Path", "Chicken_Path" };
 
@@ -38,7 +39,6 @@ public class NodePathing : MonoBehaviour
 
     public void OnValidate()
     {
-        gameObject.tag = tagStrings[(int)creaturePath];
 
         if (pathType == PathingType.Line)
         {
@@ -57,6 +57,13 @@ public class NodePathing : MonoBehaviour
 #endif
             SetPathingArea();
         }        
+    }
+
+    public void ChangeTag()
+    {
+        gameObject.tag = tagStrings[(int)creaturePathType];
+
+        prevCreaturePathType = creaturePathType;
     }
 
     private void NodeNames()

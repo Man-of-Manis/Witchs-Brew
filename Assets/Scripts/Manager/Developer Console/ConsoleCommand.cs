@@ -2,17 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ConsoleCommand
+namespace WitchsBrew.Utilities.DeveloperConsole
 {
-    public abstract string Name { get; protected set; }
-    public abstract string Command { get; protected set; }
-    public abstract string Description { get; protected set; }
-    public abstract string Help { get; protected set; }
-
-    public void AddCommandToConsole()
+    public abstract class ConsoleCommand
     {
+        public abstract string Name { get; protected set; }
+        public abstract string Command { get; protected set; }
+        public abstract string Description { get; protected set; }
+        public abstract string Execution { get; protected set; }
 
+        /// <summary>
+        /// Adds the command to the list of viable console commands.
+        /// </summary>
+        public void AddCommandToConsole()
+        {
+            DeveloperConsole.AddCommandsToConsole(Command, this);
+        }
+
+        /// <summary>
+        /// The execution of the Command
+        /// </summary>
+        public abstract string RunCommand();
     }
-
-    public abstract void RunCommand();
 }

@@ -83,10 +83,12 @@ public class PlayerMixamoController : MonoBehaviour
 
     void Update()
     {
+        /*
         if(Input.GetKeyDown(KeyCode.L))
         {
             SetPlayerRotation(-90f, Vector3.zero);
         }
+        */
 
         Inputs();
         CameraAngle();
