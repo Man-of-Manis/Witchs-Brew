@@ -106,11 +106,14 @@ public class PotionCalculation : MonoBehaviour
     /// </summary>
     private void PotionPouchPosRot()
     {
-        AimAngle = Mathf.Clamp((rotationCam.eulerAngles.x < 180.0f ? rotationCam.eulerAngles.x : rotationCam.eulerAngles.x - 360f), -45.0f, 80.0f);
+        if(potionPouch != null)
+        {
+            AimAngle = Mathf.Clamp((rotationCam.eulerAngles.x < 180.0f ? rotationCam.eulerAngles.x : rotationCam.eulerAngles.x - 360f), -45.0f, 80.0f);
 
-        potionPouch.transform.localRotation = Quaternion.Euler(new Vector3(AimAngle, (aimCam.Equals(aimingCameras[2]) ? potionRotY : -potionRotY), 0f));
+            potionPouch.transform.localRotation = Quaternion.Euler(new Vector3(AimAngle, (aimCam.Equals(aimingCameras[2]) ? potionRotY : -potionRotY), 0f));
 
-        potionPouch.transform.localPosition = new Vector3((aimCam.Equals(aimingCameras[2]) ? 0.3f : -0.3f), potionPouch.transform.localPosition.y, potionPouch.transform.localPosition.z);
+            potionPouch.transform.localPosition = new Vector3((aimCam.Equals(aimingCameras[2]) ? 0.3f : -0.3f), potionPouch.transform.localPosition.y, potionPouch.transform.localPosition.z);
+        }        
     }
 
     /// <summary>
