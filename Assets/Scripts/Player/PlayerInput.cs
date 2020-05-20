@@ -266,7 +266,7 @@ public class PlayerInput : MonoBehaviour
 
     private void GetInputs()
     {
-        m_Movement.Set(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        m_Movement.Set(Input.GetAxis("P_Horizontal"), Input.GetAxis("P_Vertical"));
         m_Camera.Set(Input.GetAxis("Camera X"), Input.GetAxis("Camera Y"));
         m_Jump = Input.GetButtonDown("Jump") && !Input.GetButton("MakePotion");
         m_Use = Input.GetAxis("C_Use") > 0f || Input.GetButton("M_Use");
