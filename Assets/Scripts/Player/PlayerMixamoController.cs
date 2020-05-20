@@ -23,7 +23,7 @@ public class PlayerMixamoController : MonoBehaviour
     private Vector2 Char_Movement;
     private bool PressedJump = false;
     private bool isJumping = false;
-    private bool Aim = false;
+    public bool Aim = false;
     private bool Run = true;
     private bool rightShoulder = true;
     [HideInInspector] public bool SecondaryJump = false;
@@ -79,6 +79,7 @@ public class PlayerMixamoController : MonoBehaviour
     private void Start()
     {
         SetPlayerRotation(transform.localEulerAngles.y, transform.localPosition);
+        animator.applyRootMotion = false;
     }
 
     void Update()
@@ -217,7 +218,7 @@ public class PlayerMixamoController : MonoBehaviour
                 }
             }
 
-            else if (Aim && m_IsGrounded)
+            else if (Aim )
             {
                 Vector3 boxcam = Quaternion.AngleAxis(aimCam.eulerAngles.y, Vector3.up) * Vector3.forward;
 
@@ -280,7 +281,7 @@ public class PlayerMixamoController : MonoBehaviour
             }
             else
             {
-                // If the chracter is airborne, the jump button is not held and the chracter is currently moving upwards...
+                // If the character is airborne, the jump button is not held and the chracter is currently moving upwards...
                 if (!m_Input.JumpInput && m_VerticalSpeed > 0.0f)
                 {
                     // ... decrease the chracter's vertical speed.
@@ -344,15 +345,28 @@ public class PlayerMixamoController : MonoBehaviour
                 {
                     // ... and get the movement of the root motion rotated to lie along the plane of the ground.
 
-                    if (animator.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
+                    if(Aim)
                     {
-                        movement = Vector3.ProjectOnPlane(m_ForwardSpeed * transform.forward * Time.deltaTime, hit.normal);
+                        Vector2 moveInput = m_Input.MoveInput;
+                        if (moveInput.sqrMagnitude > 1f)
+                        {
+                            moveInput.Normalize();
+                        }
+
+                        movement = Vector3.ProjectOnPlane(m_ForwardSpeed * (Quaternion.Euler(transform.localEulerAngles) * new Vector3(moveInput.x, 0f, moveInput.y)) * Time.deltaTime, hit.normal);
                     }
                     else
                     {
-                        movement = Vector3.ProjectOnPlane(animator.deltaPosition, hit.normal);
-                    }
-                    //Debug.Log("delta");
+                        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
+                        {
+                            movement = Vector3.ProjectOnPlane(m_ForwardSpeed * transform.forward * Time.deltaTime, hit.normal);
+                        }
+                        else
+                        {
+                            //movement = Vector3.ProjectOnPlane(animator.deltaPosition, hit.normal);
+                            movement = Vector3.ProjectOnPlane(m_ForwardSpeed * transform.forward * Time.deltaTime, hit.normal);
+                        }
+                    }                    
 
                     // Also store the current walking surface so the correct audio is played.
                     //Renderer groundRenderer = hit.collider.GetComponentInChildren<Renderer>();
@@ -362,16 +376,52 @@ public class PlayerMixamoController : MonoBehaviour
                 {
                     // If no ground is hit just get the movement as the root motion.
                     // Theoretically this should rarely happen as when grounded the ray should always hit.
-                    movement = animator.deltaPosition;
+                    //movement = animator.deltaPosition;
                     //Debug.Log("broken");
                     //m_CurrentWalkingSurface = null;
+
+                    if (Aim)
+                    {
+                        Vector2 moveInput = m_Input.MoveInput;
+                        if (moveInput.sqrMagnitude > 1f)
+                        {
+                            moveInput.Normalize();
+                        }
+
+                        movement = m_ForwardSpeed * (Quaternion.Euler(transform.localEulerAngles) * new Vector3(moveInput.x, 0f, moveInput.y)) * Time.deltaTime;
+                    }
+                    else
+                    {
+                        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
+                        {
+                            movement = m_ForwardSpeed * transform.forward * Time.deltaTime;
+                        }
+                        else
+                        {
+                            //movement = Vector3.ProjectOnPlane(animator.deltaPosition, hit.normal);
+                            movement = m_ForwardSpeed * transform.forward * Time.deltaTime;
+                        }
+                    }
                 }
             }
             else
             {
-                // If not grounded the movement is just in the forward direction.
-                movement = m_ForwardSpeed * transform.forward * Time.deltaTime;
-                //Debug.Log("transform");
+                if (Aim)
+                {
+                    Vector2 moveInput = m_Input.MoveInput;
+                    if (moveInput.sqrMagnitude > 1f)
+                    {
+                        moveInput.Normalize();
+                    }
+
+                    movement = m_ForwardSpeed * (Quaternion.Euler(transform.localEulerAngles) * new Vector3(moveInput.x, 0f, moveInput.y)) * Time.deltaTime;
+                }
+                else
+                {
+                    // If not grounded the movement is just in the forward direction.
+                    movement = m_ForwardSpeed * transform.forward * Time.deltaTime;
+                    //Debug.Log("transform");
+                }
             }
 
             // Rotate the transform of the character controller by the animation's root rotation.

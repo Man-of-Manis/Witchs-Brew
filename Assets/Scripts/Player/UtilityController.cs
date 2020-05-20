@@ -30,6 +30,7 @@ public class UtilityController : MonoBehaviour
     private PlayerPotionWheel potionWheel;
     private SatchelUI satchel;
     private KeyCubeUI keyCube;
+    private bool previouslyAiming;
 
     /// <summary>
     /// Sets text color of potions in Console
@@ -185,6 +186,22 @@ public class UtilityController : MonoBehaviour
                     HideArcThrow();
                 }
             }
+
+            if(instPotions[currentSelectedPotion] != null && itemCon.potionAmount[currentSelectedPotion] > 0)
+            {
+                if (!previouslyAiming)
+                {
+                    animator.SetTrigger("Aim_Potion");
+                    previouslyAiming = true;
+                }
+
+                animator.SetBool("Aiming_Potion", true);
+            }
+            else
+            {
+                animator.SetBool("Aiming_Potion", false);
+                previouslyAiming = false;
+            }
         }
 
         else if (m_Input.JumpInput) //Jump 
@@ -264,6 +281,9 @@ public class UtilityController : MonoBehaviour
                     }
                 }
             }
+
+            animator.SetBool("Aiming_Potion", false);
+            previouslyAiming = false;
         }
     }
 
@@ -417,6 +437,8 @@ public class UtilityController : MonoBehaviour
         obj.isKinematic = false;
         obj.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         obj.velocity = velocity;
+        //Calls the throw animation
+        animator.SetTrigger("Throw_Potion");
     }
 
     /// <summary>
@@ -453,6 +475,7 @@ public class UtilityController : MonoBehaviour
                     break;
                 case 1:
                     obj.GetComponent<PotionBreak>().DelayBreak();
+                    obj.gameObject.layer = LayerMask.NameToLayer("Potion_Dropped");
                     break;
                 case 2:
                     obj.GetComponent<PotionBreak>().InstantBreak();
@@ -464,6 +487,8 @@ public class UtilityController : MonoBehaviour
 
             itemCon.Potions(currentSelectedPotion, -1);
             StartCoroutine(InstantiateItem(1, currentSelectedPotion, prefabType, instType, pouch));
+            //Calls the throw animation
+            animator.SetTrigger("Throw_Potion");
         }
     }
 

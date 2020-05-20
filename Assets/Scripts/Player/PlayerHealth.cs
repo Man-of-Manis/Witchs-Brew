@@ -303,7 +303,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             {
                 for (float i = 0; i < 1f; i += Time.deltaTime / lerpTime)
                 {
-                    rend.material.SetColor("_BaseColor", Color32.Lerp(new Color32(114, 180, 77, 255), invincibilityColor, i));
+                    //rend.material.SetColor("_BaseColor", Color32.Lerp(new Color32(114, 180, 77, 255), invincibilityColor, i));
                     yield return null;
                 }
 
@@ -313,7 +313,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             {
                 for (float i = 1f; i > 0f; i += Time.deltaTime / -lerpTime)
                 {
-                    rend.material.SetColor("_BaseColor", Color32.Lerp(new Color32(114, 180, 77, 255), invincibilityColor, i));
+                    //rend.material.SetColor("_BaseColor", Color32.Lerp(new Color32(114, 180, 77, 255), invincibilityColor, i));
                     yield return null;
                 }
 
@@ -328,7 +328,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
         for (float i = 0f; i < 1f; i += Time.deltaTime * (1f / 0.1f))
         {
-            rend.material.SetColor("_BaseColor", Color32.Lerp(rend.material.GetColor("_BaseColor"), new Color32(114, 180, 77, 255), i));
+            //rend.material.SetColor("_BaseColor", Color32.Lerp(rend.material.GetColor("_BaseColor"), new Color32(114, 180, 77, 255), i));
             yield return null;
         }
     }
