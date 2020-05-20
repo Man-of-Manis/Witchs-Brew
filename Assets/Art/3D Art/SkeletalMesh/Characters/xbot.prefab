@@ -43491,6 +43491,8 @@ GameObject:
   - component: {fileID: 5093014748722584108}
   - component: {fileID: 5093014748722584109}
   - component: {fileID: 4551782293756946256}
+  - component: {fileID: 5300478490767170169}
+  - component: {fileID: 4239460030610537534}
   m_Layer: 9
   m_Name: xbot
   m_TagString: Player
@@ -43739,14 +43741,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c4b33bbf2747df48bfe7ac0dccdae77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Selection: 00000000000000000000000000000000
-  Wand_Holder: {fileID: 5093014749153183736}
-  Potion_Holder: {fileID: 5093014748405328901}
-  Ingredient_Holder: {fileID: 5093014749534825007}
-  SpellSquare: {fileID: 0}
-  NumberOfSpells: 3
   potionPouch: {fileID: 5093014748903549366}
   jumpPotion: {fileID: 4345096715669070410, guid: 6250c80bb6c811847ab05d26c7393d4a,
+    type: 3}
+  straightThrowPotion: {fileID: 4345096715669070410, guid: 164b4738ee15d2140a8d8a132d9b5942,
     type: 3}
   prefabPotions:
   - {fileID: 4345096715669070410, guid: 2890ff4a461ab9840b3c04be5e5bd1c7, type: 3}
@@ -43762,17 +43760,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  ingredientPouch: {fileID: 5093014749926867646}
-  prefabIngredients:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  instIngredients:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  currentSelectedPotion: 0
+  pickup: {fileID: 5093014748722584108}
+  pickupPos: {fileID: 0}
 --- !u!114 &5093014749077134769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43839,7 +43829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d9c5faa947fa69408cf49b5663f9a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LearnedPotions: 010100000000
+  LearnedPotions: 010000000000
 --- !u!114 &2341549140144902348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43931,10 +43921,28 @@ MonoBehaviour:
     m_Bits: 536903680
   pickupPositionOffset: {x: 0, y: 1, z: 1}
   pickupHalfExtents: {x: 1.5, y: 2, z: 1}
+  minimumPickupDistance: 0.5
   wallLayer:
     serializedVersion: 2
     m_Bits: 4194305
+  keyCubePrefabs:
+  - {fileID: 8228614296891348695, guid: adbe1170e5d343c4a996fb1515c00704, type: 3}
+  - {fileID: 8228614296891348695, guid: 0b99a85b29c815f48ba5fe3277416c38, type: 3}
+  - {fileID: 8228614296891348695, guid: 38cadebf2377f084b8f77be4da90a295, type: 3}
+  - {fileID: 8228614296891348695, guid: c432c2dc7d510084598f5072d74ae4a2, type: 3}
+  - {fileID: 8228614296891348695, guid: ba5376e6e7e124948ba9ba5735092531, type: 3}
+  - {fileID: 8228614296891348695, guid: e43d6e660823ad54fbb81d7b90fc5bc6, type: 3}
+  chestSpawners:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  dropOffPosAmount: 8
+  dropOffDistance: 1
   m_Input: {fileID: 5093014749077134771}
+  keyCubeUI: {fileID: 0}
 --- !u!114 &5093014748722584109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43974,6 +43982,41 @@ MonoBehaviour:
   detectLayerMask:
     serializedVersion: 2
     m_Bits: 2048
+--- !u!114 &5300478490767170169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5093014749504692429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc04b73446d395340ab8b7035a15fa19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4239460030610537534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5093014749504692429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Witch Hurt/Witch_Hurt
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &5093014749504692431
 GameObject:
   m_ObjectHideFlags: 0
