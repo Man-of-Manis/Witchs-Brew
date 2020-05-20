@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class GameSettings : MonoBehaviour
 {
@@ -35,7 +36,6 @@ public class GameSettings : MonoBehaviour
     #endregion
 
     #region Quality
-
     #endregion
 
     // Start is called before the first frame update
@@ -99,6 +99,7 @@ public class GameSettings : MonoBehaviour
     /// <returns></returns>
     public int GetQualityLevel()
     {
+        //UniversalRenderPipeline.asset.msaaSampleCount = MsaaQuality.
         return QualitySettings.GetQualityLevel();
     }
 

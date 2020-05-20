@@ -59,7 +59,17 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject currentSelectedMenu;
     [SerializeField] private List<GameObject> prevSelectedGameObject = new List<GameObject>();
     [SerializeField] private List<GameObject> prevSelectedMenu = new List<GameObject>();
+
+    [SerializeField] private GameObject UISelectedGO;
+    [SerializeField] private GameObject prevSelectedGO;
     private bool hasSavedGame;
+
+    public bool ResolutionOpen
+    {
+        get { return resolutionOpen; }
+        set {resolutionOpen = value; }
+    }
+    private bool resolutionOpen;
     #endregion
 
     private void Awake()
@@ -78,6 +88,14 @@ public class MainMenuManager : MonoBehaviour
         {
             SetPrevMenu();
         }
+
+        if(eventSystem.currentSelectedGameObject == null)
+        {
+            eventSystem.SetSelectedGameObject(prevSelectedGO);
+        }
+
+        prevSelectedGO = UISelectedGO;
+        UISelectedGO = eventSystem.currentSelectedGameObject;
     }
 
     /// <summary>
@@ -173,15 +191,23 @@ public class MainMenuManager : MonoBehaviour
     /// </summary>
     private void SetPrevMenu()
     {
-        if(prevSelectedMenu.Count > 0 && prevSelectedGameObject.Count > 0)
+        if(!ResolutionOpen)
         {
-            GameObject goTo = prevSelectedMenu[prevSelectedMenu.Count - 1];            
-            ChangeMenu(goTo, currentSelectedMenu, null, true);
-            EventSelection(prevSelectedGameObject[prevSelectedGameObject.Count - 1]);
+            if (prevSelectedMenu.Count > 0 && prevSelectedGameObject.Count > 0)
+            {
+                GameObject goTo = prevSelectedMenu[prevSelectedMenu.Count - 1];
+                ChangeMenu(goTo, currentSelectedMenu, null, true);
+                EventSelection(prevSelectedGameObject[prevSelectedGameObject.Count - 1]);
 
-            prevSelectedMenu.RemoveAt(prevSelectedMenu.Count - 1);
-            prevSelectedGameObject.RemoveAt(prevSelectedGameObject.Count - 1);
-        }        
+                prevSelectedMenu.RemoveAt(prevSelectedMenu.Count - 1);
+                prevSelectedGameObject.RemoveAt(prevSelectedGameObject.Count - 1);
+            }
+            else
+            {
+                ChangeMenu(exitGameConfim, mainMenuGo, eventSystem.currentSelectedGameObject);
+                EventSelection(exitNoButton.gameObject);
+            }
+        }
     }
     #endregion
 
@@ -322,12 +348,22 @@ public class MainMenuManager : MonoBehaviour
         qualityDropdown.SetValueWithoutNotify(GameSettings.Instance.GetQualityLevel());
         qualityDropdown.RefreshShownValue();
 
-        resolutionTemplateSize.sizeDelta = new Vector2(resolutionTemplateSize.sizeDelta.x, resolutionDropdown.options.Count * itemSize.sizeDelta.y);
+        resolutionTemplateSize.sizeDelta = new Vector2(resolutionTemplateSize.sizeDelta.x, resolutionDropdown.options.Count * itemSize.sizeDelta.y + 8f);
     }
 
     public void SetResolution()
     {
         GameSettings.Instance.SetResolution(resolutionDropdown.value);
+    }
+
+    public void ResolutionEventOpened()
+    {
+        Debug.Log("Opened");
+    }
+
+    public void ResolutionEventClosed()
+    {
+        Debug.Log("Closed");
     }
 
     public void DropdownItemPosition()
