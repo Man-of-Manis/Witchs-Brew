@@ -22,7 +22,7 @@ public class Burn : MonoBehaviour
 
     private void Start()
     {
-        col = GetComponent<Collider>();
+        col = GetComponentInChildren<Collider>();
     }
 
     void Update()
@@ -45,16 +45,18 @@ public class Burn : MonoBehaviour
             }
         }
 
-        burnAmount += Time.deltaTime * 0.25f;
+        burnAmount += Time.deltaTime * 0.5f;
 
-        if (burnAmount >= 0.35f)
+        if (burnAmount >= 0.65f && burnAmount < 0.8f)
         {
             col.enabled = false;
         }
 
-        else if (burnAmount >= 0.8f)
+        else if (burnAmount >= 0.95f)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //GetComponentInParent<VineGroup>().DestroyedMesh(transform.GetSiblingIndex());
+            //Destroy(gameObject);
         }
     }
 }

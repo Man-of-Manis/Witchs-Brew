@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7687286153990876588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7687286153990876576}
+  - component: {fileID: 7687286153990876591}
+  - component: {fileID: 7687286153990876590}
+  - component: {fileID: 7687286153990876589}
+  m_Layer: 0
+  m_Name: Vine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7687286153990876576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7687286153990876588}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.21, y: 8.69, z: -2.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7687286153990876591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7687286153990876588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a85c5879d519aa4ab2ebbf42591149a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodes:
+  - position: {x: 0, y: 0, z: 0}
+    direction: {x: -0.5, y: 0, z: 0}
+    up: {x: 0, y: 1, z: 0}
+    scale: {x: 1, y: 1}
+    roll: 0
+  - position: {x: 0, y: 0, z: 1}
+    direction: {x: 0.5, y: 0, z: 1}
+    up: {x: 0, y: 1, z: 0}
+    scale: {x: 1, y: 1}
+    roll: 0
+  curves:
+  - n1:
+      position: {x: 0, y: 0, z: 0}
+      direction: {x: -0.5, y: 0, z: 0}
+      up: {x: 0, y: 1, z: 0}
+      scale: {x: 1, y: 1}
+      roll: 0
+    n2:
+      position: {x: 0, y: 0, z: 1}
+      direction: {x: 0.5, y: 0, z: 1}
+      up: {x: 0, y: 1, z: 0}
+      scale: {x: 1, y: 1}
+      roll: 0
+    Changed:
+      m_PersistentCalls:
+        m_Calls: []
+  Length: 1.3939838
+  isLoop: 0
+  CurveChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &7687286153990876590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7687286153990876588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59a65254c50cb8b4aa3ffa090029c396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  length: {fileID: 2233356098720004785, guid: ea68cb3b70943e643a8511f5476fe04a, type: 3}
+  joint: {fileID: 5632403307555052925, guid: 05f6e3a83e0d3fb4697ffd031c2fb70c, type: 3}
+  leaf: {fileID: 877709421068349650, guid: 6a9934e7d2ce3d64cba5d32c56c07caf, type: 3}
+  spawnAmountPerUnit: 2
+  localJointOffset: {x: 0, y: 0, z: 0.25}
+  jointAnchorOffset: 0.25
+  useJointObject: 1
+  useLeaves: 1
+  leafSpawnChance: 85
+  leafDirection: 1
+  randomZRotation: 1
+  maxRandomXPosition: 0.15
+  maxRandomXRotation: 45
+  maxRandomYRotation: 45
+  YPosition: 0.15
+  leafScale: 1
+  useMultiVine: 0
+  childJoint: {fileID: 0}
+  freezeLastJoint: 1
+--- !u!114 &7687286153990876589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7687286153990876588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e6dc76bccb0e5249a1fb469c21e82a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  burnDelay: 0.35
+  vines: []
+  vineBurns: 
+  prevVineBurns: 

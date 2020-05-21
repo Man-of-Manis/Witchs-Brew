@@ -94,6 +94,15 @@ public class GameSettings : MonoBehaviour
     }
 
     /// <summary>
+    /// Changes the whether the game window is fullscreen or windowed.
+    /// </summary>
+    /// <param name="fullscreen">If true, the game window will be fullscreen.</param>
+    public void SetFullscreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
+    }
+
+    /// <summary>
     /// Gets the current Quality Level index.
     /// </summary>
     /// <returns></returns>

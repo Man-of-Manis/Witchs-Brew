@@ -6952,10 +6952,10 @@ MonoBehaviour:
   witchHealth:
     witchHurt: event:/Witch/Witch Hurt/Witch_Hurt
     witchHeal: event:/Witch/Witch_Heal
-    witchDeath: 
+    witchDeath: event:/Witch/Witch. Death
   witchMovement:
-    witchJump: 
-    witchLedgeGrab: 
+    witchJump: event:/Witch/Witch. jump
+    witchLedgeGrab: event:/Witch/Witch. ledge grab
     witchFootstepsDirt: event:/Witch/Footsteps/Dirt_Steps
     witchFootstepsGrass: event:/Witch/Footsteps/Grass_Steps
     witchFootstepsRock: event:/Witch/Footsteps/Cement_Steps
@@ -6963,22 +6963,22 @@ MonoBehaviour:
     witchThrowObject: 
   smallObjects:
     potionBreak: event:/Potions/Potion Break
-    keyCubeHit: 
+    keyCubeHit: event:/Interactables/Key Cube Hit
   chicken:
     chickenCluck: event:/Chicken/Chicken_Idle
     chickenLaunch: event:/Chicken/Chicken_Thrown
-    chickenDeath: 
+    chickenDeath: event:/Chicken/Chicken. Death
     chickenWingFlap: event:/Chicken/Chicken_WingFlap
-    chickenFootsteps: 
-    chickenEggCrack: 
+    chickenFootsteps: event:/Chicken/Chicken_Walk
+    chickenEggCrack: event:/Chicken/Chicken_EggCrack
   turtle:
     turtleBeamCharge: event:/Turtle/Ice Beam/Turtle_Charge
     turtleBeamShoot: event:/Turtle/Ice Beam/Turtle_Shoot
     turtleBeamCooldown: event:/Turtle/Ice Beam/Turtle_Cool
     turtleGrunt: event:/Turtle/Turtle_Grunt
-    turtleHurt: 
-    turtleDeath: 
-    turtleFootsteps: 
+    turtleHurt: event:/Turtle/Turtle. hurt
+    turtleDeath: event:/Turtle/Turtle_Death
+    turtleFootsteps: event:/Turtle/Turtle. footsteps
 --- !u!1 &5887507492427470308
 GameObject:
   m_ObjectHideFlags: 0
@@ -7297,6 +7297,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052135275947004196, guid: 0d093a32bbda52a47aaf9a61f210a2ee,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2545944467709572424, guid: 0d093a32bbda52a47aaf9a61f210a2ee,
         type: 3}

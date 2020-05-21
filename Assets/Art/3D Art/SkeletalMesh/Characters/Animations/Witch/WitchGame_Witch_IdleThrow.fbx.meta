@@ -59,8 +59,374 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
+      transformMask:
+      - path: 
+        weight: 1
+      - path: global_transform_grp
+        weight: 0
+      - path: global_transform_grp/global_scale_grp
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_bag
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_bag/ik_bagstrap_front
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_bag/ikHandle2
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_index_01_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_index_01_l_offset/ctrl_index_01_l
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_index_01_l_offset/ctrl_index_01_l/ctrl_index_02_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_index_01_l_offset/ctrl_index_01_l/ctrl_index_02_l_offset/ctrl_index_02_l
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_index_01_l_offset/ctrl_index_01_l/ctrl_index_02_l_offset/ctrl_index_02_l/ctrl_index_03_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_index_01_l_offset/ctrl_index_01_l/ctrl_index_02_l_offset/ctrl_index_02_l/ctrl_index_03_l_offset/ctrl_index_03_l1
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_middle_01_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_middle_01_l_offset/ctrl_middle_01_l1
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_middle_01_l_offset/ctrl_middle_01_l1/ctrl_middle_02_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_middle_01_l_offset/ctrl_middle_01_l1/ctrl_middle_02_l_offset/ctrl_middle_02_l1
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_middle_01_l_offset/ctrl_middle_01_l1/ctrl_middle_02_l_offset/ctrl_middle_02_l1/ctrl_middle_03_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_middle_01_l_offset/ctrl_middle_01_l1/ctrl_middle_02_l_offset/ctrl_middle_02_l1/ctrl_middle_03_l_offset/ctrl_middle_03_l1
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_pinky_01_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_pinky_01_l_offset/ctrl_pinky_01_l1
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_pinky_01_l_offset/ctrl_pinky_01_l1/ctrl_pinky_02_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_pinky_01_l_offset/ctrl_pinky_01_l1/ctrl_pinky_02_l_offset/ctrl_pinky_02_l1
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_pinky_01_l_offset/ctrl_pinky_01_l1/ctrl_pinky_02_l_offset/ctrl_pinky_02_l1/ctrl_pinky_03_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_pinky_01_l_offset/ctrl_pinky_01_l1/ctrl_pinky_02_l_offset/ctrl_pinky_02_l1/ctrl_pinky_03_l_offset/ctrl_pinky_03_l1
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_ring_01_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_ring_01_l_offset/ctrl_ring_01_l1
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_ring_01_l_offset/ctrl_ring_01_l1/ctrl_ring_02_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_ring_01_l_offset/ctrl_ring_01_l1/ctrl_ring_02_l_offset/ctrl_ring_02_l1
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_ring_01_l_offset/ctrl_ring_01_l1/ctrl_ring_02_l_offset/ctrl_ring_02_l1/ctrl_ring_03_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_ring_01_l_offset/ctrl_ring_01_l1/ctrl_ring_02_l_offset/ctrl_ring_02_l1/ctrl_ring_03_l_offset/ctrl_ring_03_l1
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_thumb_01_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_thumb_01_l_offset/ctrl_thumb_01_l
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_thumb_01_l_offset/ctrl_thumb_01_l/ctrl_thumb_02_l_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_l_offset/ctrl_clavicle_l/ctrl_shoulder_l_offset/ctrl_shoulder_l/ctrl_elbow_l_offset/ctrl_elbow_l/ctrl_wrist_l_offset/ctrl_wrist_l/ctrl_thumb_01_l_offset/ctrl_thumb_01_l/ctrl_thumb_02_l_offset/ctrl_thumb_02_l
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_index_01_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_index_01_r_offset/ctrl_index_01_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_index_01_r_offset/ctrl_index_01_r/ctrl_index_02_r_offset1
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_index_01_r_offset/ctrl_index_01_r/ctrl_index_02_r_offset1/ctrl_index_02_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_index_01_r_offset/ctrl_index_01_r/ctrl_index_02_r_offset1/ctrl_index_02_r/ctrl_index_03_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_index_01_r_offset/ctrl_index_01_r/ctrl_index_02_r_offset1/ctrl_index_02_r/ctrl_index_03_r_offset/ctrl_index_03_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_middle_01_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_middle_01_r_offset/ctrl_middle_01_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_middle_01_r_offset/ctrl_middle_01_r/ctrl_middle_02_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_middle_01_r_offset/ctrl_middle_01_r/ctrl_middle_02_r_offset/ctrl_middle_02_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_middle_01_r_offset/ctrl_middle_01_r/ctrl_middle_02_r_offset/ctrl_middle_02_r/ctrl_middle_03_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_middle_01_r_offset/ctrl_middle_01_r/ctrl_middle_02_r_offset/ctrl_middle_02_r/ctrl_middle_03_r_offset/ctrl_middle_03_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_pinky_01_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_pinky_01_r_offset/ctrl_pinky_01_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_pinky_01_r_offset/ctrl_pinky_01_r/ctrl_pinky_02_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_pinky_01_r_offset/ctrl_pinky_01_r/ctrl_pinky_02_r_offset/ctrl_pinky_02_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_pinky_01_r_offset/ctrl_pinky_01_r/ctrl_pinky_02_r_offset/ctrl_pinky_02_r/ctrl_pinky_03_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_pinky_01_r_offset/ctrl_pinky_01_r/ctrl_pinky_02_r_offset/ctrl_pinky_02_r/ctrl_pinky_03_r_offset/ctrl_pinky_03_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_ring_01_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_ring_01_r_offset/ctrl_ring_01_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_ring_01_r_offset/ctrl_ring_01_r/ctrl_ring_02_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_ring_01_r_offset/ctrl_ring_01_r/ctrl_ring_02_r_offset/ctrl_ring_02_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_ring_01_r_offset/ctrl_ring_01_r/ctrl_ring_02_r_offset/ctrl_ring_02_r/ctrl_ring_03_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_ring_01_r_offset/ctrl_ring_01_r/ctrl_ring_02_r_offset/ctrl_ring_02_r/ctrl_ring_03_r_offset/ctrl_ring_03_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_thumb_01_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_thumb_01_r/ctrl_thumb_01_r1
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_thumb_01_r/ctrl_thumb_01_r1/ctrl_thumb_02_r_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/clavicles_grp/ctrl_clavicle_r_offset/ctrl_clavicle_r/ctrl_shoulder_r_offset/ctrl_shoulder_r/ctrl_elbow_r_offset/ctrl_elbow_r/ctrl_wrist_r_offset/ctrl_wrist_r/ctrl_thumb_01_r/ctrl_thumb_01_r1/ctrl_thumb_02_r_offset/ctrl_thumb_02_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/ctrl_neck_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/ctrl_neck_offset/ctrl_neck
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/ctrl_neck_offset/ctrl_neck/ctrl_head_offset
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_COG/ctrl_hips_offset/ctrl_hips/ctrl_spine_01_offset/ctrl_spine_01/ctrl_spine_02_offset/ctrl_spine_02/ctrl_chest_offset/ctrl_chest/ctrl_neck_offset/ctrl_neck/ctrl_head_offset/ctrl_head
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_l
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_l/ctrl_knee_l
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_l/HeelPivot_grp
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_l/HeelPivot_grp/ToePivot_grp
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_l/HeelPivot_grp/ToePivot_grp/PeelHeel_grp
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_l/HeelPivot_grp/ToePivot_grp/PeelHeel_grp/ankle_l_ikhandle
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_l/HeelPivot_grp/ToePivot_grp/ToeTap_grp
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_l/HeelPivot_grp/ToePivot_grp/ToeTap_grp/heel_l_ikhandle
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_l/HeelPivot_grp/ToePivot_grp/ToeTap_grp/toe_l_ikhandle
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_r/ctrl_knee_r
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_r/HeelPivot_r_grp
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_r/HeelPivot_r_grp/ToePivot_r_grp
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_r/HeelPivot_r_grp/ToePivot_r_grp/PeelHeel_r_grp
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_r/HeelPivot_r_grp/ToePivot_r_grp/PeelHeel_r_grp/ankle_r_ikhandle
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_r/HeelPivot_r_grp/ToePivot_r_grp/ToeTap_r_grp
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_r/HeelPivot_r_grp/ToePivot_r_grp/ToeTap_r_grp/heel_r_ikhandle
+        weight: 1
+      - path: global_transform_grp/global_scale_grp/controls_grp/ctrl_Master/ctrl_foot_r/HeelPivot_r_grp/ToePivot_r_grp/ToeTap_r_grp/toe_r_ikhandle
+        weight: 1
+      - path: j_root
+        weight: 0
+      - path: j_root/j_L_hip
+        weight: 0
+      - path: j_root/j_L_hip/j_L_knee
+        weight: 0
+      - path: j_root/j_L_hip/j_L_knee/j_L_ankle
+        weight: 0
+      - path: j_root/j_L_hip/j_L_knee/j_L_ankle/j_L_toe
+        weight: 0
+      - path: j_root/j_R_hip1
+        weight: 0
+      - path: j_root/j_R_hip1/j_R_knee
+        weight: 0
+      - path: j_root/j_R_hip1/j_R_knee/j_R_ankle
+        weight: 0
+      - path: j_root/j_R_hip1/j_R_knee/j_R_ankle/j_R_toe
+        weight: 0
+      - path: j_root/j_Spine_01
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/j_Neck
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/j_Neck/j_Head
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm/j_L_index_01
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm/j_L_index_01/j_L_index_02
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm/j_L_index_01/j_L_index_02/j_L_index_03
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm/j_L_middle_01
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm/j_L_middle_01/j_L_middle_02
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm/j_L_middle_01/j_L_middle_02/j_L_middle_03
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm/j_L_pinky_01
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm/j_L_pinky_01/j_L_pinky_02
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm/j_L_pinky_01/j_L_pinky_02/j_L_pinky_03
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm/j_L_ring_01
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm/j_L_ring_01/j_L_ring_02
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm/j_L_ring_01/j_L_ring_02/j_L_ring_03
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm/j_L_thumb_01
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform1/j_L_clavicle/j_L_Shoulder/j_L_elbow/j_L_wrist/j_L_palm/j_L_thumb_01/j_L_thumb_02
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm/j_R_index_01
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm/j_R_index_01/j_R_index_02
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm/j_R_index_01/j_R_index_02/j_R_index_03
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm/j_R_middle_01
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm/j_R_middle_01/j_R_middle_02
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm/j_R_middle_01/j_R_middle_02/j_R_middle_03
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm/j_R_pinky_01
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm/j_R_pinky_01/j_R_pinky_02
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm/j_R_pinky_01/j_R_pinky_02/j_R_pinky_03
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm/j_R_ring_01
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm/j_R_ring_01/j_R_ring_02
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm/j_R_ring_01/j_R_ring_02/j_R_ring_03
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm/j_R_thumb_01
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/j_Spine_03/j_Spine_04/transform2/j_R_clavicle/j_R_Shoulder/j_R_elbow/j_R_wrist/j_R_palm/j_R_thumb_01/j_R_thumb_02
+        weight: 1
+      - path: j_root/j_Spine_01/j_Spine_02/transform3
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/transform3/j_bagstrap_01_front
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/transform3/j_bagstrap_01_front/j_bagstrap_02_front
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/transform3/j_bagstrap_01_front/j_bagstrap_02_front/j_baghandle_01_front
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/transform3/j_bagstrap_05
+        weight: 0
+      - path: j_root/j_Spine_01/j_Spine_02/transform3/j_bagstrap_05/j_bagstrap_02
+        weight: 0
+      - path: model_GEO_grp
+        weight: 0
+      - path: model_GEO_grp/witch_mesh_grp
+        weight: 1
+      - path: model_GEO_grp/witch_mesh_grp/witch_bag
+        weight: 1
+      - path: model_GEO_grp/witch_mesh_grp/witch_body
+        weight: 1
+      - path: model_GEO_grp/witch_mesh_grp/witch_cork
+        weight: 1
+      - path: model_GEO_grp/witch_mesh_grp/witch_eyeleft
+        weight: 1
+      - path: model_GEO_grp/witch_mesh_grp/witch_eyeright
+        weight: 1
+      - path: model_GEO_grp/witch_mesh_grp/witch_hair
+        weight: 1
+      - path: model_GEO_grp/witch_mesh_grp/witch_hat_mesh
+        weight: 1
+      - path: model_GEO_grp/witch_mesh_grp/witch_potion
+        weight: 1
+      maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     isReadable: 0

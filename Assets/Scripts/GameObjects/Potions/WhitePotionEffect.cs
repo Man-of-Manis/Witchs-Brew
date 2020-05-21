@@ -8,6 +8,7 @@ public class WhitePotionEffect : MonoBehaviour, IPotionActivation
     public float addedForce = 3f;
     public float forceArea = 4.5f;
     public float forceUplift = 0.25f;
+    public float addedSmallForce = 1f;
 
     public void SmallEffect(GameObject obj)
     {
@@ -75,6 +76,15 @@ public class WhitePotionEffect : MonoBehaviour, IPotionActivation
             if(!rb.isKinematic)
             {
                 Vector3 dir;
+
+                if (obj.CompareTag("Vine"))
+                {
+                    dir = Direction.NormalizedDirection(transform.position, obj.transform.position, 1f);
+                    rb.AddForce(dir * addedSmallForce * forceMultiplier, ForceMode.Impulse);
+                    return;
+                }
+
+                
                 if (obj.CompareTag("Chicken"))
                 {
                     dir = Direction.NormalizedDirection(transform.position, obj.transform.position, 1.5f);

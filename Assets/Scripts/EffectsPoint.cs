@@ -25,7 +25,9 @@ public class EffectsPoint : MonoBehaviour
     public bool OnFire
     {
         get {return m_OnFire; }
-        set {m_OnFire = value; }
+        set {m_OnFire = value;
+            SetOnFire();
+        }
     }
 
     public bool Frozen
@@ -39,21 +41,26 @@ public class EffectsPoint : MonoBehaviour
 
     public void Start()
     {
+        SetOnFire();
+    }
+
+    public void SetOnFire()
+    {
         ParticleSystem[] ps = ParticlePoint.GetComponentsInChildren<ParticleSystem>();
 
-        foreach(ParticleSystem pss in ps)
+        foreach (ParticleSystem pss in ps)
         {
             AddPS(pss);
         }
 
-        if(PS.Count > 0 && OnFire)
+        if (PS.Count > 0 && OnFire)
         {
             foreach (ParticleSystem firePS in PS)
             {
                 firePS.Play();
             }
         }
-        else if(PS.Count <= 0 && OnFire)
+        else if (PS.Count <= 0 && OnFire)
         {
             RedPotionEffect eff = new RedPotionEffect();
             eff.FirePS = this.FirePS;

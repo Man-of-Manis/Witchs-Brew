@@ -356,6 +356,12 @@ public class MainMenuManager : MonoBehaviour
         GameSettings.Instance.SetResolution(resolutionDropdown.value);
     }
 
+    public void SetFullscreen(bool isFullscreen)
+    {
+        GameSettings.Instance.SetFullscreen(isFullscreen);
+        //GameSettings.Instance.SetResolution(resolutionDropdown.value);
+    }
+
     public void ResolutionEventOpened()
     {
         Debug.Log("Opened");

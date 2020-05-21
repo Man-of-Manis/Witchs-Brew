@@ -28,6 +28,7 @@ TagManager:
   - Chicken_Path
   - Turtle
   - SpecialCube
+  - Vine
   layers:
   - Default
   - TransparentFX
