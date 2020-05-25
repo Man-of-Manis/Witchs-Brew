@@ -16640,31 +16640,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 181876218, guid: 01d6d9c6e113b614fa2b3edd6ce39677, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 181876218, guid: 01d6d9c6e113b614fa2b3edd6ce39677, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 181876219, guid: 01d6d9c6e113b614fa2b3edd6ce39677, type: 3}
-      propertyPath: m_CullTransparentMesh
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 758018765, guid: 01d6d9c6e113b614fa2b3edd6ce39677, type: 3}
-      propertyPath: levelLoadDelay
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 758018765, guid: 01d6d9c6e113b614fa2b3edd6ce39677, type: 3}
-      propertyPath: LoadingIconFadeTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1109976653211489049, guid: 01d6d9c6e113b614fa2b3edd6ce39677,
-        type: 3}
-      propertyPath: m_CullTransparentMesh
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1109976654063383781, guid: 01d6d9c6e113b614fa2b3edd6ce39677,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16770,20 +16745,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1109976654063383800, guid: 01d6d9c6e113b614fa2b3edd6ce39677,
-        type: 3}
-      propertyPath: m_BlockingMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 1109976654063383801, guid: 01d6d9c6e113b614fa2b3edd6ce39677,
         type: 3}
       propertyPath: m_Name
       value: LoadingScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 1109976654362668986, guid: 01d6d9c6e113b614fa2b3edd6ce39677,
-        type: 3}
-      propertyPath: m_CullTransparentMesh
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01d6d9c6e113b614fa2b3edd6ce39677, type: 3}

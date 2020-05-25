@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     protected PlayerUIManager m_PlayerCameraUI;
     protected GameObject m_CameraSystem;
     protected CameraFollow m_CameraFollow;
+    protected Inventory m_Inventory;
 
     private GameObject TechnicalObjects;
 
@@ -46,6 +47,18 @@ public class GameManager : MonoBehaviour
         get
         {
             return m_PlayerCameraUI;
+        }
+    }
+
+    public Inventory Inventory
+    {
+        get
+        {
+            return m_Inventory;
+        }
+        private set
+        {
+            m_Inventory = value;
         }
     }
 
@@ -83,6 +96,6 @@ public class GameManager : MonoBehaviour
         playerAudioScript = player.GetComponent<PlayerAudio>();
         pAudio = player.GetComponent<AudioSource>();
         MainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        
+        Inventory = GetComponent<Inventory>();
     }
 }

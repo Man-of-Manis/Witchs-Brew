@@ -6,6 +6,8 @@ using TMPro;
 using System.IO;
 using System;
 using System.Linq;
+using System.Reflection;
+using UnityEngine.EventSystems;
 
 namespace WitchsBrew.Utilities.DeveloperConsole
 {
@@ -47,10 +49,28 @@ namespace WitchsBrew.Utilities.DeveloperConsole
     {
         public static DeveloperConsole Instance { get; private set; }
         public static Dictionary<string, ConsoleCommand> Commands { get; private set; }
-        public static List<string> CommandNames{ get; private set; }
+        public static List<string> CommandNames { get; private set; }
+        public List<ConsoleCommand> CommandList;
+
+        public static Dictionary<Type, string> ParamTypes = new Dictionary<Type, string>()
+        {
+            { typeof(Int32), "Integer" },
+            { typeof(float), "Float" },
+            { typeof(string), "String" },
+            { typeof(Vector3), "Vector 3" }
+        };
+
+        public static Dictionary<Type, int> ParamParse = new Dictionary<Type, int>()
+        {
+            { typeof(Int32), 0 },
+            { typeof(float), 1 },            
+            { typeof(Vector3), 2 },
+            { typeof(string), 3 }
+        };
 
         [Header("Command")]
         public string prefix = "/";
+        private string commandMethodName = "RunCommand";
 
         [Header("UI")]
         public Canvas consoleCanvas;
@@ -65,6 +85,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         public List<string> autoCompleteStrings;
         public int autoCompleteSelection = 0;
         public List<string> autoCompleteArgs;
+        public List<string> commandParameters;
         
 
         [Header("Debugging")]
@@ -72,6 +93,8 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         [SerializeField] private bool EnableUnityLogging = true;
         public LogTypes currentlogs;
 
+        [Header("File Info")]
+        private string fileString;
         private string currentPathFile;
 
         private Dictionary<int, string> LogColor = new Dictionary<int, string>()
@@ -122,7 +145,9 @@ namespace WitchsBrew.Utilities.DeveloperConsole
                 CommandNames = new List<string>();
                 autoCompleteStrings = new List<string>();
                 autoCompleteArgs = new List<string>();
+                commandParameters = new List<string>();
                 CreateCommands();
+
                 if (EnableLogging)
                 {
                     CreateLogInput();
@@ -156,7 +181,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         }
 
         /// <summary>
-        /// The gets the key inputs to open and close the console.
+        /// Gets the navigation input of the console fomr the user.
         /// </summary>
         private void KeyInputs()
         {
@@ -188,6 +213,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
                 {
                     consoleCanvas.enabled = false;
                     commandInput.text = "";
+                    EventSystem.current.SetSelectedGameObject(null);
                 }
             }
 
@@ -197,8 +223,9 @@ namespace WitchsBrew.Utilities.DeveloperConsole
                 {
                     if (commandInput.text != "")
                     {
-                        AddMessageToConsole(commandInput.text);
-                        ParseInput(commandInput.text);
+                        AddMessage(commandInput.text);
+                        //ParseInput(commandInput.text);
+                        ParseCommand(commandInput.text);
                     }
                 }
             }
@@ -208,7 +235,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
                 if (autoCompleteBackground.gameObject.activeSelf)
                 {
                     autoCompleteSelection = AutoCompleteOptionIncrement(false);
-                    autoCompleteText.text = AutoCompleteSelectionHighlight();
+                    autoCompleteText.text = AutoCompleteCommandHighlight();
                 }
             }
 
@@ -217,7 +244,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
                 if (autoCompleteBackground.gameObject.activeSelf)
                 {
                     autoCompleteSelection = AutoCompleteOptionIncrement(true);
-                    autoCompleteText.text = AutoCompleteSelectionHighlight();
+                    autoCompleteText.text = AutoCompleteCommandHighlight();
                 }                
             }
 
@@ -244,7 +271,9 @@ namespace WitchsBrew.Utilities.DeveloperConsole
             {
                 if(i == (int)logType && currentlogs.LogIndex(i))
                 {
-                    AddMessageToConsole("<color=" + LogColor[i] + ">(" + logType.ToString() + ")</color> " + logMessage);
+                    string msg = "<color=" + LogColor[i] + ">(" + logType.ToString() + ")</color> " + logMessage;
+                    string msg2 = "(" + logType.ToString() + ") " + logMessage;
+                    AddMessage(msg, msg2);
                     return;
                 }
             }
@@ -266,6 +295,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         /// </summary>
         private void CreateCommands()
         {
+            CommandLoad.CreateCommand();
             CommandQuit.CreateCommand();
             CommandReset.CreateCommand();
         }
@@ -285,74 +315,168 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         }
 
         /// <summary>
+        /// Checks if the input string uses the command prefix.
+        /// </summary>
+        /// <param name="inputString">The user input.</param>
+        /// <returns></returns>
+        private bool HasCommandPrefix(string inputString)
+        {
+            if (inputString.StartsWith(prefix))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Strips input string's prefix and splits it into an array of strings.
+        /// </summary>
+        /// <param name="inputString">The user's input string.</param>
+        /// <returns></returns>
+        private string[] InputSplit(string inputString)
+        {
+            inputString = inputString.Remove(0, prefix.Length);
+
+            return inputString.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        /// <summary>
         /// Called when the command text input changes.
         /// </summary>
         /// <param name="inputString">The current string of the command input.</param>
         public void CommandInputOnChange(string inputString)
         {
             //Disables the autocomplete window if the prefix isn't used and returns.
-            if (!inputString.StartsWith(prefix))
+            if (!HasCommandPrefix(inputString))
             {
                 autoCompleteBackground.gameObject.SetActive(false);
                 return;
             }
 
-            inputString = inputString.Remove(0, prefix.Length);
+            string[] inputSplit = InputSplit(inputString);
 
-            string[] inputSplit = inputString.Split(' ');
+            string command = string.Empty;
 
-            string command = inputSplit[0];
+            if (inputSplit.Length > 0)
+            {
+                command = inputSplit[0];
+            }
+
             string[] args = inputSplit.Skip(1).ToArray();
+            string[] paramArgs = string.Join(" ", args).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
             //Resets values
             autoCompleteStrings.Clear();            
             autoCompleteArgs.Clear();
             autoCompleteSelection = 0;
 
-            for (int i = 0; i < args.Length; i++)
+            for (int i = 0; i < paramArgs.Length; i++)
             {
-                autoCompleteArgs.Add(args[i]);
-            }           
+                autoCompleteArgs.Add(paramArgs[i]);
+            }
 
             //Searches through all commands
             for(int i = 0; i < CommandNames.Count; i++)
             {
-                //Disables the autocomplete window if the full string is already typed.
+                //Checks for available arguments for the given command
                 if(CommandNames[i].Equals(command, StringComparison.OrdinalIgnoreCase))
                 {
-                    autoCompleteBackground.gameObject.SetActive(false);
+                    Type classType = Commands[CommandNames[i]].GetType();
+                    MethodInfo[] methods = classType.GetMethods();
+                    List<MethodInfo> usableMethonds = new List<MethodInfo>();
+                    List<ParameterInfo[]> methodParameters = new List<ParameterInfo[]>();
+
+                    foreach (MethodInfo m in methods)
+                    {
+                        if (m.Name.Equals(commandMethodName))
+                        {
+                            usableMethonds.Add(m);
+                        }
+                    }
+
+                    foreach (MethodInfo m in usableMethonds)
+                    {
+                        methodParameters.Add(m.GetParameters());
+                    }
+
+                    //Clears any previous parameters
+                    commandParameters.Clear();
+
+                    //Gets a string list of the parameter types found in each method
+                    foreach (ParameterInfo[] param in methodParameters)
+                    {
+                        string parameters = string.Empty;
+
+                        for (int j = 0; j < param.Count(); j++)
+                        {
+                            if (j == 0)
+                            {
+                                string type = GetTypeString(param[j].ParameterType);
+                                parameters += type;
+                            }
+                            else
+                            {
+                                string type = GetTypeString(param[j].ParameterType);
+                                parameters += ", " + type;
+                            }
+                        }
+
+                        if (parameters.Equals(String.Empty))
+                        {
+                            parameters = "(No Arg)";
+                        }
+
+                        commandParameters.Add(parameters);
+                    }
+
+                    //Sets the autocomplete text to the available arguments
+                    autoCompleteText.text = AutoCompleteArguments();
+
+                    //Disables the autocomplete window if no commands were found
+                    autoCompleteBackground.gameObject.SetActive(!autoCompleteText.text.Equals(string.Empty));
                     return;
                 }
 
+                commandParameters.Clear();
+
                 //Adds the current command string to the list of available commands to autocomplete
-                if(CommandNames[i].StartsWith(command, StringComparison.OrdinalIgnoreCase))
+                if (CommandNames[i].StartsWith(command, StringComparison.OrdinalIgnoreCase))
                 {
                     autoCompleteStrings.Add(CommandNames[i]);
                 }
             }
 
             //Highlights the first command in the list of options
-            autoCompleteText.text = AutoCompleteSelectionHighlight();
+            autoCompleteText.text = AutoCompleteCommandHighlight();
 
             //Disables the autocomplete window if no commands were found
             autoCompleteBackground.gameObject.SetActive(!autoCompleteText.text.Equals(string.Empty));
         }
 
         /// <summary>
-        /// Sets the current selected string's color.
+        /// Sets the current selected autocomplete option's string color.
         /// </summary>
         /// <returns></returns>
-        private string AutoCompleteSelectionHighlight()
+        private string AutoCompleteCommandHighlight()
         {
             string[] options = autoCompleteStrings.ToArray();
 
             for (int i = 0; i < options.Length; i++)
             {
-                if(i == autoCompleteSelection)
+                if (i == autoCompleteSelection)
                 {
                     options[i] = "<color=yellow>" + options[i] + "</color>";
                 }
             }
+
+            return string.Join("\n", options);
+        }
+
+        private string AutoCompleteArguments()
+        {
+            string[] options = commandParameters.ToArray();
+
 
             return string.Join("\n", options);
         }
@@ -407,7 +531,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         {
             if (File.Exists(currentPathFile))
             {
-                File.AppendAllText(currentPathFile, consoleInputLog.text + "\n");
+                File.AppendAllText(currentPathFile, fileString + "\n");
                 File.AppendAllText(currentPathFile, "[" + System.DateTime.Now + "] [ENDED]");
                 Debug.Log("Finished log.");
             }
@@ -421,6 +545,26 @@ namespace WitchsBrew.Utilities.DeveloperConsole
             commandInput.text = "";
             commandInput.ActivateInputField();
             commandInput.caretPosition = commandInput.text.Length;
+        }
+
+        /// <summary>
+        /// Sends messages to appropriate destination.
+        /// </summary>
+        /// <param name="msg">The main message to be sent.</param>
+        /// <param name="msg2">A secondary message that doesn't hold rich text.</param>
+        public void AddMessage(string msg, string msg2 = null)
+        {
+            AddMessageToConsole(msg);
+            AddMessageToFile(msg2 == null ? msg : msg2);
+        }
+
+        /// <summary>
+        /// Adds a string to the end of the text file.
+        /// </summary>
+        /// <param name="msg">String added to the end of the text file.</param>
+        private void AddMessageToFile(string msg)
+        {
+            fileString += "[" + System.DateTime.Now + "] " + msg + "\n";
         }
 
         /// <summary>
@@ -450,19 +594,19 @@ namespace WitchsBrew.Utilities.DeveloperConsole
 
                 if (_input.Length == 0 || _input == null)
                 {
-                    AddMessageToConsole("Not a valid command.");
+                    AddMessage("Not a valid command.");
                     ResetCommandInput();
                     return;
                 }
 
                 if (!Commands.ContainsKey(_input[0]))
                 {
-                    AddMessageToConsole("Not a valid command.");
+                    AddMessage("Not a valid command.");
                     ResetCommandInput();
                 }
                 else
                 {
-                    AddMessageToConsole(Commands[_input[0]].RunCommand());
+                    //AddMessage(Commands[_input[0]].RunCommand());
                     consoleCanvas.enabled = false;  //Closes the Developer Console after a valid command is executed.
                 }
             }
@@ -509,6 +653,152 @@ namespace WitchsBrew.Utilities.DeveloperConsole
             }
             */
             #endregion
+        }
+
+        /// <summary>
+        /// Gets a string version of a value type.
+        /// </summary>
+        /// <param name="type">The type to convert to a string.</param>
+        /// <returns></returns>
+        private string GetTypeString(Type type)
+        {
+            if (ParamTypes.ContainsKey(type))
+            {
+                return ParamTypes[type];
+            }
+
+            return type.ToString();
+        }
+
+        private void ParseCommand(string inputString)
+        {
+            if (!HasCommandPrefix(inputString))
+            {
+                return;
+            }
+
+            string[] inputSplit = InputSplit(inputString);
+
+            string command = string.Empty;
+
+            if (inputSplit.Length > 0)
+            {
+                command = inputSplit[0];
+            }
+
+            string[] args = inputSplit.Skip(1).ToArray();
+            string[] paramArgs = string.Join(" ", args).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            //Searches through all commands
+            for (int i = 0; i < CommandNames.Count; i++)
+            {
+                //Checks for available arguments for the given command
+                if (CommandNames[i].Equals(command, StringComparison.OrdinalIgnoreCase))
+                {
+                    Type classType = Commands[CommandNames[i]].GetType();
+                    object classInstance = Activator.CreateInstance(classType, null);
+                    MethodInfo[] methods = classType.GetMethods();
+
+                    if (paramArgs.Count() > 0)
+                    {
+                        List<MethodInfo> usableMethods = new List<MethodInfo>();
+                        List<ParameterInfo[]> methodParameters = new List<ParameterInfo[]>();
+
+                        foreach (MethodInfo m in methods)
+                        {
+                            if (m.Name.Equals(commandMethodName))
+                            {
+                                usableMethods.Add(m);
+                            }
+                        }
+
+                        foreach (MethodInfo m in usableMethods)
+                        {
+                            methodParameters.Add(m.GetParameters());
+                        }
+
+                        //The usable methods from the class
+                        for(int j = 0; j < usableMethods.Count; j++)
+                        {
+                            if (methodParameters[j].Length == paramArgs.Count())
+                            {
+                                if(ParseParameters(classInstance, usableMethods[j], methodParameters[j], paramArgs))
+                                {
+                                    return;
+                                }
+                            }
+                        }
+
+                        AddMessage("No command could be found with arguments: " + string.Join(" ", args));
+                        return;
+                    }
+                    else
+                    {
+                        MethodInfo method =  classType.GetMethod(commandMethodName, Type.EmptyTypes);
+
+                        if(method != null)
+                        {
+                            bool successful = (bool)method.Invoke(classInstance, null);
+
+                            if (successful)
+                            {
+                                EventSystem.current.SetSelectedGameObject(null);
+                                consoleCanvas.enabled = false;  //Closes the Developer Console after a valid command is executed.           
+                            }
+                            else
+                            {
+                                ResetCommandInput();
+                            }
+                        }
+                        else
+                        {
+                            AddMessage("No command could be found with no arguments.");
+                        }
+
+                        return;
+                    }
+                }
+            }
+
+            AddMessage(string.Format("No command with the name {0} could be found.", command));
+            ResetCommandInput();
+            return;
+        }
+
+        /// <summary>
+        /// Parses the string args to see if they match the method paramaters.
+        /// </summary>
+        /// <param name="method">The method of the parameters.</param>
+        /// <param name="paramInfo">The array of parameters.</param>
+        /// <param name="paramArgs">The input args.</param>
+        private bool ParseParameters(object classType, MethodInfo method, ParameterInfo[] paramInfo, string[] paramArgs)
+        {
+
+            object[] dynamicValues = new object[paramArgs.Count()];
+
+            //The array of parameters for a method
+            for (int k = 0; k < paramInfo.Length; k++)
+            {
+                if (!DeveloperConsoleHelper.GetParamType(ParamParse[paramInfo[k].ParameterType], paramArgs[k], out dynamicValues[k]))
+                {
+                    return false;
+                }
+            }
+
+            //Successful method
+            bool successful = (bool)method.Invoke(classType, dynamicValues);
+
+            if(successful)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+                consoleCanvas.enabled = false;  //Closes the Developer Console after a valid command is executed.           
+            }
+            else
+            {
+                ResetCommandInput();
+            }
+            
+            return true;
         }
     }
 }

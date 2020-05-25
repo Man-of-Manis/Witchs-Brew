@@ -9,39 +9,17 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         public override string Name { get; protected set; }
         public override string Command { get; protected set; }
         public override string Description { get; protected set; }
-        public override string Execution { get; protected set; }
 
         /// <summary>
-        /// sets the properties of the class when it is created.
+        /// Sets string fields upon instantiation.
         /// </summary>
         public CommandQuit()
         {
             Name = "Quit";
             Command = "quit";
             Description = "Quits the application or editor.";
-            Execution = "[The application has quit]";
 
             AddCommandToConsole();
-        }
-
-        /// <summary>
-        /// The execution of the Command.
-        /// </summary>
-        public override string RunCommand()
-        {
-#if UNITY_EDITOR
-            if (UnityEditor.EditorApplication.isPlaying)
-            {
-                UnityEditor.EditorApplication.isPlaying = false;
-            }
-#endif
-
-            if (Application.isPlaying)
-            {
-                Application.Quit();
-            }
-
-            return Execution;
         }
 
         /// <summary>
@@ -52,5 +30,29 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         {
             return new CommandQuit();
         }
+
+        /// <summary>
+        /// Quits the editor or application.
+        /// </summary>
+        /// <returns></returns>
+        public bool RunCommand()
+        {
+#if UNITY_EDITOR
+            if (UnityEditor.EditorApplication.isPlaying)
+            {
+                UnityEditor.EditorApplication.isPlaying = false;
+                return true;
+            }
+#endif
+
+            if (Application.isPlaying)
+            {
+                Application.Quit();
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }
