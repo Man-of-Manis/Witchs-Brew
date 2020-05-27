@@ -10,5 +10,9 @@ EditorBuildSettings:
     guid: e03fe0df3fdfc324fb92e8b16a5d05ad
   - enabled: 1
     path: Assets/Scenes/first_room.unity
+<<<<<<< HEAD
     guid: c21f4734b8aafa84f84752c6f9b18c48
+=======
+    guid: a9457798f631f9a43acab6808bfefd60
+>>>>>>> origin/Main_Menu
   m_configObjects: {}

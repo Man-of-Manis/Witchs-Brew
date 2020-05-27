@@ -27,6 +27,7 @@ public class SatchelUI : MonoBehaviour
     [SerializeField] private Image[] potionWheelImages = new Image[6];
     public float deadzone = 0.45f;
     private bool satchelFade;
+    private bool satchelPrevFade;
     private bool potionWheelToggle;
 
     private int NodeSelection = 0;
@@ -152,32 +153,56 @@ public class SatchelUI : MonoBehaviour
         IngredientAmount();
         PotionAmount();
         PotionSelection();
-        Animations();
+        ControllerButtons();
+        TempKeyboardButtons();
+        //Animations();
         PouchTimer();
     }
 
     public bool SatchelOpen
     {
         get { return satchelFade; }
+        private set { satchelFade = value; }
     }
 
+    public bool SatchelPrevOpen
+    {
+        get { return satchelPrevFade; }
+        private set { satchelPrevFade = value; }
+    }
+
+    private void Inputs()
+    {
+        if (m_Input.Button3)
+        {
+            TogglePouch();
+        }
+    }
+
+    /// <summary>
+    /// Toggles the pouch open/closed
+    /// </summary>
+    private void TogglePouch()
+    {
+        Animations();
+    }
+
+    /// <summary>
+    /// Toggles the pouch animations for opening/closing the satchel.
+    /// </summary>
     private void Animations()
     {
-        if(m_Input.Button3)
+        if (!pouchFade)
         {
-            if(!pouchFade)
-            {
-                BagParentAnim.SetBool("ToggleFade", !BagParentAnim.GetBool("ToggleFade"));
-            }
-            
-            BagParentAnim.SetTrigger("Bounce");
-            RecipeSheetAnim.SetBool("ToggleOpen", !RecipeSheetAnim.GetBool("ToggleOpen"));
-            SatchelAnim.SetBool("ToggleOpen", !SatchelAnim.GetBool("ToggleOpen"));
-            satchelFade = !satchelFade;
-            keyCubeUI.ToggleSelection();
+            BagParentAnim.SetBool("ToggleFade", !BagParentAnim.GetBool("ToggleFade"));
         }
 
-
+        BagParentAnim.SetTrigger("Bounce");
+        RecipeSheetAnim.SetBool("ToggleOpen", !RecipeSheetAnim.GetBool("ToggleOpen"));
+        SatchelAnim.SetBool("ToggleOpen", !SatchelAnim.GetBool("ToggleOpen"));
+        //satchelFade = !satchelFade;
+        SatchelOpen = !SatchelOpen;
+        keyCubeUI.ToggleSelection();
     }
 
     private void InitializePotionWheelNode()
@@ -223,6 +248,9 @@ public class SatchelUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets text for amount of potions the player is holding
+    /// </summary>
     private void PotionAmount()
     {
         for (int i = 0; i < potionAmount.Length; i++)
@@ -247,7 +275,7 @@ public class SatchelUI : MonoBehaviour
     /// </summary>
     void PotionSelection()
     {
-        if (m_Input.ToggleButton3)
+        if (SatchelOpen)
         {
             Time.timeScale = 0.1f;
 
@@ -285,7 +313,7 @@ public class SatchelUI : MonoBehaviour
             }
         }
 
-        else
+        else if(!SatchelOpen && SatchelPrevOpen)
         {
             Time.timeScale = 1.0f;
 
@@ -302,12 +330,9 @@ public class SatchelUI : MonoBehaviour
                 //WheelNodes[i].localScale = (i == newNodeSelection) ? new Vector3(nodeSize, nodeSize, nodeSize) : Vector3.one;
                 potionWheelImages[i].sprite = (i == newNodeSelection) ? combos.highlightedSprites[Transition[i]] : combos.unhighlightedSprites[Transition[i]];
             }
+
+            SatchelPrevOpen = false;
         }
-
-        ControllerButtons();
-
-        TempKeyboardButtons();
-
     }
 
     void ControllerButtons()
@@ -342,7 +367,9 @@ public class SatchelUI : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Keyboard input to craft potion.
+    /// </summary>
     void TempKeyboardButtons()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -371,6 +398,10 @@ public class SatchelUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Craft potion from keyboard.
+    /// </summary>
+    /// <param name="potion">Potion index to add.</param>
     void KeyPress(int potion)
     {
         pMix.CraftPotion(potion);
@@ -398,13 +429,17 @@ public class SatchelUI : MonoBehaviour
         return 3;
     }
 
+    /// <summary>
+    /// Shows ingredient pickup in UI.
+    /// </summary>
+    /// <param name="ingredientNum">Ingredient index to pick up</param>
     public void ItemPickup(int ingredientNum)
     {
         pouches[ingredientNum - 1].GetComponent<Animator>().SetBool("ToggleOpen", true);
         pouchTimers[ingredientNum - 1] = 0f;
         pouchResetTimers[ingredientNum - 1] = true;
 
-        if (!satchelFade && !pouchFade)
+        if (!SatchelOpen && !pouchFade)
         {
             BagParentAnim.SetBool("ToggleFade", !BagParentAnim.GetBool("ToggleFade"));
         }
@@ -415,11 +450,18 @@ public class SatchelUI : MonoBehaviour
         Instantiate(ingredientUI[ingredientNum - 1], playerScreenPos, Quaternion.identity, transform);
     }
 
+    /// <summary>
+    /// Bounces the pouch of the given ingredient index.
+    /// </summary>
+    /// <param name="pouchNum">The ingredient pouch index.</param>
     public void PouchBounce(int pouchNum)
     {
         pouches[pouchNum - 1].GetComponent<Animator>().SetTrigger("Bounce");
     }
 
+    /// <summary>
+    /// Fades the pouch out if no pouches have been used after specified time.
+    /// </summary>
     private void PouchTimer()
     {
         for(int i = 0; i < pouchTimers.Length; i++)
@@ -438,7 +480,7 @@ public class SatchelUI : MonoBehaviour
 
         pouchFade = pouchResetTimers.Any(x => x) ? true : false;
 
-        if (!satchelFade && !pouchFade && BagParentAnim.GetBool("ToggleFade"))
+        if (!SatchelOpen && !pouchFade && BagParentAnim.GetBool("ToggleFade"))
         {
             BagParentAnim.SetBool("ToggleFade", !BagParentAnim.GetBool("ToggleFade"));
             BagParentAnim.SetTrigger("Bounce");
