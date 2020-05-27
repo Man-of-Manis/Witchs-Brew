@@ -28,13 +28,6 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Options")]
     [SerializeField] private GameObject optionsMenu;
-<<<<<<< HEAD
-    [SerializeField] private GameObject audioButton;
-
-    [Header("Audio")]
-    [SerializeField] private GameObject audioMenu;    
-    [SerializeField] private GameObject masterSlider;
-=======
     [SerializeField] private GameObject gameButton;
 
     [Header("Game")]
@@ -62,16 +55,12 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private TMP_InputField sfxInput;
     [SerializeField] private TMP_InputField playerInput;
     [SerializeField] private TMP_InputField creatureInput;
->>>>>>> origin/Main_Menu
 
     [Header("Video")]
     [SerializeField] private GameObject videoMenu;
     [SerializeField] private TMP_Dropdown resolutionDropdown;
     [SerializeField] private RectTransform resolutionTemplateSize;
     [SerializeField] private RectTransform itemSize;
-<<<<<<< HEAD
-    [SerializeField] private TMP_Dropdown qualityDropdown;
-=======
     [SerializeField] private Toggle fullscreenToggle;
     [SerializeField] private TMP_Dropdown qualityDropdown;
     [SerializeField] private TMP_Dropdown MSAADropdown;
@@ -84,7 +73,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Slider shadowDistanceSlider;
     [SerializeField] private TMP_InputField ShadowDistanceInputField;
     */
->>>>>>> origin/Main_Menu
 
     private Button continueYesButton;
     private Button continueNoButton;
@@ -101,10 +89,7 @@ public class MainMenuManager : MonoBehaviour
     private Button exitYesButton;
     private Button exitNoButton;
 
-<<<<<<< HEAD
-=======
     [Header("Selections")]
->>>>>>> origin/Main_Menu
     [SerializeField] private GameObject currentSelectedMenu;
     [SerializeField] private List<GameObject> prevSelectedGameObject = new List<GameObject>();
     [SerializeField] private List<GameObject> prevSelectedMenu = new List<GameObject>();
@@ -126,30 +111,17 @@ public class MainMenuManager : MonoBehaviour
         GetConfirmations();
     }
 
-<<<<<<< HEAD
-    private void Start()
-    {
-        VideoDropdownUpdate();
-    }
-
-=======
->>>>>>> origin/Main_Menu
     private void Update()
     {
         if(Input.GetButtonUp("Cancel"))
         {
             SetPrevMenu();
         }
-<<<<<<< HEAD
-
-        if(eventSystem.currentSelectedGameObject == null)
-=======
     }
 
     private void LateUpdate()
     {
         if (eventSystem.currentSelectedGameObject == null)
->>>>>>> origin/Main_Menu
         {
             eventSystem.SetSelectedGameObject(prevSelectedGO);
         }
@@ -255,12 +227,6 @@ public class MainMenuManager : MonoBehaviour
     /// </summary>
     private void SetPrevMenu()
     {
-<<<<<<< HEAD
-        if(!ResolutionOpen)
-        {
-            if (prevSelectedMenu.Count > 0 && prevSelectedGameObject.Count > 0)
-            {
-=======
         //If no dropdowns are open
         if(!ResolutionOpen)
         {
@@ -268,18 +234,10 @@ public class MainMenuManager : MonoBehaviour
             if (prevSelectedMenu.Count > 0 && prevSelectedGameObject.Count > 0)
             {
                 eventSystem.SetSelectedGameObject(null);
->>>>>>> origin/Main_Menu
                 GameObject goTo = prevSelectedMenu[prevSelectedMenu.Count - 1];
                 ChangeMenu(goTo, currentSelectedMenu, null, true);
                 EventSelection(prevSelectedGameObject[prevSelectedGameObject.Count - 1]);
 
-<<<<<<< HEAD
-                prevSelectedMenu.RemoveAt(prevSelectedMenu.Count - 1);
-                prevSelectedGameObject.RemoveAt(prevSelectedGameObject.Count - 1);
-            }
-            else
-            {
-=======
 
                 prevSelectedMenu.RemoveAt(prevSelectedMenu.Count - 1);
                 prevSelectedGameObject.RemoveAt(prevSelectedGameObject.Count - 1);
@@ -288,7 +246,6 @@ public class MainMenuManager : MonoBehaviour
             else
             {
                 eventSystem.SetSelectedGameObject(null);
->>>>>>> origin/Main_Menu
                 ChangeMenu(exitGameConfim, mainMenuGo, eventSystem.currentSelectedGameObject);
                 EventSelection(exitNoButton.gameObject);
             }
@@ -389,95 +346,18 @@ public class MainMenuManager : MonoBehaviour
     public void OptionsButton()
     {
         ChangeMenu(optionsMenu, mainMenuGo, eventSystem.currentSelectedGameObject);
-<<<<<<< HEAD
-        EventSelection(audioButton.gameObject);
-    }
-
-=======
         EventSelection(gameButton.gameObject);
     }
 
     /// <summary>
     /// Exits the options menu.
     /// </summary>
->>>>>>> origin/Main_Menu
     public void OptionsBack()
     {
         SetPrevMenu();
     }
     #endregion
 
-<<<<<<< HEAD
-    #region Audio
-    public void AudioButton()
-    {
-        ChangeMenu(audioMenu, optionsMenu, eventSystem.currentSelectedGameObject);
-        EventSelection(masterSlider.gameObject);
-    }
-
-    public void AudioBack()
-    {
-        SetPrevMenu();
-    }
-    #endregion
-
-    #region Video
-    public void VideoButton()
-    {
-        ChangeMenu(videoMenu, optionsMenu, eventSystem.currentSelectedGameObject);
-        EventSelection(resolutionDropdown.gameObject);
-    }
-
-    /// <summary>
-    /// Updates the Resolution and QualityLevel Dropdowns
-    /// </summary>
-    public void VideoDropdownUpdate()
-    {
-        resolutionDropdown.ClearOptions();
-        resolutionDropdown.AddOptions(GameSettings.Instance.GetResolutionStrings());
-        resolutionDropdown.SetValueWithoutNotify(GameSettings.Instance.CurrentResolutionIndex);
-        resolutionDropdown.RefreshShownValue();
-
-        qualityDropdown.ClearOptions();
-        qualityDropdown.AddOptions(new List<string>() { "Low", "Medium", "High" });
-        qualityDropdown.SetValueWithoutNotify(GameSettings.Instance.GetQualityLevel());
-        qualityDropdown.RefreshShownValue();
-
-        resolutionTemplateSize.sizeDelta = new Vector2(resolutionTemplateSize.sizeDelta.x, resolutionDropdown.options.Count * itemSize.sizeDelta.y + 8f);
-    }
-
-    public void SetResolution()
-    {
-        GameSettings.Instance.SetResolution(resolutionDropdown.value);
-    }
-
-    public void SetFullscreen(bool isFullscreen)
-    {
-        GameSettings.Instance.SetFullscreen(isFullscreen);
-        //GameSettings.Instance.SetResolution(resolutionDropdown.value);
-    }
-
-    public void ResolutionEventOpened()
-    {
-        Debug.Log("Opened");
-    }
-
-    public void ResolutionEventClosed()
-    {
-        Debug.Log("Closed");
-    }
-
-    public void DropdownItemPosition()
-    {
-        //resolutionDropdown
-    }
-
-    public void SetQualityLevel()
-    {
-        GameSettings.Instance.SetQualityLevel(qualityDropdown.value);
-    }
-
-=======
     #region Game
     /// <summary>
     /// Initializes the game settings from the save file.
@@ -875,7 +755,6 @@ public class MainMenuManager : MonoBehaviour
     /// <summary>
     /// Exits the video menu and applies next gameobject selection.
     /// </summary>
->>>>>>> origin/Main_Menu
     public void Videoback()
     {
         SetPrevMenu();

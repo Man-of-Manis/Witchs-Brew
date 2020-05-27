@@ -1,10 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-<<<<<<< HEAD
-=======
 using System.IO;
 using System.Linq;
->>>>>>> origin/Main_Menu
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -13,9 +10,6 @@ public class GameSettings : MonoBehaviour
 {
     public static GameSettings Instance;
 
-<<<<<<< HEAD
-    #region Audio
-=======
     public Settings settings;
 
     #region Game Fields
@@ -94,7 +88,6 @@ public class GameSettings : MonoBehaviour
         set { settings.creatureVol = value; }
     }
 
->>>>>>> origin/Main_Menu
     #endregion
 
     #region Video
@@ -119,14 +112,6 @@ public class GameSettings : MonoBehaviour
 
     Resolution[] resolutions;
     List<string> options = new List<string>();
-<<<<<<< HEAD
-    #endregion
-
-    #region Quality
-    #endregion
-
-    // Start is called before the first frame update
-=======
 
     public bool IsFullscreen
     {
@@ -157,26 +142,16 @@ public class GameSettings : MonoBehaviour
 
     #endregion
 
->>>>>>> origin/Main_Menu
     void Awake()
     {
         if(Instance != null)
         {
-<<<<<<< HEAD
-            Destroy(this);
-=======
             Destroy(gameObject);
             return;
->>>>>>> origin/Main_Menu
         }
 
         Instance = this;
 
-<<<<<<< HEAD
-        DontDestroyOnLoad(this);
-
-        InstantiateResolutions();
-=======
         DontDestroyOnLoad(gameObject);
     }
 
@@ -281,7 +256,6 @@ public class GameSettings : MonoBehaviour
         }
 
         return resolution;
->>>>>>> origin/Main_Menu
     }
 
     /// <summary>
@@ -290,22 +264,13 @@ public class GameSettings : MonoBehaviour
     private void InstantiateResolutions()
     {
         resolutions = Screen.resolutions;
-<<<<<<< HEAD
-=======
         int[] resolutionFromFile = ResolutionFromString(settings.resolution);
->>>>>>> origin/Main_Menu
 
         for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
             options.Add(option);
 
-<<<<<<< HEAD
-            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
-            {
-                CurrentResolution = resolutions[i];
-                CurrentResolutionIndex = i;
-=======
             if(resolutions[i].width == resolutionFromFile[0] && resolutions[i].height == resolutionFromFile[1])
             {
                 CurrentResolution = resolutions[i];
@@ -327,7 +292,6 @@ public class GameSettings : MonoBehaviour
                 CurrentResolutionIndex = i;
                 settings.resolution = CurrentResolutionString;
                 Debug.Log("Resolution was not found from the file. Setting game to: " + resolutions[i].width + " x " + resolutions[i].height);
->>>>>>> origin/Main_Menu
             }
         }
     }
@@ -349,39 +313,6 @@ public class GameSettings : MonoBehaviour
     {
         CurrentResolution = resolutions[resolutionIndex];
         Screen.SetResolution(CurrentResolution.width, CurrentResolution.height, Screen.fullScreen);
-<<<<<<< HEAD
-        Debug.Log("Resolution changed to: " + CurrentResolutionString);
-    }
-
-    /// <summary>
-    /// Changes the whether the game window is fullscreen or windowed.
-    /// </summary>
-    /// <param name="fullscreen">If true, the game window will be fullscreen.</param>
-    public void SetFullscreen(bool isFullscreen)
-    {
-        Screen.fullScreen = isFullscreen;
-    }
-
-    /// <summary>
-    /// Gets the current Quality Level index.
-    /// </summary>
-    /// <returns></returns>
-    public int GetQualityLevel()
-    {
-        //UniversalRenderPipeline.asset.msaaSampleCount = MsaaQuality.
-        return QualitySettings.GetQualityLevel();
-    }
-
-    /// <summary>
-    /// Sets the Quality Level to the selected index value.
-    /// </summary>
-    /// <param name="qualityIndex">The index value to set the quality to.</param>
-    public void SetQualityLevel(int qualityIndex)
-    {
-        QualitySettings.SetQualityLevel(qualityIndex);
-        Debug.Log("Quality Level changed to: " + qualityIndex);
-    }
-=======
         settings.resolution = CurrentResolutionString;
         Debug.Log("Resolution changed to: " + CurrentResolutionString);
     }
@@ -544,5 +475,4 @@ public class GameSettings : MonoBehaviour
         GraphicsSettings.renderPipelineAsset = highQuality;
     }
     */
->>>>>>> origin/Main_Menu
 }
