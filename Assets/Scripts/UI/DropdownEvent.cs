@@ -4,21 +4,44 @@ using UnityEngine;
 
 public class DropdownEvent : MonoBehaviour
 {
-    [SerializeField] private MainMenuManager mainMenuManager;
+    private MainMenuManager mainMenuManager;
+    private PauseMenu pauseMenu;
 
     void Start()
     {
-        if(mainMenuManager != null && gameObject.name.Equals("Dropdown List"))
+        mainMenuManager = GetComponentInParent<MainMenuManager>();
+        pauseMenu = GetComponentInParent<PauseMenu>();
+
+        if (gameObject.name.Equals("Dropdown List"))
         {
-            mainMenuManager.ResolutionOpen = true;
+            if(mainMenuManager != null)
+            {
+                mainMenuManager.ResolutionOpen = true;
+            }
+            
+            if(pauseMenu != null)
+            {
+                pauseMenu.ResolutionOpen = true;
+            }
         }
     }
 
     private void OnDestroy()
     {
-        if (mainMenuManager != null && gameObject.name.Equals("Dropdown List"))
+        mainMenuManager = GetComponentInParent<MainMenuManager>();
+        pauseMenu = GetComponentInParent<PauseMenu>();
+
+        if (gameObject.name.Equals("Dropdown List"))
         {
-            mainMenuManager.ResolutionOpen = false;
+            if (mainMenuManager != null)
+            {
+                mainMenuManager.ResolutionOpen = false;
+            }
+
+            if (pauseMenu != null)
+            {
+                pauseMenu.ResolutionOpen = false;
+            }
         }
     }
 }

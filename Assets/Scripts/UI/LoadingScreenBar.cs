@@ -36,12 +36,21 @@ public class LoadingScreenBar : MonoBehaviour
         Application.backgroundLoadingPriority = ThreadPriority.Low;
     }
 
+    /// <summary>
+    /// Starts to load a new level with the given scene index.
+    /// </summary>
+    /// <param name="sceneIndex">The scene index to load.</param>
     public void LoadLevel(int sceneIndex)
     {
+        //Check if scene index is valid
+
         levelIndexToLoad = sceneIndex;
         LevelFadeAnim.SetTrigger("FadeOut");
     }
 
+    /// <summary>
+    /// Starts to load the next level. (Called by Animator Only)
+    /// </summary>
     public void AnimationLevelLoad()
     {
         StartCoroutine(LoadAsynchronously(levelIndexToLoad));
@@ -63,7 +72,7 @@ public class LoadingScreenBar : MonoBehaviour
 
         LoadingIconCo = StartCoroutine(FadeLoadingIcon(false));
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSecondsRealtime(0.1f);
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
 
@@ -81,7 +90,9 @@ public class LoadingScreenBar : MonoBehaviour
 
         operation.allowSceneActivation = true;
 
-        yield return new WaitUntil(() => operation.progress >= 1f);        
+        yield return new WaitUntil(() => operation.progress >= 1f);
+
+        Time.timeScale = 1f;
 
         if (LoadingIconCo != null)
         {
@@ -90,7 +101,7 @@ public class LoadingScreenBar : MonoBehaviour
 
         LoadingIconCo = StartCoroutine(FadeLoadingIcon(true));
 
-        yield return new WaitForSeconds(levelLoadDelay);
+        yield return new WaitForSecondsRealtime(levelLoadDelay);
 
         LevelFadeAnim.SetTrigger("FadeIn");        
     }
@@ -109,7 +120,7 @@ public class LoadingScreenBar : MonoBehaviour
             LoadingIconAnim.SetTrigger("IconLoop");
         }
 
-        for(float i = 0f; i < 1f; i += Time.deltaTime * (1f / LoadingIconFadeTime))
+        for(float i = 0f; i < 1f; i += Time.unscaledDeltaTime * (1f / LoadingIconFadeTime))
         {
             LoadingIconImage.color = new Color(LoadingIconImage.color.r, LoadingIconImage.color.b, LoadingIconImage.color.g, 
                 Mathf.Lerp(LoadingIconImage.color.a, (fadeIn ? 0f : 1f), i));
