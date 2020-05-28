@@ -29,6 +29,15 @@ public class PotionBreak : MonoBehaviour
         eventEmitterRef = GetComponent<FMODUnity.StudioEventEmitter>(); //Grant was here
     }
 
+    private void DisablePotion()
+    {
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
+        Break = false;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -138,7 +147,7 @@ public class PotionBreak : MonoBehaviour
 
         TrailDetach();
 
-        Destroy(gameObject);
+        DisablePotion();
     }
 
     private void SmokeStop()

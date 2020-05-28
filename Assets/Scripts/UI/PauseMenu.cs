@@ -108,7 +108,10 @@ public class PauseMenu : MonoBehaviour
 
         if(Input.GetButtonUp("Cancel"))
         {
-            SetPrevMenu();
+            if(pauseMenuParent.activeSelf)
+            {
+                SetPrevMenu();
+            }            
         }
     }
 
@@ -126,9 +129,7 @@ public class PauseMenu : MonoBehaviour
         else
         {
             Time.timeScale = previousTimescale;
-        }
-
-        
+        }       
     }
 
     private void AlwaysHaveSelection()

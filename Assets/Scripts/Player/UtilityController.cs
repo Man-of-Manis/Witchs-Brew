@@ -16,6 +16,7 @@ public class UtilityController : MonoBehaviour
     public GameObject[] prefabPotions = new GameObject[5];
     public GameObject[] instPotions = new GameObject[5];
     [SerializeField] private int currentSelectedPotion = 0;
+    [SerializeField] private PotionPool[] potionPools = new PotionPool[6];
 
     [Header("Pickups")]
     [SerializeField] private PlayerItemPickup pickup;
@@ -288,6 +289,38 @@ public class UtilityController : MonoBehaviour
     }
 
     /// <summary>
+    /// Returns a potion from spawn pool or instaniates new potion.
+    /// </summary>
+    /// <param name="potionType">The potion index to return.</param>
+    /// <returns></returns>
+    private GameObject GetPotionFromPool(int potionType)
+    {
+        //Searches type pool for inactive potion
+        foreach(GameObject potion in potionPools[potionType].potions)
+        {
+            if(!potion.activeSelf)
+            {
+                //Returns an inactive potion from type pool
+                potion.transform.position = potionPouch.transform.position;
+                potion.transform.rotation = Quaternion.Euler(Vector3.zero);
+                potion.transform.parent = potionPouch.transform;
+                return potion;
+            }
+        }
+
+        //Instantiates new potion
+        GameObject newPotion = Instantiate(prefabPotions[potionType]);
+        newPotion.transform.position = potionPouch.transform.position;
+        newPotion.transform.rotation = Quaternion.Euler(Vector3.zero);
+        newPotion.transform.parent = potionPouch.transform;
+
+        //Adds potion to type pool
+        potionPools[potionType].potions.Add(newPotion);
+
+        return newPotion;
+    }
+
+    /// <summary>
     /// Set the currently selected potion.
     /// </summary>
     /// <param name="potionType">The integer value of the selected potion.</param>
@@ -505,6 +538,7 @@ public class UtilityController : MonoBehaviour
             if(instType[i] == null)
             {
                 GameObject item = Instantiate(prefabType[i], pouch.position, Quaternion.identity, pouch);
+                potionPools[i].potions.Add(item);
                 instType[i] = item;
                 instType[i].SetActive(false);
             }
@@ -526,7 +560,14 @@ public class UtilityController : MonoBehaviour
 
         if (instType[itemVariation] == null)
         {
-            GameObject newItem = Instantiate(prefabType[itemVariation], pouch.position, Quaternion.Euler(Vector3.zero), pouch);
+            //GameObject newItem = Instantiate(prefabType[itemVariation], pouch.position, Quaternion.Euler(Vector3.zero), pouch);
+            //Gets potion from type pool
+            GameObject newItem = GetPotionFromPool(itemVariation);
+            newItem.SetActive(true);
+            newItem.transform.position = pouch.position;
+            newItem.transform.rotation = Quaternion.Euler(Vector3.zero);
+            newItem.transform.parent = pouch;
+
             newItem.transform.SetSiblingIndex(itemVariation);//Sets child position of potion
             instType[itemVariation] = newItem;
 
@@ -541,4 +582,10 @@ public class UtilityController : MonoBehaviour
         }
     }
 
+}
+
+[System.Serializable]
+public class PotionPool
+{
+    public List<GameObject> potions = new List<GameObject>();
 }

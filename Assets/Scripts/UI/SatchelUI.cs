@@ -150,12 +150,11 @@ public class SatchelUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Inputs();
         IngredientAmount();
         PotionAmount();
         PotionSelection();
-        ControllerButtons();
         TempKeyboardButtons();
-        //Animations();
         PouchTimer();
     }
 
@@ -173,9 +172,25 @@ public class SatchelUI : MonoBehaviour
 
     private void Inputs()
     {
+        //Open/Close Satchel
         if (m_Input.Button3)
         {
             TogglePouch();
+        }
+
+        //Select potion type
+        else if(m_Input.Button0)
+        {
+            if(SatchelOpen)
+            {
+                SetPotionSelect();
+            }
+        }
+
+        //Craft potion type
+        else if(m_Input.Button2)
+        {
+            SetCraftedPotionSelect();
         }
     }
 
@@ -184,27 +199,65 @@ public class SatchelUI : MonoBehaviour
     /// </summary>
     private void TogglePouch()
     {
-        Animations();
-    }
-
-    /// <summary>
-    /// Toggles the pouch animations for opening/closing the satchel.
-    /// </summary>
-    private void Animations()
-    {
         if (!pouchFade)
         {
             BagParentAnim.SetBool("ToggleFade", !BagParentAnim.GetBool("ToggleFade"));
         }
 
+        //Bounces Satchel
         BagParentAnim.SetTrigger("Bounce");
+
+        //Toggles recipe sheet based on animator current bool value
         RecipeSheetAnim.SetBool("ToggleOpen", !RecipeSheetAnim.GetBool("ToggleOpen"));
+
+        //Toggles satchel based on animator current bool value
         SatchelAnim.SetBool("ToggleOpen", !SatchelAnim.GetBool("ToggleOpen"));
         //satchelFade = !satchelFade;
+
+        //Toggles whether satchel is currenly open
         SatchelOpen = !SatchelOpen;
+
+        Time.timeScale = SatchelOpen ? 0f : 1f;
+
+        //Toggles KeyCube UI visibility.
         keyCubeUI.ToggleSelection();
     }
 
+    /// <summary>
+    /// Selects a potion type based on current selection
+    /// </summary>
+    void SetPotionSelect()
+    {
+        //Select potion
+        if (itemCon.AvailablePotions[CraftingSelection] && itemCon.potionAmount[CraftingSelection] > 0)
+        {
+            NodeSelection = newNodeSelection;
+            utilController.ChangeSelectedPotion(Transition[NodeSelection]);
+        }
+    }
+
+    /// <summary>
+    /// Selects and crafts a potion type base on current selection
+    /// </summary>
+    void SetCraftedPotionSelect()
+    {
+        if (itemCon.AvailablePotions[CraftingSelection] && itemCon.ingredientAmount[CraftingSelection] > 0)
+        {
+            //Craft potion
+            pMix.CraftPotion(CraftingSelection);
+            NodeSelection = newNodeSelection;
+            utilController.ChangeSelectedPotion(Transition[NodeSelection]);
+        }
+        else if (itemCon.AvailablePotions[CraftingSelection] && itemCon.potionAmount[CraftingSelection] > 0)
+        {
+            NodeSelection = newNodeSelection;
+            utilController.ChangeSelectedPotion(Transition[NodeSelection]);
+        }
+    }
+
+    /// <summary>
+    /// Gets the image component for the potion bottle sprites
+    /// </summary>
     private void InitializePotionWheelNode()
     {
         for (int i = 0; i < PotionWheel.transform.childCount; i++)
@@ -213,6 +266,9 @@ public class SatchelUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets the Recipe sheet image components and sets their respective sprites.
+    /// </summary>
     private void InitializeListIngredients()
     {
         for (int i = 0; i < PotionSheet.transform.childCount; i++)
@@ -224,11 +280,9 @@ public class SatchelUI : MonoBehaviour
         }
     }
 
-    private void InitializeAmounts()
-    {
-        
-    }
-
+    /// <summary>
+    /// Displays how many of an ingredient type the player is holding.
+    /// </summary>
     private void IngredientAmount()
     {
         for (int i = 0; i < ingredientAmount.Length; i++)
@@ -249,7 +303,7 @@ public class SatchelUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets text for amount of potions the player is holding
+    /// Displays how mnay of a potioin type the player is holding.
     /// </summary>
     private void PotionAmount()
     {
@@ -277,12 +331,6 @@ public class SatchelUI : MonoBehaviour
     {
         if (SatchelOpen)
         {
-            Time.timeScale = 0.1f;
-
-            //PotionSelectionWheel.SetActive(true);
-            //RecipeList.SetActive(true);
-            //Satchel.SetActive(true);
-
             float LSDeadzoneX = m_Input.LSInput.x > deadzone || m_Input.LSInput.x < -deadzone ? m_Input.LSInput.x : 0f;
             float LSDeadzoneY = m_Input.LSInput.y > deadzone || m_Input.LSInput.y < -deadzone ? m_Input.LSInput.y : 0f;
 
@@ -311,16 +359,12 @@ public class SatchelUI : MonoBehaviour
                     potionWheelImages[newNodeSelection].GetComponent<Animator>().SetTrigger("Jiggle");
                 }
             }
+
+            SatchelPrevOpen = true;
         }
 
         else if(!SatchelOpen && SatchelPrevOpen)
         {
-            Time.timeScale = 1.0f;
-
-            //PotionSelectionWheel.SetActive(false);
-            //RecipeList.SetActive(false);
-            //Satchel.SetActive(false);
-
             newNodeSelection = NodeSelection;
 
             pointer.rotation = Quaternion.Euler(new Vector3(0f, 0f, PointRotation[newNodeSelection]));
@@ -332,38 +376,6 @@ public class SatchelUI : MonoBehaviour
             }
 
             SatchelPrevOpen = false;
-        }
-    }
-
-    void ControllerButtons()
-    {
-        if (m_Input.ToggleButton3 && m_Input.Button0)
-        {
-            //Select potion
-            if (itemCon.AvailablePotions[CraftingSelection] && itemCon.potionAmount[CraftingSelection] > 0)
-            {
-                if (!pouchFade)
-                {
-                    //BagParentAnim.SetBool("ToggleFade", !BagParentAnim.GetBool("ToggleFade"));
-                }
-                /*
-                BagParentAnim.SetTrigger("Bounce");
-                RecipeSheetAnim.SetBool("ToggleOpen", !RecipeSheetAnim.GetBool("ToggleOpen"));
-                SatchelAnim.SetBool("ToggleOpen", !SatchelAnim.GetBool("ToggleOpen"));
-                */
-                NodeSelection = newNodeSelection;
-                utilController.ChangeSelectedPotion(Transition[NodeSelection]);
-                //m_Input.UntoggleButton3();
-            }
-        }
-
-        else if (m_Input.ToggleButton3 && m_Input.Button2 && itemCon.AvailablePotions[CraftingSelection] && itemCon.ingredientAmount[CraftingSelection] > 0)
-        {
-            //Craft potion
-            pMix.CraftPotion(CraftingSelection);
-            NodeSelection = newNodeSelection;
-            utilController.ChangeSelectedPotion(Transition[NodeSelection]);
-            //Debug.Log("Crafted a potion!");
         }
     }
 

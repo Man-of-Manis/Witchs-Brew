@@ -123,7 +123,7 @@ public class WhitePotionEffect : MonoBehaviour, IPotionActivation
 
     private void ConsoleLog(string targetName)
     {
-        Debug.Log(targetName + " has been affected by the " + gameObject.name.Substring(12, name.Length - 19) + " Potion");
+        //Debug.Log(targetName + " has been affected by the " + gameObject.name.Substring(12, name.Length - 19) + " Potion");
     }
 
     private void MoveSwing()
