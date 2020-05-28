@@ -31,6 +31,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &3968462173696879702
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8530249788932134562}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4860203102795750428, guid: 252b2892bf3bb66408738b5dbed74cc5, type: 3}
 --- !u!205 &3616670873890701250
 LODGroup:
   m_ObjectHideFlags: 0
@@ -55,20 +69,6 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
---- !u!64 &3968462173696879702
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8530249788932134562}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4860203102795750428, guid: 252b2892bf3bb66408738b5dbed74cc5, type: 3}
 --- !u!1001 &378414426755813291
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -141,6 +141,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: sm_tile_groundplane
       objectReference: {fileID: 0}
+    - target: {fileID: 331343358535080998, guid: 252b2892bf3bb66408738b5dbed74cc5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 331343358535080998, guid: 252b2892bf3bb66408738b5dbed74cc5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 331343358535080998, guid: 252b2892bf3bb66408738b5dbed74cc5,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1432961479375641678, guid: 252b2892bf3bb66408738b5dbed74cc5,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -164,6 +179,21 @@ PrefabInstance:
     - target: {fileID: 2773511051971884402, guid: 252b2892bf3bb66408738b5dbed74cc5,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998535104481542136, guid: 252b2892bf3bb66408738b5dbed74cc5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998535104481542136, guid: 252b2892bf3bb66408738b5dbed74cc5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998535104481542136, guid: 252b2892bf3bb66408738b5dbed74cc5,
+        type: 3}
+      propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
