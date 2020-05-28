@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 namespace WitchsBrew.Utilities.DeveloperConsole
 {
@@ -10,31 +11,40 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         public override string Name { get; protected set; }
         public override string Command { get; protected set; }
         public override string Description { get; protected set; }
-        public override string Execution { get; protected set; }
 
+        /// <summary>
+        /// Sets string fields upon instantiation.
+        /// </summary>
         public CommandReset()
         {
             Name = "Reset";
             Command = "reset";
-            Description = "Resets the current level.";
-            Execution = "[The level has been reset]";
+            Description = "Resets the current or given level.";
 
             AddCommandToConsole();
         }
 
         /// <summary>
-        /// The execution of the Command
+        /// Returns new instance of the class.
         /// </summary>
-        public override string RunCommand()
-        {
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            LoadingScreenBar.Instance.LoadLevel(1);
-            return Execution;
-        }
-
+        /// <returns></returns>
         public static CommandReset CreateCommand()
         {
             return new CommandReset();
+        }
+
+        /// <summary>
+        /// Resets current scene.
+        /// </summary>
+        public bool RunCommand()
+        {
+            LoadingScreenBar.Instance.LoadLevel(SceneManager.GetActiveScene().buildIndex);
+            return true;
+        }
+
+        public string HelpCommand()
+        {
+            return "[Reset current scene]";
         }
     }
 }
