@@ -12,6 +12,11 @@ using UnityEditor;
 public class PauseMenu : MonoBehaviour
 {
     #region Fields
+    public bool PauseMenuOpen
+    {
+        get { return pauseMenuParent.activeSelf; }
+    }
+
     [Header("Menus")]
     [SerializeField] private GameObject pauseMenuParent;
     [SerializeField] private GameObject pauseMenu;
@@ -128,6 +133,14 @@ public class PauseMenu : MonoBehaviour
         }
         else
         {
+            pauseMenu.SetActive(false);
+            optionsMenu.SetActive(false);
+            quitMainMenu.SetActive(false);
+            quitDesktopMenu.SetActive(false);
+            gameMenu.SetActive(false);
+            audioMenu.SetActive(false);
+            videoMenu.SetActive(false);
+
             Time.timeScale = previousTimescale;
         }       
     }

@@ -10,6 +10,7 @@ public class PlayerUIManager : MonoBehaviour
 
     [Header("References")]
     public SatchelUI satchelUI;
+    public PauseMenu pauseMenu;
 
     [Header("Inventory")]
 

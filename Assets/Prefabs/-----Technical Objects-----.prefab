@@ -31243,6 +31243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   satchelUI: {fileID: 5887507491785128883}
+  pauseMenu: {fileID: 6508856610049581266}
   Wheel: {fileID: 5887507491672719065}
   WheelPointer: {fileID: 5887507491234662740}
 --- !u!114 &5887507491785128883
@@ -35114,42 +35115,42 @@ PrefabInstance:
     - target: {fileID: 2261815173342339262, guid: 7b1978d2bdb69e74ba5b772df07bc3d8,
         type: 3}
       propertyPath: field of view
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2261815173342339263, guid: 7b1978d2bdb69e74ba5b772df07bc3d8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 74.7506
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2261815173342339263, guid: 7b1978d2bdb69e74ba5b772df07bc3d8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 427.45007
+      value: -3.0000005
       objectReference: {fileID: 0}
     - target: {fileID: 2261815173342339263, guid: 7b1978d2bdb69e74ba5b772df07bc3d8,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.033782832
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2261815173342339263, guid: 7b1978d2bdb69e74ba5b772df07bc3d8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.957662
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2261815173342339263, guid: 7b1978d2bdb69e74ba5b772df07bc3d8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.12607881
+      value: -1.33208215e-17
       objectReference: {fileID: 0}
     - target: {fileID: 2261815173342339263, guid: 7b1978d2bdb69e74ba5b772df07bc3d8,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.25660574
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2261815173342339263, guid: 7b1978d2bdb69e74ba5b772df07bc3d8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.770063
+      value: 0.00000047683716
       objectReference: {fileID: 0}
     - target: {fileID: 2261815173523979037, guid: 7b1978d2bdb69e74ba5b772df07bc3d8,
         type: 3}

@@ -20,7 +20,7 @@ public class UtilityController : MonoBehaviour
 
     [Header("Pickups")]
     [SerializeField] private PlayerItemPickup pickup;
-    [SerializeField] private Transform pickupPos;  
+    [SerializeField] private Transform pickupPos;
 
     private PlayerInput m_Input;
     private PotionCalculation potionCalc;
@@ -30,6 +30,7 @@ public class UtilityController : MonoBehaviour
     private Animator animator;
     private PlayerPotionWheel potionWheel;
     private SatchelUI satchel;
+    private PauseMenu pauseMenu;
     private KeyCubeUI keyCube;
     private bool previouslyAiming;
 
@@ -60,6 +61,7 @@ public class UtilityController : MonoBehaviour
     private void Start()
     {
         satchel = PlayerUIManager.Instance.satchelUI;
+        pauseMenu = PlayerUIManager.Instance.pauseMenu;
         InstantiateAllType(prefabPotions, instPotions, potionPouch.transform);
     }
 
@@ -73,48 +75,156 @@ public class UtilityController : MonoBehaviour
     /// </summary>
     private void Inputs()
     {
-        if(m_Input.AimInput)
+        if(!satchel.SatchelOpen && !pauseMenu.PauseMenuOpen)
         {
-            if (m_Input.UseDownInput) //Throw
+            if (m_Input.AimInput)
             {
-                if(pickup.pickup != null) //Holding pickup obj
+                if (m_Input.UseDownInput) //Throw
                 {
-                    if(itemCon.potionAmount[0] > 0) //Air Potion amount > 0
+                    if (pickup.pickup != null) //Holding pickup obj
                     {
-                        //Straight Throw pickup object using air potion
-                        StraightThrowObject();
+                        if (itemCon.potionAmount[0] > 0) //Air Potion amount > 0
+                        {
+                            //Straight Throw pickup object using air potion
+                            StraightThrowObject();
+                        }
+                        else
+                        {
+                            //Drop obj
+                            pickup.DropPickup();
+                        }
                     }
                     else
                     {
-                        //Drop obj
+                        if (itemCon.potionAmount[currentSelectedPotion] > 0) //Selected Potion amount > 0
+                        {
+                            //Arc Throw Potion
+                            ArcThrowPotion();
+                        }
+                        else
+                        {
+                            //Don't show Arc Throw
+                        }
+                    }
+                }
+
+                else if (m_Input.Button2 && !satchel.SatchelOpen) //Pickup or Drop pickup object
+                {
+                    pickup.BoxCast();
+                }
+
+                else if (m_Input.Button1) //Drop pickup object or potion
+                {
+                    if (pickup.pickup != null)
+                    {
                         pickup.DropPickup();
                     }
+                    else
+                    {
+                        if (itemCon.potionAmount[currentSelectedPotion] > 0) //Selected Potion amount > 0
+                        {
+                            //Drop Potion
+                            DropThrowPotion();
+                        }
+                        else
+                        {
+                            //Do Nothing
+                            HideArcThrow();
+                        }
+                    }
+                }
+
+                else if (m_Input.DPad_Y < 0f)
+                {
+                    Debug.Log("Pickup Button");
+
+                    if (pickup.pickup != null)   //If pickup object in hand
+                    {
+                        if (satchel.SatchelOpen)    //If potion wheel is open
+                        {
+                            pickup.RemoveFromSatchel();
+                        }
+                        else    //If potion wheel is closed
+                        {
+                            pickup.AddToSatchel();
+                        }
+                    }
+                    else    //If no pickup object
+                    {
+                        if (satchel.SatchelOpen)    //If potion wheel is open
+                        {
+                            pickup.RemoveFromSatchel();
+                        }
+                    }
+                }
+
+                else if (m_Input.JumpInput) //Jump 
+                {
+                    JumpPotion();
+                }
+
+                else if (pickup.pickup != null)  //While aiming and holding a pickup
+                {
+                    if (itemCon.potionAmount[0] > 0) //Air Potion amount > 0
+                    {
+                        HideArcThrow();
+                        ShowStraightThrow();
+                    }
+                    else
+                    {
+                        //Do Nothing
+                        HideArcThrow();
+                    }
+
+                }
+
+                else if (pickup.pickup == null)  //While aiming and not holding a pickup
+                {
+                    if (itemCon.potionAmount[currentSelectedPotion] > 0) //Selected Potion amount > 0
+                    {
+                        //Show potion arc throw
+                        ShowArcThrow();
+                    }
+                    else
+                    {
+                        //Do Nothing
+                        HideArcThrow();
+                    }
+                }
+
+                if (instPotions[currentSelectedPotion] != null && itemCon.potionAmount[currentSelectedPotion] > 0)
+                {
+                    if (!previouslyAiming)
+                    {
+                        animator.SetTrigger("Aim_Potion");
+                        previouslyAiming = true;
+                    }
+
+                    animator.SetBool("Aiming_Potion", true);
                 }
                 else
                 {
-                    if(itemCon.potionAmount[currentSelectedPotion] > 0) //Selected Potion amount > 0
-                    {
-                        //Arc Throw Potion
-                        ArcThrowPotion();
-                    }
-                    else
-                    {
-                        //Don't show Arc Throw
-                    }
+                    animator.SetBool("Aiming_Potion", false);
+                    previouslyAiming = false;
                 }
             }
 
-            else if(m_Input.Button2 && !satchel.SatchelOpen) //Pickup or Drop pickup object
+            else if (m_Input.JumpInput) //Jump 
+            {
+                JumpPotion();
+            }
+
+            else if (m_Input.Button2 && !satchel.SatchelOpen) //Pickup or Drop pickup object
             {
                 pickup.BoxCast();
             }
 
-            else if(m_Input.Button1) //Drop pickup object or potion
+            else if (m_Input.Button1) //Drop pickup object or potion
             {
-                if(pickup.pickup != null)
+                if (pickup.pickup != null)
                 {
                     pickup.DropPickup();
-                }    
+                }
                 else
                 {
                     if (itemCon.potionAmount[currentSelectedPotion] > 0) //Selected Potion amount > 0
@@ -130,161 +240,56 @@ public class UtilityController : MonoBehaviour
                 }
             }
 
-            else if(m_Input.DPad_Y < 0f)
+            else if (m_Input.DPad_Y < 0f)
             {
-                Debug.Log("Pickup Button");
-
-                if(pickup.pickup != null)   //If pickup object in hand
+                if (pickup.pickup != null)   //If pickup object in hand
                 {
-                    if(satchel.SatchelOpen)    //If potion wheel is open
+                    if (satchel.SatchelOpen)    //If potion wheel is open
                     {
                         pickup.RemoveFromSatchel();
+                        Debug.Log("Add to satchel and replace.");
                     }
                     else    //If potion wheel is closed
                     {
                         pickup.AddToSatchel();
+                        Debug.Log("Add to satchel.");
                     }
                 }
                 else    //If no pickup object
                 {
-                    if(satchel.SatchelOpen)    //If potion wheel is open
+                    if (satchel.SatchelOpen)    //If potion wheel is open
                     {
                         pickup.RemoveFromSatchel();
+                        Debug.Log("remove from satchel.");
                     }
                 }
             }
 
-            else if(m_Input.JumpInput) //Jump 
+            else if (!m_Input.AimInput)
             {
-                JumpPotion();
-            }
+                HideArcThrow();
+                HideStraightThrow();
 
-            else if(pickup.pickup != null)  //While aiming and holding a pickup
-            {
-                if (itemCon.potionAmount[0] > 0) //Air Potion amount > 0
+                if (m_Input.UseDownInput) //Throw
                 {
-                    HideArcThrow();
-                    ShowStraightThrow();
-                }
-                else
-                {
-                    //Do Nothing
-                    HideArcThrow();
-                }
-                
-            }
-
-            else if(pickup.pickup == null)  //While aiming and not holding a pickup
-            {
-                if (itemCon.potionAmount[currentSelectedPotion] > 0) //Selected Potion amount > 0
-                {
-                    //Show potion arc throw
-                    ShowArcThrow();
-                }
-                else
-                {
-                    //Do Nothing
-                    HideArcThrow();
-                }
-            }
-
-            if(instPotions[currentSelectedPotion] != null && itemCon.potionAmount[currentSelectedPotion] > 0)
-            {
-                if (!previouslyAiming)
-                {
-                    animator.SetTrigger("Aim_Potion");
-                    previouslyAiming = true;
+                    if (pickup.pickup != null) //Holding pickup obj
+                    {
+                        if (itemCon.potionAmount[0] > 0) //Air Potion amount > 0
+                        {
+                            //Straight Throw pickup object using air potion
+                            //StraightThrowObject();
+                        }
+                        else
+                        {
+                            //Drop obj
+                            pickup.DropPickup();
+                        }
+                    }
                 }
 
-                animator.SetBool("Aiming_Potion", true);
-            }
-            else
-            {
                 animator.SetBool("Aiming_Potion", false);
                 previouslyAiming = false;
             }
-        }
-
-        else if (m_Input.JumpInput) //Jump 
-        {
-            JumpPotion();
-        }
-
-        else if (m_Input.Button2 && !satchel.SatchelOpen) //Pickup or Drop pickup object
-        {
-            pickup.BoxCast();
-        }
-
-        else if (m_Input.Button1) //Drop pickup object or potion
-        {
-            if (pickup.pickup != null)
-            {
-                pickup.DropPickup();
-            }
-            else
-            {
-                if (itemCon.potionAmount[currentSelectedPotion] > 0) //Selected Potion amount > 0
-                {
-                    //Drop Potion
-                    DropThrowPotion();
-                }
-                else
-                {
-                    //Do Nothing
-                    HideArcThrow();
-                }
-            }
-        }
-
-        else if (m_Input.DPad_Y < 0f)
-        {
-            if (pickup.pickup != null)   //If pickup object in hand
-            {
-                if (satchel.SatchelOpen)    //If potion wheel is open
-                {
-                    pickup.RemoveFromSatchel();
-                    Debug.Log("Add to satchel and replace.");
-                }
-                else    //If potion wheel is closed
-                {
-                    pickup.AddToSatchel();
-                    Debug.Log("Add to satchel.");
-                }
-            }
-            else    //If no pickup object
-            {
-                if (satchel.SatchelOpen)    //If potion wheel is open
-                {
-                    pickup.RemoveFromSatchel();
-                    Debug.Log("remove from satchel.");
-                }
-            }
-        }
-
-        else if(!m_Input.AimInput)
-        {
-            HideArcThrow();
-            HideStraightThrow();
-
-            if (m_Input.UseDownInput) //Throw
-            {
-                if (pickup.pickup != null) //Holding pickup obj
-                {
-                    if (itemCon.potionAmount[0] > 0) //Air Potion amount > 0
-                    {
-                        //Straight Throw pickup object using air potion
-                        //StraightThrowObject();
-                    }
-                    else
-                    {
-                        //Drop obj
-                        pickup.DropPickup();
-                    }
-                }
-            }
-
-            animator.SetBool("Aiming_Potion", false);
-            previouslyAiming = false;
         }
     }
 

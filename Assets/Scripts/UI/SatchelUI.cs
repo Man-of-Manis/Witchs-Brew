@@ -228,12 +228,15 @@ public class SatchelUI : MonoBehaviour
     /// </summary>
     void SetPotionSelect()
     {
-        //Select potion
-        if (itemCon.AvailablePotions[CraftingSelection] && itemCon.potionAmount[CraftingSelection] > 0)
+        if(SatchelOpen)
         {
-            NodeSelection = newNodeSelection;
-            utilController.ChangeSelectedPotion(Transition[NodeSelection]);
-        }
+            //Select potion
+            if (itemCon.AvailablePotions[CraftingSelection] && itemCon.potionAmount[CraftingSelection] > 0)
+            {
+                NodeSelection = newNodeSelection;
+                utilController.ChangeSelectedPotion(Transition[NodeSelection]);
+            }
+        }        
     }
 
     /// <summary>
@@ -241,18 +244,21 @@ public class SatchelUI : MonoBehaviour
     /// </summary>
     void SetCraftedPotionSelect()
     {
-        if (itemCon.AvailablePotions[CraftingSelection] && itemCon.ingredientAmount[CraftingSelection] > 0)
+        if(SatchelOpen)
         {
-            //Craft potion
-            pMix.CraftPotion(CraftingSelection);
-            NodeSelection = newNodeSelection;
-            utilController.ChangeSelectedPotion(Transition[NodeSelection]);
-        }
-        else if (itemCon.AvailablePotions[CraftingSelection] && itemCon.potionAmount[CraftingSelection] > 0)
-        {
-            NodeSelection = newNodeSelection;
-            utilController.ChangeSelectedPotion(Transition[NodeSelection]);
-        }
+            if (itemCon.AvailablePotions[CraftingSelection] && itemCon.ingredientAmount[CraftingSelection] > 0)
+            {
+                //Craft potion
+                pMix.CraftPotion(CraftingSelection);
+                NodeSelection = newNodeSelection;
+                utilController.ChangeSelectedPotion(Transition[NodeSelection]);
+            }
+            else if (itemCon.AvailablePotions[CraftingSelection] && itemCon.potionAmount[CraftingSelection] > 0)
+            {
+                NodeSelection = newNodeSelection;
+                utilController.ChangeSelectedPotion(Transition[NodeSelection]);
+            }
+        }        
     }
 
     /// <summary>
