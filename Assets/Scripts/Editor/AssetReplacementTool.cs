@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,17 +9,18 @@ public class AssetReplacementTool : EditorWindow
 {
     #region Fields
     //public Texture buttonTex;
-
     private GameObject from;
     private GameObject to;
     private GameObject prevSelectedGO;
+    private GameObject searchObjectFilter;
 
     private bool useNewScale;
 
     private string searchSelection = "";
     private int searchIndex;
     private string searchAmount = "-";
-    private int maxSelectionAmount = 2000;
+    private int selectionAmount = 3000;
+    private int maxSelectionAmount = 3000;
 
     private List<GameObject> currentSearchSelections = new List<GameObject>();
     private List<GameObject> currentSelections = new List<GameObject>();
@@ -102,16 +103,36 @@ public class AssetReplacementTool : EditorWindow
 
         GUILayout.EndHorizontal();
 
+        //Search Parent
+        GUILayout.BeginHorizontal();
+        //useSearchParent = GUILayout.Toggle(useSearchParent, "Use Parent");
+
+        EditorGUILayout.LabelField("Object Filter:", GUILayout.Width(73));
+        searchObjectFilter = (GameObject)EditorGUILayout.ObjectField(searchObjectFilter, typeof(GameObject), true, GUILayout.MinWidth(100));
+
+        if(GUILayout.Button("Selection", GUILayout.Width(80)))
+        {
+            searchObjectFilter = Selection.activeGameObject;
+        }
+
+        if (GUILayout.Button("Clear", GUILayout.Width(75)))
+        {
+            searchObjectFilter = null;
+        }
+        GUILayout.EndHorizontal();
+
+        //Found Amount
         GUILayout.BeginHorizontal();
 
         EditorGUILayout.LabelField("Found: " + searchAmount, GUILayout.Width(80));
 
         GUILayout.EndHorizontal();
 
+        //Selection Limiter
         GUILayout.BeginHorizontal();
 
         EditorGUILayout.LabelField("Selection Limit:", GUILayout.Width(100));
-        EditorGUILayout.IntSlider(maxSelectionAmount, 0, 2000);
+        selectionAmount = EditorGUILayout.IntSlider(selectionAmount, 0, maxSelectionAmount);
 
         GUILayout.EndHorizontal();
 
@@ -159,7 +180,7 @@ public class AssetReplacementTool : EditorWindow
 
         if (GUILayout.Button("Select All"))
         { 
-            if(currentSearchSelections.Count() <= maxSelectionAmount)
+            if(currentSearchSelections.Count() <= selectionAmount)
             {
                 Selection.objects = currentSearchSelections.ToArray();
 
@@ -176,6 +197,19 @@ public class AssetReplacementTool : EditorWindow
 
         showFromSelection = EditorGUILayout.Foldout(showFromSelection, "From Selections", EditorStyles.foldoutHeader);
 
+        if (Selection.gameObjects.Length != selectionLength || Selection.activeGameObject != prevSelectedGO) //Selection.gameObjects.Length != selectionLength
+        {
+            currentSelections.Clear(); //Resets selection
+
+            for (int i = 0; i < Selection.gameObjects.Length; i++)
+            {
+                currentSelections.Add(Selection.gameObjects[i]);
+            }
+
+            selectionLength = Selection.gameObjects.Length;
+            prevSelectedGO = Selection.activeGameObject;
+        }
+
         if (showFromSelection)
         {
             using (var cHorizontalScope = new GUILayout.HorizontalScope())
@@ -185,21 +219,6 @@ public class AssetReplacementTool : EditorWindow
                 using (var cVerticalScope = new GUILayout.VerticalScope())
                 {
                     EditorGUILayout.LabelField("From");
-
-                    
-
-                    if (Selection.gameObjects.Length != selectionLength || Selection.activeGameObject != prevSelectedGO) //Selection.gameObjects.Length != selectionLength
-                    {
-                        currentSelections.Clear(); //Resets selection
-
-                        for (int i = 0; i < Selection.gameObjects.Length; i++)
-                        {
-                            currentSelections.Add(Selection.gameObjects[i]);
-                        }
-
-                        selectionLength = Selection.gameObjects.Length;
-                        prevSelectedGO = Selection.activeGameObject;
-                    }
 
                     PrefabList(currentSelections);
 
@@ -280,17 +299,28 @@ public class AssetReplacementTool : EditorWindow
                     Undo.RegisterCreatedObjectUndo(replacement, "Created_" + i);
                 }
 
-                for (int i = currentSelections.Count - 1; i >= 0; i--)
+                for (int i = (currentSelections.Count - 1); i >= 0; i--)
                 {
-                    //DestroyImmediate(currentSelections[i]);
-                    Undo.DestroyObjectImmediate((GameObject)currentSelections[i]);
-                }
+                    try
+                    {
+                        //DestroyImmediate(currentSelections[i]);
+                        Undo.DestroyObjectImmediate((GameObject)currentSelections[i]);
 
-                if (lastInst != null)
-                {
-                    Selection.activeGameObject = lastInst;
-                }
+                        if (lastInst != null)
+                        {
+                            Selection.activeGameObject = lastInst;
+                        }
 
+                        
+                    }
+                    catch(System.ArgumentException e)
+                    {
+                        string ex = (e.ToString() + " was created with " + currentSelections.Count + " selections at index " + i.ToString());
+                        Debug.Log(ex);
+                    }
+                    
+                }
+                
                 currentSelections.Clear();
             }
 
@@ -305,12 +335,30 @@ public class AssetReplacementTool : EditorWindow
 
     private void FindGameObjects()
     {
-        GameObject[] objects = FindObjectsOfType<GameObject>();
+        List<GameObject> objects = new List<GameObject>();
+
+        if(searchObjectFilter == null)
+        {
+            GameObject[] foundObjects = FindObjectsOfType<GameObject>();
+
+            for (int i = 0; i < foundObjects.Length; i++)
+            {
+                objects.Add(foundObjects[i]);
+            }
+        }
+        else
+        {
+            foreach(Transform child in searchObjectFilter.transform)
+            {
+                GetChildrenTransform(child, objects);
+            }            
+        }
+
         //var objects = FindObjectsOfType<GameObject>().Where(obj => obj.name == "Name");
 
         currentSearchSelections.Clear();
 
-        for(int i = 0; i < objects.Length; i++)
+        for(int i = 0; i < objects.Count; i++)
         {
             if (objects[i].name.ToLower().Contains(searchSelection.ToLower()))
             {
@@ -319,6 +367,16 @@ public class AssetReplacementTool : EditorWindow
         }
 
         Debug.Log(currentSearchSelections.Count());
+    }
+
+    private void GetChildrenTransform(Transform currentChild, List<GameObject> objects)
+    {
+        foreach (Transform child in currentChild)
+        {
+            objects.Add(child.gameObject);
+
+            GetChildrenTransform(child, objects);
+        }
     }
 
     void PrefabList(List<GameObject> list)
