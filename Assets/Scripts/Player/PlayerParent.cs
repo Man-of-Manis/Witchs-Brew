@@ -16,8 +16,10 @@ public class PlayerParent : MonoBehaviour
 
     private void ParentPlayer()
     {
+        Vector3 rayCastPos = transform.position + (Vector3.up * 0.1f);
+
         RaycastHit hit;
-        if (Physics.Raycast(RaycastPoint.position, Vector3.down, out hit, rayDist, layers))
+        if (Physics.Raycast(rayCastPos, Vector3.down, out hit, rayDist, layers))
         {
             transform.parent = hit.transform;
         }
