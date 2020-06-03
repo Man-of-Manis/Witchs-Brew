@@ -30,6 +30,8 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
             }
 
             co = StartCoroutine(Unlock());
+
+            opened = true;
         }        
     }
 
@@ -49,7 +51,7 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
     /// </summary>
     private void SpawnCube()
     {
-        spawnedKeyCube = Instantiate(keyCubes[(int)keyCubeSpawnType], spawnPoint.position, Quaternion.LookRotation(transform.forward));        
+        spawnedKeyCube = Instantiate(keyCubes[(int)keyCubeSpawnType], spawnPoint.position, Quaternion.LookRotation(-transform.right));        
         spawnedKeyCube.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(Random.Range(-100f, 100f), 250f, 200f));
 
         KeyCube cube = spawnedKeyCube.GetComponent<KeyCube>();
@@ -58,8 +60,6 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
         {
             cube.Spawner = this;
         }
-
-        opened = true;
     }
     
     /// <summary>
@@ -70,7 +70,6 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
     {
         Animator anim = gameObject.GetComponent<Animator>();
         anim.SetTrigger("Open");
-        GetComponent<AudioSource>().Play();
         yield return new WaitForSeconds(2f);
         SpawnCube();
         co = null;

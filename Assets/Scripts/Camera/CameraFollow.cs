@@ -38,12 +38,11 @@ public class CameraFollow : MonoBehaviour
     private PlayerInput m_Input;
 
     [Header("References")]
-    [SerializeField] private CameraCollision cCollision;
+    [SerializeField] private PlayerHealth pHealth;
 
     void Awake()
     {
         m_Input = FindObjectOfType<PlayerInput>();
-        cCollision = GetComponentInChildren<CameraCollision>();
     }
 
     // Start is called before the first frame update
@@ -51,6 +50,8 @@ public class CameraFollow : MonoBehaviour
     {
         cameraFollowObj = GameManager.Instance.player.transform.Find("COM_Target");
         playerObj = GameManager.Instance.player;
+
+        pHealth = playerObj.GetComponent<PlayerHealth>();
 
         Vector3 cameraRot = transform.localRotation.eulerAngles;
 
@@ -75,11 +76,11 @@ public class CameraFollow : MonoBehaviour
 
     void LateUpdate()
     {
-        if(!cCollision.InCinematic)
+        if(pHealth.Health > 0)
         {
-            PlayerInputs();
+            CameraPosition();
+            CameraRotation();
             AimingSide();
-            CameraUpdater();
         }        
     }
 
@@ -89,13 +90,26 @@ public class CameraFollow : MonoBehaviour
         rotX = 0f;
     }
 
+    public bool CameraSet(Vector2 xy)
+    {
+        rotY = xy.y;
+        rotX = xy.x;
+        return true;
+    }
+
     public void EditCameraMove(Vector3 pos, float yRot)
     {
         transform.position = (pos + cameraOffset);
         transform.rotation = Quaternion.Euler(0f, yRot, 0f);
     }
 
-    void PlayerInputs()
+    void CameraPosition()
+    {
+        float step = cameraMoveSpeed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, cameraFollowObj.position + cameraOffset, step);
+    }
+
+    void CameraRotation()
     {
 
         if (useMouse)
@@ -140,16 +154,10 @@ public class CameraFollow : MonoBehaviour
 
     void AimingSide()
     {
-        if(m_Input.SwitchAimSide)
+        if (m_Input.SwitchAimSide)
         {
             rightCam.SetActive(!rightCam.activeSelf);
             Debug.Log("Aiming cam has swapped sides.");
         }
-    }
-
-    void CameraUpdater()
-    {
-        float step = cameraMoveSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, cameraFollowObj.position + cameraOffset, step);
     }
 }

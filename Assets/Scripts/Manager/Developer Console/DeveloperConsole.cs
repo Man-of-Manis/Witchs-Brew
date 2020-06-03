@@ -77,6 +77,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         public TextMeshProUGUI inputText;
         public TMP_InputField commandInput;
         public TMP_InputField consoleInputLog;
+        private bool previouslyOpen;
 
         [Header("Auto Complete")]
         public Transform autoCompleteBackground;
@@ -169,13 +170,15 @@ namespace WitchsBrew.Utilities.DeveloperConsole
             {
                 KeyInputs();
 
-                if (consoleCanvas.enabled)
+                if (consoleCanvas.enabled && !previouslyOpen)
                 {
                     PlayerInput.Instance.ReleaseControl();
+                    previouslyOpen = true;
                 }
-                else
+                else if(!consoleCanvas.enabled && previouslyOpen)
                 {
                     PlayerInput.Instance.GainControl();
+                    previouslyOpen = false;
                 }
             }
         }
