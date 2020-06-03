@@ -46,7 +46,7 @@ www.yangseunghyuk.com</value>
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{c2692448-301e-417a-8ade-796c6589bfa4}</destination>
+			<destination>{62e2cc94-b6ac-409b-9da9-e11c77858594}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{61bcfd5c-5ef5-494c-9ea4-bdfe2820245a}</destination>
