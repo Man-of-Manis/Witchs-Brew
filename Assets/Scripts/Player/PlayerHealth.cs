@@ -11,8 +11,8 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     [Range(1, 10)]
     public int maxHealth;
 
-    
     [SerializeField] private float InvincibilityTime = 3f;
+    [SerializeField] private float deathSequenceDelay = 2f;
     private bool invincible = false;
 
     public EssenceBar essenceBar;
@@ -111,6 +111,20 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             maxHealth = value;
             HealthChanged();
         }
+    }
+
+    public void ResetHealth()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.FollowCam.PlayerReset(currentCheckpoint.transform.localEulerAngles.y);
+        }
+
+        controller.SetPlayerRotation(currentCheckpoint.transform.localEulerAngles.y, currentCheckpoint.transform.position);
+
+        currentHealth = MaximumHealth;
+        HealthChanged();
+        m_Input.GainControl();
     }
 
     /// <summary>
@@ -224,31 +238,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     private void Death()
     {
-        //Witch Death Sound Here (OneShot)
-        FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.witchHealth.witchDeath, gameObject);
-
-        if (invinCo != null)
-        {
-            StopCoroutine(invinCo);
-        }
-
-        if(controlCo != null)
-        {
-            StopCoroutine(controlCo);
-        }
-        
-        
-        m_Input.GainControl();
-
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.FollowCam.PlayerReset(currentCheckpoint.transform.localEulerAngles.y);
-        }
-
-        controller.SetPlayerRotation(currentCheckpoint.transform.localEulerAngles.y, currentCheckpoint.transform.position);
-
-        currentHealth = MaximumHealth;
-        HealthChanged();
+        StartCoroutine(DeathSequence());
     }
 
     void HealthChanged()
@@ -338,5 +328,27 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         m_Input.ReleaseControl();
         yield return new WaitForSeconds(controlTime);
         m_Input.GainControl();
+    }
+
+    IEnumerator DeathSequence()
+    {
+        //Witch Death Sound Here (OneShot)
+        FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.witchHealth.witchDeath, gameObject);
+
+        if (invinCo != null)
+        {
+            StopCoroutine(invinCo);
+        }
+
+        if (controlCo != null)
+        {
+            StopCoroutine(controlCo);
+        }
+
+        m_Input.ReleaseControl();
+
+        yield return new WaitForSeconds(deathSequenceDelay);
+
+        LoadingScreenBar.Instance.DeathFadeOut();
     }
 }

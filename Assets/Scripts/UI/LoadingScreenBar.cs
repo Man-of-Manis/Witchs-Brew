@@ -57,6 +57,22 @@ public class LoadingScreenBar : MonoBehaviour
     }
 
     /// <summary>
+    /// Starts death screen fade out.
+    /// </summary>
+    public void DeathFadeOut()
+    {
+        LevelFadeAnim.SetTrigger("DeathFadeOut");
+    }
+
+    /// <summary>
+    /// Resets player after death. (Called by Animator Only)
+    /// </summary>
+    public void DeathPlayerReset()
+    {
+        StartCoroutine(DeathFadeIn());
+    }
+
+    /// <summary>
     /// Loads the next scene Asynchronously.
     /// </summary>
     /// <param name="sceneIndex">The scene index to load.</param>
@@ -135,5 +151,14 @@ public class LoadingScreenBar : MonoBehaviour
         }
 
         LoadingIconCo = null;
+    }
+
+    IEnumerator DeathFadeIn()
+    {
+        GameManager.Instance.player.GetComponent<PlayerHealth>().ResetHealth();
+
+        yield return new WaitForSeconds(0.5f);
+
+        LevelFadeAnim.SetTrigger("FadeIn");
     }
 }

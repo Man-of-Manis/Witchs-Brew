@@ -14,9 +14,9 @@ public class PlayerTriggerEvent : MonoBehaviour
     {
         if (!used)
         {
-            GameManager.Instance.player.GetComponent<PlayerInput>().ReleaseControl();
+            //GameManager.Instance.player.GetComponent<PlayerInput>().ReleaseControl();
             activated.Invoke();
-            StartCoroutine(EndTrigger());
+            //StartCoroutine(EndTrigger());
             used = true;
         }
     }
