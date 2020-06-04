@@ -67,7 +67,7 @@ public class TurtleMove : Creatures
 
         Vector3 targetDirection = (target.position - iceBeamSpawnPoint.position).normalized;
 
-        if (targetDist < detectionDist && elementState == ElementalState.Elemental) //Player Detected
+        if (dist < detectionDist && pHealth.Health > 0 && elementState == ElementalState.Elemental) //Player Detected
         {
             if (Physics.Raycast(iceBeamSpawnPoint.position, targetDirection, out RaycastHit hit, detectionDist, detectionLayer))
             {

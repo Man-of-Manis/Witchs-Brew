@@ -49,7 +49,7 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
     /// <summary>
     /// Spawns new cube from chest by shooting it out in a random forward direction.
     /// </summary>
-    private void SpawnCube()
+    public void SpawnCube()
     {
         spawnedKeyCube = Instantiate(keyCubes[(int)keyCubeSpawnType], spawnPoint.position, Quaternion.LookRotation(-transform.right));        
         spawnedKeyCube.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(Random.Range(-100f, 100f), 250f, 200f));
@@ -60,6 +60,8 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
         {
             cube.Spawner = this;
         }
+
+        co = null;
     }
     
     /// <summary>
@@ -70,8 +72,6 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
     {
         Animator anim = gameObject.GetComponent<Animator>();
         anim.SetTrigger("Open");
-        yield return new WaitForSeconds(2f);
-        SpawnCube();
-        co = null;
+        yield return null;
     }
 }

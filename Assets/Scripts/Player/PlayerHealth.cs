@@ -19,6 +19,10 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     public GameObject[] essenceBars = new GameObject[3];
 
+    public MeshRenderer healthLiquid;
+    public List<Color> baseLiquidColor = new List<Color>();
+    public List<Color> topLiquidColor = new List<Color>();
+
     [Header("Damaged")]
     [SerializeField] private Color invincibilityColor = Color.yellow;
     [SerializeField] private float lerpTime;
@@ -30,6 +34,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     private bool upDown;
     private Coroutine invinCo;
     private Coroutine controlCo;
+    private Coroutine deathCo;
 
     [Header("References")]
     public Checkpoint currentCheckpoint;
@@ -125,6 +130,8 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         currentHealth = MaximumHealth;
         HealthChanged();
         m_Input.GainControl();
+
+        deathCo = null;
     }
 
     /// <summary>
@@ -238,13 +245,25 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     private void Death()
     {
-        StartCoroutine(DeathSequence());
+        if(deathCo == null)
+        {
+            deathCo = StartCoroutine(DeathSequence());
+        }
+        
     }
 
     void HealthChanged()
     {
-        essenceBar.maxHealth = MaximumHealth;
-        essenceBar.Health = Health;
+        //essenceBar.maxHealth = MaximumHealth;
+        //essenceBar.Health = Health;
+
+        healthLiquid.material.SetFloat("_FillAmount", (float)Health/MaximumHealth * 0.5f);
+
+        if((Health - 1) >= 0 && (Health - 1) < baseLiquidColor.Count)
+        {
+            healthLiquid.material.SetColor("_Tint", baseLiquidColor[Health - 1]);
+            healthLiquid.material.SetColor("_TopTint", topLiquidColor[Health - 1]);
+        }        
     }
 
     public void BottlePosition(int bottle)
@@ -287,40 +306,9 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     {
         invincible = true;
 
-        for (float j = 0; j < InvincibilityTime; j += Time.deltaTime * 15f)
-        {
-            if (upDown)
-            {
-                for (float i = 0; i < 1f; i += Time.deltaTime / lerpTime)
-                {
-                    //rend.material.SetColor("_BaseColor", Color32.Lerp(new Color32(114, 180, 77, 255), invincibilityColor, i));
-                    yield return null;
-                }
+        yield return new WaitForSeconds(InvincibilityTime);
 
-                upDown = false;
-            }
-            else
-            {
-                for (float i = 1f; i > 0f; i += Time.deltaTime / -lerpTime)
-                {
-                    //rend.material.SetColor("_BaseColor", Color32.Lerp(new Color32(114, 180, 77, 255), invincibilityColor, i));
-                    yield return null;
-                }
-
-                upDown = true;
-            }
-
-            yield return null;
-        }        
-
-        //yield return new WaitForSeconds(InvincibilityTime);
         invincible = false;
-
-        for (float i = 0f; i < 1f; i += Time.deltaTime * (1f / 0.1f))
-        {
-            //rend.material.SetColor("_BaseColor", Color32.Lerp(rend.material.GetColor("_BaseColor"), new Color32(114, 180, 77, 255), i));
-            yield return null;
-        }
     }
 
     IEnumerator DamageControl()
