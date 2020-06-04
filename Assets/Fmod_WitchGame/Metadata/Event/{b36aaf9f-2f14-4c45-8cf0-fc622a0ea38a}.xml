@@ -25,7 +25,7 @@ Note that the audio does not continue through the bus - it is sent through the o
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{62e2cc94-b6ac-409b-9da9-e11c77858594}</destination>
+			<destination>{c2692448-301e-417a-8ade-796c6589bfa4}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{7b943caa-24df-4250-8ec7-793d629bc185}</destination>
