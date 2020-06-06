@@ -15,7 +15,7 @@ public class PlayerInput : MonoBehaviour
     public bool playerControllerInputBlocked;
 
     [HideInInspector]
-    public bool playerControllerMovementBlocked;
+    //public bool playerControllerMovementBlocked;
 
     protected Vector2 m_Movement;
     protected Vector2 m_Camera;
@@ -54,7 +54,8 @@ public class PlayerInput : MonoBehaviour
     {
         get
         {
-            if (playerControllerInputBlocked || m_ExternalInputBlocked || playerControllerMovementBlocked)
+            //if (playerControllerInputBlocked || m_ExternalInputBlocked || playerControllerMovementBlocked)
+            if (playerControllerInputBlocked || m_ExternalInputBlocked)
             {
                 return Vector2.zero;
             }
@@ -104,7 +105,8 @@ public class PlayerInput : MonoBehaviour
 
     public bool JumpInput
     {
-        get        {            return m_Jump && !playerControllerInputBlocked && !m_ExternalInputBlocked && !playerControllerMovementBlocked;        }
+        //get        {            return m_Jump && !playerControllerInputBlocked && !m_ExternalInputBlocked && !playerControllerMovementBlocked;        }
+        get { return m_Jump && !playerControllerInputBlocked && !m_ExternalInputBlocked; }
     }
 
     public bool UseInput
@@ -349,7 +351,7 @@ public class PlayerInput : MonoBehaviour
             DPad_Y_Direction = 0.0f;
         }
 
-        playerControllerMovementBlocked = ToggleButton3;
+        //playerControllerMovementBlocked = ToggleButton3;
     }
 
     IEnumerator AttackWait()
