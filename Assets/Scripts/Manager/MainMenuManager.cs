@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -55,6 +56,12 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private TMP_InputField sfxInput;
     [SerializeField] private TMP_InputField playerInput;
     [SerializeField] private TMP_InputField creatureInput;
+
+    public event EventHandler<float> OnMasterVolumeChanged;
+    public event EventHandler<float> OnMusicVolumeChanged;
+    public event EventHandler<float> OnSFXVolumeChanged;
+    public event EventHandler<float> OnPlayerVolumeChanged;
+    public event EventHandler<float> OnCreatureVolumeChanged;
 
     [Header("Video")]
     [SerializeField] private GameObject videoMenu;
@@ -577,6 +584,7 @@ public class MainMenuManager : MonoBehaviour
     /// <param name="volume">The volume to set to.</param>
     public void SetMasterVolume(float volume)
     {
+        OnMasterVolumeChanged?.Invoke(this, volume / 10f);
         GameSettings.Instance.MasterVolume = volume / 10f;
         masterInput.SetTextWithoutNotify(GameSettings.Instance.MasterVolume.ToString());
     }
@@ -587,6 +595,7 @@ public class MainMenuManager : MonoBehaviour
     /// <param name="volume">The volume to set to.</param>
     public void SetMusicVolume(float volume)
     {
+        OnMusicVolumeChanged?.Invoke(this, volume / 10f);
         GameSettings.Instance.MusicVolume = volume / 10f;
         musicInput.SetTextWithoutNotify(GameSettings.Instance.MusicVolume.ToString());
     }
@@ -597,6 +606,7 @@ public class MainMenuManager : MonoBehaviour
     /// <param name="volume">The volume to set to.</param>
     public void SetSFXVolume(float volume)
     {
+        OnSFXVolumeChanged?.Invoke(this, volume / 10f);
         GameSettings.Instance.SFXVolume = volume / 10f;
         sfxInput.SetTextWithoutNotify(GameSettings.Instance.SFXVolume.ToString());
     }
@@ -607,6 +617,7 @@ public class MainMenuManager : MonoBehaviour
     /// <param name="volume">The volume to set to.</param>
     public void SetPlayerVolume(float volume)
     {
+        OnPlayerVolumeChanged?.Invoke(this, volume / 10f);
         GameSettings.Instance.PlayerVolume = volume / 10f;
         playerInput.SetTextWithoutNotify(GameSettings.Instance.PlayerVolume.ToString());
     }
@@ -617,6 +628,7 @@ public class MainMenuManager : MonoBehaviour
     /// <param name="volume">The volume to set to.</param>
     public void SetCreatureVolume(float volume)
     {
+        OnCreatureVolumeChanged?.Invoke(this, volume / 10f);
         GameSettings.Instance.CreatureVolume = volume / 10f;
         creatureInput.SetTextWithoutNotify(GameSettings.Instance.CreatureVolume.ToString());
     }
