@@ -5,7 +5,7 @@
 			<value>Music_Level</value>
 		</property>
 		<property name="outputFormat">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{10626052-c98b-4665-b391-646f2512cecd}</destination>
@@ -127,7 +127,6 @@
 	<object class="MixerBusEffectChain" id="{9ec12539-c622-4f33-963e-9ab1e5ff47e3}">
 		<relationship name="effects">
 			<destination>{703b2852-9df7-4025-8428-83b6ca165192}</destination>
-			<destination>{8b0298f7-6533-4156-b126-3aa04878dc60}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{a60da184-8fe7-4b7f-8032-ce7854f6ddc6}" />
@@ -139,6 +138,5 @@
 	</object>
 	<object class="MixerBusPanner" id="{2944e3ae-564e-4cb1-a5d4-ad9b1c3f856a}" />
 	<object class="MixerBusFader" id="{703b2852-9df7-4025-8428-83b6ca165192}" />
-	<object class="SpatialiserEffect" id="{8b0298f7-6533-4156-b126-3aa04878dc60}" />
 	<object class="MixerBusFader" id="{659bbe8e-f946-4727-8b01-f5c208fd7ec8}" />
 </objects>
