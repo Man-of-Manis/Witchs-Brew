@@ -10779,7 +10779,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1209619440
 Transform:
   m_ObjectHideFlags: 0
@@ -19369,7 +19369,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3813258401979766159}
-  m_LocalRotation: {x: 0.0010554235, y: 0.022430094, z: 0.046990044, w: 0.9986429}
+  m_LocalRotation: {x: 0.0010554234, y: 0.022430094, z: 0.04699004, w: 0.9986429}
   m_LocalPosition: {x: -0.012439372, y: 7.105427e-17, z: 8.881784e-18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -27668,13 +27668,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currentSelectedPotion: 0
-  potionPools:
-  - potions: []
-  - potions: []
-  - potions: []
-  - potions: []
-  - potions: []
-  - potions: []
   pickup: {fileID: 8850622162767339711}
   pickupPos: {fileID: 0}
 --- !u!114 &7026577320335792093
@@ -27697,7 +27690,7 @@ MonoBehaviour:
   potionRotY: 5
   Range: 100
   MinimumElevation: -100
-  AimStep: 0.75
+  AimStep: 0.527
   castType: 1
   layer:
     serializedVersion: 2
@@ -27774,7 +27767,6 @@ MonoBehaviour:
   currentHealth: 3
   maxHealth: 3
   InvincibilityTime: 3
-  deathSequenceDelay: 2
   essenceBar: {fileID: 1209619441}
   essenceBars: []
   invincibilityColor: {r: 1, g: 1, b: 1, a: 0.5019608}
@@ -35197,37 +35189,37 @@ PrefabInstance:
     - target: {fileID: 1333330062611806247, guid: 79ba743da5d03474b912b639c0d2d772,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.267
+      value: 0.275
       objectReference: {fileID: 0}
     - target: {fileID: 1333330062611806247, guid: 79ba743da5d03474b912b639c0d2d772,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.157
+      value: -0.153
       objectReference: {fileID: 0}
     - target: {fileID: 1333330062611806247, guid: 79ba743da5d03474b912b639c0d2d772,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.199
+      value: -0.179
       objectReference: {fileID: 0}
     - target: {fileID: 1333330062611806247, guid: 79ba743da5d03474b912b639c0d2d772,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.17209992
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1333330062611806247, guid: 79ba743da5d03474b912b639c0d2d772,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.098127894
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1333330062611806247, guid: 79ba743da5d03474b912b639c0d2d772,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.3949701
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1333330062611806247, guid: 79ba743da5d03474b912b639c0d2d772,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8970792
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1333330062611806247, guid: 79ba743da5d03474b912b639c0d2d772,
         type: 3}
@@ -35237,17 +35229,17 @@ PrefabInstance:
     - target: {fileID: 1333330062611806247, guid: 79ba743da5d03474b912b639c0d2d772,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 22.724
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1333330062611806247, guid: 79ba743da5d03474b912b639c0d2d772,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -2.492
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1333330062611806247, guid: 79ba743da5d03474b912b639c0d2d772,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 47.025
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1333330062611806247, guid: 79ba743da5d03474b912b639c0d2d772,
         type: 3}
@@ -35262,7 +35254,7 @@ PrefabInstance:
     - target: {fileID: 1333330062611806247, guid: 79ba743da5d03474b912b639c0d2d772,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 2655902739229674036, guid: 79ba743da5d03474b912b639c0d2d772,
         type: 3}

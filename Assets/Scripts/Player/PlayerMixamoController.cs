@@ -45,27 +45,6 @@ public class PlayerMixamoController : MonoBehaviour
     private float knockbackForce;
     private Vector3 knockbackDirection;
     private Coroutine transformCo;
-    private Coroutine movingForward;
-    private bool stopInputMethod;
-    private bool moveForward;
-
-    public bool MoveForward
-    {
-        get { return moveForward; }
-        set
-        {
-            moveForward = value;
-
-            if(moveForward)
-            {
-                StartMoveForward();
-            }
-            else
-            {
-                StopMoveForward();
-            }
-        }
-    }
 
     const float k_AirborneTurnSpeedProportion = 5.4f;
     const float k_GroundedRayDistance = 1f;
@@ -112,11 +91,7 @@ public class PlayerMixamoController : MonoBehaviour
         }
         */
 
-        if(!stopInputMethod)
-        {
-            Inputs();
-        }
-        
+        Inputs();
         CameraAngle();
         Movement();
 
@@ -215,20 +190,6 @@ public class PlayerMixamoController : MonoBehaviour
         transformCo = null;
     }
 
-    private void StartMoveForward()
-    {
-        stopInputMethod = true;
-
-        Char_Movement = Vector2.up;
-    }
-
-    private void StopMoveForward()
-    {
-        Char_Movement = Vector2.zero;
-
-        stopInputMethod = false;
-    }
-
     private void Movement()
     {
         if(useGravity)
@@ -273,18 +234,14 @@ public class PlayerMixamoController : MonoBehaviour
     // Called each physics step.
     void CalculateForwardMovement()
     {
-        /*
         // Cache the move input and cap it's magnitude at 1.
         Vector2 moveInput = m_Input.MoveInput;
         if (moveInput.sqrMagnitude > 1f)
         {
             moveInput.Normalize();
         }
-        */
-
         // Calculate the speed intended by input.
-        //m_DesiredForwardSpeed = moveInput.magnitude * maxForwardSpeed;
-        m_DesiredForwardSpeed = Char_Movement.magnitude * maxForwardSpeed;
+        m_DesiredForwardSpeed = moveInput.magnitude * maxForwardSpeed;
 
         // Determine change to speed based on whether there is currently any move input.
         float acceleration = IsMoveInput ? k_GroundAcceleration : k_GroundDeceleration;

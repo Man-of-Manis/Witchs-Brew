@@ -244,10 +244,23 @@ public class UtilityController : MonoBehaviour
             {
                 if (pickup.pickup != null)   //If pickup object in hand
                 {
-                    if (!satchel.SatchelOpen)    //If potion wheel is open
+                    if (satchel.SatchelOpen)    //If potion wheel is open
+                    {
+                        pickup.RemoveFromSatchel();
+                        Debug.Log("Add to satchel and replace.");
+                    }
+                    else    //If potion wheel is closed
                     {
                         pickup.AddToSatchel();
                         Debug.Log("Add to satchel.");
+                    }
+                }
+                else    //If no pickup object
+                {
+                    if (satchel.SatchelOpen)    //If potion wheel is open
+                    {
+                        pickup.RemoveFromSatchel();
+                        Debug.Log("remove from satchel.");
                     }
                 }
             }
@@ -276,29 +289,6 @@ public class UtilityController : MonoBehaviour
 
                 animator.SetBool("Aiming_Potion", false);
                 previouslyAiming = false;
-            }
-        }
-
-        if(satchel.SatchelOpen && !pauseMenu.PauseMenuOpen)
-        {
-            if (m_Input.DPad_Y < 0f)
-            {
-                if (pickup.pickup != null)   //If pickup object in hand
-                {
-                    if (satchel.SatchelOpen)    //If potion wheel is open
-                    {
-                        pickup.RemoveFromSatchel();
-                        Debug.Log("Add to satchel and replace.");
-                    }
-                }
-                else    //If no pickup object
-                {
-                    if (satchel.SatchelOpen)    //If potion wheel is open
-                    {
-                        pickup.RemoveFromSatchel();
-                        Debug.Log("remove from satchel.");
-                    }
-                }
             }
         }
     }

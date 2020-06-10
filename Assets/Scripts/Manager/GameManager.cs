@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (Instance == null)
+        if(Instance == null)
         {
             Instance = this;
         }
@@ -74,14 +74,9 @@ public class GameManager : MonoBehaviour
             DestroyImmediate(gameObject);
         }
 
-        Initialized();
-    }
-
-    private void Initialized()
-    {
         TechnicalObjects = GameObject.Find("-----Technical Objects-----") == null
-                    ? new GameObject("-----Technical Objects-----")
-                    : GameObject.Find("-----Technical Objects-----");
+            ? new GameObject("-----Technical Objects-----")
+            : GameObject.Find("-----Technical Objects-----");
 
 
 

@@ -77,7 +77,6 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         public TextMeshProUGUI inputText;
         public TMP_InputField commandInput;
         public TMP_InputField consoleInputLog;
-        private bool previouslyOpen;
 
         [Header("Auto Complete")]
         public Transform autoCompleteBackground;
@@ -90,7 +89,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         
 
         [Header("Debugging")]
-        [SerializeField] private bool EnableEditorLogging = false;
+        [SerializeField] private bool EnableLogging = true;
         [SerializeField] private bool EnableUnityLogging = true;
         public LogTypes currentlogs;
 
@@ -149,7 +148,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
                 commandParameters = new List<string>();
                 CreateCommands();
 
-                if (EnableEditorLogging || !Application.isEditor)
+                if (EnableLogging)
                 {
                     CreateLogInput();
                 }
@@ -158,7 +157,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
 
         private void OnDestroy()
         {
-            if (Debug.isDebugBuild && (EnableEditorLogging || !Application.isEditor))
+            if (Debug.isDebugBuild && EnableLogging)
             {
                 EndLogInput();
             }
@@ -170,15 +169,13 @@ namespace WitchsBrew.Utilities.DeveloperConsole
             {
                 KeyInputs();
 
-                if (consoleCanvas.enabled && !previouslyOpen)
+                if (consoleCanvas.enabled)
                 {
                     PlayerInput.Instance.ReleaseControl();
-                    previouslyOpen = true;
                 }
-                else if(!consoleCanvas.enabled && previouslyOpen)
+                else
                 {
                     PlayerInput.Instance.GainControl();
-                    previouslyOpen = false;
                 }
             }
         }
@@ -214,8 +211,8 @@ namespace WitchsBrew.Utilities.DeveloperConsole
             {
                 if (consoleCanvas.enabled)
                 {
-                    commandInput.text = "";
                     consoleCanvas.enabled = false;
+                    commandInput.text = "";
                     EventSystem.current.SetSelectedGameObject(null);
                 }
             }
@@ -255,12 +252,9 @@ namespace WitchsBrew.Utilities.DeveloperConsole
             {
                 if (autoCompleteBackground.gameObject.activeSelf)
                 {
-                    if(autoCompleteStrings.Count > 0)
-                    {
-                        commandInput.text = prefix + autoCompleteStrings[autoCompleteSelection];
-                        commandInput.ActivateInputField();
-                        commandInput.caretPosition = commandInput.text.Length;
-                    }                    
+                    commandInput.text = prefix + autoCompleteStrings[autoCompleteSelection];
+                    commandInput.ActivateInputField();
+                    commandInput.caretPosition = commandInput.text.Length;
                 }
             }
         }
@@ -301,7 +295,6 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         /// </summary>
         private void CreateCommands()
         {
-            CommandGive.CreateCommand();
             CommandLoad.CreateCommand();
             CommandQuit.CreateCommand();
             CommandReset.CreateCommand();
@@ -383,13 +376,10 @@ namespace WitchsBrew.Utilities.DeveloperConsole
                 autoCompleteArgs.Add(paramArgs[i]);
             }
 
-            //Clears any previous parameters
-            commandParameters.Clear();
-
             //Searches through all commands
-            for (int i = 0; i < CommandNames.Count; i++)
+            for(int i = 0; i < CommandNames.Count; i++)
             {
-                //Checks for available arguments for the given command, true if command string is finished
+                //Checks for available arguments for the given command
                 if(CommandNames[i].Equals(command, StringComparison.OrdinalIgnoreCase))
                 {
                     Type classType = Commands[CommandNames[i]].GetType();
@@ -397,7 +387,6 @@ namespace WitchsBrew.Utilities.DeveloperConsole
                     List<MethodInfo> usableMethonds = new List<MethodInfo>();
                     List<ParameterInfo[]> methodParameters = new List<ParameterInfo[]>();
 
-                    //Get all possible methods
                     foreach (MethodInfo m in methods)
                     {
                         if (m.Name.Equals(commandMethodName))
@@ -406,11 +395,13 @@ namespace WitchsBrew.Utilities.DeveloperConsole
                         }
                     }
 
-                    //Get List of parameters from usable methonds
                     foreach (MethodInfo m in usableMethonds)
                     {
                         methodParameters.Add(m.GetParameters());
                     }
+
+                    //Clears any previous parameters
+                    commandParameters.Clear();
 
                     //Gets a string list of the parameter types found in each method
                     foreach (ParameterInfo[] param in methodParameters)
@@ -431,7 +422,6 @@ namespace WitchsBrew.Utilities.DeveloperConsole
                             }
                         }
 
-                        //If usable method has no parameter display "(No Arg)"
                         if (parameters.Equals(String.Empty))
                         {
                             parameters = "(No Arg)";
@@ -447,6 +437,8 @@ namespace WitchsBrew.Utilities.DeveloperConsole
                     autoCompleteBackground.gameObject.SetActive(!autoCompleteText.text.Equals(string.Empty));
                     return;
                 }
+
+                commandParameters.Clear();
 
                 //Adds the current command string to the list of available commands to autocomplete
                 if (CommandNames[i].StartsWith(command, StringComparison.OrdinalIgnoreCase))

@@ -13,8 +13,6 @@ public class LastVineActivation : MonoBehaviour
         if (vineDestroyed.EnableBurn)
         {
             activate.Invoke();
-
-            Destroy(this);
         }
     }
 }

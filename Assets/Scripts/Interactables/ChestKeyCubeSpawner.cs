@@ -30,8 +30,6 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
             }
 
             co = StartCoroutine(Unlock());
-
-            opened = true;
         }        
     }
 
@@ -49,9 +47,9 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
     /// <summary>
     /// Spawns new cube from chest by shooting it out in a random forward direction.
     /// </summary>
-    public void SpawnCube()
+    private void SpawnCube()
     {
-        spawnedKeyCube = Instantiate(keyCubes[(int)keyCubeSpawnType], spawnPoint.position, Quaternion.LookRotation(-transform.right));        
+        spawnedKeyCube = Instantiate(keyCubes[(int)keyCubeSpawnType], spawnPoint.position, Quaternion.LookRotation(transform.forward));        
         spawnedKeyCube.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(Random.Range(-100f, 100f), 250f, 200f));
 
         KeyCube cube = spawnedKeyCube.GetComponent<KeyCube>();
@@ -61,7 +59,7 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
             cube.Spawner = this;
         }
 
-        co = null;
+        opened = true;
     }
     
     /// <summary>
@@ -72,6 +70,9 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
     {
         Animator anim = gameObject.GetComponent<Animator>();
         anim.SetTrigger("Open");
-        yield return null;
+        GetComponent<AudioSource>().Play();
+        yield return new WaitForSeconds(2f);
+        SpawnCube();
+        co = null;
     }
 }

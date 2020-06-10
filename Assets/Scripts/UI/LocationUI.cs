@@ -28,7 +28,7 @@ public class LocationUI : MonoBehaviour
                 UpdateText();
             }
             
-            //Debug.Log("Entered " + value);
+            Debug.Log("Entered " + value);
         }
     }
 

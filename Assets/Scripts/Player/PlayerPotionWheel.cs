@@ -110,8 +110,7 @@ public class PlayerPotionWheel : MonoBehaviour
     {
         if(Wheel != null)
         {
-            //PotionSelection();
-            Debug.Log("Bad Y Button Pressed");
+            PotionSelection();
         }        
     }
 

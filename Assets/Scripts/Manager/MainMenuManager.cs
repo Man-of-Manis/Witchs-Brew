@@ -245,7 +245,7 @@ public class MainMenuManager : MonoBehaviour
             //If there are no previous objects in the selection list, go to exit game confirmation.
             else
             {
-                //eventSystem.SetSelectedGameObject(null);
+                eventSystem.SetSelectedGameObject(null);
                 ChangeMenu(exitGameConfim, mainMenuGo, eventSystem.currentSelectedGameObject);
                 EventSelection(exitNoButton.gameObject);
             }
