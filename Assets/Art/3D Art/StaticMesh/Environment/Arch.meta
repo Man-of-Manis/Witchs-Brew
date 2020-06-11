@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Art/3D Art/StaticMesh/Environment/Arch/Arch_Corner.meta
+guid: a2546747ccd644870ae2efdb6e47d56a
+=======
 guid: 461ae5bd965144c04ad919c7d14222ff
+>>>>>>> UI_Hints:Assets/Art/3D Art/StaticMesh/Environment/Arch.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
