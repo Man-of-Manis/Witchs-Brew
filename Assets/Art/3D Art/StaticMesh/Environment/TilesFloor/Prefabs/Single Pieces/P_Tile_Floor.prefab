@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4797552602419348310
 Transform:
@@ -140,6 +140,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: sm_tile_groundplane
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 252b2892bf3bb66408738b5dbed74cc5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 331343358535080998, guid: 252b2892bf3bb66408738b5dbed74cc5,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -170,6 +175,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1579737358802125099, guid: 252b2892bf3bb66408738b5dbed74cc5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 2773511051971884402, guid: 252b2892bf3bb66408738b5dbed74cc5,
         type: 3}
       propertyPath: m_Name
@@ -179,6 +189,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773511051971884402, guid: 252b2892bf3bb66408738b5dbed74cc5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 6998535104481542136, guid: 252b2892bf3bb66408738b5dbed74cc5,
         type: 3}

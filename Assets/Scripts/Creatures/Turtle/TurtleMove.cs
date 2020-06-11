@@ -14,6 +14,7 @@ public class TurtleMove : Creatures
     private const float detectionDist = 4.75f;
     private bool playerDetected;
     private bool prevPlayerDetected;
+    private PlayerHealth pHealth;
 
     void Start()
     {
@@ -29,6 +30,8 @@ public class TurtleMove : Creatures
         {
             target = GameManager.Instance.player.transform.Find("COM_Target");
         }
+
+        pHealth = target.GetComponentInParent<PlayerHealth>();
     }
 
     void Update()
@@ -64,7 +67,7 @@ public class TurtleMove : Creatures
 
         Vector3 targetDirection = (target.position - iceBeamSpawnPoint.position).normalized;
 
-        if (targetDist < detectionDist && elementState == ElementalState.Elemental) //Player Detected
+        if (dist < detectionDist && pHealth.Health > 0 && elementState == ElementalState.Elemental) //Player Detected
         {
             if (Physics.Raycast(iceBeamSpawnPoint.position, targetDirection, out RaycastHit hit, detectionDist, detectionLayer))
             {
@@ -92,7 +95,7 @@ public class TurtleMove : Creatures
 
     protected override void ElementalMeshRotation()
     {
-        if (dist < detectionDist)
+        if (dist < detectionDist && pHealth.Health > 0)
         {
             Vector3 dirToTarget = target.position - iceBeamSpawnPoint.position;
 
@@ -112,7 +115,7 @@ public class TurtleMove : Creatures
 
     private void PlayerDetected()
     {
-        if(dist < detectionDist)
+        if(dist < detectionDist && pHealth.Health > 0)
         {
             playerDetected = true;
         }
@@ -121,7 +124,7 @@ public class TurtleMove : Creatures
             playerDetected = false;
         }
 
-        if (playerDetected && !prevPlayerDetected && elementState == ElementalState.Elemental)
+        if (playerDetected && !prevPlayerDetected && elementState == ElementalState.Elemental )
         {
             GetComponent<IceTurtleAttack>().EnableBeam = true;
             prevPlayerDetected = playerDetected;

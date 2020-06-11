@@ -12,7 +12,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         public override string Command { get; protected set; }
         public override string Description { get; protected set; }
 
-        public List<string> itemNames = new List<string>();
+        public List<string> options = new List<string>();
 
         /// <summary>
         /// Sets string fields upon instantiation.
@@ -22,6 +22,8 @@ namespace WitchsBrew.Utilities.DeveloperConsole
             Name = "Give";
             Command = "give";
             Description = "Gives the player an item based on given string.";
+
+            AddItems();
 
             AddCommandToConsole();
         }
@@ -37,8 +39,8 @@ namespace WitchsBrew.Utilities.DeveloperConsole
 
         private void AddItems()
         {
-            itemNames.Add("AirPotion");
-            itemNames.Add("FirePotion");
+            options.Add("AirPotion");
+            options.Add("FirePotion");
             //itemNames.Add("LightningPotion");
             //itemNames.Add("NaturePotion");
             //itemNames.Add("IcePotion");            
@@ -46,7 +48,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         }
 
         /// <summary>
-        /// Gives player 1 of the string item if available.
+        /// Gives player, 1 of the string item if available.
         /// </summary>
         /// <param name="itemName">The name of the item.</param>
         /// <returns></returns>
@@ -74,6 +76,11 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         /// <returns></returns>
         private bool ItemSwitch(string itemName, int amount = 1)
         {
+            if(amount < 1)
+            {
+                return false;
+            }
+
             switch(itemName)
             {
                 case "AirPotion":
@@ -90,6 +97,13 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         private void AddPotions(int type, int amount)
         {
             //Add potion/s
+            ItemController itemCon = GameManager.Instance.player.GetComponent<ItemController>();
+
+            if(itemCon != null)
+            {
+                itemCon.LearnNewPotion(type);
+                itemCon.Potions(type, amount);
+            }            
         }
 
         public string HelpCommand(string itemName)

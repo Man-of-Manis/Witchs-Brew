@@ -351,7 +351,7 @@ public class SatchelUI : MonoBehaviour
     /// </summary>
     void PotionSelection()
     {
-        if (SatchelOpen)
+        if (SatchelOpen && !pauseMenu.PauseMenuOpen)
         {
             float LSDeadzoneX = m_Input.LSInput.x > deadzone || m_Input.LSInput.x < -deadzone ? m_Input.LSInput.x : 0f;
             float LSDeadzoneY = m_Input.LSInput.y > deadzone || m_Input.LSInput.y < -deadzone ? m_Input.LSInput.y : 0f;
