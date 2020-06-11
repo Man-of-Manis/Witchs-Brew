@@ -18,6 +18,13 @@ public class ProgressionManager : MonoBehaviour
 
     [SerializeField] private float ShowGoalTime = 10f;
 
+    public bool ShowGoals
+    {
+        get { return showGoalUI; }
+        set { showGoalUI = value; }
+    }
+    public bool showGoalUI;
+
     private float timer;
 
     private Coroutine fadingCo;
@@ -52,23 +59,26 @@ public class ProgressionManager : MonoBehaviour
     /// </summary>
     private void ShowCurrentGoal()
     {
-        if(Goals[GoalIndex].ShowImmediately)
+        if(ShowGoals)
         {
-            if (fadingCo == null)
-            {
-                fadingCo = StartCoroutine(FadeGoalIn());
-            }
-        }
-        else
-        {
-            if(timer >= ShowGoalTime)
+            if (Goals[GoalIndex].ShowImmediately)
             {
                 if (fadingCo == null)
                 {
                     fadingCo = StartCoroutine(FadeGoalIn());
                 }
             }
-        }
+            else
+            {
+                if (timer >= ShowGoalTime)
+                {
+                    if (fadingCo == null)
+                    {
+                        fadingCo = StartCoroutine(FadeGoalIn());
+                    }
+                }
+            }
+        }        
     }
 
     /// <summary>
