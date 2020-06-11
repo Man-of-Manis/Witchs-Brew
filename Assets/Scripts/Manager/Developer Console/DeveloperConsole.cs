@@ -9,6 +9,11 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine.EventSystems;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+
 namespace WitchsBrew.Utilities.DeveloperConsole
 {
     [Serializable]
@@ -78,6 +83,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         public TMP_InputField commandInput;
         public TMP_InputField consoleInputLog;
         private bool previouslyOpen;
+        private float prevTimeScale;
 
         [Header("Auto Complete")]
         public Transform autoCompleteBackground;
@@ -86,8 +92,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         public List<string> autoCompleteStrings;
         public int autoCompleteSelection = 0;
         public List<string> autoCompleteArgs;
-        public List<string> commandParameters;
-        
+        public List<string> commandParameters;        
 
         [Header("Debugging")]
         [SerializeField] private bool EnableEditorLogging = false;
@@ -111,7 +116,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         {
             if (Debug.isDebugBuild)
             {
-                Application.logMessageReceived += UnityLogHandler;
+                //Application.logMessageReceived += UnityLogHandler;
             }
         }
 
@@ -119,7 +124,7 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         {
             if (Debug.isDebugBuild)
             {
-                Application.logMessageReceived -= UnityLogHandler;
+                //Application.logMessageReceived -= UnityLogHandler;
             }
         }
 
@@ -172,11 +177,14 @@ namespace WitchsBrew.Utilities.DeveloperConsole
 
                 if (consoleCanvas.enabled && !previouslyOpen)
                 {
+                    prevTimeScale = Time.timeScale;
+                    Time.timeScale = 0f;
                     PlayerInput.Instance.ReleaseControl();
                     previouslyOpen = true;
                 }
-                else if(!consoleCanvas.enabled && previouslyOpen)
+                else if (!consoleCanvas.enabled && previouslyOpen)
                 {
+                    Time.timeScale = prevTimeScale;
                     PlayerInput.Instance.GainControl();
                     previouslyOpen = false;
                 }
@@ -190,34 +198,26 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         {
             if (Input.GetKeyUp(KeyCode.BackQuote))
             {
-                if (!consoleCanvas.enabled)
-                {
-                    consoleCanvas.enabled = true;
-                    commandInput.text = "";
-                    commandInput.ActivateInputField();
-                }
+                OpenConsole();
             }
 
             if (Input.GetKeyUp(KeyCode.Slash))
             {
-                if (!consoleCanvas.enabled)
-                {
-                    consoleCanvas.enabled = true;
-                    commandInput.text = "/";
-                    commandInput.ActivateInputField();
-                    commandInput.caretPosition = commandInput.text.Length;
-
-                }
+                OpenConsoleSlash();               
             }
 
             if (Input.GetKeyUp(KeyCode.Escape))
             {
+                
+                CloseConsole();
+                /*
                 if (consoleCanvas.enabled)
                 {
                     commandInput.text = "";
                     consoleCanvas.enabled = false;
-                    EventSystem.current.SetSelectedGameObject(null);
+                    
                 }
+                */
             }
 
             if (Input.GetKeyUp(KeyCode.Return))
@@ -285,6 +285,22 @@ namespace WitchsBrew.Utilities.DeveloperConsole
             }
         }
 
+        public void OpenConsole()
+        {
+            if (!consoleCanvas.enabled)
+            {
+                StartCoroutine(OpenCanvas());
+            }
+        }
+
+        private void OpenConsoleSlash()
+        {
+            if (!consoleCanvas.enabled)
+            {
+                StartCoroutine(OpenCanvasSlash());
+            }
+        }
+
         /// <summary>
         /// Closes the developer console window. Used by the close button in the corner of the window.
         /// </summary>
@@ -292,8 +308,34 @@ namespace WitchsBrew.Utilities.DeveloperConsole
         {
             if (consoleCanvas.enabled)
             {
-                consoleCanvas.enabled = false;
+                StartCoroutine(CloseCanvas());
             }
+        }
+
+        IEnumerator OpenCanvas()
+        {
+            yield return new WaitUntil(() => !CanvasUpdateRegistry.IsRebuildingGraphics());
+            consoleCanvas.enabled = true;
+
+            commandInput.text = "";
+            commandInput.ActivateInputField();
+        }
+
+        IEnumerator OpenCanvasSlash()
+        {
+            yield return new WaitUntil(() => !CanvasUpdateRegistry.IsRebuildingGraphics());
+            consoleCanvas.enabled = true;
+
+            commandInput.text = "/";
+            commandInput.ActivateInputField();
+            commandInput.caretPosition = commandInput.text.Length;
+        }
+
+
+        IEnumerator CloseCanvas()
+        {
+            yield return new WaitUntil(() => !CanvasUpdateRegistry.IsRebuildingGraphics());
+            consoleCanvas.enabled = false;
         }
 
         /// <summary>
@@ -305,6 +347,8 @@ namespace WitchsBrew.Utilities.DeveloperConsole
             CommandLoad.CreateCommand();
             CommandQuit.CreateCommand();
             CommandReset.CreateCommand();
+            CommandSpawn.CreateCommand();
+            CommandTeleport.CreateCommand();
         }
 
         /// <summary>

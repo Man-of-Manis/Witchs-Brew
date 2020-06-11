@@ -238,6 +238,9 @@ public class PlayerInput : MonoBehaviour
         get { return m_Skip; }
     }
 
+    WaitForSeconds m_JumpInputWait;
+    Coroutine m_JumpCoroutine;
+
     WaitForSeconds m_AttackInputWait;
     Coroutine m_AttackWaitCoroutine;
 
@@ -247,6 +250,7 @@ public class PlayerInput : MonoBehaviour
     WaitForSeconds m_NewInputWait;
     Coroutine m_NewWaitCoroutine;
 
+    const float k_JumpInputDuration = 0.1f;
     const float k_AttackInputDuration = 0.03f;
 
     void Awake()
@@ -254,6 +258,7 @@ public class PlayerInput : MonoBehaviour
         m_AttackInputWait = new WaitForSeconds(k_AttackInputDuration);
         m_ShuffleInputWait = new WaitForSeconds(k_AttackInputDuration);
         m_NewInputWait = new WaitForSeconds(k_AttackInputDuration);
+        m_JumpInputWait = new WaitForSeconds(k_JumpInputDuration);
 
         if (s_Instance == null)
             s_Instance = this;
@@ -292,7 +297,17 @@ public class PlayerInput : MonoBehaviour
         //m_Run = Input.GetAxis("Run") > 0f;
 
         m_Run = true;
+        /*
+        if(Input.GetButtonDown("Jump") && !Input.GetButton("MakePotion"))
+        {
+            if(m_JumpCoroutine != null)
+            {
+                StopCoroutine(m_JumpCoroutine);
+            }
 
+            StartCoroutine(JumpHold());
+        }
+        */
         if (Input.GetButtonDown("Fire1"))
         {
             if (m_AttackWaitCoroutine != null)
@@ -352,6 +367,13 @@ public class PlayerInput : MonoBehaviour
         }
 
         //playerControllerMovementBlocked = ToggleButton3;
+    }
+
+    IEnumerator JumpHold()
+    {
+        m_Jump = true;
+        yield return m_JumpInputWait;
+        m_Jump = false;
     }
 
     IEnumerator AttackWait()

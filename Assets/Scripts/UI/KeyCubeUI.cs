@@ -57,7 +57,7 @@ public class KeyCubeUI : MonoBehaviour
     /// <param name="color">The color index of the Keycube.</param>
     public void AddKeyCube(int color)
     {
-        Debug.Log("Adding index: " + color);
+        //Debug.Log("Adding index: " + color);
         keyCubesHeld[color] = true;
         DisplayedKeyCubes();
     }

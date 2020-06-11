@@ -88,7 +88,7 @@ public class PlayerMixamoController : MonoBehaviour
     {
         m_Input = GetComponent<PlayerInput>();
         m_CharCtrl = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         //cam = FindObjectOfType<Camera>().transform.parent.transform;
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform; //FindObjectOfType<Camera>().transform;
         aimCam = cam.transform.parent.transform;

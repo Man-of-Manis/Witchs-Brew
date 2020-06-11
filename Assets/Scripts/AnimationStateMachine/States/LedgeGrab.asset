@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: LedgeGrab
   m_EditorClassIdentifier: 
   duration: 0
+  Speed: 6
