@@ -35,7 +35,7 @@ public class ResetGravity : StateData
 
     private void ToggleGrav(Animator animator)
     {
-        controller = animator.GetComponent<PlayerMixamoController>();
+        controller = animator.GetComponentInParent<PlayerMixamoController>();
         controller.useGravity = true;
         controller.m_VerticalSpeed = 0f;
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ItemController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class ItemController : MonoBehaviour
     public int[] ingredientAmount { get; private set; } = new int[5];
 
     [SerializeField] private bool[] LearnedPotions = new bool[6];
+
+    public static event EventHandler<int> LearnedNewPotion;
 
     public bool[] AvailablePotions
     {
@@ -49,5 +52,6 @@ public class ItemController : MonoBehaviour
     {
         LearnedPotions[potion] = true;
         Debug.Log("You learned the " + TextColor[potion] + potion + "</color> Potion!");
+        LearnedNewPotion?.Invoke(this, potion);
     }
 }

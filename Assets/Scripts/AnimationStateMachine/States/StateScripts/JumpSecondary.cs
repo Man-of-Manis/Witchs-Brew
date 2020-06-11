@@ -11,15 +11,11 @@ public class JumpSecondary : StateData
     {
         PlayerInput pInput = characterState.GetPlayerInput(animator);
 
-        //animator.SetBool("Jump", false);
-
         animator.SetBool("Jump_Secondary", false);
 
-        animator.GetComponent<PlayerMixamoController>().m_VerticalSpeed = 0f;
+        animator.GetComponentInParent<PlayerMixamoController>().m_VerticalSpeed = Speed;
 
-        animator.GetComponent<PlayerMixamoController>().m_VerticalSpeed = Speed;
-
-        animator.GetComponent<PlayerMixamoController>().SecondaryJump = false;
+        animator.GetComponentInParent<PlayerMixamoController>().SecondaryJump = false;
     }
 
     public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)

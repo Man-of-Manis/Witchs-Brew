@@ -15,7 +15,7 @@ public class PlayerInput : MonoBehaviour
     public bool playerControllerInputBlocked;
 
     [HideInInspector]
-    public bool playerControllerMovementBlocked;
+    //public bool playerControllerMovementBlocked;
 
     protected Vector2 m_Movement;
     protected Vector2 m_Camera;
@@ -45,6 +45,7 @@ public class PlayerInput : MonoBehaviour
     protected float DPad_X_Direction;
     protected bool prevType;
     protected float DPad_Y_Direction;
+    protected bool m_Skip;
     protected bool m_Menu;
     protected bool m_Pause;
     protected bool m_ExternalInputBlocked;
@@ -53,7 +54,8 @@ public class PlayerInput : MonoBehaviour
     {
         get
         {
-            if (playerControllerInputBlocked || m_ExternalInputBlocked || playerControllerMovementBlocked)
+            //if (playerControllerInputBlocked || m_ExternalInputBlocked || playerControllerMovementBlocked)
+            if (playerControllerInputBlocked || m_ExternalInputBlocked)
             {
                 return Vector2.zero;
             }
@@ -103,7 +105,8 @@ public class PlayerInput : MonoBehaviour
 
     public bool JumpInput
     {
-        get        {            return m_Jump && !playerControllerInputBlocked && !m_ExternalInputBlocked && !playerControllerMovementBlocked;        }
+        //get        {            return m_Jump && !playerControllerInputBlocked && !m_ExternalInputBlocked && !playerControllerMovementBlocked;        }
+        get { return m_Jump && !playerControllerInputBlocked && !m_ExternalInputBlocked; }
     }
 
     public bool UseInput
@@ -230,6 +233,14 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    public bool Skip
+    {
+        get { return m_Skip; }
+    }
+
+    WaitForSeconds m_JumpInputWait;
+    Coroutine m_JumpCoroutine;
+
     WaitForSeconds m_AttackInputWait;
     Coroutine m_AttackWaitCoroutine;
 
@@ -239,6 +250,7 @@ public class PlayerInput : MonoBehaviour
     WaitForSeconds m_NewInputWait;
     Coroutine m_NewWaitCoroutine;
 
+    const float k_JumpInputDuration = 0.1f;
     const float k_AttackInputDuration = 0.03f;
 
     void Awake()
@@ -246,6 +258,7 @@ public class PlayerInput : MonoBehaviour
         m_AttackInputWait = new WaitForSeconds(k_AttackInputDuration);
         m_ShuffleInputWait = new WaitForSeconds(k_AttackInputDuration);
         m_NewInputWait = new WaitForSeconds(k_AttackInputDuration);
+        m_JumpInputWait = new WaitForSeconds(k_JumpInputDuration);
 
         if (s_Instance == null)
             s_Instance = this;
@@ -256,12 +269,6 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
         GetInputs();
-        /*
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-        */
     }
 
     private void GetInputs()
@@ -286,10 +293,21 @@ public class PlayerInput : MonoBehaviour
         m_ShuffleType = Input.GetButtonDown("ShuffleType");
         m_PotionCombos = Input.GetButton("BackButton");
         m_Menu = Input.GetButtonDown("StartButton");
+        m_Skip = Input.GetButtonDown("Button3");
         //m_Run = Input.GetAxis("Run") > 0f;
 
         m_Run = true;
+        /*
+        if(Input.GetButtonDown("Jump") && !Input.GetButton("MakePotion"))
+        {
+            if(m_JumpCoroutine != null)
+            {
+                StopCoroutine(m_JumpCoroutine);
+            }
 
+            StartCoroutine(JumpHold());
+        }
+        */
         if (Input.GetButtonDown("Fire1"))
         {
             if (m_AttackWaitCoroutine != null)
@@ -348,7 +366,14 @@ public class PlayerInput : MonoBehaviour
             DPad_Y_Direction = 0.0f;
         }
 
-        playerControllerMovementBlocked = ToggleButton3;
+        //playerControllerMovementBlocked = ToggleButton3;
+    }
+
+    IEnumerator JumpHold()
+    {
+        m_Jump = true;
+        yield return m_JumpInputWait;
+        m_Jump = false;
     }
 
     IEnumerator AttackWait()

@@ -32,11 +32,13 @@ public class PlayerLedgeDetection : MonoBehaviour
     private float ledgeDist;
 
     private PlayerMixamoController controller;
+    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<PlayerMixamoController>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -79,9 +81,10 @@ public class PlayerLedgeDetection : MonoBehaviour
     private void LedgeJump(RaycastHit ledgeHit)
     {
         FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.witchMovement.witchLedgeGrab, gameObject);
-        controller.m_VerticalSpeed = jumpSpeed;
+        //controller.m_VerticalSpeed = jumpSpeed;
+        anim.SetTrigger("Ledge_Grab");
         usedLedgeJump = true;
-        Debug.Log("Grabbed ledge: " + ledgeHit.collider.name);
+        //Debug.Log("Grabbed ledge: " + ledgeHit.collider.name);
 
         //Ledge Grab/Jump sound (OneShot)
     }

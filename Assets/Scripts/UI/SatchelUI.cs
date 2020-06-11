@@ -25,6 +25,10 @@ public class SatchelUI : MonoBehaviour
     [SerializeField] private GameObject PotionWheel;
     [SerializeField] private RectTransform pointer;
     [SerializeField] private Image[] potionWheelImages = new Image[6];
+
+    [SerializeField] private Color learnedPotionImageColor;
+    [SerializeField] private Color unlearnedPotionImageColor;
+
     public float deadzone = 0.45f;
     private bool satchelFade;
     private bool satchelPrevFade;
@@ -147,6 +151,13 @@ public class SatchelUI : MonoBehaviour
 
         InitializePotionWheelNode();
         InitializeListIngredients();
+
+        ItemController.LearnedNewPotion += ItemController_LearnedNewPotion;
+    }
+
+    private void ItemController_LearnedNewPotion(object sender, int e)
+    {
+        potionWheelImages[OppositeTransition[e]].color = learnedPotionImageColor;
     }
 
     // Update is called once per frame

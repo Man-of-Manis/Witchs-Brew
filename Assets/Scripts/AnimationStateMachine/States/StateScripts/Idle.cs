@@ -24,7 +24,7 @@ public class Idle : StateData
 
         animator.SetBool("Run", pInput.RunInput);        
 
-        float speed = animator.GetComponent<PlayerMixamoController>().m_ForwardSpeed;
+        float speed = animator.GetComponentInParent<PlayerMixamoController>().m_ForwardSpeed;
 
         animator.SetFloat("Walk_Speed", speed);
 

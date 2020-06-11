@@ -57,7 +57,7 @@ public class CharacterState : StateMachineBehaviour
     {
         if(playerInput == null)
         {
-            playerInput = animator.GetComponent<PlayerInput>();
+            playerInput = animator.GetComponentInParent<PlayerInput>();
         }
 
         return playerInput;
@@ -69,7 +69,7 @@ public class CharacterState : StateMachineBehaviour
     {
         if(ledgeChecker == null)
         {
-            ledgeChecker = animator.GetComponentInChildren<LedgeChecker>();
+            ledgeChecker = animator.GetComponentInParent<LedgeChecker>();
         }
 
         return ledgeChecker;
@@ -81,7 +81,7 @@ public class CharacterState : StateMachineBehaviour
     {
         if(playerParent == null)
         {
-            playerParent = animator.GetComponent<PlayerParent>();
+            playerParent = animator.GetComponentInParent<PlayerParent>();
         }
 
         return playerParent;
@@ -93,7 +93,7 @@ public class CharacterState : StateMachineBehaviour
     {
         if (playerHealth == null)
         {
-            playerHealth = animator.GetComponent<PlayerHealth>();
+            playerHealth = animator.GetComponentInParent<PlayerHealth>();
         }
 
         return playerHealth;

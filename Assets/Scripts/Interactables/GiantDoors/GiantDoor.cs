@@ -20,6 +20,6 @@ public class GiantDoor : MonoBehaviour
 
     public void Activate()
     {
-        doorOpener.AttemptOpening();
+        //doorOpener.AttemptOpening();
     }
 }

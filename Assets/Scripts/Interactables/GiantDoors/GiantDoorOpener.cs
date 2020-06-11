@@ -9,6 +9,23 @@ public class GiantDoorOpener : MonoBehaviour
     [SerializeField] Transform[] doors = new Transform[2];
     private bool opened;
 
+    public bool LeftBrazier
+    {
+        get { return LeftBrazierLit; }
+        set { LeftBrazierLit = value; }
+    }
+
+    public bool RightBrazier
+    {
+        get { return RightBrazierLit; }
+        set { RightBrazierLit = value; }
+    }
+
+    public bool LeftBrazierLit;
+    public bool RightBrazierLit;
+
+    Coroutine brazierCo;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +39,21 @@ public class GiantDoorOpener : MonoBehaviour
     void Update()
     {
         //AttemptOpening();
+        BraziersLit();
     }
 
-    public void AttemptOpening()
+    private void BraziersLit()
+    {
+        if(LeftBrazierLit && RightBrazierLit)
+        {
+            if(brazierCo == null)
+            {
+                brazierCo = StartCoroutine(CheckDoors());
+            }
+        }
+    }
+
+    private void AttemptOpening()
     {
         for(int i = 0; i < specialCubes.Length; i++)
         {
@@ -56,5 +85,12 @@ public class GiantDoorOpener : MonoBehaviour
         {
             doors[i].GetComponent<Animator>().SetTrigger("Open");
         }
+    }
+
+    private IEnumerator CheckDoors()
+    {
+        AttemptOpening();
+        yield return new WaitForSeconds(1f);
+        brazierCo = null;
     }
 }

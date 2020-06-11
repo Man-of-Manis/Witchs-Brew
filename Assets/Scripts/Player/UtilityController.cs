@@ -54,7 +54,7 @@ public class UtilityController : MonoBehaviour
         secondCalc = GetComponent<SecondaryArcCalculation>();
         pStrength = GetComponent<PotionKnockbackStrength>();
         itemCon = GetComponent<ItemController>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         potionWheel = GetComponent<PlayerPotionWheel>();
     }
 

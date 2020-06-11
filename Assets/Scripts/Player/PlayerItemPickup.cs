@@ -16,6 +16,11 @@ public class PlayerItemPickup : MonoBehaviour
     [Header("KeyCubes")]
     [SerializeField] private GameObject[] keyCubePrefabs;
 
+    public GameObject[] KeyCubes
+    {
+        get { return keyCubePrefabs; }
+    }
+
     [Header("Chests")]
     [SerializeField] private ChestKeyCubeSpawner[] chestSpawners = new ChestKeyCubeSpawner[6];
 
@@ -30,6 +35,11 @@ public class PlayerItemPickup : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerInput m_Input;
     [SerializeField] private KeyCubeUI keyCubeUI;
+
+    public Vector3 PickupDropPosition
+    {
+        get { return PositionDrop(); }
+    }
 
     private void Start()
     {
@@ -104,7 +114,7 @@ public class PlayerItemPickup : MonoBehaviour
 
         if(cube != null)
         {
-            Debug.Log("Adding KeyCube to SatchelUI");
+            //Debug.Log("Adding KeyCube to SatchelUI");
             keyCubeUI.AddKeyCube((int)cube.KeyColor);
             chestSpawners[(int)cube.KeyColor] = cube.Spawner;
             cube.AddToSatchel();
@@ -202,7 +212,7 @@ public class PlayerItemPickup : MonoBehaviour
 
             //Colliders(false);
 
-            Debug.Log("Overlap Item: " + pick.name);
+            //Debug.Log("Overlap Item: " + pick.name);
         }
     }
 
@@ -217,7 +227,7 @@ public class PlayerItemPickup : MonoBehaviour
         //Colliders(true);
         pickup = null;
 
-        Debug.Log("Dropped Item");
+        //Debug.Log("Dropped Item");
     }
 
     /// <summary>
@@ -305,7 +315,7 @@ public class PlayerItemPickup : MonoBehaviour
 
         return false;
     }
-
+    /*
     /// <summary>
     /// Draws the box area of the pickup BoxCast.
     /// </summary>
@@ -322,4 +332,5 @@ public class PlayerItemPickup : MonoBehaviour
             Gizmos.DrawSphere(pos[i], 0.25f);
         }
     }
+    */
 }
