@@ -320,7 +320,7 @@ public class Creatures : MonoBehaviour
     protected void IsGrounded()
     {
         prevGrounded = grounded;
-        grounded = Physics.BoxCast(transform.position, new Vector3(0.5f, 0.05f, 0.5f), -Vector3.up, out RaycastHit hit, Quaternion.identity, 0.45f, groundedMask);
+        grounded = Physics.BoxCast(transform.position + (Vector3.up * 0.15f), new Vector3(0.5f, 0.1f, 0.5f), -Vector3.up, out RaycastHit hit, Quaternion.identity, 0.45f, groundedMask);
     }
 
     /// <summary>
