@@ -76,8 +76,8 @@ public class GameSettings : MonoBehaviour
 
     public float MusicVolume
     {
-        get { return settings.masterVol; }
-        set { settings.masterVol = value; }
+        get { return settings.musicVol; }
+        set { settings.musicVol = value; }
     }
 
     public float SFXVolume

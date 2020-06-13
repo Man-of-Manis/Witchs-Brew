@@ -21121,10 +21121,10 @@ MonoBehaviour:
   witchHealth:
     witchHurt: event:/Witch/Witch Hurt/Witch_Hurt
     witchHeal: event:/Witch/Witch_Heal
-    witchDeath: 
+    witchDeath: event:/Witch/Witch. Death
   witchMovement:
-    witchJump: 
-    witchLedgeGrab: 
+    witchJump: event:/Witch/Witch. jump
+    witchLedgeGrab: event:/Witch/Witch. ledge grab
     witchFootstepsDirt: event:/Witch/Footsteps/Dirt_Steps
     witchFootstepsGrass: event:/Witch/Footsteps/Grass_Steps
     witchFootstepsRock: event:/Witch/Footsteps/Cement_Steps
@@ -21132,22 +21132,22 @@ MonoBehaviour:
     witchThrowObject: 
   smallObjects:
     potionBreak: event:/Potions/Potion Break
-    keyCubeHit: 
+    keyCubeHit: evnet:/Interactables/Key Cube Hit
   chicken:
     chickenCluck: event:/Chicken/Chicken_Idle
     chickenLaunch: event:/Chicken/Chicken_Thrown
-    chickenDeath: 
+    chickenDeath: event:/Chicken/Chciken. Death
     chickenWingFlap: event:/Chicken/Chicken_WingFlap
-    chickenFootsteps: 
-    chickenEggCrack: 
+    chickenFootsteps: event:/Chicken/Chicken_Walk
+    chickenEggCrack: event:/Chicken/Chicken_EggCrack
   turtle:
     turtleBeamCharge: event:/Turtle/Ice Beam/Turtle_Charge
     turtleBeamShoot: event:/Turtle/Ice Beam/Turtle_Shoot
     turtleBeamCooldown: event:/Turtle/Ice Beam/Turtle_Cool
     turtleGrunt: event:/Turtle/Turtle_Grunt
-    turtleHurt: 
-    turtleDeath: 
-    turtleFootsteps: 
+    turtleHurt: event:/Turtle/Turtle. hurt
+    turtleDeath: event:/Turtle/Turtle_Death
+    turtleFootsteps: event:/Turtle/Turtle. footsteps
 --- !u!1 &5887507491962482178
 GameObject:
   m_ObjectHideFlags: 0
@@ -31553,6 +31553,8 @@ MonoBehaviour:
   - {fileID: 5887507491182019335}
   - {fileID: 5887507491833198776}
   - {fileID: 5887507491748940376}
+  learnedPotionImageColor: {r: 0, g: 0, b: 0, a: 0}
+  unlearnedPotionImageColor: {r: 0, g: 0, b: 0, a: 0}
   deadzone: 0.45
   pouches:
   - {fileID: 5887507491055148826}
@@ -31666,19 +31668,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd4360a93c821e4f8693a86c204872e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterMixer: {fileID: 24100000, guid: b00cda5a72a617b48bac5eca27c663d3, type: 2}
-  masterVol: 1
-  musicVol: 1
-  sfxVol: 1
-  ambientVol: 1
-  playerVol: 1
-  creatureVol: 1
-  masterSlider: {fileID: 0}
-  musicSlider: {fileID: 0}
-  sfxSlider: {fileID: 0}
-  ambientSlider: {fileID: 0}
-  playerSlider: {fileID: 0}
-  creatureSlider: {fileID: 0}
 --- !u!114 &6508856610049581266
 MonoBehaviour:
   m_ObjectHideFlags: 0

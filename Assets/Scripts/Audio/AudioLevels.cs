@@ -68,16 +68,6 @@ public class AudioLevels : MonoBehaviour
         }
     }
 
-    public void Start()
-    {
-        GetSavedVol();
-    }
-
-    private void GetSavedVol()
-    {
-
-    }
-
     private void MasterVolumeChanged(object sender, float volume)
     {
         Debug.Log("Master Volume Changed");

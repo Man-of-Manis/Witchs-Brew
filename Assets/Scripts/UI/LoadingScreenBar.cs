@@ -36,6 +36,9 @@ public class LoadingScreenBar : MonoBehaviour
     {
         Application.backgroundLoadingPriority = ThreadPriority.Low;
         Music = GetComponent<FMODUnity.StudioEventEmitter>().EventInstance;
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        Music.setParameterByName("Music_value", sceneIndex == 0 ? 0 : 2);
+
     }
 
     /// <summary>

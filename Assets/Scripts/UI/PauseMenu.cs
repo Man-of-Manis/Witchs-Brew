@@ -101,7 +101,14 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        
+        StartCoroutine(DelayedInitialize());
+    }
+
+    IEnumerator DelayedInitialize()
+    {
+        yield return new WaitForSeconds(0.1f);
+        AudioSettingsInitialize();
+        VideoSettingsInitialize();
     }
 
     void Update()
@@ -520,8 +527,10 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     private void GetMasterVolume()
     {
-        masterSlider.SetValueWithoutNotify(GameSettings.Instance.MasterVolume * 10f);
-        masterInput.SetTextWithoutNotify(GameSettings.Instance.MasterVolume.ToString());
+        float volume = GameSettings.Instance.MasterVolume;
+        OnMasterVolumeChanged?.Invoke(this, volume);
+        masterSlider.SetValueWithoutNotify(volume * 10f);
+        masterInput.SetTextWithoutNotify(volume.ToString());
     }
 
     /// <summary>
@@ -529,8 +538,10 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     private void GetMusicVolume()
     {
-        musicSlider.SetValueWithoutNotify(GameSettings.Instance.MusicVolume * 10f);
-        musicInput.SetTextWithoutNotify(GameSettings.Instance.MusicVolume.ToString());
+        float volume = GameSettings.Instance.MusicVolume;
+        OnMusicVolumeChanged?.Invoke(this, volume);
+        musicSlider.SetValueWithoutNotify(volume * 10f);
+        musicInput.SetTextWithoutNotify(volume.ToString());
     }
 
     /// <summary>
@@ -538,8 +549,10 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     private void GetSFXVolume()
     {
-        sfxSlider.SetValueWithoutNotify(GameSettings.Instance.SFXVolume * 10f);
-        sfxInput.SetTextWithoutNotify(GameSettings.Instance.SFXVolume.ToString());
+        float volume = GameSettings.Instance.SFXVolume;
+        OnSFXVolumeChanged?.Invoke(this, volume);
+        sfxSlider.SetValueWithoutNotify(volume * 10f);
+        sfxInput.SetTextWithoutNotify(volume.ToString());
     }
 
     /// <summary>
@@ -547,8 +560,10 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     private void GetPlayerVolume()
     {
-        playerSlider.SetValueWithoutNotify(GameSettings.Instance.PlayerVolume * 10f);
-        playerInput.SetTextWithoutNotify(GameSettings.Instance.PlayerVolume.ToString());
+        float volume = GameSettings.Instance.PlayerVolume;
+        OnPlayerVolumeChanged?.Invoke(this, volume);
+        playerSlider.SetValueWithoutNotify(volume * 10f);
+        playerInput.SetTextWithoutNotify(volume.ToString());
     }
 
     /// <summary>
@@ -556,8 +571,10 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     private void GetCreatureVolume()
     {
-        creatureSlider.SetValueWithoutNotify(GameSettings.Instance.CreatureVolume * 10f);
-        creatureInput.SetTextWithoutNotify(GameSettings.Instance.CreatureVolume.ToString());
+        float volume = GameSettings.Instance.CreatureVolume;
+        OnCreatureVolumeChanged?.Invoke(this, volume);
+        creatureSlider.SetValueWithoutNotify(volume * 10f);
+        creatureInput.SetTextWithoutNotify(volume.ToString());
     }
 
     /// <summary>

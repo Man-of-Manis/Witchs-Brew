@@ -356,7 +356,7 @@ public class Creatures : MonoBehaviour
         
         if(creature == CreatureType.Chicken)
         {
-            if(!grounded)
+            if(!grounded && !ePoint.Frozen)
             {
                 if (wingFlapCo == null)
                 {
