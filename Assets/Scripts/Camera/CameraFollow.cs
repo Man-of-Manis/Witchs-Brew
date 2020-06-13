@@ -8,11 +8,13 @@ public class CameraFollow : MonoBehaviour
     [Header("Properties")]
     public float cameraMoveSpeed = 120.0f;
     public float clampAngle = 80.0f;
-    public float inputSensitivity = 150.0f;   
+    public float inputSensitivity = 150.0f;
+    [SerializeField] private Vector2 controllerSensitivity = Vector2.one;
     
     [Header("Inputs")]
     public Vector2 mouse;
     public Vector2 RStick;
+    [SerializeField] private bool invertControllerY;
 
     public bool useMouse = false;
 
@@ -72,6 +74,27 @@ public class CameraFollow : MonoBehaviour
             //Cursor.visible = false;
             //Cursor.lockState = CursorLockMode.Locked;
         }
+
+        invertControllerY = GameSettings.Instance.ControllerInvert;
+
+        GameSettings.Instance.OnControlHoriHandler += Instance_OnControlHoriHandler;
+        GameSettings.Instance.OnControlVertHandler += Instance_OnControlVertHandler;
+        GameSettings.Instance.OnControllerInvertYHandler += Instance_OnControllerInvertYHandler;
+    }
+
+    private void Instance_OnControlHoriHandler(object sender, float e)
+    {
+        controllerSensitivity.x = e;
+    }
+
+    private void Instance_OnControlVertHandler(object sender, float e)
+    {
+        controllerSensitivity.y = e;
+    }
+
+    private void Instance_OnControllerInvertYHandler(object sender, bool e)
+    {
+        invertControllerY = e;
     }
 
     void LateUpdate()
@@ -80,7 +103,7 @@ public class CameraFollow : MonoBehaviour
         {
             CameraPosition();
             CameraRotation();
-            AimingSide();
+            //AimingSide();
         }        
     }
 
@@ -122,7 +145,7 @@ public class CameraFollow : MonoBehaviour
         {
             Vector2 moveInput = m_Input.LookInput;
             RStick.x = moveInput.x;
-            RStick.y = moveInput.y;
+            RStick.y = invertControllerY ? -moveInput.y : moveInput.y;
         }
 
         /*
@@ -136,8 +159,8 @@ public class CameraFollow : MonoBehaviour
         finalInputX = mouse.x + RStick.x;
         finalInputY = mouse.y + RStick.y;
 
-        rotY += finalInputX * inputSensitivity * Time.deltaTime;
-        rotX += finalInputY * inputSensitivity * Time.deltaTime;
+        rotY += finalInputX * controllerSensitivity.x * inputSensitivity * Time.deltaTime;
+        rotX += finalInputY * controllerSensitivity.y * inputSensitivity * Time.deltaTime;
 
         rotX = Mathf.Clamp(rotX, -clampAngle, clampAngle);
 

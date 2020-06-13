@@ -5,41 +5,23 @@ using UnityEngine;
 public class ItemSource : MonoBehaviour
 {
     [SerializeField] private Ingredients.IngredientType sourceIngredient;
-    [SerializeField] private float spawnTimer;
-    [SerializeField] private float growthTime = 1f;
+    [SerializeField] private float spawnTime;
     [SerializeField] private GameObject[] prefabIngredients = new GameObject[5];
 
-    private Transform instIngredient = null;
-    private float timer = 0f;
-    private float currentScale = 0f;
-
-    private Coroutine co;
+    private GameObject instIngredient = null;
 
     void Start()
     {
         SpawnNewIngredient();
     }
 
-    void Update()
+    public void EnableIngredient()
     {
-        SpawnCountdown();
-    }
-
-    private void SpawnCountdown()
-    {
-        if(instIngredient == null && timer < spawnTimer)
+        if(instIngredient != null)
         {
-            timer += Time.deltaTime;
-        }
-
-        else if(instIngredient == null && timer >= spawnTimer)
-        {
-            SpawnNewIngredient();
-        }
-
-        else
-        {
-            timer = 0f;
+            instIngredient.GetComponent<IngredientPickup>().EnableIngredient();            
+            StartCoroutine(SpawnTimer());
+            instIngredient = null;
         }
     }
 
@@ -47,20 +29,14 @@ public class ItemSource : MonoBehaviour
     {
         if (prefabIngredients[(int)sourceIngredient] != null)
         {
-            instIngredient = Instantiate(prefabIngredients[(int)sourceIngredient].transform, transform.position, transform.rotation, transform);
-            instIngredient.localScale = Vector3.zero;
-
-            co = StartCoroutine(GrowIngredient());
+            instIngredient = Instantiate(prefabIngredients[(int)sourceIngredient], transform.position, transform.rotation, transform);
         }
     }
 
-    private IEnumerator GrowIngredient()
+    private IEnumerator SpawnTimer()
     {
-        for (float i = 0; i < 1.0f; i += Time.deltaTime / growthTime)
-        {
-            instIngredient.localScale = Vector3.one * Mathf.Lerp(0.0f, 1.0f, i);
+        yield return new WaitForSeconds(spawnTime);
 
-            yield return null;
-        }
+        SpawnNewIngredient();
     }
 }

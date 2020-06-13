@@ -61,24 +61,6 @@ public class IceTurtleAttack : MonoBehaviour
         IceLaser();
     }
 
-    void HeadRotation()
-    {
-        Vector3 dirToTarget = target.position - turtleHeadPivot.position;
-
-        Quaternion lookRotation = Quaternion.LookRotation(dirToTarget, Vector3.up);
-
-        turtleHeadPivot.rotation = Quaternion.Lerp(turtleHeadPivot.rotation, lookRotation, Time.deltaTime * (degreeRotationSpeed / 360.0f));
-    }
-
-    void RateOfFire()
-    {
-        if (Time.realtimeSinceStartup >= timeToFire)
-        {
-            timeToFire = Time.realtimeSinceStartup + (1f / projectilesPerSecond);
-            Instantiate(iceProjectile, spawnPoint.position, turtleHeadPivot.rotation);
-        }
-    }
-
     /// <summary>
     /// Fires a ice laser at the player after a short charge up.
     /// </summary>

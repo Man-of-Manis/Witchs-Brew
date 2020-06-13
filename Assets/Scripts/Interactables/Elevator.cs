@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Elevator : MonoBehaviour
 {
-    public bool EnableElevator
-    {
-        get { return enable; }
-        set { enable = value; }
-    }
+    [Header("Elevator")]
     [SerializeField] private bool enable = false;
 
     public float startHeight;
@@ -19,6 +15,16 @@ public class Elevator : MonoBehaviour
 
     private bool direction = true;
     private float timer = 0f;
+
+    [Header("Gear")]
+    [SerializeField] private Transform[] gears;
+    [SerializeField] private float maxRotation;
+
+    public bool EnableElevator
+    {
+        get { return enable; }
+        set { enable = value; }
+    }
 
     private void Update()
     {
@@ -33,6 +39,7 @@ public class Elevator : MonoBehaviour
         if(enable)
         {
             Movement();
+            Rotation();
         }
     }
 
@@ -40,7 +47,7 @@ public class Elevator : MonoBehaviour
     {
         timer += (Time.deltaTime / elevatorTime);
 
-        if (timer >= 1f + (pauseDelay / elevatorTime))
+        if (timer >= pauseDelay + (1f / elevatorTime))
         {
             direction = !direction;
             timer = 0f;
@@ -49,7 +56,20 @@ public class Elevator : MonoBehaviour
 
     void Movement()
     {
-        transform.position = new Vector3(transform.position.x, Mathf.SmoothStep((direction ? startHeight : endHeight), (direction ? endHeight : startHeight), timer), transform.position.z);
+        transform.position = new Vector3(transform.position.x, 
+            Mathf.SmoothStep((direction ? startHeight : endHeight), (direction ? endHeight : startHeight), timer), 
+            transform.position.z);
+    }
+
+    void Rotation()
+    {
+        float rotation = Mathf.SmoothStep((direction ? 0f : maxRotation), (direction ? maxRotation : 0f), timer);
+        Vector3 gearRotation = new Vector3(rotation, 0f, 0f);
+
+        foreach(Transform g in gears)
+        {
+            g.rotation = Quaternion.Euler(gearRotation);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
