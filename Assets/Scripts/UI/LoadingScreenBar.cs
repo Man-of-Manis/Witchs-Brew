@@ -16,6 +16,7 @@ public class LoadingScreenBar : MonoBehaviour
 
     private int levelIndexToLoad = 0;
 
+    FMOD.Studio.EventInstance Music;
     private Coroutine LoadingIconCo;
 
     public void Awake()
@@ -34,6 +35,7 @@ public class LoadingScreenBar : MonoBehaviour
     private void Start()
     {
         Application.backgroundLoadingPriority = ThreadPriority.Low;
+        Music = GetComponent<FMODUnity.StudioEventEmitter>().EventInstance;
     }
 
     /// <summary>
@@ -46,6 +48,7 @@ public class LoadingScreenBar : MonoBehaviour
 
         levelIndexToLoad = sceneIndex;
         LevelFadeAnim.SetTrigger("FadeOut");
+        Music.setParameterByName("Music_value", 1);
     }
 
     /// <summary>
@@ -106,6 +109,7 @@ public class LoadingScreenBar : MonoBehaviour
 
         operation.allowSceneActivation = true;
 
+        //Wait until the scene is fully loaded
         yield return new WaitUntil(() => operation.progress >= 1f);
 
         Time.timeScale = 1f;
@@ -119,7 +123,9 @@ public class LoadingScreenBar : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(levelLoadDelay);
 
-        LevelFadeAnim.SetTrigger("FadeIn");        
+        //Fade into the new scene
+        LevelFadeAnim.SetTrigger("FadeIn");
+        Music.setParameterByName("Music_value", sceneIndex == 0 ? 0 : 2);
     }
 
     /// <summary>
