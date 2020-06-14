@@ -4861,7 +4861,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -9679,7 +9679,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -14486,7 +14486,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -19253,7 +19253,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -24020,7 +24020,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -28787,7 +28787,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -33693,7 +33693,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -38460,7 +38460,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -43227,7 +43227,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -47994,7 +47994,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -57664,6 +57664,7 @@ GameObject:
   - component: {fileID: 3067401746444545265}
   - component: {fileID: 1399698508}
   - component: {fileID: 9114049368113228284}
+  - component: {fileID: 6338603218458495667}
   m_Layer: 15
   m_Name: Turtle
   m_TagString: Turtle
@@ -57776,6 +57777,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4243969
   dist: 0
+  turtleIce: {fileID: 2188105877877556519}
 --- !u!114 &1399698508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57833,6 +57835,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creature: 0
   currentHealth: 1
+--- !u!114 &6338603218458495667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9221217587078194572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Turtle/Ice Beam/Turtle_Shoot
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &9221217587085941334
 GameObject:
   m_ObjectHideFlags: 0
@@ -58685,6 +58710,12 @@ PrefabInstance:
 --- !u!4 &5007434065296695114 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8372473014922826913, guid: a314d615f2d4cc344a7d6b7cecab30be,
+    type: 3}
+  m_PrefabInstance: {fileID: 3552501287880215531}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2188105877877556519 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3391408064784617164, guid: a314d615f2d4cc344a7d6b7cecab30be,
     type: 3}
   m_PrefabInstance: {fileID: 3552501287880215531}
   m_PrefabAsset: {fileID: 0}

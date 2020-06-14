@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8474742243029854364}
   - component: {fileID: 632566168460563114}
   - component: {fileID: 6628132067048582739}
+  - component: {fileID: 1056031778668798391}
   m_Layer: 0
   m_Name: Track_Bottom
   m_TagString: Untagged
@@ -79,3 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &1056031778668798391
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4883886562235669135}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.39027256, y: 2.054888, z: 0.35078984}
+  m_Center: {x: 0.000000007450581, y: 0, z: -0.000000022351742}

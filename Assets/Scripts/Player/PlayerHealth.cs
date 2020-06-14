@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     public int maxHealth;
 
     [SerializeField] private float InvincibilityTime = 3f;
+    [SerializeField] private float shortInvincibilityTime = 0.75f;
     [SerializeField] private float deathSequenceDelay = 2f;
     private bool invincible = false;
 
@@ -120,6 +121,8 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     public void ResetHealth()
     {
+        GetComponent<Animator>().SetTrigger("Alive");
+
         if (GameManager.Instance != null)
         {
             GameManager.Instance.FollowCam.PlayerReset(currentCheckpoint.transform.localEulerAngles.y);
@@ -129,6 +132,13 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
         currentHealth = MaximumHealth;
         HealthChanged();
+
+        if (invinCo != null)
+        {
+            StopCoroutine(invinCo);
+        }
+        invincible = false;
+
         m_Input.GainControl();
 
         deathCo = null;
@@ -138,7 +148,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     /// Health changes for healing or no knockback damage.
     /// </summary>
     /// <param name="healthAmount"></param>
-    public void HealthChange(int healthAmount)
+    public void HealthChange(int healthAmount, bool alwaysDamage = false)
     {
         if (currentHealth + healthAmount > 0)
         {
@@ -146,7 +156,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             {
                 if (!invincible)
                 {
-                    InvincibilityCo();
+                    InvincibilityCo(InvincibilityTime);
                     Control();
 
                     //Witch Takes Damage Sound Here (OneShot)
@@ -169,7 +179,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             HealthChanged();
         }
 
-        else if (currentHealth + healthAmount <= 0 && !invincible)
+        else if (currentHealth + healthAmount <= 0 && (!invincible || alwaysDamage))
         {
             currentHealth = 0;
             HealthChanged();
@@ -190,7 +200,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             {
                 if (!invincible)
                 {
-                    InvincibilityCo();
+                    InvincibilityCo(shortInvincibilityTime);
                     Control();
                     DamageKnockback(damageDirection);
 
@@ -230,7 +240,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             }
         }
 
-        else if (currentHealth + healthAmount <= 0 && !invincible)
+        else if (currentHealth + healthAmount <= 0 && !invincible && currentHealth != 0)
         {
             
             currentHealth = 0;
@@ -282,14 +292,14 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         }
     }
 
-    private void InvincibilityCo()
+    private void InvincibilityCo(float duration)
     {
         if(invinCo != null)
         {
             StopCoroutine(invinCo);
         }
 
-        invinCo = StartCoroutine(InvincibilityTimer());
+        invinCo = StartCoroutine(InvincibilityTimer(duration));
     }
 
     private void Control()
@@ -302,11 +312,11 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         controlCo = StartCoroutine(DamageControl());
     }
 
-    IEnumerator InvincibilityTimer()
+    IEnumerator InvincibilityTimer(float duration)
     {
         invincible = true;
 
-        yield return new WaitForSeconds(InvincibilityTime);
+        yield return new WaitForSeconds(duration);
 
         invincible = false;
     }
@@ -322,6 +332,8 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     {
         //Witch Death Sound Here (OneShot)
         FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.witchHealth.witchDeath, gameObject);
+
+        GetComponent<Animator>().SetTrigger("Dead");
 
         if (invinCo != null)
         {

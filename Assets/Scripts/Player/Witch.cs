@@ -35,6 +35,11 @@ public static class Witch
         return (target - currentObject);
     }
 
+    public static Vector3 GetDirectionNoramlized(Vector3 target, Vector3 currentObject)
+    {
+        return (target - currentObject).normalized;
+    }
+
     public static Vector3 GetFlatDirection(Vector3 target, Vector3 currentObject)
     {
         return (new Vector3(target.x, 0f, target.z) - new Vector3(currentObject.x, 0f, currentObject.z));

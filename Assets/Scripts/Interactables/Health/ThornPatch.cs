@@ -15,11 +15,13 @@ public class ThornPatch : MonoBehaviour
 
         if (damageable != null)
         {
-            damageable.HealthChange(-thornDamage, 
-                Witch.GetFlatDirection(other.transform.position, transform.position), false);
+            //damageable.HealthChange(-thornDamage, 
+            //Witch.GetFlatDirection(other.transform.position, transform.position), false);
+            damageable.HealthChange(-thornDamage, true);
+
         }
 
-        if(item != null)
+        if (item != null)
         {
             item.Killbox();
         }

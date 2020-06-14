@@ -35,6 +35,9 @@ public class IceTurtleAttack : MonoBehaviour
     [SerializeField] private float maxRotationSpeed = 1440f;
     [SerializeField] private float degreeRotationSpeed = 1440f;
 
+    private FMOD.Studio.EventInstance AttackSound;
+    private FMODUnity.StudioEventEmitter Attack;
+
     public bool EnableBeam
     {
         get { return isBeamEnabled; }
@@ -45,7 +48,7 @@ public class IceTurtleAttack : MonoBehaviour
     private bool prevIsBeamEnabled = false;
 
     TurtleMove turtleMove;
-
+    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +56,10 @@ public class IceTurtleAttack : MonoBehaviour
         target = GameManager.Instance.PlayerCOM;
         laser = spawnPoint.GetComponentInChildren<IceBeam>();
         turtleMove = GetComponent<TurtleMove>();
+        AttackSound = GetComponent<FMODUnity.StudioEventEmitter>().EventInstance;
+        Attack = GetComponent<FMODUnity.StudioEventEmitter>();
+        anim = GetComponentInChildren<Animator>();
+        turtleMove.OnElementStateHandler += TurtleMove_OnElementStateHandler;
     }
 
     // Update is called once per frame
@@ -62,13 +69,24 @@ public class IceTurtleAttack : MonoBehaviour
         IceLaser();
     }
 
+    private void OnDestroy()
+    {
+        if (Attack.IsPlaying())
+        {
+            Attack.Stop();
+        }
+    }
+
+    private void TurtleMove_OnElementStateHandler(object sender, System.EventArgs e)
+    {
+        DisableBeamCheck();
+    }
+
     void DisableBeamCheck()
     {
-        if (turtleMove.elementState == Creatures.ElementalState.Normal && turtleMove.prevElementState != turtleMove.elementState)
+        if (turtleMove.elementState == Creatures.ElementalState.Normal)
         {
-            Debug.Log("Disable Turtle Beam");
             isBeamEnabled = false;
-            turtleMove.prevElementState = turtleMove.elementState;
         }
     }
 
@@ -85,6 +103,7 @@ public class IceTurtleAttack : MonoBehaviour
                 chargeStartTime = Time.realtimeSinceStartup;
                 prevIsBeamEnabled = isBeamEnabled;
                 FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.turtle.turtleBeamCharge, gameObject);
+                anim.SetBool("Shoot", true);
             }
 
             //Checks if the turtle charge up time has been met
@@ -93,8 +112,15 @@ public class IceTurtleAttack : MonoBehaviour
                 if(!laser.EnableBeam)
                 {
                     laser.EnableBeam = true;    //Enables laser effect
-                    FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.turtle.turtleBeamShoot, gameObject);
-                }                
+                    //FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.turtle.turtleBeamShoot, gameObject);
+                }
+
+                AttackSound.getPlaybackState(out FMOD.Studio.PLAYBACK_STATE state);
+
+                if (!Attack.IsPlaying())
+                {
+                    Attack.Play();                    
+                }
 
                 //Raycast to see if anything was hit by the laser
                 if (Physics.Raycast(spawnPoint.position, spawnPoint.forward, out RaycastHit hit, laserMaxDist, laserLayer))
@@ -168,7 +194,6 @@ public class IceTurtleAttack : MonoBehaviour
 
                     if(fire != null)
                     {
-                        Debug.Log("Particle hit fire collision");
                         fire.DisableFire();
                     }
                 }
@@ -190,7 +215,14 @@ public class IceTurtleAttack : MonoBehaviour
 
                 prevIsBeamEnabled = isBeamEnabled;
                 laser.EnableBeam = false;
+
+                if (Attack.IsPlaying())
+                {
+                    Attack.Stop();
+                }
+
                 FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.turtle.turtleBeamCooldown, gameObject);
+                anim.SetBool("Shoot", false);
             }            
         }
     }
