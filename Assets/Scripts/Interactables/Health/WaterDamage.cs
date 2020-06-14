@@ -13,7 +13,7 @@ public class WaterDamage : MonoBehaviour
 
         if(damagable != null)
         {
-            damagable.HealthChange(-waterDamage);
+            damagable.HealthChange(-waterDamage, true);
         }
 
         if(item != null)

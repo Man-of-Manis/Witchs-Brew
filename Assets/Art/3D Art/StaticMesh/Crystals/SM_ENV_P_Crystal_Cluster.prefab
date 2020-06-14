@@ -76,7 +76,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: -7590574541417628768, guid: e97b0511fe5ef1349a0dc8b23d85666f, type: 3}
 --- !u!135 &1308749776911398174
@@ -108,6 +108,7 @@ MonoBehaviour:
     type: 3}
   turtleSpawnPoint: {fileID: 2391358472108263978}
   spawnedTurtle: {fileID: 0}
+  spawnTurtle: 0
 --- !u!1 &8963329965407309112
 GameObject:
   m_ObjectHideFlags: 0

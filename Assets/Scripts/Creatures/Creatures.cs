@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public enum CreatureType { Turtle, Chicken };
 
@@ -59,6 +60,8 @@ public class Creatures : MonoBehaviour
     protected Coroutine co;
     protected Coroutine footstepsCo;
     protected Coroutine wingFlapCo;
+
+    public event EventHandler OnElementStateHandler;
 
     /// <summary>
     /// Finds the creature's mesh transform for rotation.
@@ -179,7 +182,7 @@ public class Creatures : MonoBehaviour
                 Vector3 min = path.BoundsMin();
                 Vector3 max = path.BoundsMax();
 
-                targetPos = new Vector3(Random.Range(min.x, max.x), path.transform.position.y, Random.Range(min.z, max.z));
+                targetPos = new Vector3(UnityEngine.Random.Range(min.x, max.x), path.transform.position.y, UnityEngine.Random.Range(min.z, max.z));
             }
         }
     }
@@ -193,7 +196,7 @@ public class Creatures : MonoBehaviour
         {
             NewDestination();
 
-            if (Random.value <= (idleChance / 100f))
+            if (UnityEngine.Random.value <= (idleChance / 100f))
             {
                 Idle();
                 return;
@@ -207,6 +210,18 @@ public class Creatures : MonoBehaviour
     protected void Idle()
     {
         StartCoroutine(IdleCreature());
+    }
+
+    /// <summary>
+    /// Sends an event when this creature changes its elemental state.
+    /// </summary>
+    protected void ElementStateChange()
+    {
+        if(prevElementState != elementState)
+        {
+            OnElementStateHandler?.Invoke(this, null);
+            prevElementState = elementState;
+        }        
     }
 
     /// <summary>
@@ -356,7 +371,7 @@ public class Creatures : MonoBehaviour
         
         if(creature == CreatureType.Chicken)
         {
-            if(!grounded)
+            if(!grounded && !ePoint.Frozen)
             {
                 if (wingFlapCo == null)
                 {

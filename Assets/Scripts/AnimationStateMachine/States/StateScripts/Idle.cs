@@ -12,6 +12,13 @@ public class Idle : StateData
         PlayerInput pInput = characterState.GetPlayerInput(animator);
 
         animator.SetBool("Jump", pInput.JumpInput);
+        
+        if(animator.GetComponentInParent<PlayerMixamoController>().IsGrounded)
+        {
+            animator.SetBool("Jump_Primary", true);
+
+            animator.SetBool("Jump_Secondary", true);
+        }        
     }
 
     public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)

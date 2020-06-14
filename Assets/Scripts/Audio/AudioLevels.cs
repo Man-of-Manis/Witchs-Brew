@@ -6,30 +6,14 @@ using UnityEngine.UI;
 
 public class AudioLevels : MonoBehaviour
 {
-    [Header("Master Mixer")]
-    [SerializeField] private AudioMixer masterMixer;
-
-    [Header("Volume Levels")]
-    [SerializeField] private float masterVol;
-    [SerializeField] private float musicVol;
-    [SerializeField] private float sfxVol;
-    [SerializeField] private float ambientVol;
-    [SerializeField] private float playerVol;
-    [SerializeField] private float creatureVol;
-
-    [Header("Volume Sliders")]
-    [SerializeField] private Slider masterSlider;
-    [SerializeField] private Slider musicSlider;
-    [SerializeField] private Slider sfxSlider;
-    [SerializeField] private Slider ambientSlider;
-    [SerializeField] private Slider playerSlider;
-    [SerializeField] private Slider creatureSlider;
-
     private FMOD.Studio.Bus master;
     private FMOD.Studio.Bus music;
     private FMOD.Studio.Bus sfx;
     private FMOD.Studio.Bus player;
     private FMOD.Studio.Bus creatures;
+
+    private MainMenuManager mainMenuManager;
+    private PauseMenu pauseMenu;
 
     private void Awake()
     {
@@ -38,39 +22,87 @@ public class AudioLevels : MonoBehaviour
         sfx = FMODUnity.RuntimeManager.GetBus("bus:/Master_2/SFX");
         player = FMODUnity.RuntimeManager.GetBus("bus:/Master_2/Player");
         creatures = FMODUnity.RuntimeManager.GetBus("bus:/Master_2/Creatures");
+
+        pauseMenu = GetComponent<PauseMenu>();
+        mainMenuManager = FindObjectOfType<MainMenuManager>();
+
+        if (pauseMenu != null)
+        {
+            pauseMenu.OnMasterVolumeChanged += MasterVolumeChanged;
+            pauseMenu.OnMusicVolumeChanged += MusicVolumeChanged;
+            pauseMenu.OnSFXVolumeChanged += SFXVolumeChanged;
+            pauseMenu.OnPlayerVolumeChanged += PlayerVolumeChanged;
+            pauseMenu.OnCreatureVolumeChanged += CreatureVolumeChanged;
+        }
+        else if (mainMenuManager != null)
+        {
+            mainMenuManager.OnMasterVolumeChanged += MasterVolumeChanged;
+            mainMenuManager.OnMusicVolumeChanged += MusicVolumeChanged;
+            mainMenuManager.OnSFXVolumeChanged += SFXVolumeChanged;
+            mainMenuManager.OnPlayerVolumeChanged += PlayerVolumeChanged;
+            mainMenuManager.OnCreatureVolumeChanged += CreatureVolumeChanged;
+        }
+        else
+        {
+            this.enabled = false;
+        }
     }
 
-    public void Start()
+    private void OnDestroy()
     {
-        SetSavedVol();
-        SetSavedSliders();
+        if (pauseMenu != null)
+        {
+            pauseMenu.OnMasterVolumeChanged -= MasterVolumeChanged;
+            pauseMenu.OnMusicVolumeChanged -= MusicVolumeChanged;
+            pauseMenu.OnSFXVolumeChanged -= SFXVolumeChanged;
+            pauseMenu.OnPlayerVolumeChanged -= PlayerVolumeChanged;
+            pauseMenu.OnCreatureVolumeChanged -= CreatureVolumeChanged;
+        }
+        else if (mainMenuManager != null)
+        {
+            mainMenuManager.OnMasterVolumeChanged -= MasterVolumeChanged;
+            mainMenuManager.OnMusicVolumeChanged -= MusicVolumeChanged;
+            mainMenuManager.OnSFXVolumeChanged -= SFXVolumeChanged;
+            mainMenuManager.OnPlayerVolumeChanged -= PlayerVolumeChanged;
+            mainMenuManager.OnCreatureVolumeChanged -= CreatureVolumeChanged;
+        }
     }
 
-    private void SetSavedVol()
+    private void MasterVolumeChanged(object sender, float volume)
     {
-        SetMasterVol(masterVol);
-        SetMusicVol(musicVol);
-        SetSfxVol(sfxVol);
-        SetAmbientVol(ambientVol);
-        SetPlayerVol(playerVol);
-        SetCreaturesVol(creatureVol);
+        Debug.Log("Master Volume Changed");
+        master.setVolume(volume);
     }
 
-    private void SetSavedSliders()
+    private void MusicVolumeChanged(object sender, float volume)
     {
-        masterSlider.value = masterVol;
-        musicSlider.value = musicVol;
-        sfxSlider.value = sfxVol;
-        ambientSlider.value = ambientVol;
-        playerSlider.value = playerVol;
-        creatureSlider.value = creatureVol;
+        Debug.Log("Music Volume Changed");
+        music.setVolume(volume);
     }
 
+    private void SFXVolumeChanged(object sender, float volume)
+    {
+        Debug.Log("SFX Volume Changed");
+        sfx.setVolume(volume);
+    }
+
+    private void PlayerVolumeChanged(object sender, float volume)
+    {
+        Debug.Log("Player Volume Changed");
+        player.setVolume(volume);
+    }
+
+    private void CreatureVolumeChanged(object sender, float volume)
+    {
+        Debug.Log("Creature Volume Changed");
+        creatures.setVolume(volume);
+    }
+
+    /*
     public void SetMasterVol(float vol)
     {
         //masterMixer.SetFloat("masterVol", Mathf.Log10(vol) * 40f);
         master.setVolume(vol);
-        masterVol = vol;
     }
 
     public void SetMusicVol(float vol)
@@ -103,4 +135,5 @@ public class AudioLevels : MonoBehaviour
         creatures.setVolume(vol);
         creatureVol = vol;
     }
+    */
 }

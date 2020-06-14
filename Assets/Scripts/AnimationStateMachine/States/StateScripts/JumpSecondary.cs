@@ -16,6 +16,8 @@ public class JumpSecondary : StateData
         animator.GetComponentInParent<PlayerMixamoController>().m_VerticalSpeed = Speed;
 
         animator.GetComponentInParent<PlayerMixamoController>().SecondaryJump = false;
+
+        FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.witchMovement.witchJump, animator.gameObject);
     }
 
     public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)

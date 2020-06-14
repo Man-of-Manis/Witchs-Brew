@@ -5,12 +5,19 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using System;
 
 public class GameSettings : MonoBehaviour
 {
     public static GameSettings Instance;
 
     public Settings settings;
+
+    #region Events
+    public event EventHandler<float> OnControlHoriHandler;
+    public event EventHandler<float> OnControlVertHandler;
+    public event EventHandler<bool> OnControllerInvertYHandler;
+    #endregion
 
     #region Game Fields
     public float MouseHorizontal
@@ -31,6 +38,7 @@ public class GameSettings : MonoBehaviour
         set
         {
             settings.controllerHorizontalSensitivity = value;
+            OnControlHoriHandler?.Invoke(this, value);
         }
     }
 
@@ -40,6 +48,7 @@ public class GameSettings : MonoBehaviour
         set
         {
             settings.controllerVerticalSensitivity = value;
+            OnControlVertHandler?.Invoke(this, value);
         }
     }
 
@@ -53,6 +62,7 @@ public class GameSettings : MonoBehaviour
     {
         get { return settings.controllerInvertYAxis; }
         set { settings.controllerInvertYAxis = value;
+            OnControllerInvertYHandler?.Invoke(this, value);
         }
     }
     #endregion
@@ -66,8 +76,8 @@ public class GameSettings : MonoBehaviour
 
     public float MusicVolume
     {
-        get { return settings.masterVol; }
-        set { settings.masterVol = value; }
+        get { return settings.musicVol; }
+        set { settings.musicVol = value; }
     }
 
     public float SFXVolume

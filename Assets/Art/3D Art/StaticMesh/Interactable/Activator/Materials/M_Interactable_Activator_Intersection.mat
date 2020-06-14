@@ -77,14 +77,16 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Activated: {r: 0.24965, g: 0.98039216, b: 0, a: 1}
+    - Activated: {r: 0.85490197, g: 0.19556922, b: 0, a: 1}
     - Shape_Offset: {r: 0, g: 0, b: 0, a: 0}
     - Unactivated: {r: 0, g: 0, b: 0, a: 1}
     - Vector2_278E23CD: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_3EF5710: {r: 0.5, g: 0.5, b: 0, a: 0}
     - Vector2_AA587828: {r: 0.19, g: -18.47, b: 11.16, a: 0.97}
     - _BaseColor: {r: 1, g: 0, b: 0, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _PulseColor: {r: 0.05882353, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
 --- !u!114 &3657795166701167939
 MonoBehaviour:

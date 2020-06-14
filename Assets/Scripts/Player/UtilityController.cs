@@ -11,12 +11,14 @@ public class UtilityController : MonoBehaviour
 {
     [Header("Potions")]
     public GameObject potionPouch;
-    [SerializeField] private GameObject jumpPotion;
+    [SerializeField] private GameObject jumpPotionPrefab;
     [SerializeField] private GameObject straightThrowPotion;
     public GameObject[] prefabPotions = new GameObject[5];
     public GameObject[] instPotions = new GameObject[5];
     [SerializeField] private int currentSelectedPotion = 0;
     [SerializeField] private PotionPool[] potionPools = new PotionPool[6];
+    [SerializeField] private List<GameObject> jumpPotionPool = new List<GameObject>();
+    [SerializeField] private int initialSpawnPoolSize = 5;
 
     [Header("Pickups")]
     [SerializeField] private PlayerItemPickup pickup;
@@ -315,11 +317,16 @@ public class UtilityController : MonoBehaviour
         {
             if(!potion.activeSelf)
             {
-                //Returns an inactive potion from type pool
-                potion.transform.position = potionPouch.transform.position;
-                potion.transform.rotation = Quaternion.Euler(Vector3.zero);
-                potion.transform.parent = potionPouch.transform;
-                return potion;
+                Transform parent = potion.transform.Find("Particle_Pos");
+
+                if (HasAllParticles(parent))
+                {
+                    //Returns an inactive potion from type pool
+                    potion.transform.position = potionPouch.transform.position;
+                    potion.transform.rotation = Quaternion.Euler(Vector3.zero);
+                    potion.transform.parent = potionPouch.transform;
+                    return potion;
+                }
             }
         }
 
@@ -333,6 +340,50 @@ public class UtilityController : MonoBehaviour
         potionPools[potionType].potions.Add(newPotion);
 
         return newPotion;
+    }
+
+    private GameObject GetJumpPotionFromPool()
+    {
+        foreach(GameObject potion in jumpPotionPool)
+        {
+            if(!potion.activeSelf)
+            {
+                Transform parent = potion.transform.Find("Particle_Pos");
+
+                if(HasAllParticles(parent))
+                {
+                    //Returns an inactive potion from type pool
+                    potion.transform.position = potionPouch.transform.position;
+                    potion.transform.rotation = Quaternion.Euler(Vector3.zero);
+                    potion.transform.parent = potionPouch.transform;
+                    return potion;
+                }
+            }
+        }
+
+        //Instantiates new potion
+        GameObject newPotion = Instantiate(jumpPotionPrefab);
+        newPotion.transform.position = potionPouch.transform.position;
+        newPotion.transform.rotation = Quaternion.Euler(Vector3.zero);
+        newPotion.transform.parent = potionPouch.transform;
+
+        //Adds potion to type pool
+        jumpPotionPool.Add(newPotion);
+
+        return newPotion;
+    }
+
+    private bool HasAllParticles(Transform parent)
+    {
+        foreach(Transform child in parent)
+        {
+            if(child.childCount == 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /// <summary>
@@ -468,7 +519,8 @@ public class UtilityController : MonoBehaviour
     {
         if(!animator.GetBool("Grounded") && animator.GetBool("Jump_Secondary"))
         {
-            GameObject obj = Instantiate(jumpPotion, potionPouch.transform.position, Quaternion.identity);
+            //GameObject obj = Instantiate(jumpPotionPrefab, potionPouch.transform.position, Quaternion.identity);
+            GameObject obj = GetJumpPotionFromPool();
             obj.GetComponent<PotionBreak>().InstantBreak();
         }        
     }
@@ -548,16 +600,31 @@ public class UtilityController : MonoBehaviour
     /// <param name="pouch"></param>
     void InstantiateAllType(GameObject[] prefabType, GameObject[] instType, Transform pouch)
     {
-        for(int i = 0; i < prefabType.Length; i++)
+        for(int j = 0; j < initialSpawnPoolSize; j++)
         {
-            if(instType[i] == null)
+            for (int i = 0; i < prefabType.Length; i++)
             {
-                GameObject item = Instantiate(prefabType[i], pouch.position, Quaternion.identity, pouch);
-                potionPools[i].potions.Add(item);
-                instType[i] = item;
-                instType[i].SetActive(false);
+                if (instType[i] == null)
+                {
+                    GameObject item = Instantiate(prefabType[i], pouch.position, Quaternion.identity, pouch);
+                    potionPools[i].potions.Add(item);
+                    instType[i] = item;
+                    instType[i].SetActive(false);
+                }
+                else
+                {
+                    GameObject item = Instantiate(prefabType[i], pouch.position, Quaternion.identity, pouch);
+                    potionPools[i].potions.Add(item);
+                    //instType[i] = item;
+                    //instType[i].SetActive(false);
+                    item.SetActive(false);
+                }
             }
-        }
+
+            GameObject jumpPotion = Instantiate(jumpPotionPrefab, pouch.position, Quaternion.identity, pouch);
+            jumpPotionPool.Add(jumpPotion);
+            jumpPotion.SetActive(false);
+        }        
     }
 
     /// <summary>

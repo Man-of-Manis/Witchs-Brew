@@ -7,7 +7,7 @@ public class CreatureHealth : MonoBehaviour, IDamagable
     [SerializeField] private CreatureType creature;
     [SerializeField] private int currentHealth = 1;
 
-    public void HealthChange(int damage)
+    public void HealthChange(int damage, bool alwaysDamage = false)
     {
         if(currentHealth + damage <= 0)
         {

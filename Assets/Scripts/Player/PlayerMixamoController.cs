@@ -48,6 +48,7 @@ public class PlayerMixamoController : MonoBehaviour
     private Coroutine movingForward;
     private bool stopInputMethod;
     private bool moveForward;
+    private bool finalRoom;
 
     public bool MoveForward
     {
@@ -64,6 +65,15 @@ public class PlayerMixamoController : MonoBehaviour
             {
                 StopMoveForward();
             }
+        }
+    }
+
+    public bool IsFinalRoom
+    {
+        get { return finalRoom; }
+        set
+        {
+            finalRoom = value;
         }
     }
 
@@ -115,6 +125,11 @@ public class PlayerMixamoController : MonoBehaviour
         if(!stopInputMethod)
         {
             Inputs();
+        }
+
+        if(IsFinalRoom)
+        {
+            FinalMovement();
         }
         
         CameraAngle();
@@ -227,6 +242,13 @@ public class PlayerMixamoController : MonoBehaviour
         Char_Movement = Vector2.zero;
 
         stopInputMethod = false;
+    }
+
+    private void FinalMovement()
+    {
+        stopInputMethod = true;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(-Vector3.right), 0.5f);
+        Char_Movement = Vector2.up;
     }
 
     private void Movement()

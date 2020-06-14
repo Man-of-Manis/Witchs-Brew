@@ -41,15 +41,46 @@ public class ActivationLines : MonoBehaviour
         }
     }
 
-    public GameObject AddLine(int activatorType, Quaternion rotation)
+    public GameObject AddLine(int activatorType, Transform previousSelection)
     {
         GameObject line;
+        MeshRenderer previousRend = previousSelection.GetComponent<MeshRenderer>();
+        MeshRenderer newRend;
 
-        if (activatorLines.Count > 0)
+        if (activatorLines.Count > 0 && previousSelection != null)
         {
             line = Instantiate(activatorType == 0 ? activatorStraight : activatorIntersection, 
-                activatorLines[activatorLines.Count - 1].transform.position, rotation, transform);
-            
+                previousSelection.transform.position + (previousSelection.transform.right * 1f), previousSelection.rotation, transform);
+            newRend = line.GetComponent<MeshRenderer>();
+
+            if (previousSelection.Equals(transform))
+            {
+                Debug.Log("Selection was transfrom.");
+                line.transform.SetSiblingIndex(0);                
+                activatorLines.Insert(0, newRend);
+                line.gameObject.name = "Activator " + (0);
+            }
+            else if(activatorLines.Contains(previousRend))
+            {
+                Debug.Log("Found Render in list.");                
+                int previousIndex = activatorLines.IndexOf(previousRend);
+                line.transform.SetSiblingIndex(previousIndex + 1);
+                activatorLines.Insert(previousIndex + 1, newRend);
+                line.gameObject.name = "Activator " + (previousIndex + 1);
+            }
+            else
+            {
+                line.transform.SetAsLastSibling();
+            }
+
+            return line;
+        }
+
+        else if(activatorLines.Count > 0 && previousSelection == null)
+        {
+            line = Instantiate(activatorType == 0 ? activatorStraight : activatorIntersection,
+                activatorLines[activatorLines.Count - 1].transform.position + (activatorLines[activatorLines.Count - 1].transform.right * 1f),
+                activatorLines[activatorLines.Count - 1].transform.rotation, transform);
         }
 
         else
@@ -57,8 +88,10 @@ public class ActivationLines : MonoBehaviour
             line = Instantiate(activatorType == 0 ? activatorStraight : activatorIntersection, transform.position, Quaternion.identity, transform);
         }
 
-        activatorLines.Add(line.GetComponent<MeshRenderer>());
+        newRend = line.GetComponent<MeshRenderer>();
+        activatorLines.Add(newRend);
         activatorLines[activatorLines.Count - 1].gameObject.name = "Activator " + (activatorLines.Count);
+
         return line;
     }
 

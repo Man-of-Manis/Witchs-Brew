@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PotionBreak : MonoBehaviour
 {
@@ -18,7 +19,22 @@ public class PotionBreak : MonoBehaviour
     [Header("Sounds")]
     [SerializeField] private string sBreak;
 
+    
+    public Transform ParticlePosition
+    {
+        get { return particlePos;}
+    }
+
+    public bool ParticlesReturned
+    {
+        get { return pSAvailable.All(x => x == true); }
+    }
+
+    private bool[] pSAvailable = { true, true, true };
+
     [Header("Particles")]
+    [SerializeField] private Transform particlePos;
+    [SerializeField] private ParticleSystem breakPS;
     [SerializeField] private ParticleSystem smoke;
     [SerializeField] private ParticleSystem trail;
 
@@ -27,6 +43,48 @@ public class PotionBreak : MonoBehaviour
     void Awake()
     {
         eventEmitterRef = GetComponent<FMODUnity.StudioEventEmitter>(); //Grant was here
+
+        InstantiateParticleParents();
+    }
+
+    private void OnEnable()
+    {
+        if(smoke != null)
+        {
+            smoke.Play();
+        }               
+    }
+
+    private void InstantiateParticleParents()
+    {
+        if (breakPS != null)
+        {
+            SpawnGO(breakPS, "BreakPSParent");
+        }
+
+        if (smoke != null)
+        {
+            SpawnGO(smoke, "SmokeParent");
+        }
+
+        if (trail != null)
+        {
+            SpawnGO(trail, "TrailParent");
+        }
+    }
+
+    private void SpawnGO(ParticleSystem ps, string parentName)
+    {
+        GameObject parent = new GameObject(parentName);
+        parent.transform.parent = particlePos;
+        parent.transform.position = particlePos.position;
+        parent.transform.rotation = particlePos.rotation;
+        ps.GetComponent<PotionParticleSystems>().ParticleParent = parent.transform;
+    }
+
+    public void SetAvailable(int boolIndex)
+    {
+        pSAvailable[boolIndex] = true;
     }
 
     private void DisablePotion()
@@ -43,8 +101,9 @@ public class PotionBreak : MonoBehaviour
     {
         if (Break)
         {
+            //collision.GetContact(0).normal
             PotionEffect(collision.GetContact(0).point);
-            InstantiatePS(collision.GetContact(0).point);
+            InstantiatePS(collision.GetContact(0).point, collision.GetContact(0).normal);
         }
 
         if (GetComponentInChildren<SphereCollider>() != null)
@@ -57,8 +116,11 @@ public class PotionBreak : MonoBehaviour
     {
         if (Break)
         {
+            Vector3 direction = Witch.GetDirectionNoramlized(other.ClosestPointOnBounds(transform.position), other.transform.position);
+            
+
             PotionEffect(other.ClosestPointOnBounds(transform.position));
-            InstantiatePS(other.ClosestPointOnBounds(transform.position));
+            InstantiatePS(other.ClosestPointOnBounds(transform.position), direction);
         }
 
         if (GetComponentInChildren<SphereCollider>() != null)
@@ -86,7 +148,7 @@ public class PotionBreak : MonoBehaviour
     public void InstantBreak()
     {
         PotionEffect(transform.position);
-        InstantiatePS(transform.position);
+        InstantiatePS(transform.position, Vector3.zero);
     }
 
     private void PotionEffect(Vector3 point)
@@ -102,7 +164,7 @@ public class PotionBreak : MonoBehaviour
     private void ColliderLoop(Vector3 point, float radius, LayerMask layer, bool smallOrLarge)
     {
         Collider[] collider = Physics.OverlapSphere(point, radius, layer);
-        SpawningGizmo(point);
+        //SpawningGizmo(point);
 
         if (collider != null)
         {
@@ -135,21 +197,35 @@ public class PotionBreak : MonoBehaviour
         giz.shapeColor = Color.red;
     }
 
-    private void InstantiatePS(Vector3 point)
+    private void InstantiatePS(Vector3 point, Vector3 normal)
     {
-        ParticleSystem p = Instantiate(PS, point + verticalOffset, Quaternion.Euler(point)).GetComponent<ParticleSystem>();
+        Quaternion normalRotation = Quaternion.FromToRotation(Vector3.up, normal);
 
-        var main = p.main;
+        //ParticleSystem p = Instantiate(PS, point + verticalOffset, normalRotation).GetComponent<ParticleSystem>();
+
+        breakPS.transform.parent = null;
+        breakPS.transform.position = point;
+        breakPS.transform.rotation = normalRotation;
+        breakPS.gameObject.SetActive(true);
+        pSAvailable[0] = false;
+
+        var main = breakPS.main;
+
         if(transform.GetChild(0).Find("Liquid").GetComponent<MeshRenderer>().material.HasProperty("_Tint"))
         {
             main.startColor = transform.GetChild(0).Find("Liquid").GetComponent<MeshRenderer>().material.GetColor("_Tint"); //Sets PS color to potion color
         }
+
+        breakPS.Play();
 
         TrailDetach();
 
         DisablePotion();
     }
 
+    /// <summary>
+    /// Enables the Trail while disabling the smoke so that there is no overlap of PS's
+    /// </summary>
     private void SmokeStop()
     {
         if(trail != null)
@@ -162,6 +238,7 @@ public class PotionBreak : MonoBehaviour
         {
             smoke.transform.parent = null;
             smoke.Stop();
+            pSAvailable[1] = false;
         }
     }
 
@@ -171,6 +248,7 @@ public class PotionBreak : MonoBehaviour
         {
             trail.transform.parent = null;
             trail.Stop();
+            pSAvailable[2] = false;
         }
     }
 

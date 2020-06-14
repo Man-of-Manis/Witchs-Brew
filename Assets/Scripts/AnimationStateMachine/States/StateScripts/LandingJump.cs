@@ -38,7 +38,9 @@ public class LandingJump : StateData
 
     public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
     {
+        animator.SetBool("Jump_Primary", true);
 
+        animator.SetBool("Jump_Secondary", true);
     }
 
     public override void OnTransitionEnter(CharacterState characterState, Animator animator)

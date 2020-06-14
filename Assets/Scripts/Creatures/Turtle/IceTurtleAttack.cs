@@ -35,6 +35,9 @@ public class IceTurtleAttack : MonoBehaviour
     [SerializeField] private float maxRotationSpeed = 1440f;
     [SerializeField] private float degreeRotationSpeed = 1440f;
 
+    private FMOD.Studio.EventInstance AttackSound;
+    private FMODUnity.StudioEventEmitter Attack;
+
     public bool EnableBeam
     {
         get { return isBeamEnabled; }
@@ -45,7 +48,7 @@ public class IceTurtleAttack : MonoBehaviour
     private bool prevIsBeamEnabled = false;
 
     TurtleMove turtleMove;
-
+    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -53,29 +56,37 @@ public class IceTurtleAttack : MonoBehaviour
         target = GameManager.Instance.PlayerCOM;
         laser = spawnPoint.GetComponentInChildren<IceBeam>();
         turtleMove = GetComponent<TurtleMove>();
+        AttackSound = GetComponent<FMODUnity.StudioEventEmitter>().EventInstance;
+        Attack = GetComponent<FMODUnity.StudioEventEmitter>();
+        anim = GetComponentInChildren<Animator>();
+        turtleMove.OnElementStateHandler += TurtleMove_OnElementStateHandler;
     }
 
     // Update is called once per frame
     void Update()
     {
+        DisableBeamCheck();
         IceLaser();
     }
 
-    void HeadRotation()
+    private void OnDestroy()
     {
-        Vector3 dirToTarget = target.position - turtleHeadPivot.position;
-
-        Quaternion lookRotation = Quaternion.LookRotation(dirToTarget, Vector3.up);
-
-        turtleHeadPivot.rotation = Quaternion.Lerp(turtleHeadPivot.rotation, lookRotation, Time.deltaTime * (degreeRotationSpeed / 360.0f));
+        if (Attack.IsPlaying())
+        {
+            Attack.Stop();
+        }
     }
 
-    void RateOfFire()
+    private void TurtleMove_OnElementStateHandler(object sender, System.EventArgs e)
     {
-        if (Time.realtimeSinceStartup >= timeToFire)
+        DisableBeamCheck();
+    }
+
+    void DisableBeamCheck()
+    {
+        if (turtleMove.elementState == Creatures.ElementalState.Normal)
         {
-            timeToFire = Time.realtimeSinceStartup + (1f / projectilesPerSecond);
-            Instantiate(iceProjectile, spawnPoint.position, turtleHeadPivot.rotation);
+            isBeamEnabled = false;
         }
     }
 
@@ -84,30 +95,40 @@ public class IceTurtleAttack : MonoBehaviour
     /// </summary>
     void IceLaser()
     {
-        if(turtleMove.elementState == Creatures.ElementalState.Normal && turtleMove.prevElementState != turtleMove.elementState)
-        {
-            Debug.Log("Disable Turtle Beam");
-            isBeamEnabled = false;
-            turtleMove.prevElementState = turtleMove.elementState;
-        }
-
         if (isBeamEnabled)
         {
+            //When the beam mode changes, set the time since started charging
             if(prevIsBeamEnabled != isBeamEnabled)
             {
                 chargeStartTime = Time.realtimeSinceStartup;
                 prevIsBeamEnabled = isBeamEnabled;
+                FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.turtle.turtleBeamCharge, gameObject);
+                anim.SetBool("Shoot", true);
             }
 
+            //Checks if the turtle charge up time has been met
             if(Time.realtimeSinceStartup - chargeStartTime >= chargeUpTime)
             {
-                laser.EnableBeam = true;
+                if(!laser.EnableBeam)
+                {
+                    laser.EnableBeam = true;    //Enables laser effect
+                    //FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.turtle.turtleBeamShoot, gameObject);
+                }
 
+                AttackSound.getPlaybackState(out FMOD.Studio.PLAYBACK_STATE state);
+
+                if (!Attack.IsPlaying())
+                {
+                    Attack.Play();                    
+                }
+
+                //Raycast to see if anything was hit by the laser
                 if (Physics.Raycast(spawnPoint.position, spawnPoint.forward, out RaycastHit hit, laserMaxDist, laserLayer))
                 {
                     laser.beamDist = hit.distance;
-                    Debug.DrawLine(spawnPoint.position, hit.point, Color.cyan);
+                    //Debug.DrawLine(spawnPoint.position, hit.point, Color.cyan);
 
+                    //Enables snow particles for the laser based on raycast distance
                     for (int i = 0; i < snowParticles.Length; i++)
                     {
                         if(i >= (int)laser.beamDist)
@@ -126,6 +147,7 @@ public class IceTurtleAttack : MonoBehaviour
                         }                        
                     }
 
+                    //If the player is hit by the beam, damage them
                     if (hit.collider.CompareTag("Player"))
                     {
                         IDamagable damageable = hit.collider.GetComponent<IDamagable>();
@@ -139,6 +161,7 @@ public class IceTurtleAttack : MonoBehaviour
                         }
                     }
 
+                    //If a chicken is hit by the beam, freeze them
                     if (hit.collider.CompareTag("Chicken"))
                     {
                         BluePotionEffect eff = new BluePotionEffect();
@@ -150,8 +173,10 @@ public class IceTurtleAttack : MonoBehaviour
 
                 else
                 {
+                    //If nothing is hit, set beam distance to max
                     laser.beamDist = laserMaxDist;
 
+                    //Enable all snow PS
                     for (int i = 0; i < snowParticles.Length; i++)
                     {
                         if(snowParticles[i].isStopped)
@@ -162,31 +187,43 @@ public class IceTurtleAttack : MonoBehaviour
                     //Debug.DrawRay(spawnPoint.position, spawnPoint.forward * laserMaxDist, Color.cyan);
                 }
 
+                //Raycast for Magic Fire
                 if(Physics.Raycast(spawnPoint.position, spawnPoint.forward, out RaycastHit hit2, laserMaxDist, laserLayer, QueryTriggerInteraction.Collide))
                 {
                     MagicFire fire = hit2.collider.GetComponent<MagicFire>();
 
                     if(fire != null)
                     {
-                        Debug.Log("Particle hit fire collision");
                         fire.DisableFire();
                     }
                 }
             }
         }
 
+        //If the beam is not enabled
         else
         {
-            for(int i = 0; i < snowParticles.Length; i++)
+            if(prevIsBeamEnabled != isBeamEnabled)
             {
-                if(snowParticles[i].isPlaying)
+                for (int i = 0; i < snowParticles.Length; i++)
                 {
-                    snowParticles[i].Stop();
-                }                
-            }
+                    if (snowParticles[i].isPlaying)
+                    {
+                        snowParticles[i].Stop();
+                    }
+                }
 
-            prevIsBeamEnabled = isBeamEnabled;
-            laser.EnableBeam = false;
+                prevIsBeamEnabled = isBeamEnabled;
+                laser.EnableBeam = false;
+
+                if (Attack.IsPlaying())
+                {
+                    Attack.Stop();
+                }
+
+                FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.turtle.turtleBeamCooldown, gameObject);
+                anim.SetBool("Shoot", false);
+            }            
         }
     }
 }

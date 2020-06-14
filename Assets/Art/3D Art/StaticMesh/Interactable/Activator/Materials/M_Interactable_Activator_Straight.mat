@@ -77,7 +77,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Activated: {r: 0, g: 0.9647059, b: 0.050521255, a: 1}
+    - Activated: {r: 0.6981132, g: 0.16089946, b: 0, a: 1}
+    - Color_4B554D83: {r: 0.05882353, g: 0, b: 0, a: 1}
     - Shape_Offset: {r: 0.5, g: 0.5, b: 0, a: 0}
     - UVOffset: {r: 0, g: 0, b: 0, a: 0}
     - Unactivated: {r: 0, g: 0, b: 0, a: 1}

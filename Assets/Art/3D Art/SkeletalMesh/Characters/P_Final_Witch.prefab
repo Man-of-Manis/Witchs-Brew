@@ -637,6 +637,7 @@ MonoBehaviour:
   currentHealth: 3
   maxHealth: 3
   InvincibilityTime: 3
+  shortInvincibilityTime: 0.75
   deathSequenceDelay: 2
   essenceBar: {fileID: 0}
   essenceBars: []
@@ -737,7 +738,7 @@ MonoBehaviour:
   castType: 1
   layer:
     serializedVersion: 2
-    m_Bits: 4825089
+    m_Bits: 810147841
   endPos: {x: 0, y: 0, z: 0}
 --- !u!114 &8736308691725913416
 MonoBehaviour:
@@ -752,7 +753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potionPouch: {fileID: 8736308691556959948}
-  jumpPotion: {fileID: 4345096715669070410, guid: 6250c80bb6c811847ab05d26c7393d4a,
+  jumpPotionPrefab: {fileID: 4345096715669070410, guid: 6250c80bb6c811847ab05d26c7393d4a,
     type: 3}
   straightThrowPotion: {fileID: 4345096715669070410, guid: 164b4738ee15d2140a8d8a132d9b5942,
     type: 3}
@@ -778,6 +779,8 @@ MonoBehaviour:
   - potions: []
   - potions: []
   - potions: []
+  jumpPotionPool: []
+  initialSpawnPoolSize: 5
   pickup: {fileID: 8736308691725913408}
   pickupPos: {fileID: 0}
 --- !u!114 &8736308691725913417
@@ -795,7 +798,7 @@ MonoBehaviour:
   maxForwardSpeed: 5
   gravity: 20
   jumpSpeed: 10
-  useGravity: 0
+  useGravity: 1
   playerRB: {fileID: 0}
   m_ForwardSpeed: 0
   m_VerticalSpeed: 0
@@ -3057,7 +3060,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6834969585005911103}
-  m_LocalRotation: {x: 0.009924978, y: -0.7067362, z: 0.7073378, w: 0.009931605}
+  m_LocalRotation: {x: 0.009924978, y: -0.70673627, z: 0.7073378, w: 0.009931606}
   m_LocalPosition: {x: -0.02866034, y: -0.09733419, z: 0.034314096}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3454,7 +3457,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7879698296129976887}
-  m_LocalRotation: {x: 0.0010554233, y: 0.022430094, z: 0.04699004, w: 0.9986429}
+  m_LocalRotation: {x: 0.0010554235, y: 0.022430094, z: 0.04699005, w: 0.9986429}
   m_LocalPosition: {x: -0.012439372, y: 7.105427e-17, z: 8.881784e-18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

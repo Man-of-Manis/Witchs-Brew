@@ -12,7 +12,8 @@ public class WhitePotionEffect : MonoBehaviour, IPotionActivation
 
     public void SmallEffect(GameObject obj)
     {
-        IngredientPickup IPickup = obj.GetComponent<IngredientPickup>();
+        //IngredientPickup ingredientPickup = obj.GetComponent<IngredientPickup>();
+        ItemSource itemSrc = obj.GetComponent<ItemSource>();
         IChest chest = obj.GetComponent<IChest>();
         PlatformSwing pSwing = obj.GetComponentInParent<PlatformSwing>();
         LivingWall lWall = obj.GetComponent<LivingWall>();
@@ -29,9 +30,17 @@ public class WhitePotionEffect : MonoBehaviour, IPotionActivation
             ConsoleLog(obj.name);
         }
 
-        else if(IPickup != null)
+        /*
+        else if(ingredientPickup != null)
         {
-            IPickup.EnableIngredient();
+            ingredientPickup.EnableIngredient();
+            ConsoleLog(obj.name);
+        }
+        */
+
+        else if (itemSrc != null)
+        {
+            itemSrc.EnableIngredient();
             ConsoleLog(obj.name);
         }
 

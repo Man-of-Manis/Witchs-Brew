@@ -10,7 +10,8 @@ public class TurtleMove : Creatures
 
     public LayerMask detectionLayer;
 
-    public float dist;
+    [SerializeField] private float dist;
+    [SerializeField] GameObject turtleIce;
     private const float detectionDist = 4.75f;
     private bool playerDetected;
     private bool prevPlayerDetected;
@@ -32,6 +33,8 @@ public class TurtleMove : Creatures
         }
 
         pHealth = target.GetComponentInParent<PlayerHealth>();
+
+        OnElementStateHandler += TurtleMove_OnElementStateHandler;
     }
 
     void Update()
@@ -51,6 +54,8 @@ public class TurtleMove : Creatures
         IsIdle();
 
         CreatureFootsteps();
+
+        ElementStateChange();
     }
 
     void FixedUpdate()
@@ -59,6 +64,20 @@ public class TurtleMove : Creatures
         {
             CreatureMovement();
         }
+    }
+
+
+    private void TurtleMove_OnElementStateHandler(object sender, System.EventArgs e)
+    {
+        IceMesh();
+    }
+
+    /// <summary>
+    /// Turns the turles ice on or off based on elemental state.
+    /// </summary>
+    private void IceMesh()
+    {
+        turtleIce.SetActive(elementState == ElementalState.Elemental ? true : false);
     }
 
     protected override void ElementalMovement()
@@ -113,9 +132,16 @@ public class TurtleMove : Creatures
         }
     }
 
+    private bool PlayerHeightDifference()
+    {
+        float difference = Mathf.Abs(target.position.y - transform.position.y);
+
+        return difference < 5f;
+    }
+
     private void PlayerDetected()
     {
-        if(dist < detectionDist && pHealth.Health > 0)
+        if(dist < detectionDist && pHealth.Health > 0 && PlayerHeightDifference())
         {
             playerDetected = true;
         }

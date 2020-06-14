@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4126890201731749588}
   - component: {fileID: 4688548879259628335}
   - component: {fileID: 5207564011512754250}
+  - component: {fileID: -5949622729163445161}
   m_Layer: 0
   m_Name: AirPotionTrail
   m_TagString: Untagged
@@ -4714,6 +4715,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4762,3 +4764,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-5949622729163445161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5336727197890381414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12e123cb2dc9fca48baf904f373a81cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
