@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerItemPickup : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class PlayerItemPickup : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerInput m_Input;
     [SerializeField] private KeyCubeUI keyCubeUI;
+
+    public event EventHandler OnChickenPickupHandler;
 
     public Vector3 PickupDropPosition
     {
@@ -207,6 +210,11 @@ public class PlayerItemPickup : MonoBehaviour
     {
         if (pick != null)
         {
+            if (pick.gameObject.CompareTag("Chicken"))
+            {
+                OnChickenPickupHandler?.Invoke(this, null);
+            }
+
             pickup = pick.transform;
             pickup.GetComponent<Rigidbody>().isKinematic = true;
 

@@ -38,6 +38,7 @@ public abstract class SubGoal : MonoBehaviour
     private void Start()
     {
         pInput = PlayerInput.Instance;
+        Initialize();
     }
 
     /// <summary>
@@ -55,6 +56,11 @@ public abstract class SubGoal : MonoBehaviour
         {
             SubGoalInput();
         }        
+    }
+
+    protected virtual void Initialize()
+    {
+
     }
 
     protected abstract void SubGoalInput();

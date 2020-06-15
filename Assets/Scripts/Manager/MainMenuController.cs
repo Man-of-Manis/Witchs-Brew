@@ -8,15 +8,15 @@ using UnityEngine.Playables;
 public class MainMenuController : MonoBehaviour
 {
     [SerializeField] private float fadeMainMenuTime = 2f;
-
+    [SerializeField] private Canvas mainMenuCanvas;
     [SerializeField] private CanvasGroup mainMenuGroup;
     [SerializeField] private PlayableDirector playableDirector;
 
     [Header("Disable Objects")]
-    [SerializeField] private EventSystem menuEventSystem;
+    [SerializeField] private GameObject menuEventSystem;
 
     [Header("Enable Objects")]
-    [SerializeField] private EventSystem playerEventSystem;
+    [SerializeField] private GameObject playerEventSystem;
     [SerializeField] private PlayerInput pInput;
     [SerializeField] private CameraFollow cFollow;
 
@@ -27,14 +27,15 @@ public class MainMenuController : MonoBehaviour
 
     public void StartGame()
     {
-        menuEventSystem.enabled = false;
+        menuEventSystem.SetActive(false);
         StartCoroutine(FadeMainMenuOut());
         playableDirector.Play();
     }
 
     private void EnableObjects()
     {
-        playerEventSystem.enabled = true;
+        mainMenuCanvas.enabled = false;
+        playerEventSystem.SetActive(true);
         cFollow.enabled = true;
     }
 

@@ -34,7 +34,7 @@ public class AudioLevels : MonoBehaviour
             pauseMenu.OnPlayerVolumeChanged += PlayerVolumeChanged;
             pauseMenu.OnCreatureVolumeChanged += CreatureVolumeChanged;
         }
-        else if (mainMenuManager != null)
+        if (mainMenuManager != null)
         {
             mainMenuManager.OnMasterVolumeChanged += MasterVolumeChanged;
             mainMenuManager.OnMusicVolumeChanged += MusicVolumeChanged;
@@ -42,7 +42,7 @@ public class AudioLevels : MonoBehaviour
             mainMenuManager.OnPlayerVolumeChanged += PlayerVolumeChanged;
             mainMenuManager.OnCreatureVolumeChanged += CreatureVolumeChanged;
         }
-        else
+        if(pauseMenu == null && mainMenuManager == null)
         {
             this.enabled = false;
         }

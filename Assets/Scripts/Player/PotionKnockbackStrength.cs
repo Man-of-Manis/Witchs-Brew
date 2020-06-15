@@ -21,13 +21,18 @@ public class PotionKnockbackStrength : MonoBehaviour
     }
     void Update()
     {
-        if(m_Input.LBumperHold)
+        //ChangeVelocityStrength();
+    }
+
+    private void ChangeVelocityStrength()
+    {
+        if (m_Input.LBumperHold)
         {
-            potionVelocity -= Time.fixedDeltaTime/changeRate;
+            potionVelocity -= Time.fixedDeltaTime / changeRate;
             potionVelocity = Mathf.Clamp(potionVelocity, 0.25f, 2f);
         }
 
-        else if(m_Input.RBumperHold)
+        else if (m_Input.RBumperHold)
         {
             potionVelocity += Time.fixedDeltaTime / changeRate;
             potionVelocity = Mathf.Clamp(potionVelocity, 0.25f, 2f);
