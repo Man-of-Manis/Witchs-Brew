@@ -15,6 +15,7 @@ public class LoadingScreenBar : MonoBehaviour
     public static LoadingScreenBar Instance;
 
     private int levelIndexToLoad = 0;
+    private bool resetLevelMusic;
 
     FMOD.Studio.EventInstance Music;
     private Coroutine LoadingIconCo;
@@ -41,6 +42,7 @@ public class LoadingScreenBar : MonoBehaviour
 
     }
 
+    /*
     /// <summary>
     /// Starts to load a new level with the given scene index.
     /// </summary>
@@ -53,13 +55,28 @@ public class LoadingScreenBar : MonoBehaviour
         LevelFadeAnim.SetTrigger("FadeOut");
         Music.setParameterByName("Music_value", 1);
     }
+    */
+
+    public void LoadLevel(int sceneIndex, bool resetMusic = true)
+    {
+        //Check if scene index is valid
+        Debug.Log("Loading Level");
+        levelIndexToLoad = sceneIndex;
+        LevelFadeAnim.SetTrigger("FadeOut");
+        resetLevelMusic = resetMusic;
+
+        if(resetMusic)
+        {
+            Music.setParameterByName("Music_value", 1);
+        }        
+    }
 
     /// <summary>
     /// Starts to load the next level. (Called by Animator Only)
     /// </summary>
     public void AnimationLevelLoad()
     {
-        StartCoroutine(LoadAsynchronously(levelIndexToLoad));
+        StartCoroutine(LoadAsynchronously(levelIndexToLoad, resetLevelMusic));
     }
 
     /// <summary>
@@ -83,7 +100,7 @@ public class LoadingScreenBar : MonoBehaviour
     /// </summary>
     /// <param name="sceneIndex">The scene index to load.</param>
     /// <returns></returns>
-    IEnumerator LoadAsynchronously(int sceneIndex)
+    IEnumerator LoadAsynchronously(int sceneIndex, bool resetMusic)
     {
         bool load = false;
 
@@ -128,7 +145,11 @@ public class LoadingScreenBar : MonoBehaviour
 
         //Fade into the new scene
         LevelFadeAnim.SetTrigger("FadeIn");
-        Music.setParameterByName("Music_value", sceneIndex == 0 ? 0 : 2);
+
+        if(resetMusic)
+        {
+            Music.setParameterByName("Music_value", sceneIndex == 0 ? 0 : 2);
+        }        
     }
 
     /// <summary>

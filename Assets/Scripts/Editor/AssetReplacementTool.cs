@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
+using System;
 
 
 public class AssetReplacementTool : EditorWindow
@@ -27,6 +28,10 @@ public class AssetReplacementTool : EditorWindow
     private int selectionLength;
 
     private bool showFromSelection;
+
+    private int fraction = 4;
+    private Vector3 practiceVector;
+    private Vector3 nudgedVector3;
 
     Color paragraphColor = new Color(0.8f, 0.8f, 0.8f);
     #endregion
@@ -59,6 +64,8 @@ public class AssetReplacementTool : EditorWindow
         //GUILayout.Space(10);
         DrawUILine(paragraphColor, 3, 10);
         ReplaceButton();
+        DrawUILine(paragraphColor, 3, 10);
+        NudgeObjects();
     }
 
     private void Title()
@@ -333,6 +340,70 @@ public class AssetReplacementTool : EditorWindow
         EditorGUI.EndDisabledGroup();
     }
 
+    private void NudgeObjects()
+    {
+        GUILayout.BeginHorizontal();
+
+        EditorGUILayout.LabelField("Fraction:", GUILayout.Width(100));
+        fraction = EditorGUILayout.IntSlider(fraction, 1, 10);
+
+        GUILayout.EndHorizontal();
+
+        //practiceVector = EditorGUILayout.Vector3Field("Vector", practiceVector);
+        //EditorGUILayout.Vector3Field("Nudged", nudgedVector3);
+
+        if (GUILayout.Button("Nudge"))
+        {
+            Nudging();
+            //PracticeNudge();
+        }
+    }
+
+    private void Nudging()
+    {
+        for (int i = 0; i < currentSelections.Count; i++)
+        {
+            Undo.RecordObject(currentSelections[i].transform, "NudgeObj_" + i);
+
+            currentSelections[i].transform.position = NudgeValues(currentSelections[i].transform.position);
+        }
+    }
+
+    private void PracticeNudge()
+    {
+        nudgedVector3 = NudgeValues(practiceVector);
+    }
+
+    /// <summary>
+    /// Gets a new vector3 using  based on the current position
+    /// </summary>
+    /// <param name="currentPosition"></param>
+    /// <returns></returns>
+    private Vector3 NudgeValues(Vector3 currentPosition)
+    {
+        Vector3 nudgedVector;
+        nudgedVector.x = RoundToNearest(currentPosition.x, fraction);
+        nudgedVector.y = RoundToNearest(currentPosition.y, fraction);
+        nudgedVector.z = RoundToNearest(currentPosition.z, fraction);
+        return nudgedVector;
+    }
+
+    /// <summary>
+    /// Rounds a value to the nearest fractional increment
+    /// </summary>
+    /// <param name="Value">Value to round</param>
+    /// <param name="increment">Fractional increment</param>
+    /// <returns></returns>
+    public float RoundToNearest(double Value, int increment)
+    {
+        // Returning the value rounded to the nearest increment value.
+        float rounded = (float)(Math.Round((Value * increment)) / increment);
+        //Debug.Log(Value + " * " + fraction + " = " + (Value * increment));
+        //Debug.Log((Value * increment) + " Rounded = " + Math.Round(Value * increment));
+        //Debug.Log(Math.Round(Value * increment) + " / " + fraction + " = " + rounded);
+        return rounded;
+    }
+
     private void FindGameObjects()
     {
         List<GameObject> objects = new List<GameObject>();
@@ -408,7 +479,7 @@ public class AssetReplacementTool : EditorWindow
 
     private GameObject DuplicateGO(GameObject currentGO, GameObject replacementGO)
     {
-        Object prefab;
+        UnityEngine.Object prefab;
         GameObject inst;
 
 
@@ -470,7 +541,7 @@ public class AssetReplacementTool : EditorWindow
 
         for (int i = 0; i < replacement.transform.childCount; i++)
         {
-            Object prefab;
+            UnityEngine.Object prefab;
             GameObject inst;
 
             //Get child GameObject

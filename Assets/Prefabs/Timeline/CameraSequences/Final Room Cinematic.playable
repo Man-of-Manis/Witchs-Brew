@@ -1,21 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7800762550426100494
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90ea54ae98c672c41a6a88a6207f997a, type: 3}
-  m_Name: Int Method Marker
-  m_EditorClassIdentifier: 
-  m_Time: 1.5
-  className: LoadingScreenBar
-  methodName: LoadLevel
-  intParameter: 0
 --- !u!114 &-6740468382963858254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -141,6 +125,23 @@ MonoBehaviour:
   m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_ApplyOffsets: 0
+--- !u!114 &-1794089662314902809
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea9a0cbd29930164fb7fc2fe1316a0f6, type: 3}
+  m_Name: Int Bool Marker
+  m_EditorClassIdentifier: 
+  m_Time: 1.5
+  className: LoadingScreenBar
+  methodName: LoadLevel
+  intParameter: 2
+  boolParameter: 0
 --- !u!114 &-1597465746113441270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -235,9 +236,9 @@ MonoBehaviour:
   m_Markers:
     m_Objects:
     - {fileID: 7420769337212502534}
-    - {fileID: -7800762550426100494}
     - {fileID: 1638612102788119882}
     - {fileID: -6740468382963858254}
+    - {fileID: -1794089662314902809}
 --- !u!114 &7420769337212502534
 MonoBehaviour:
   m_ObjectHideFlags: 1

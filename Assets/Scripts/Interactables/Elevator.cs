@@ -56,9 +56,9 @@ public class Elevator : MonoBehaviour
 
     void Movement()
     {
-        transform.position = new Vector3(transform.position.x, 
+        transform.localPosition = new Vector3(transform.localPosition.x, 
             Mathf.SmoothStep((direction ? startHeight : endHeight), (direction ? endHeight : startHeight), timer), 
-            transform.position.z);
+            transform.localPosition.z);
     }
 
     void Rotation()
