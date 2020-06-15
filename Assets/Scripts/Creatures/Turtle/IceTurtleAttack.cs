@@ -71,10 +71,13 @@ public class IceTurtleAttack : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (Attack.IsPlaying())
+        if(Attack != null)
         {
-            Attack.Stop();
-        }
+            if (Attack.IsPlaying())
+            {
+                Attack.Stop();
+            }
+        }        
     }
 
     private void TurtleMove_OnElementStateHandler(object sender, System.EventArgs e)

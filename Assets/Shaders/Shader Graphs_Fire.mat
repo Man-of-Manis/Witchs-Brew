@@ -27,7 +27,7 @@ Material:
     - Vector1_A39B580C: 1
     - Vector1_AD911340: 2
     - Vector1_C101D125: 1
-    - _AlignView: 1
+    - _AlignView: 0
     - _RENDERALIGNMENT: 1
     m_Colors:
     - Vector2_9F7DA26F: {r: 0.1, g: -0.35, b: 0, a: 0}

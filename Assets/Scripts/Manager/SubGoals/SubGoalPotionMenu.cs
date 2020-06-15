@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class SubGoalPotionMenu : SubGoal
 {
-    void Update()
+    protected override void SubGoalInput()
     {
-        if (EnableSubGoal && !Completed)
+        //The subgoal to complete
+        if (pInput.Button3)
         {
-            //The subgoal to complete
-            if(pInput.Button3)
-            {
-                Completed = true;
-                goal.CompletedSubGoal();
-            }            
+            Completed = true;
+            goal.CompletedSubGoal(this);
         }
     }
 }

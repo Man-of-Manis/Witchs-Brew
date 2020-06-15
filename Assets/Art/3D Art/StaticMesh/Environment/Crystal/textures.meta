@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Art/3D Art/StaticMesh/Environment/Crystal/textures.meta
 guid: 13fa0e892f883f54c86a265a62434db1
+=======
+guid: bdc2704bb4faed544bdc2c045ebf4cc0
+>>>>>>> Tile_Nudge:Assets/Art/3D Art/StaticMesh/Environment/TilesFloor/Prefabs/3D Model Art.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

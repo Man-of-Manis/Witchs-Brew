@@ -19,5 +19,10 @@ public class KillBox : MonoBehaviour
             Debug.Log("Killing Player");
             other.GetComponent<PlayerHealth>().HealthChange(-100);
         }
+
+        if (other.CompareTag("Turtle") || other.CompareTag("Chicken"))
+        {
+            other.GetComponent<CreatureHealth>().HealthChange(-3);
+        }
     }
 }

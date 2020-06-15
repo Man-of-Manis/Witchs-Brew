@@ -40,6 +40,7 @@ public class PlayerMixamoController : MonoBehaviour
     private PlayerInput m_Input;
     private CharacterController m_CharCtrl;
     private CameraFollow followCam;
+    private ItemController itemCon;
     private Transform COMTarget;
     public float knockbackForceStart = 0.25f;
     private float knockbackForce;
@@ -49,6 +50,7 @@ public class PlayerMixamoController : MonoBehaviour
     private bool stopInputMethod;
     private bool moveForward;
     private bool finalRoom;
+    private bool menuRoom;
 
     public bool MoveForward
     {
@@ -66,6 +68,12 @@ public class PlayerMixamoController : MonoBehaviour
                 StopMoveForward();
             }
         }
+    }
+
+    public bool IsMenuRoom
+    {
+        get { return menuRoom; }
+        set { menuRoom = value; }
     }
 
     public bool IsFinalRoom
@@ -105,12 +113,20 @@ public class PlayerMixamoController : MonoBehaviour
         followCam = FindObjectOfType<CameraFollow>();
         COMTarget = transform.Find("COM_Target");
         playerRB = GetComponent<Rigidbody>();
-    }
+        itemCon = GetComponent<ItemController>();
+        ItemController.LearnedNewPotion += ItemController_LearnedNewPotion;
+    }    
 
     private void Start()
     {
         SetPlayerRotation(transform.localEulerAngles.y, transform.localPosition);
         animator.applyRootMotion = false;
+
+        if(itemCon.AvailablePotions[(int)PotionType.Air])
+        {
+            AirPotion();
+        }
+        
     }
 
     void Update()
@@ -127,9 +143,14 @@ public class PlayerMixamoController : MonoBehaviour
             Inputs();
         }
 
+        if(IsMenuRoom)
+        {
+            FinalMovement(Vector3.right);
+        }
+
         if(IsFinalRoom)
         {
-            FinalMovement();
+            FinalMovement(-Vector3.right);
         }
         
         CameraAngle();
@@ -156,6 +177,19 @@ public class PlayerMixamoController : MonoBehaviour
     public bool IsGrounded
     {
         get { return m_IsGrounded; }
+    }
+
+    private void ItemController_LearnedNewPotion(object sender, int e)
+    {
+        if(e == 0)
+        {
+            AirPotion();
+        }
+    }
+
+    private void AirPotion()
+    {
+        animator.SetBool("HaveAirPotion", true);
     }
 
     protected bool IsMoveInput
@@ -244,10 +278,10 @@ public class PlayerMixamoController : MonoBehaviour
         stopInputMethod = false;
     }
 
-    private void FinalMovement()
+    private void FinalMovement(Vector3 direction)
     {
         stopInputMethod = true;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(-Vector3.right), 0.5f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(direction), 0.5f);
         Char_Movement = Vector2.up;
     }
 

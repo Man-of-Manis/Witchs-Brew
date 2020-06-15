@@ -25,7 +25,7 @@ public class CreatureHealth : MonoBehaviour, IDamagable
         {
             Debug.Log(creature.ToString() + " death");
             FMODUnity.RuntimeManager.PlayOneShot(CreatureSound(), transform.position);
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, 1f);
         }
     }
 

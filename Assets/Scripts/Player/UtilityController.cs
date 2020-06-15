@@ -36,6 +36,8 @@ public class UtilityController : MonoBehaviour
     private KeyCubeUI keyCube;
     private bool previouslyAiming;
 
+    public event EventHandler OnDoubleJumpHandler;
+
     /// <summary>
     /// Sets text color of potions in Console
     /// </summary>
@@ -136,7 +138,7 @@ public class UtilityController : MonoBehaviour
                     }
                 }
 
-                else if (m_Input.DPad_Y < 0f)
+                else if (m_Input.DPad_Y < 0f || m_Input.LBumper || m_Input.RBumper)
                 {
                     Debug.Log("Pickup Button");
 
@@ -242,7 +244,7 @@ public class UtilityController : MonoBehaviour
                 }
             }
 
-            else if (m_Input.DPad_Y < 0f)
+            else if (m_Input.DPad_Y < 0f || m_Input.LBumper || m_Input.RBumper)
             {
                 if (pickup.pickup != null)   //If pickup object in hand
                 {
@@ -283,7 +285,7 @@ public class UtilityController : MonoBehaviour
 
         if(satchel.SatchelOpen && !pauseMenu.PauseMenuOpen)
         {
-            if (m_Input.DPad_Y < 0f)
+            if (m_Input.DPad_Y < 0f || m_Input.LBumper || m_Input.RBumper)
             {
                 if (pickup.pickup != null)   //If pickup object in hand
                 {
@@ -517,11 +519,17 @@ public class UtilityController : MonoBehaviour
     /// </summary>
     private void JumpPotion()
     {
-        if(!animator.GetBool("Grounded") && animator.GetBool("Jump_Secondary"))
+        if(!animator.GetBool("Grounded") && animator.GetBool("Jump_Secondary") && itemCon.AvailablePotions[(int)PotionType.Air])
         {
+            OnDoubleJumpHandler?.Invoke(this, null);
             //GameObject obj = Instantiate(jumpPotionPrefab, potionPouch.transform.position, Quaternion.identity);
             GameObject obj = GetJumpPotionFromPool();
             obj.GetComponent<PotionBreak>().InstantBreak();
+
+            if(pickup.pickup != null)
+            {
+                pickup.BoxCast();
+            }
         }        
     }
 

@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class SubGoalThrow : SubGoal
 {
-    void Update()
+    protected override void SubGoalInput()
     {
-        if (EnableSubGoal && !Completed)
+        //The subgoal to complete
+        if (pInput.UseInput)
         {
-            //The subgoal to complete
-            if (pInput.UseInput)
-            {
-                Completed = true;
-                goal.CompletedSubGoal();
-            }
+            Completed = true;
+            goal.CompletedSubGoal(this);
         }
     }
 }

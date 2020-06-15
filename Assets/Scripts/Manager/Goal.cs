@@ -8,48 +8,41 @@ public class Goal : MonoBehaviour
     public SubGoal[] subGoals;
     public bool ShowImmediately;
 
+    public bool ActiveGoal
+    {
+        get { return active; }
+        set
+        {
+            active = value;
+            QueueSubGoals();
+        }
+    }
+    [SerializeField] private bool active;
+
     private void Awake()
     {
-        for(int i = 0; i < subGoals.Length; i++)
-        {
-            if(i == 0)
-            {
-                subGoals[i].EnableSubGoal = true;
-            }
+        SendGoalReference();
+    }
 
+    private void SendGoalReference()
+    {
+        for (int i = 0; i < subGoals.Length; i++)
+        {
+            //Give a reference of the goal to subgoals
             subGoals[i].SetGoal(this);
         }
     }
 
-    public void CompletedSubGoal()
+    private void QueueSubGoals()
     {
-        ProgressionManager.Instance.CompletedSubGoal(this);
+        foreach(SubGoal sub in subGoals)
+        {
+            ProgressionManager.Instance.AddSubGoalToQueue(sub);
+        }
     }
 
-    private void CompletedGoal()
+    public void CompletedSubGoal(SubGoal subgoal)
     {
-        ProgressionManager.Instance.CompletedGoal(this);
-    }
-
-    public void IterateSubGoal()
-    {
-        //All subgoals completed
-        if(SubGoalIndex >= (subGoals.Length - 1))
-        {
-            for (int i = 0; i < subGoals.Length; i++)
-            {
-                subGoals[i].EnableSubGoal = false;
-            }
-
-            CompletedGoal();
-            return;
-        }
-
-        SubGoalIndex++;
-
-        for (int i = 0; i < subGoals.Length; i++)
-        {
-            subGoals[i].EnableSubGoal = (i == SubGoalIndex);
-        }
+        ProgressionManager.Instance.CompletedSubGoal(subgoal);
     }
 }

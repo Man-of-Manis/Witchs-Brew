@@ -12,6 +12,8 @@ public class ProgressionManager : MonoBehaviour
 
     [SerializeField] private List<Goal> Goals = new List<Goal>();
 
+    [SerializeField] private List<SubGoal> SubGoalQueue = new List<SubGoal>();
+
     [SerializeField] private CanvasGroup goalFader;
 
     [SerializeField] private float fadeTime = 0.5f;
@@ -21,7 +23,11 @@ public class ProgressionManager : MonoBehaviour
     public bool ShowGoals
     {
         get { return showGoalUI; }
-        set { showGoalUI = value; }
+        set
+        {
+            showGoalUI = value;
+            ActivateGoals();
+        }
     }
     public bool showGoalUI;
 
@@ -40,102 +46,71 @@ public class ProgressionManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Update()
+    private void ActivateGoals()
     {
-        Timer();
-        ShowCurrentGoal();
-    }
-
-    /// <summary>
-    /// Increments the timer every frame
-    /// </summary>
-    private void Timer()
-    {
-        timer += Time.deltaTime;
-    }
-
-    /// <summary>
-    /// Checks if the current goal should be displayed
-    /// </summary>
-    private void ShowCurrentGoal()
-    {
-        if(ShowGoals)
+        foreach(Goal g in Goals)
         {
-            if (Goals[GoalIndex].ShowImmediately)
-            {
-                if (fadingCo == null)
-                {
-                    fadingCo = StartCoroutine(FadeGoalIn());
-                }
-            }
-            else
-            {
-                if (timer >= ShowGoalTime)
-                {
-                    if (fadingCo == null)
-                    {
-                        fadingCo = StartCoroutine(FadeGoalIn());
-                    }
-                }
-            }
-        }        
-    }
-
-    /// <summary>
-    /// Called when a subgoal is completed.
-    /// </summary>
-    /// <param name="currentGoal">The goal from which the subgoal was called.</param>
-    public void CompletedSubGoal(Goal currentGoal)
-    {
-        timer = 0f;
-
-        // Checks if a goal is already displayed. If so, fade that goal out.
-        if (fadingCo != null)
-        {
-            StopCoroutine(fadingCo);
-            fadingCo = StartCoroutine(FadeSubGoalOut(currentGoal));
+            g.ActiveGoal = true;
         }
+    }
 
+    private void CheckSubGoalQueue()
+    {
+        if(SubGoalQueue.Count > 0)
+        {
+            Debug.Log(SubGoalQueue[0].gameObject.name);
+
+            SubGoalQueue[0].EnableSubGoal = true;
+
+            if (fadingCo == null)
+            {
+                fadingCo = StartCoroutine(FadeSubGoalUIIn(SubGoalQueue[0]));
+            }
+        }
         else
         {
-            IterateSubGoal(currentGoal);
+            //No SubGoalUI to fade in
+            return;
         }
     }
 
     /// <summary>
-    /// Increments to next subgoal.
+    /// Adds a subgoal from an active goal
     /// </summary>
-    /// <param name="currentGoal">The goal the subgoal is attached to.</param>
-    private void IterateSubGoal(Goal currentGoal)
+    public void AddSubGoalToQueue(SubGoal subgoal)
     {
-        currentGoal.IterateSubGoal();
+        SubGoalQueue.Add(subgoal);
+        CheckSubGoalQueue();
     }
 
     /// <summary>
-    /// Called when all subgoals of a goal are completed.
+    /// Removes a subgoal then checks if there is another subgoal in the queue
     /// </summary>
-    /// <param name="currentGoal">The goal from which all subgoals were completed.</param>
-    public void CompletedGoal(Goal currentGoal)
+    /// <param name="subgoal">The subgoal to remove.</param>
+    public void RemoveSubGoalFromQueue(SubGoal subgoal)
     {
-        if(Goals.Contains(currentGoal))
-        {
-            int currnetGoalIndex = Goals.IndexOf(currentGoal);
+        subgoal.EnableSubGoal = false;
+        SubGoalQueue.Remove(subgoal);
+        CheckSubGoalQueue();
+    }
 
-            if(currnetGoalIndex == (Goals.Count - 1))
+    /// <summary>
+    /// Method called when a subgoal is completed.
+    /// </summary>
+    /// <param name="subgoal"></param>
+    public void CompletedSubGoal(SubGoal subgoal)
+    {
+        if (SubGoalQueue[0].Equals(subgoal))
+        {
+            if (fadingCo != null)
             {
-                //No More Goals
-                Debug.Log("No more goals!");
-                return;
+                StopCoroutine(fadingCo);
             }
-
-            GoalIndex += 1;
+            fadingCo = StartCoroutine(FadeSubGoalUIOut(subgoal));
         }
-
-        // Checks if a goal is already displayed. If so, fade that goal out.
-        if (fadingCo != null)
+        else
         {
-            StopCoroutine(fadingCo);
-            fadingCo = StartCoroutine(FadeGoalOut());
+            RemoveSubGoalFromQueue(subgoal);
         }
     }
 
@@ -143,8 +118,9 @@ public class ProgressionManager : MonoBehaviour
     /// Fades in the current subgoal UI
     /// </summary>
     /// <returns></returns>
-    private IEnumerator FadeGoalIn()
+    private IEnumerator FadeSubGoalUIIn(SubGoal subgoal)
     {
+        Debug.Log("Fade in");
         for(float i = 0; i < 1f; i += Time.unscaledDeltaTime * (1f / fadeTime))
         {
             goalFader.alpha = i;
@@ -152,42 +128,26 @@ public class ProgressionManager : MonoBehaviour
         }
 
         goalFader.alpha = 1f;
+        subgoal.EnableSubGoalInput = true;
+        fadingCo = null;
     }
 
     /// <summary>
     /// Fades out the current subgoal UI
     /// </summary>
     /// <returns></returns>
-    private IEnumerator FadeGoalOut()
+    private IEnumerator FadeSubGoalUIOut(SubGoal subgoal)
     {
+        Debug.Log("Fade out");
+        subgoal.EnableSubGoalInput = false;
         for (float i = goalFader.alpha; i > 0; i -= Time.unscaledDeltaTime * (1f / fadeTime))
         {
             goalFader.alpha = i;
             yield return null;
         }
 
-        goalFader.alpha = 0f;
+        goalFader.alpha = 0f;        
         fadingCo = null;
-    }
-
-    /// <summary>
-    /// Fades out the current subgoal then increments the goal index of that subgoal.
-    /// </summary>
-    /// <param name="currentGoal">The goal to increment.</param>
-    /// <returns></returns>
-    private IEnumerator FadeSubGoalOut(Goal currentGoal)
-    {
-        for (float i = goalFader.alpha; i > 0; i -= Time.unscaledDeltaTime * (1f / fadeTime))
-        {
-            goalFader.alpha = i;
-            yield return null;
-        }
-
-        goalFader.alpha = 0f;
-
-        //Moves to next subgoal in current goal.
-        IterateSubGoal(currentGoal);
-
-        fadingCo = null;
+        RemoveSubGoalFromQueue(subgoal);
     }
 }

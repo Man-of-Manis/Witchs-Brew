@@ -31,7 +31,7 @@ public class ItemController : MonoBehaviour
     private void Start()
     {
         //gm = FindObjectOfType<GameManager>();
-        LearnedPotions[0] = true;
+        //LearnedPotions[0] = true;
         ingredientAmount[0] = int.MaxValue;
     }
 

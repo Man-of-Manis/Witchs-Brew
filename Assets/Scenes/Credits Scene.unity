@@ -166,7 +166,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 57201782}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -714,7 +714,7 @@ GameObject:
   - component: {fileID: 602371773}
   - component: {fileID: 602371772}
   m_Layer: 5
-  m_Name: Robert Watkins
+  m_Name: Bobby Watkins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -771,7 +771,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Robert Watkins - Technical Artist / QA Tester
+  m_text: Bobby Watkins - Technical Artist / QA Tester
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -840,7 +840,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 602371773}
-    characterCount: 45
+    characterCount: 44
     spriteCount: 0
     spaceCount: 7
     wordCount: 7
@@ -941,7 +941,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Jason Bergman - Level Designer / 3D Artist
+  m_text: Jason Bergman - Technical Designer / Level Designer
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1010,7 +1010,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 719879619}
-    characterCount: 42
+    characterCount: 51
     spriteCount: 0
     spaceCount: 7
     wordCount: 7
