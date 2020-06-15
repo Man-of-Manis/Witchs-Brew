@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.00.00">
 	<object class="Event" id="{8caab5e3-741f-4df6-9d3c-4061027082b5}">
 		<property name="name">
-			<value>Fire</value>
+			<value>Fire_Start</value>
 		</property>
 		<property name="outputFormat">
 			<value>2</value>
 		</property>
 		<relationship name="folder">
-			<destination>{10626052-c98b-4665-b391-646f2512cecd}</destination>
+			<destination>{b6770cc5-a214-4b8e-bc5e-d7983fee345a}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{5a3309e4-bac3-4aa5-a3ba-d6330fa97471}</destination>
@@ -118,10 +118,10 @@
 	</object>
 	<object class="LoopRegion" id="{196b6d22-3773-424f-8e0f-c56a8760a262}">
 		<property name="position">
-			<value>0.40000000000000002</value>
+			<value>0</value>
 		</property>
 		<property name="length">
-			<value>1.2000000000000002</value>
+			<value>2</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{69a7a404-4bba-4c27-be02-d802a344b366}</destination>
