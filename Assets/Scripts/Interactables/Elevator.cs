@@ -74,9 +74,14 @@ public class Elevator : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") || other.CompareTag("SpecialCube") || other.CompareTag("Turtle") || other.CompareTag("Chicken"))
+        if(other.CompareTag("Player") || other.CompareTag("SpecialCube"))
         {
             EnableElevator = false;
+        }
+
+        if(other.CompareTag("Turtle") || other.CompareTag("Chicken"))
+        {
+            other.GetComponent<CreatureHealth>().HealthChange(-3);
         }
     }
 

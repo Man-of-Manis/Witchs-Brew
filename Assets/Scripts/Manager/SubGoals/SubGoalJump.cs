@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class SubGoalJump : SubGoal
 {
-    void Update()
+    protected override void SubGoalInput()
     {
-        if(EnableSubGoal && !Completed)
+        if (pInput.JumpInput)
         {
-            if(pInput.JumpInput)
-            {
-                Completed = true;
-                goal.CompletedSubGoal();
-            }            
+            Completed = true;
+            goal.CompletedSubGoal(this);
         }
     }
 }

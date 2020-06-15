@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using TMPro;
-using System;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -15,16 +15,16 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Main Menu Buttons")]
     [SerializeField] private GameObject continueButton;
-    [SerializeField] private GameObject newGameButton;
-    [SerializeField] private GameObject loadGameButton;
+    [SerializeField] private GameObject startGameButton;    
     [SerializeField] private GameObject optionsButton;
+    [SerializeField] private GameObject creditsButton;
     [SerializeField] private GameObject exitButton;
 
     [Header("Confirmations")]
     [SerializeField] private GameObject continueConfim;
     [SerializeField] private GameObject noContinueConfim;
-    [SerializeField] private GameObject newGameConfim;
-    [SerializeField] private GameObject loadGameConfim;
+    [SerializeField] private GameObject startGameConfim;
+    [SerializeField] private GameObject creditsConfim;
     [SerializeField] private GameObject exitGameConfim;
 
     [Header("Options")]
@@ -87,11 +87,11 @@ public class MainMenuManager : MonoBehaviour
     private Button noContinueYesButton;
     private Button noContinueNoButton;
 
-    private Button newGameYesButton;
-    private Button newGameNoButton;
+    private Button startGameYesButton;
+    private Button startGameNoButton;
 
-    private Button loadGameYesButton;
-    private Button loadGameNoButton;
+    private Button creditsYesButton;
+    private Button creditsNoButton;
 
     private Button exitYesButton;
     private Button exitNoButton;
@@ -104,6 +104,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject UISelectedGO;
     [SerializeField] private GameObject prevSelectedGO;
     private bool hasSavedGame;
+
+    [SerializeField] private MainMenuController mMController;
 
     public bool ResolutionOpen
     {
@@ -150,8 +152,8 @@ public class MainMenuManager : MonoBehaviour
     {
         Confirmation(continueConfim, out continueYesButton, out continueNoButton);
         Confirmation(noContinueConfim, out noContinueYesButton, out noContinueNoButton);
-        Confirmation(newGameConfim, out newGameYesButton, out newGameNoButton);
-        Confirmation(loadGameConfim, out loadGameYesButton, out loadGameNoButton);
+        Confirmation(startGameConfim, out startGameYesButton, out startGameNoButton);
+        Confirmation(creditsConfim, out creditsYesButton, out creditsNoButton);
         Confirmation(exitGameConfim, out exitYesButton, out exitNoButton);
     }
 
@@ -322,33 +324,53 @@ public class MainMenuManager : MonoBehaviour
     #endregion
     #endregion
 
-    #region New Game
-    public void NewGameButton()
+    #region Start Game
+    public void StartGameButton()
     {
-        ChangeMenu(newGameConfim, mainMenuGo, eventSystem.currentSelectedGameObject);
-        EventSelection(newGameNoButton.gameObject);
+        ChangeMenu(startGameConfim, mainMenuGo, eventSystem.currentSelectedGameObject);
+        EventSelection(startGameNoButton.gameObject);
     }
 
     /// <summary>
     /// Creates a new game to start from the New Game options.
     /// </summary>
     /// <param name="index"></param>
-    public void NewGameYesButton()
+    public void StartGameYesButton()
     {
-        LoadingScreenBar.Instance.LoadLevel(1);
-        newGameYesButton.interactable = false;
-        newGameNoButton.interactable = false;
+        //LoadingScreenBar.Instance.LoadLevel(1);
+        mMController.StartGame();
+        startGameYesButton.interactable = false;
+        startGameNoButton.interactable = false;
     }
 
-    public void NewGameNoButton()
+    public void StartGameNoButton()
     {
         mainMenuGo.SetActive(true);
-        newGameConfim.SetActive(false);        
-        EventSelection(newGameButton);
+        startGameConfim.SetActive(false);        
+        EventSelection(startGameButton);
     }
     #endregion
 
     #region Load Game
+    public void CreditsButton()
+    {
+        ChangeMenu(creditsConfim, mainMenuGo, eventSystem.currentSelectedGameObject);
+        EventSelection(creditsNoButton.gameObject);
+    }
+
+    public void CreditsYesButton()
+    {
+        LoadingScreenBar.Instance.LoadLevel(2);
+        creditsYesButton.interactable = false;
+        creditsNoButton.interactable = false;
+    }
+
+    public void CreditsNoButton()
+    {
+        mainMenuGo.SetActive(true);
+        creditsConfim.SetActive(false);
+        EventSelection(creditsButton);
+    }
 
     #endregion
 

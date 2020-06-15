@@ -19,10 +19,21 @@ public abstract class SubGoal : MonoBehaviour
         set
         {
             enabledSubGoal = value;
-            subGoalUI.SetActive(enabledSubGoal);
+            if(subGoalUI != null)
+            {
+                subGoalUI.SetActive(enabledSubGoal);
+            }
+            
         }
     }
-    private bool enabledSubGoal;
+    [SerializeField] private bool enabledSubGoal;
+
+    public bool EnableSubGoalInput
+    {
+        get { return enableInput; }
+        set { enableInput = value; }
+    }
+    [SerializeField] private bool enableInput;
 
     private void Start()
     {
@@ -37,4 +48,14 @@ public abstract class SubGoal : MonoBehaviour
     {
         goal = attachedGoal;
     }
+
+    private void Update()
+    {
+        if (EnableSubGoal && EnableSubGoalInput && !Completed)
+        {
+            SubGoalInput();
+        }        
+    }
+
+    protected abstract void SubGoalInput();
 }

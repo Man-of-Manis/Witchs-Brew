@@ -517,11 +517,16 @@ public class UtilityController : MonoBehaviour
     /// </summary>
     private void JumpPotion()
     {
-        if(!animator.GetBool("Grounded") && animator.GetBool("Jump_Secondary"))
+        if(!animator.GetBool("Grounded") && animator.GetBool("Jump_Secondary") && itemCon.AvailablePotions[(int)PotionType.Air])
         {
             //GameObject obj = Instantiate(jumpPotionPrefab, potionPouch.transform.position, Quaternion.identity);
             GameObject obj = GetJumpPotionFromPool();
             obj.GetComponent<PotionBreak>().InstantBreak();
+
+            if(pickup.pickup != null)
+            {
+                pickup.BoxCast();
+            }
         }        
     }
 

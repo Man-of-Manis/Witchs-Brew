@@ -210,7 +210,7 @@ public class PlayerItemPickup : MonoBehaviour
             pickup = pick.transform;
             pickup.GetComponent<Rigidbody>().isKinematic = true;
 
-            //Colliders(false);
+            Colliders(false);
 
             //Debug.Log("Overlap Item: " + pick.name);
         }
@@ -224,7 +224,7 @@ public class PlayerItemPickup : MonoBehaviour
         pickup.position = PositionDrop();
 
         pickup.GetComponent<Rigidbody>().isKinematic = false;
-        //Colliders(true);
+        Colliders(true);
         pickup = null;
 
         //Debug.Log("Dropped Item");
@@ -294,7 +294,7 @@ public class PlayerItemPickup : MonoBehaviour
     {
         if(Physics.Linecast(from, to, out RaycastHit hit, wallLayer ))
         {
-            Debug.Log("Index: " + index + ", Name: "+ hit.collider.name);
+            //Debug.Log("Index: " + index + ", Name: "+ hit.collider.name);
             return true;
         }
 
