@@ -1549,6 +1549,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1082001707}
     m_Modifications:
+    - target: {fileID: -4869113203183879000, guid: e36030980f3339f42b7a507e8f630fa9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ff51a64fab9a4514c80b587ff6b9fac9, type: 2}
     - target: {fileID: -4216859302048453862, guid: e36030980f3339f42b7a507e8f630fa9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1619,11 +1624,26 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: -4171066538512021034, guid: e36030980f3339f42b7a507e8f630fa9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ff51a64fab9a4514c80b587ff6b9fac9, type: 2}
+    - target: {fileID: -1504981713932161579, guid: e36030980f3339f42b7a507e8f630fa9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5af15e9df096dd34ab4c2f5743eebbe1, type: 2}
     - target: {fileID: -927199367670048503, guid: e36030980f3339f42b7a507e8f630fa9,
         type: 3}
       propertyPath: m_Name
       value: SM_ENV_ChickenNest
       objectReference: {fileID: 0}
+    - target: {fileID: 3077283321492254497, guid: e36030980f3339f42b7a507e8f630fa9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ff51a64fab9a4514c80b587ff6b9fac9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e36030980f3339f42b7a507e8f630fa9, type: 3}
 --- !u!4 &5006512735899240563 stripped
