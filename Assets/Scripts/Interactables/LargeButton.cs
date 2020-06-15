@@ -19,7 +19,7 @@ public class LargeButton : MonoBehaviour
     [SerializeField] private Material chickenMat;
     [SerializeField] private Material bothMat;
 
-
+    /*
     private void OnValidate()
     {
         pRend = GetComponent<MeshRenderer>();
@@ -38,6 +38,7 @@ public class LargeButton : MonoBehaviour
                 break;
         }
     }
+    */
 
     /// <summary>
     /// Sets the material of the button to the creature's material color
