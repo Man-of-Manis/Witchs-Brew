@@ -11,7 +11,7 @@ public class ItemController : MonoBehaviour
 
     [SerializeField] private bool[] LearnedPotions = new bool[6];
 
-    public static event EventHandler<int> LearnedNewPotion;
+    public event EventHandler<int> LearnedNewPotion;
 
     public bool[] AvailablePotions
     {

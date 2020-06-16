@@ -7,11 +7,13 @@ public class PotionPickupEvent : MonoBehaviour
 {
     [SerializeField] private PotionType potionEvent;
     [SerializeField] private UnityEvent Activated;
+    private ItemController itemCon;
 
     // Start is called before the first frame update
     void Start()
     {
-        ItemController.LearnedNewPotion += ItemController_LearnedNewPotion;
+        itemCon = FindObjectOfType<ItemController>();
+        itemCon.LearnedNewPotion += ItemController_LearnedNewPotion;
     }
 
     private void ItemController_LearnedNewPotion(object sender, int e)

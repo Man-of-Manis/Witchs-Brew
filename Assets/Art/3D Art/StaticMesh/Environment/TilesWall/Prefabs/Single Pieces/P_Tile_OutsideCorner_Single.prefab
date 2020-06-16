@@ -67,6 +67,7 @@ GameObject:
   - component: {fileID: 5587830038827716846}
   - component: {fileID: 497976282834767132}
   - component: {fileID: 1878482771443372265}
+  - component: {fileID: 9132547622363748558}
   m_Layer: 0
   m_Name: sm_tile_outsidewallplane_LOD0
   m_TagString: Untagged
@@ -135,6 +136,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &9132547622363748558
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6705219574876377192}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1043304878070688302, guid: 9fff6bf765799344d9bc708aa356b97a, type: 3}
 --- !u!1 &8046031322564283779
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,6 +161,7 @@ GameObject:
   - component: {fileID: 4646143818062348244}
   - component: {fileID: 2420392649133943364}
   - component: {fileID: 4423558690041542257}
+  - component: {fileID: 6589647980961218403}
   m_Layer: 0
   m_Name: sm_tile_outsidewallplane_LOD1
   m_TagString: Untagged
@@ -214,3 +230,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &6589647980961218403
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8046031322564283779}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1019512211046984818, guid: 9fff6bf765799344d9bc708aa356b97a, type: 3}

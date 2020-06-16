@@ -114,7 +114,7 @@ public class PlayerMixamoController : MonoBehaviour
         COMTarget = transform.Find("COM_Target");
         playerRB = GetComponent<Rigidbody>();
         itemCon = GetComponent<ItemController>();
-        ItemController.LearnedNewPotion += ItemController_LearnedNewPotion;
+        itemCon.LearnedNewPotion += ItemController_LearnedNewPotion;
     }    
 
     private void Start()

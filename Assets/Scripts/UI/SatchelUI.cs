@@ -152,7 +152,7 @@ public class SatchelUI : MonoBehaviour
         InitializePotionWheelNode();
         InitializeListIngredients();
 
-        ItemController.LearnedNewPotion += ItemController_LearnedNewPotion;
+        itemCon.LearnedNewPotion += ItemController_LearnedNewPotion;
     }
 
     private void ItemController_LearnedNewPotion(object sender, int e)
