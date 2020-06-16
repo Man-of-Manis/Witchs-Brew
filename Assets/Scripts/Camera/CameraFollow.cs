@@ -76,6 +76,8 @@ public class CameraFollow : MonoBehaviour
         }
 
         invertControllerY = GameSettings.Instance.ControllerInvert;
+        controllerSensitivity.x = GameSettings.Instance.ControllerHorizontal;
+        controllerSensitivity.y = GameSettings.Instance.ControllerVertical;
 
         GameSettings.Instance.OnControlHoriHandler += Instance_OnControlHoriHandler;
         GameSettings.Instance.OnControlVertHandler += Instance_OnControlVertHandler;

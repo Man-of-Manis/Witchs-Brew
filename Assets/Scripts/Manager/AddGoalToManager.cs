@@ -17,7 +17,7 @@ public class AddGoalToManager : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            Debug.Log(other.gameObject.name);
+            //Debug.Log(other.gameObject.name);
             goal.ActiveGoal = true;
             Destroy(this);
         }

@@ -39,6 +39,10 @@ public class PauseMenu : MonoBehaviour
     [Header("Options")]
     [SerializeField] private GameObject gameButton;
 
+    [Header("Controls")]
+    [SerializeField] private GameObject controlsMenu;
+    [SerializeField] private GameObject controlsBack;
+
     [Header("Game")]
     [SerializeField] private GameObject gameMenu;
     [SerializeField] private Slider mouseHoriSlider;
@@ -354,6 +358,19 @@ public class PauseMenu : MonoBehaviour
     }
     #endregion
 
+    #region Controls
+    public void ControlsButton()
+    {
+        ChangeMenu(controlsMenu, optionsMenu, eventSystem.currentSelectedGameObject);
+        EventSelection(controlsBack.gameObject);
+    }
+
+    public void ControlsBack()
+    {
+        SetPrevMenu();
+    }
+    #endregion
+
     #region Game
     /// <summary>
     /// Initializes the game settings from the save file.
@@ -375,7 +392,7 @@ public class PauseMenu : MonoBehaviour
     {
         GameSettingsInitialize();
         ChangeMenu(gameMenu, optionsMenu, eventSystem.currentSelectedGameObject);
-        EventSelection(mouseHoriSlider.gameObject);
+        EventSelection(controllerHoriSlider.gameObject);
     }
 
     /// <summary>

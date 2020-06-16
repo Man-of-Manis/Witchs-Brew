@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4345096715533101081}
   - component: {fileID: 4345096715533101079}
   - component: {fileID: 4345096715533101080}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1878034503460320758}
   - component: {fileID: -1342377647948421608}
   - component: {fileID: -1877830683985410048}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: SM_P_Potion_White
   m_TagString: Potion_Type
   m_Icon: {fileID: 0}
@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 4345096716532548685}
   - component: {fileID: 4345096716532548683}
   - component: {fileID: 4345096716532548684}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 4345096717277214477}
   - component: {fileID: 4345096717277214478}
   - component: {fileID: 1456741155904678597}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Liquid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 4345096717539654515}
   - component: {fileID: 4345096717539654513}
   - component: {fileID: 4345096717539654514}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Lip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,7 +499,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7570702632241110276}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -533,7 +533,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7542874099338447619}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: Particle_Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -568,6 +568,11 @@ PrefabInstance:
         type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192993584028437231, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1192993584099224482, guid: 68ec8ba9af41f024caa37abc88d51c3e,
         type: 3}
@@ -638,6 +643,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Potion_PS
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192993584099224484, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7141123344229794997, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68ec8ba9af41f024caa37abc88d51c3e, type: 3}
@@ -735,6 +750,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5336727197890381414, guid: 8e30ac1828987354fa0ae65e1ef9a78f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e30ac1828987354fa0ae65e1ef9a78f, type: 3}
 --- !u!4 &6924631803152433351 stripped
@@ -756,10 +776,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7542874099338447619}
     m_Modifications:
+    - target: {fileID: 5695764031206208143, guid: 0a4f931059bf8f64293162ff10c2951b,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695764031206208143, guid: 0a4f931059bf8f64293162ff10c2951b,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6295279481098894925, guid: 0a4f931059bf8f64293162ff10c2951b,
         type: 3}
       propertyPath: m_Name
       value: WindEquipped
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295279481098894925, guid: 0a4f931059bf8f64293162ff10c2951b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6854873537693436373, guid: 0a4f931059bf8f64293162ff10c2951b,
         type: 3}

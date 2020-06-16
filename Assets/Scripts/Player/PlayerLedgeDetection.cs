@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerLedgeDetection : MonoBehaviour
 {
@@ -33,6 +34,8 @@ public class PlayerLedgeDetection : MonoBehaviour
 
     private PlayerMixamoController controller;
     private Animator anim;
+
+    public event EventHandler OnLedgeGrabHandler;
 
     // Start is called before the first frame update
     void Start()
@@ -81,6 +84,7 @@ public class PlayerLedgeDetection : MonoBehaviour
     private void LedgeJump(RaycastHit ledgeHit)
     {
         FMODUnity.RuntimeManager.PlayOneShotAttached(AudioEvents.Instance.witchMovement.witchLedgeGrab, gameObject);
+        OnLedgeGrabHandler?.Invoke(this, null);
         //controller.m_VerticalSpeed = jumpSpeed;
         anim.SetTrigger("Ledge_Grab");
         usedLedgeJump = true;

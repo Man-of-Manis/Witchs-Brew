@@ -202,6 +202,8 @@ GameObject:
   - component: {fileID: 5514830727177775565}
   - component: {fileID: 6026433770428000223}
   - component: {fileID: 804974265363154801}
+  - component: {fileID: 956170499104405219}
+  - component: {fileID: 1269833000338118755}
   m_Layer: 19
   m_Name: SM_P_Interactable_Campfire
   m_TagString: Untagged
@@ -254,8 +256,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.5, z: 1}
-  m_Center: {x: 0, y: 0.4, z: 0}
+  m_Size: {x: 1, y: 0.6, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &6026433770428000223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +301,41 @@ MonoBehaviour:
   fireRadius: 0.3
   m_OnFire: 1
   m_Frozen: 0
+--- !u!114 &956170499104405219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6026433770428000221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Ambience/Fire
+  PlayEvent: 1
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 8
+--- !u!114 &1269833000338118755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6026433770428000221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1954e6326fa6efc4fa94a3670ce9ebdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6026433770932462034
 GameObject:
   m_ObjectHideFlags: 0

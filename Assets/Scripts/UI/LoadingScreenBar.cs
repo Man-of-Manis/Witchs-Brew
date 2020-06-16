@@ -60,7 +60,7 @@ public class LoadingScreenBar : MonoBehaviour
     public void LoadLevel(int sceneIndex, bool resetMusic = true)
     {
         //Check if scene index is valid
-        Debug.Log("Loading Level");
+        //Debug.Log("Loading Level");
         levelIndexToLoad = sceneIndex;
         LevelFadeAnim.SetTrigger("FadeOut");
         resetLevelMusic = resetMusic;

@@ -58,7 +58,7 @@ public class ProgressionManager : MonoBehaviour
     {
         if(SubGoalQueue.Count > 0)
         {
-            Debug.Log(SubGoalQueue[0].gameObject.name);
+            //Debug.Log(SubGoalQueue[0].gameObject.name);
 
             SubGoalQueue[0].EnableSubGoal = true;
 
@@ -92,6 +92,63 @@ public class ProgressionManager : MonoBehaviour
         subgoal.EnableSubGoal = false;
         SubGoalQueue.Remove(subgoal);
         CheckSubGoalQueue();
+    }
+
+    public void RemoveSubGoal(SubGoal subgoal)
+    {
+        if(SubGoalQueue.Contains(subgoal))
+        {
+            if(!subgoal.Equals(SubGoalQueue[0]))
+            {
+                SubGoalQueue.Remove(subgoal);
+                //Debug.Log("Removed subgoal");
+            }
+        }
+    }
+
+    public void InteruptGoals(Goal goal)
+    {
+        if(SubGoalQueue.Count > 0)
+        {
+            if (fadingCo != null)
+            {
+                StopCoroutine(fadingCo);
+            }
+
+            fadingCo = StartCoroutine(InteruptFadeSubGoalUIOut(SubGoalQueue[0], goal));
+            return;
+        }
+
+        goal.QueueSubGoals();
+    }
+
+    public void InteruptGoal()
+    {
+        if (SubGoalQueue.Count > 0)
+        {
+            if (fadingCo != null)
+            {
+                StopCoroutine(fadingCo);
+            }
+
+            fadingCo = StartCoroutine(InteruptFadeSubGoalUIOut(SubGoalQueue[0], null));
+            return;
+        }
+    }
+
+    private void RemoveAllGoals(Goal goal)
+    {
+        foreach(SubGoal sub in SubGoalQueue)
+        {
+            sub.EnableSubGoal = false;
+        }
+
+        SubGoalQueue.Clear();
+
+        if(goal != null)
+        {
+            goal.QueueSubGoals();
+        }        
     }
 
     /// <summary>
@@ -138,7 +195,7 @@ public class ProgressionManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator FadeSubGoalUIOut(SubGoal subgoal)
     {
-        Debug.Log("Fade out");
+        //Debug.Log("Fade out");
         subgoal.EnableSubGoalInput = false;
         for (float i = goalFader.alpha; i > 0; i -= Time.unscaledDeltaTime * (1f / fadeTime))
         {
@@ -149,5 +206,20 @@ public class ProgressionManager : MonoBehaviour
         goalFader.alpha = 0f;        
         fadingCo = null;
         RemoveSubGoalFromQueue(subgoal);
+    }
+
+    private IEnumerator InteruptFadeSubGoalUIOut(SubGoal subgoal, Goal goal)
+    {
+        //Debug.Log("Fade out");
+        subgoal.EnableSubGoalInput = false;
+        for (float i = goalFader.alpha; i > 0; i -= Time.unscaledDeltaTime * (1f / fadeTime))
+        {
+            goalFader.alpha = i;
+            yield return null;
+        }
+
+        goalFader.alpha = 0f;
+        fadingCo = null;
+        RemoveAllGoals(goal);
     }
 }

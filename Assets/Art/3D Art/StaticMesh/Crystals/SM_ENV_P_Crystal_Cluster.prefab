@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2391358472108263978}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 1367629962592573131}
   - component: {fileID: 1308749776911398174}
   - component: {fileID: 513709639951408092}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SM_ENV_P_Crystal_Cluster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 387489923428162290}
   - component: {fileID: 7942185004347345914}
   - component: {fileID: 4938485944362083882}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SM_ENV_Crystal_cluster
   m_TagString: Untagged
   m_Icon: {fileID: 0}

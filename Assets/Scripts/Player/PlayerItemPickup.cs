@@ -36,8 +36,10 @@ public class PlayerItemPickup : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerInput m_Input;
     [SerializeField] private KeyCubeUI keyCubeUI;
+    private Animator anim;
 
     public event EventHandler OnChickenPickupHandler;
+    public event EventHandler<bool> OnKeyCubePickupHandler;
 
     public Vector3 PickupDropPosition
     {
@@ -47,6 +49,7 @@ public class PlayerItemPickup : MonoBehaviour
     private void Start()
     {
         keyCubeUI = GameManager.Instance.UIManager.GetComponent<KeyCubeUI>();
+        anim = GetComponent<Animator>();
     }
 
     void LateUpdate()
@@ -56,6 +59,11 @@ public class PlayerItemPickup : MonoBehaviour
         pickupPosition = transform.position + (transform.forward * pickupPositionDistance) + (Vector3.up * pickupPositionOffset.y);
 
         CurrentPickup();
+
+        if(anim != null)
+        {
+            anim.SetBool("Pickup", pickup != null);
+        }        
     }
 
     /// <summary>
@@ -91,7 +99,7 @@ public class PlayerItemPickup : MonoBehaviour
             }
             else
             {
-                Debug.Log("Overlap Nothing");
+                //Debug.Log("Overlap Nothing");
             }
         }
         else
@@ -121,6 +129,7 @@ public class PlayerItemPickup : MonoBehaviour
             keyCubeUI.AddKeyCube((int)cube.KeyColor);
             chestSpawners[(int)cube.KeyColor] = cube.Spawner;
             cube.AddToSatchel();
+            OnKeyCubePickupHandler?.Invoke(this, true);
         }
     }
 
@@ -215,10 +224,18 @@ public class PlayerItemPickup : MonoBehaviour
                 OnChickenPickupHandler?.Invoke(this, null);
             }
 
-            pickup = pick.transform;
+            KeyCube cube = pick.GetComponent<KeyCube>();
+
+            if (cube != null)
+            {
+                OnKeyCubePickupHandler?.Invoke(this, false);
+                FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Witch/Witch. pick up", gameObject);
+            }
+
+                pickup = pick.transform;
             pickup.GetComponent<Rigidbody>().isKinematic = true;
 
-            Colliders(false);
+            //Colliders(false);
 
             //Debug.Log("Overlap Item: " + pick.name);
         }
@@ -232,7 +249,7 @@ public class PlayerItemPickup : MonoBehaviour
         pickup.position = PositionDrop();
 
         pickup.GetComponent<Rigidbody>().isKinematic = false;
-        Colliders(true);
+        //Colliders(true);
         pickup = null;
 
         //Debug.Log("Dropped Item");

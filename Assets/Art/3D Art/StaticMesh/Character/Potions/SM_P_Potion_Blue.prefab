@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2694728156113623453}
   - component: {fileID: 2694728156113623455}
   - component: {fileID: 2694728156113623454}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 2694728156918708024}
   - component: {fileID: 2694728156918708031}
   - component: {fileID: 2332665631034715937}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Liquid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 213878940295122299}
   - component: {fileID: 4275605182442063566}
   - component: {fileID: 8033650904551971751}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: SM_P_Potion_Blue
   m_TagString: Potion_Type
   m_Icon: {fileID: 0}
@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 2694728156945200206}
   - component: {fileID: 2694728156945200200}
   - component: {fileID: 2694728156945200207}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Lip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 2694728157595585549}
   - component: {fileID: 2694728157595585551}
   - component: {fileID: 2694728157595585550}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1125294169480140335}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: Particle_Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,7 +516,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 684423065357319637}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,6 +552,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: IceEquipped
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295279481098894925, guid: 55312fc3a479a9a48920b5015c4b2815,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6854873537693436373, guid: 55312fc3a479a9a48920b5015c4b2815,
         type: 3}
@@ -629,6 +634,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2694728156944550875}
     m_Modifications:
+    - target: {fileID: 1192993584028437231, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1192993584099224483, guid: 68ec8ba9af41f024caa37abc88d51c3e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -689,6 +699,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Potion_PS
       objectReference: {fileID: 0}
+    - target: {fileID: 1192993584099224484, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7141123344229794997, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68ec8ba9af41f024caa37abc88d51c3e, type: 3}
 --- !u!4 &6763402855769446190 stripped
@@ -710,10 +730,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2694728156944550875}
     m_Modifications:
+    - target: {fileID: 3417945951041741430, guid: 60b6872698066f74f96ad4460c38a59f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 6741670215738332259, guid: 60b6872698066f74f96ad4460c38a59f,
         type: 3}
       propertyPath: m_Name
       value: IcePotionTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741670215738332259, guid: 60b6872698066f74f96ad4460c38a59f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6912171749747477122, guid: 60b6872698066f74f96ad4460c38a59f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032945395826368555, guid: 60b6872698066f74f96ad4460c38a59f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8344925950098684144, guid: 60b6872698066f74f96ad4460c38a59f,
         type: 3}

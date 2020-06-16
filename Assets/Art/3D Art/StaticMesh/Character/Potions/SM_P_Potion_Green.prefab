@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6871342461106905792}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3007669784258552259}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: Particle_Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 4204029146576483590}
   - component: {fileID: -1233650380780413897}
   - component: {fileID: 9132112402142805634}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: SM_P_Potion_Green
   m_TagString: Potion_Type
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 5169592590074390030}
   - component: {fileID: 5169592590074390032}
   - component: {fileID: 5169592590074390031}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 5169592590829482848}
   - component: {fileID: 5169592590829482847}
   - component: {fileID: 4981748810369579025}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Liquid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 5169592591277617823}
   - component: {fileID: 5169592591277617825}
   - component: {fileID: 5169592591277617824}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 5169592591370218610}
   - component: {fileID: 5169592591370218612}
   - component: {fileID: 5169592591370218611}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Lip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -546,6 +546,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5169592589634029082}
     m_Modifications:
+    - target: {fileID: 1192993584028437231, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1192993584099224483, guid: 68ec8ba9af41f024caa37abc88d51c3e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -606,6 +611,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Potion_PS
       objectReference: {fileID: 0}
+    - target: {fileID: 1192993584099224484, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7141123344229794997, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68ec8ba9af41f024caa37abc88d51c3e, type: 3}
 --- !u!4 &5172441227541846368 stripped
@@ -631,6 +646,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrowthEquipped
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801920440798185611, guid: 9ba4300e80c21294bb6adb37db8e75d1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5395291803844067091, guid: 9ba4300e80c21294bb6adb37db8e75d1,
         type: 3}
@@ -767,6 +787,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrowthPotionTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 8809005881457330622, guid: 31febe63b11d9e04f92a116bedb26420,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31febe63b11d9e04f92a116bedb26420, type: 3}

@@ -13,6 +13,8 @@ public class ItemController : MonoBehaviour
 
     public event EventHandler<int> LearnedNewPotion;
 
+    public event EventHandler<int> PickedUpNewIngredient;
+
     public bool[] AvailablePotions
     {
         get { return LearnedPotions; }
@@ -44,14 +46,19 @@ public class ItemController : MonoBehaviour
     public void Ingredients(int elementNum, int amount)
     {
         ingredientAmount[elementNum] += amount;
-        GameManager.Instance.playerAudioScript.CollectItem();
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Witch/Witch. pick up", gameObject);
         //PlayerUIManager.Instance.PickupIngredient();
+
+        if(amount > 0)
+        {
+            PickedUpNewIngredient?.Invoke(this, elementNum);
+        }
     }
 
     public void LearnNewPotion(int potion)
     {
         LearnedPotions[potion] = true;
-        Debug.Log("You learned the " + TextColor[potion] + potion + "</color> Potion!");
+        //Debug.Log("You learned the " + TextColor[potion] + potion + "</color> Potion!");
         LearnedNewPotion?.Invoke(this, potion);
     }
 }

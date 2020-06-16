@@ -110,7 +110,7 @@ public class EffectsPoint : MonoBehaviour
 
             if (turtle != null)
             {
-                Debug.Log("Turtle converted to normal");
+                //Debug.Log("Turtle converted to normal");
                 turtle.elementState = Creatures.ElementalState.Normal;
             }
         }
@@ -125,6 +125,7 @@ public class EffectsPoint : MonoBehaviour
     {
         if(other.CompareTag("Chicken"))
         {
+            //Debug.Log("Lighting chicken on fire.");
             RedPotionEffect eff = new RedPotionEffect();
             eff.FirePS = this.FirePS;
             eff.SmallEffect(other.gameObject);

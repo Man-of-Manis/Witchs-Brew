@@ -18,6 +18,7 @@ public class SubGoalDoubleJump : SubGoal
         {
             Completed = true;
             goal.CompletedSubGoal(this);
+            controller.OnDoubleJumpHandler -= Controller_OnDoubleJumpHandler;
         }        
     }
 

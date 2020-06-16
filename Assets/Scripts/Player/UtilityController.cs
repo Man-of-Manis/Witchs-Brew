@@ -251,7 +251,7 @@ public class UtilityController : MonoBehaviour
                     if (!satchel.SatchelOpen)    //If potion wheel is open
                     {
                         pickup.AddToSatchel();
-                        Debug.Log("Add to satchel.");
+                        //Debug.Log("Add to satchel.");
                     }
                 }
             }
@@ -300,7 +300,7 @@ public class UtilityController : MonoBehaviour
                     if (satchel.SatchelOpen)    //If potion wheel is open
                     {
                         pickup.RemoveFromSatchel();
-                        Debug.Log("remove from satchel.");
+                        //Debug.Log("remove from satchel.");
                     }
                 }
             }
@@ -324,6 +324,7 @@ public class UtilityController : MonoBehaviour
                 if (HasAllParticles(parent))
                 {
                     //Returns an inactive potion from type pool
+                    potion.gameObject.layer = LayerMask.NameToLayer("Potion_Held");
                     potion.transform.position = potionPouch.transform.position;
                     potion.transform.rotation = Quaternion.Euler(Vector3.zero);
                     potion.transform.parent = potionPouch.transform;
@@ -564,6 +565,7 @@ public class UtilityController : MonoBehaviour
             Rigidbody obj = instType[currentSelectedPotion].GetComponent<Rigidbody>();
             instType[currentSelectedPotion] = null;
             obj.transform.SetParent(null);
+            obj.gameObject.layer = LayerMask.NameToLayer("Potion_Thrown");
             obj.isKinematic = false;
             obj.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             obj.velocity = vel;

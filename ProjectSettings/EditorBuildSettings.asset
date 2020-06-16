@@ -8,15 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: e03fe0df3fdfc324fb92e8b16a5d05ad
-  - enabled: 0
-    path: Assets/Scenes/first_room.unity
-    guid: c21f4734b8aafa84f84752c6f9b18c48
-  - enabled: 0
-    path: Assets/Scenes/first_room 5.unity
-    guid: 290cdfda529015c4694f192e4fbcf0ba
   - enabled: 1
-    path: Assets/Scenes/first_room 7.unity
-    guid: 83e2ee992d4399446834b1384bb3ed64
+    path: Assets/Scenes/first_room 8.unity
+    guid: 9cd56fb1c45d1a34395884b0c9e1bc9a
   - enabled: 1
     path: Assets/Scenes/Credits Scene.unity
     guid: 68b075b59e4b59c43860d2e65e526efa

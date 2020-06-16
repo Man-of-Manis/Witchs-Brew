@@ -43,6 +43,7 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
         spawnedKeyCube = null;
         Animator anim = gameObject.GetComponent<Animator>();
         anim.SetTrigger("Close");
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Interactables/Chest_Close", gameObject);
         opened = false;
     }
     
@@ -70,8 +71,9 @@ public class ChestKeyCubeSpawner : MonoBehaviour, IChest
     /// <returns></returns>
     IEnumerator Unlock()
     {
-        Animator anim = gameObject.GetComponent<Animator>();
+        Animator anim = gameObject.GetComponent<Animator>();        
         anim.SetTrigger("Open");
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Interactables/Chest_Open", gameObject);
         yield return null;
     }
 }

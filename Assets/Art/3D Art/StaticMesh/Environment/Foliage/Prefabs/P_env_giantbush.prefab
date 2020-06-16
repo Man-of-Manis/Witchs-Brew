@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 1810759374895092742}
   - component: {fileID: 7240128702029999664}
   - component: {fileID: 3983033487523336905}
-  - component: {fileID: 6888264415746294318}
   m_Layer: 0
-  m_Name: sm_env_giantbush
+  m_Name: P_env_giantbush
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,17 +80,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &6888264415746294318
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3421123653134345749}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.6020832
-  m_Height: 1.6721007
-  m_Direction: 2
-  m_Center: {x: -0.016604185, y: 0.3216822, z: -0.003001365}

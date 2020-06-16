@@ -227,14 +227,11 @@ GameObject:
   - component: {fileID: 4343491739267540551}
   - component: {fileID: 8736308691725913461}
   - component: {fileID: 8736308691725913462}
-  - component: {fileID: 8736308691725913460}
   - component: {fileID: 8736308691725913433}
   - component: {fileID: 8736308691725913434}
   - component: {fileID: 8736308691725913435}
-  - component: {fileID: 8736308691725913412}
   - component: {fileID: 8736308691725913413}
   - component: {fileID: 8736308691725913414}
-  - component: {fileID: 8736308691725913415}
   - component: {fileID: 8736308691725913408}
   - component: {fileID: 8736308691725913409}
   - component: {fileID: 8736308691725913410}
@@ -246,7 +243,6 @@ GameObject:
   - component: {fileID: 8736308691725913416}
   - component: {fileID: 8736308691725913417}
   - component: {fileID: 8736308691725913418}
-  - component: {fileID: 8736308691725913419}
   m_Layer: 9
   m_Name: P_Final_Witch
   m_TagString: Player
@@ -308,103 +304,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.7, z: 0}
---- !u!82 &8736308691725913460
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728588501250233428}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: b00cda5a72a617b48bac5eca27c663d3,
-    type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 0.5
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!95 &8736308691725913433
 Animator:
   serializedVersion: 3
@@ -478,29 +377,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 541254145
   endPos: {x: 0, y: 0, z: 0}
---- !u!114 &8736308691725913412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728588501250233428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  Event: event:/Witch Hurt/Witch_Hurt
-  PlayEvent: 0
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!114 &8736308691725913413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,24 +410,6 @@ MonoBehaviour:
   detectLayerMask:
     serializedVersion: 2
     m_Bits: 2049
---- !u!114 &8736308691725913415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728588501250233428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 649e98a09a0c0f04baf2642e017b3757, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mixer: 0
-  masterGroup: 5
-  soundFXGroup: 0
-  ambientGroup: 0
-  playerGroup: 0
-  creatureGroup: 1
 --- !u!114 &8736308691725913408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -823,19 +681,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControllerInputBlocked: 0
---- !u!114 &8736308691725913419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728588501250233428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5423cd5687e500d4788a9bf7af5d07f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemPickup: {fileID: 8300000, guid: a7b8287472c763d49a1c6ea8a5db240c, type: 3}
 --- !u!1 &1011333117539004220
 GameObject:
   m_ObjectHideFlags: 0
@@ -18885,15 +18730,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 436d419eaa076874c8fc87271f34e41a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79ba743da5d03474b912b639c0d2d772, type: 3}
---- !u!23 &5033587335079398743 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 4388616502188162792, guid: 79ba743da5d03474b912b639c0d2d772,
-    type: 3}
-  m_PrefabInstance: {fileID: 8736308691970012095}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7763478805503855512 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1333330062611806247, guid: 79ba743da5d03474b912b639c0d2d772,
+    type: 3}
+  m_PrefabInstance: {fileID: 8736308691970012095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5033587335079398743 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4388616502188162792, guid: 79ba743da5d03474b912b639c0d2d772,
     type: 3}
   m_PrefabInstance: {fileID: 8736308691970012095}
   m_PrefabAsset: {fileID: 0}

@@ -18,6 +18,7 @@ public class SubGoalPickupChicken : SubGoal
         {
             Completed = true;
             goal.CompletedSubGoal(this);
+            playerPickup.OnChickenPickupHandler -= PlayerPickup_OnChickenPickupHandler;
         }
     }
 

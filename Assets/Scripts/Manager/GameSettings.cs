@@ -126,7 +126,11 @@ public class GameSettings : MonoBehaviour
     public bool IsFullscreen
     {
         get { return settings.isFullscreen; }
-        set { settings.isFullscreen = value; }
+        set
+        {
+            settings.isFullscreen = value;
+            SetFullscreenToggle(value);
+        }
     }
 
 
@@ -163,15 +167,17 @@ public class GameSettings : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
-    }
 
-    private void Start()
-    {
         LoadSettings();
 
         InstantiateResolutions();
         GetCurrentRenderScale();
         GetCurrentShadowDistance();
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void OnDisable()
@@ -327,14 +333,14 @@ public class GameSettings : MonoBehaviour
         Debug.Log("Resolution changed to: " + CurrentResolutionString);
     }
 
-    private void GetFullscreenToggle()
-    {
-
-    }
-
+    /// <summary>
+    /// Sets the resolution along with whether game is fullscreen;
+    /// </summary>
+    /// <param name="value"></param>
     public void SetFullscreenToggle(bool value)
     {
-
+        CurrentResolution = resolutions[resolutionIndex];
+        Screen.SetResolution(CurrentResolution.width, CurrentResolution.height, value);
     }
 
     /// <summary>

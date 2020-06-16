@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5673532198892747914}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: Particle_Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 2694728156113623453}
   - component: {fileID: 2694728156113623455}
   - component: {fileID: 2694728156113623454}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 2694728156918708024}
   - component: {fileID: 2694728156918708031}
   - component: {fileID: 6114785216885154547}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Liquid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 213878940295122299}
   - component: {fileID: 5584925453785359034}
   - component: {fileID: 6451935775864304887}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: SM_P_Potion_Mega
   m_TagString: Potion_Type
   m_Icon: {fileID: 0}
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 2694728156945200206}
   - component: {fileID: 2694728156945200200}
   - component: {fileID: 2694728156945200207}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Lip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 2694728157595585549}
   - component: {fileID: 2694728157595585551}
   - component: {fileID: 2694728157595585550}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +512,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4855921613018955397}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -544,6 +544,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2694728156944550875}
     m_Modifications:
+    - target: {fileID: 1192993584028437231, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1192993584099224483, guid: 68ec8ba9af41f024caa37abc88d51c3e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -603,6 +608,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Potion_PS
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192993584099224484, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7141123344229794997, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68ec8ba9af41f024caa37abc88d51c3e, type: 3}

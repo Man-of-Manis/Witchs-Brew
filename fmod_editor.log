@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Priority: 2, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Priority: 3, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 0000023E76011A68 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 0000022EC97B3398 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Priority: 0, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -15,16 +15,85 @@
 [LOG] Thread::initThread                       : Init FMOD Studio bank load thread. Priority: 0, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] Manager::init                            : done.
 [LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
-[LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
-[LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
-[LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
-[LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 8292480
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 70816
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000006349E3F5AC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFE5739C320
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFE5739C2F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFE5739C3F0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFE5739C4B0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000022F0CB603A8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Key Cube Hit', format=2, channels=2, frequency=48000, lengthbytes=4896, lengthpcm=18983, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.924192.
+[LOG] SoundI::release                          :  (00000230D69B4D68)
+[LOG] SoundI::release                          :     Key Cube Hit (0000022EA54C5478)
 [LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 8292480
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 70816
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000006349E3F5AC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFE5739C320
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFE5739C2F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFE5739C3F0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFE5739C4B0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000022F0CB603A8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Key Cube Hit', format=2, channels=2, frequency=48000, lengthbytes=4896, lengthpcm=18983, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.924192.
+[LOG] SoundI::release                          :  (00000230D69B4D68)
+[LOG] SoundI::release                          :     Key Cube Hit (0000022EA54C4C58)
 [LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 8292480
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 70816
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000006349E3F5AC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFE5739C320
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFE5739C2F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFE5739C3F0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFE5739C4B0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000022F0CB603A8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Key Cube Hit', format=2, channels=2, frequency=48000, lengthbytes=4896, lengthpcm=18983, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.924192.
+[LOG] SoundI::release                          :  (00000230D69B4D68)
+[LOG] SoundI::release                          :     Key Cube Hit (0000022EA54C2D78)
 [LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
-[LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
-[LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 8292480
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 70816
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000006349E3F5AC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFE5739C320
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFE5739C2F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFE5739C3F0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFE5739C4B0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000022F0CB603A8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Key Cube Hit', format=2, channels=2, frequency=48000, lengthbytes=4896, lengthpcm=18983, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.924192.
+[LOG] SoundI::release                          :  (00000230D69B4D68)
+[LOG] SoundI::release                          :     Key Cube Hit (0000022EA54C2218)
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
 [LOG] Thread::callback                         : FMOD Studio sample load thread finished.
 [LOG] LiveUpdate::release                      : 

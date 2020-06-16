@@ -70,31 +70,31 @@ public class AudioLevels : MonoBehaviour
 
     private void MasterVolumeChanged(object sender, float volume)
     {
-        Debug.Log("Master Volume Changed");
+        //Debug.Log("Master Volume Changed");
         master.setVolume(volume);
     }
 
     private void MusicVolumeChanged(object sender, float volume)
     {
-        Debug.Log("Music Volume Changed");
+        //Debug.Log("Music Volume Changed");
         music.setVolume(volume);
     }
 
     private void SFXVolumeChanged(object sender, float volume)
     {
-        Debug.Log("SFX Volume Changed");
+        //Debug.Log("SFX Volume Changed");
         sfx.setVolume(volume);
     }
 
     private void PlayerVolumeChanged(object sender, float volume)
     {
-        Debug.Log("Player Volume Changed");
+        //Debug.Log("Player Volume Changed");
         player.setVolume(volume);
     }
 
     private void CreatureVolumeChanged(object sender, float volume)
     {
-        Debug.Log("Creature Volume Changed");
+        //Debug.Log("Creature Volume Changed");
         creatures.setVolume(volume);
     }
 

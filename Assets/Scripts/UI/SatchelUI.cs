@@ -42,6 +42,7 @@ public class SatchelUI : MonoBehaviour
     [SerializeField] private GameObject[] pouches = new GameObject[4];
     [SerializeField] private GameObject[] ingredientUI = new GameObject[4];    
     [SerializeField] private float pouchCloseTimer = 3f;
+    [SerializeField] private PotionIngredientFlap[] potionFlap = new PotionIngredientFlap[6];
     private float[] pouchTimers = new float[4];
     private bool[] pouchResetTimers = new bool[4];
     private bool pouchFade = false;
@@ -51,7 +52,7 @@ public class SatchelUI : MonoBehaviour
     [SerializeField] private PotionArray[] potionIngredientList = new PotionArray[6];
     [SerializeField] private int[] craftablePotions = new int[6];
     [SerializeField] private TextMeshProUGUI[] craftablePotionAmount = new TextMeshProUGUI[6];
-
+    
     [SerializeField] private TextMeshProUGUI[] ingredientAmount = new TextMeshProUGUI[6];
     [SerializeField] private TextMeshProUGUI[] potionAmount = new TextMeshProUGUI[6];
 
@@ -151,6 +152,7 @@ public class SatchelUI : MonoBehaviour
 
         InitializePotionWheelNode();
         InitializeListIngredients();
+        SetPouchColor();
 
         itemCon.LearnedNewPotion += ItemController_LearnedNewPotion;
     }
@@ -167,7 +169,7 @@ public class SatchelUI : MonoBehaviour
         IngredientAmount();
         PotionAmount();
         PotionSelection();
-        TempKeyboardButtons();
+        //TempKeyboardButtons();
         PouchTimer();
     }
 
@@ -351,6 +353,11 @@ public class SatchelUI : MonoBehaviour
     /// </summary>
     void PotionSelection()
     {
+        if(SatchelOpen && !SatchelPrevOpen)
+        {
+            SetPouchColor();
+        }
+
         if (SatchelOpen && !pauseMenu.PauseMenuOpen)
         {
             float LSDeadzoneX = m_Input.LSInput.x > deadzone || m_Input.LSInput.x < -deadzone ? m_Input.LSInput.x : 0f;
@@ -371,7 +378,9 @@ public class SatchelUI : MonoBehaviour
 
                 pointer.rotation = Quaternion.Euler(new Vector3(0f, 0f, PointRotation[newNodeSelection]));
 
-                if(prevNewNodeSelection != newNodeSelection)
+                
+
+                if (prevNewNodeSelection != newNodeSelection)
                 {
                     for (int i = 0; i < PotionWheel.transform.childCount; i++)
                     {
@@ -379,6 +388,8 @@ public class SatchelUI : MonoBehaviour
                     }
 
                     potionWheelImages[newNodeSelection].GetComponent<Animator>().SetTrigger("Jiggle");
+
+                    SetPouchColor();
                 }
             }
 
@@ -397,7 +408,35 @@ public class SatchelUI : MonoBehaviour
                 potionWheelImages[i].sprite = (i == newNodeSelection) ? combos.highlightedSprites[Transition[i]] : combos.unhighlightedSprites[Transition[i]];
             }
 
+            SetPouchColorWhite();
+
             SatchelPrevOpen = false;
+        }
+    }
+
+    private void SetPouchColor()
+    {
+        //Change Flap color base on potion selection
+        for (int i = 0; i < potionFlap.Length; i++)
+        {
+            if (i == newNodeSelection)  //Selected potion
+            {
+                for (int j = 0; j < pouches.Length; j++)    //Each pouch 
+                {
+                    bool color = potionFlap[Transition[i]].Flap[j];
+                    pouches[j].transform.GetChild(0).GetComponent<Image>().color =
+                        color ? Color.white : new Color(0.2f, 0.2f, 0.2f);
+                }
+                return;
+            }
+        }
+    }
+
+    private void SetPouchColorWhite()
+    {
+        for (int j = 0; j < pouches.Length; j++)    //Each pouch 
+        {
+            pouches[j].transform.GetChild(0).GetComponent<Image>().color = Color.white;
         }
     }
 
@@ -520,4 +559,10 @@ public class SatchelUI : MonoBehaviour
             BagParentAnim.SetTrigger("Bounce");
         }
     }
+}
+
+[System.Serializable]
+public class PotionIngredientFlap
+{
+    public bool[] Flap = new bool[4];
 }

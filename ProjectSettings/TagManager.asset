@@ -60,7 +60,7 @@ TagManager:
   - Corruption_Being
   - Ice_Bridge
   - Special_Cubes
-  - 
+  - Potion_Held
   - 
   m_SortingLayers:
   - name: Default

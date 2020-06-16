@@ -7,6 +7,7 @@ public class Goal : MonoBehaviour
     public int SubGoalIndex;
     public SubGoal[] subGoals;
     public bool ShowImmediately;
+    public bool InteruptOtherGoals;
 
     public bool ActiveGoal
     {
@@ -14,14 +15,31 @@ public class Goal : MonoBehaviour
         set
         {
             active = value;
+
+            if(InteruptOtherGoals)
+            {
+                InteruptGoals();
+                return;
+            }
+            
             QueueSubGoals();
         }
     }
     [SerializeField] private bool active;
 
+    [SerializeField] private bool startOnEnabled;
+
     private void Awake()
     {
         SendGoalReference();
+    }
+
+    private void Start()
+    {
+        if (startOnEnabled)
+        {
+            ActiveGoal = true;
+        }
     }
 
     private void SendGoalReference()
@@ -33,7 +51,12 @@ public class Goal : MonoBehaviour
         }
     }
 
-    private void QueueSubGoals()
+    private void InteruptGoals()
+    {
+        ProgressionManager.Instance.InteruptGoals(this);
+    }
+
+    public void QueueSubGoals()
     {
         foreach(SubGoal sub in subGoals)
         {
@@ -41,8 +64,27 @@ public class Goal : MonoBehaviour
         }
     }
 
+    public void RemoveFromPool(SubGoal sub)
+    {
+        AddGoalToManagerDelay delay = GetComponent<AddGoalToManagerDelay>();
+
+        if (delay != null)
+        {
+            delay.Complete();
+        }
+
+        ProgressionManager.Instance.RemoveSubGoal(sub);
+    }
+
     public void CompletedSubGoal(SubGoal subgoal)
     {
         ProgressionManager.Instance.CompletedSubGoal(subgoal);
+
+        AddGoalToManagerDelay delay = GetComponent<AddGoalToManagerDelay>();
+
+        if(delay != null)
+        {
+            delay.Complete();
+        }
     }
 }

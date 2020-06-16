@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4345096715533101081}
   - component: {fileID: 4345096715533101079}
   - component: {fileID: 4345096715533101080}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7868288935877544708}
   - component: {fileID: 8337205867903985866}
   - component: {fileID: 2702989353884781071}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: SM_P_Potion_Red
   m_TagString: Potion_Type
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 4345096716532548685}
   - component: {fileID: 4345096716532548683}
   - component: {fileID: 4345096716532548684}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 4345096717277214477}
   - component: {fileID: 4345096717277214478}
   - component: {fileID: 1456741155904678597}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: Liquid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 4345096717539654515}
   - component: {fileID: 4345096717539654513}
   - component: {fileID: 4345096717539654514}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: Lip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7570702632241110276}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -520,7 +520,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4801016624144746915}
-  m_Layer: 20
+  m_Layer: 30
   m_Name: Particle_Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,10 +548,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4345096715669070409}
     m_Modifications:
+    - target: {fileID: 5695764031206208143, guid: f19eee2f293e94143b7405c7aa2cf770,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695764031206208143, guid: f19eee2f293e94143b7405c7aa2cf770,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6295279481098894925, guid: f19eee2f293e94143b7405c7aa2cf770,
         type: 3}
       propertyPath: m_Name
       value: FireEquipped
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295279481098894925, guid: f19eee2f293e94143b7405c7aa2cf770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6854873537693436373, guid: f19eee2f293e94143b7405c7aa2cf770,
         type: 3}
@@ -629,6 +644,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4345096715669070409}
     m_Modifications:
+    - target: {fileID: 1192993584028437231, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1192993584099224483, guid: 68ec8ba9af41f024caa37abc88d51c3e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -688,6 +708,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Potion_PS
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192993584099224484, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7141123344229794997, guid: 68ec8ba9af41f024caa37abc88d51c3e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68ec8ba9af41f024caa37abc88d51c3e, type: 3}
@@ -765,10 +795,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4936523430255149519, guid: f3eaf20abafe5f94e90e33e1ed3643ff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 4981544134398952398, guid: f3eaf20abafe5f94e90e33e1ed3643ff,
         type: 3}
       propertyPath: m_Name
       value: FirePotionTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981544134398952398, guid: f3eaf20abafe5f94e90e33e1ed3643ff,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3eaf20abafe5f94e90e33e1ed3643ff, type: 3}
@@ -815,6 +855,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ember Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 2312678832955571872, guid: 21de16d27593be14ca2424defed65249,
+        type: 3}
+      propertyPath: m_Layer
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5720148488776528279, guid: 21de16d27593be14ca2424defed65249,
         type: 3}

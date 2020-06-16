@@ -72,7 +72,7 @@ public class PlayerPotionMixing : MonoBehaviour
             }
         }
 
-        Debug.Log("Removed Ingredients for potion.");
+        //Debug.Log("Removed Ingredients for potion.");
     }
 
     //Deprecated
@@ -161,27 +161,27 @@ public class PlayerPotionMixing : MonoBehaviour
     {
         if(combos.whitePotion == combo)
         {
-            Debug.Log("You made the White Potion!"); RemoveElements(combos.whitePotion); itemCon.Potions(0, combos.whitePotionAmount);
+            //Debug.Log("You made the White Potion!"); RemoveElements(combos.whitePotion); itemCon.Potions(0, combos.whitePotionAmount);
         }
         else if(combos.redPotion == combo)
         {
-            Debug.Log("You made the Red Potion!"); RemoveElements(combos.redPotion); itemCon.Potions(1, combos.redPotionAmount);
+            //Debug.Log("You made the Red Potion!"); RemoveElements(combos.redPotion); itemCon.Potions(1, combos.redPotionAmount);
         }
         else if(combos.yellowPotion == combo)
         {
-            Debug.Log("You made the Yellow Potion!"); RemoveElements(combos.yellowPotion); itemCon.Potions(2, combos.yellowPotionAmount);
+            //Debug.Log("You made the Yellow Potion!"); RemoveElements(combos.yellowPotion); itemCon.Potions(2, combos.yellowPotionAmount);
         }
         else if (combos.greenPotion == combo)
         {
-            Debug.Log("You made the Green Potion!"); RemoveElements(combos.greenPotion); itemCon.Potions(3, combos.greenPotionAmount);
+            //Debug.Log("You made the Green Potion!"); RemoveElements(combos.greenPotion); itemCon.Potions(3, combos.greenPotionAmount);
         }
         else if (combos.bluePotion == combo)
         {
-            Debug.Log("You made the Blue Potion!"); RemoveElements(combos.bluePotion); itemCon.Potions(4, combos.bluePotionAmount);
+            //Debug.Log("You made the Blue Potion!"); RemoveElements(combos.bluePotion); itemCon.Potions(4, combos.bluePotionAmount);
         }
         else
         {
-            Debug.Log("Something went wrong with that concoction...");
+            //Debug.Log("Something went wrong with that concoction...");
         }
     }
 
@@ -212,19 +212,19 @@ public class PlayerPotionMixing : MonoBehaviour
 
     private void PotionText(string potion, int type)
     {
-        Debug.Log("You made the " + TextColor[type] + potion + "</color> Potion!");
+        //Debug.Log("You made the " + TextColor[type] + potion + "</color> Potion!");
     }
 
     void CorrectPotionMixture(string combo)
     {
         if (combos.megaPotion == combo)
         {
-            Debug.Log("You made the Mega Potion!"); RemoveElements(combos.megaPotion); itemCon.Potions(5, combos.megaPotionAmount);
+            //Debug.Log("You made the Mega Potion!"); RemoveElements(combos.megaPotion); itemCon.Potions(5, combos.megaPotionAmount);
         }
 
         else
         {
-            Debug.Log("Something went wrong with that concoction...");
+            //Debug.Log("Something went wrong with that concoction...");
         }
     }
 }

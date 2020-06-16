@@ -8,17 +8,33 @@ public class ElevatorParent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        foreach(string s  in usableTags)
+        if (other.CompareTag("Potion_Type"))
+        {
+            if (other.gameObject.layer.Equals(LayerMask.NameToLayer("Potion_Held")))
+            {
+                return;
+            }
+        }
+
+        foreach (string s  in usableTags)
         {
             if (other.CompareTag(s))
             {
-                other.transform.parent = transform;
+                other.transform.parent = transform;           
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        if (other.CompareTag("Potion_Type"))
+        {
+            if (other.gameObject.layer.Equals(LayerMask.NameToLayer("Potion_Held")))
+            {
+                return;
+            }
+        }
+
         foreach (string s in usableTags)
         {
             if (other.CompareTag(s))

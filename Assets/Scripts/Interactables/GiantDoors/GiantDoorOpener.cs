@@ -84,6 +84,7 @@ public class GiantDoorOpener : MonoBehaviour
         for(int i = 0; i < doors.Length; i++)
         {
             doors[i].GetComponent<Animator>().SetTrigger("Open");
+            doors[i].GetComponent<FMODUnity.StudioEventEmitter>().Play();
         }
     }
 

@@ -20,7 +20,7 @@ public class IceBridgeGroup : MonoBehaviour
 
     void Update()
     {
-        if(hitAmount > updatedAmount && updatedAmount < 11)
+        if(hitAmount > updatedAmount && updatedAmount < 10)
         {
             for (int i = 0; i <= updatedAmount; i++)
             {
@@ -33,7 +33,7 @@ public class IceBridgeGroup : MonoBehaviour
                     if(!frozenPieces[i])
                     {
                         updatedAmount++;
-                        updatedAmount = Mathf.Clamp(updatedAmount, 0, 11);
+                        updatedAmount = Mathf.Clamp(updatedAmount, 0, 10);
                         frozenPieces[i] = true;
                     }
                 }
@@ -44,15 +44,15 @@ public class IceBridgeGroup : MonoBehaviour
     public void IncreaseBridge()
     {
         hitAmount++;
-        hitAmount = Mathf.Clamp(hitAmount, 0, 12);
+        hitAmount = Mathf.Clamp(hitAmount, 0, frozenPieces.Length);
     }
 
     public void DecreaseBridge(int pieceNum)
     {
         hitAmount--;
-        hitAmount = Mathf.Clamp(hitAmount, 0, 12);
+        hitAmount = Mathf.Clamp(hitAmount, 0, frozenPieces.Length);
         updatedAmount--;
-        updatedAmount = Mathf.Clamp(updatedAmount, 0, 11);
+        updatedAmount = Mathf.Clamp(updatedAmount, 0, (frozenPieces.Length - 1));
 
         frozenPieces[pieceNum] = false;
     }

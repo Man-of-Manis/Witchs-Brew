@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 6767997152402704506}
   - component: {fileID: 2357571948237468236}
   - component: {fileID: 8325834482025582261}
-  - component: {fileID: 5686820204162617290}
   m_Layer: 0
-  m_Name: sm_env_bush (1)
+  m_Name: P_env_smallbush
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,17 +80,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &5686820204162617290
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7761839977163881065}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.40968627
-  m_Height: 0.8325704
-  m_Direction: 2
-  m_Center: {x: -0.002309978, y: 0.16297823, z: -0.0041593313}

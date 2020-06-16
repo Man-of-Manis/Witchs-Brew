@@ -75,6 +75,9 @@ public class GameManager : MonoBehaviour
         }
 
         Initialized();
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void Initialized()
